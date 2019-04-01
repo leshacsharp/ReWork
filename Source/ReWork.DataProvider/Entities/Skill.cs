@@ -24,6 +24,6 @@ namespace ReWork.DataProvider.Entities
 
         public virtual ICollection<EmployeeProfile> Employes { get; set; }
 
-        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Job> Jobs { get; set; }
     }
 }

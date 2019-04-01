@@ -1,5 +1,4 @@
 ﻿using ReWork.DataProvider.Entities.Common;
-using ReWork.DataProvider.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +10,7 @@ namespace ReWork.DataProvider.Entities
     {
         [Key]
         [ForeignKey("User")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [Range(8,100)]
@@ -25,7 +24,7 @@ namespace ReWork.DataProvider.Entities
 
 
 
-        public virtual ICollection<Task> PerfomedTasks { get; set; }
+        public virtual ICollection<Job> PerfomedJobs { get; set; }
 
         public virtual ICollection<Offer> Offers { get; set; }
 

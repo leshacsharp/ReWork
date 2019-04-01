@@ -23,6 +23,6 @@ namespace ReWork.DataProvider.Entities
         public QualityOfWork QualityOfWork { get; set; }
 
         [Required]
-        public virtual Task Task { get; set; }
+        public virtual Job Job { get; set; }
     }
 }

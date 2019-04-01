@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ReWork.DataProvider.Entities;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace ReWork.DataProvider.Context
@@ -13,6 +9,15 @@ namespace ReWork.DataProvider.Context
         protected override void Seed(ReWorkContext context)
         {
             base.Seed(context);
+
+            Section section = new Section() { Title = "Programming" };
+            Skill skill1 = new Skill() { Title = "C#", Section = section};
+            Skill skill2 = new Skill() { Title = "Java", Section = section };
+
+            context.Sections.Add(section);
+            context.Skills.Add(skill1);
+            context.Skills.Add(skill2);
+            context.SaveChanges();
         }
     }
 }

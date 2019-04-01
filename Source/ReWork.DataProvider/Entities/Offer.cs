@@ -28,11 +28,12 @@ namespace ReWork.DataProvider.Entities
         public int TaskId { get; set; }
 
         [Required]
-        public virtual Task Task { get; set; }
+        public virtual Job Job { get; set; }
 
         [ForeignKey("Employee")]
         public int EpmployeeId { get; set; }
 
+        [Required]
         public virtual EmployeeProfile Employee { get; set; }
     }
 }
