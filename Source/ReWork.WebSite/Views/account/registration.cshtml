@@ -1,0 +1,36 @@
+﻿@model ReWork.Model.Account.RegisterViewModel
+@{
+    ViewBag.Title = "registration";
+}
+
+@using (Html.BeginForm("registration", "account", FormMethod.Post))
+{
+    @Html.LabelFor(p => p.UserName)
+    <br />
+    @Html.EditorFor(p => p.UserName)
+    @Html.ValidationMessageFor(p => p.UserName)
+
+    <br /><br />
+    @Html.LabelFor(p => p.Email)
+    <br />
+    @Html.EditorFor(p => p.Email)
+    @Html.ValidationMessageFor(p => p.Email)
+
+    <br /><br />
+    @Html.LabelFor(p => p.Password)
+    <br />
+    @Html.EditorFor(p => p.Password)
+    @Html.ValidationMessageFor(p => p.Password)
+
+    <br /><br />
+    @Html.LabelFor(p => p.ConfirmPassword)
+    <br />
+    @Html.EditorFor(p => p.ConfirmPassword)
+    @Html.ValidationMessageFor(p => p.ConfirmPassword)
+
+    <br /><br />
+    <input type="submit" value="Send"/>
+}
+
+
+

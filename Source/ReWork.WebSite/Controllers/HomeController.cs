@@ -4,10 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Rework.WebSite.Controllers
+namespace ReWork.WebSite.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+        }
+
         public ActionResult Index()
         {
             return View();

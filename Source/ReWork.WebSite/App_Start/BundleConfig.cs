@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Rework.WebSite
+namespace ReWork.WebSite
 {
     public class BundleConfig
     {
