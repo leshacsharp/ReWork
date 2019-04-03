@@ -1,12 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReWork.Logic.Dto
 {
     public class OfferDto
     {
+        public string Text { get; set; }
+
+        public DateTime AddedDate { get; set; }
+
+        public TimeSpan ImplementationTime { get; set; }
+
+        public TimeSpan OfferPayment { get; set; }
+
+
+        public JobDto Job { get; set; }
+        public EmployeeProfileDto Employee { get; set; }
     }
 }
