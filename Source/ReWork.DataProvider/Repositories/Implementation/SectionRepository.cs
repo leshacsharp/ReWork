@@ -25,9 +25,9 @@ namespace ReWork.DataProvider.Repositories.Implementation
             _db.Sections.Remove(item);
         }
 
-        public IEnumerable<Section> FindSectionByTitle(string title)
+        public Section FindSectionByTitle(string title)
         {
-            return _db.Sections.Where(p => p.Title.Equals(title));
+            return _db.Sections.First(p => p.Title.Equals(title));
         }
 
         public void Update(Section item)

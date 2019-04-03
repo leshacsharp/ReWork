@@ -1,7 +1,9 @@
 ﻿using ReWork.DataProvider.Context;
 using ReWork.DataProvider.Entities;
 using ReWork.DataProvider.Repositories.Abstraction;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {
@@ -21,6 +23,11 @@ namespace ReWork.DataProvider.Repositories.Implementation
         public void Delete(FeedBack item)
         {
             _db.FeedBacks.Remove(item);
+        }
+
+        public IEnumerable<FeedBack> FindFeedBacksByUserName(string userName)
+        {
+            return _db.FeedBacks.Where(p => p.Job.Customer.User.UserName.Equals(userName));
         }
 
         public void Update(FeedBack item)

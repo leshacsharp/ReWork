@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using ReWork.DataProvider.Entities;
 using ReWork.DataProvider.Repositories.Abstraction;
 using System;
@@ -16,7 +17,7 @@ namespace ReWork.DataProvider.UnitOfWork
         ISkillRepository SkillRepository { get; }
 
         UserManager<User> UserManager { get; }
-        RoleManager<Role> RoleManager { get; }
+        RoleManager<IdentityRole> RoleManager { get; }
 
         void SaveChanges();
     }

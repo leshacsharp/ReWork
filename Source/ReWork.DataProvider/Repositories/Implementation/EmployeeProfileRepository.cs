@@ -1,9 +1,10 @@
 ﻿using ReWork.DataProvider.Context;
 using ReWork.DataProvider.Entities;
 using ReWork.DataProvider.Repositories.Abstraction;
-using System.Collections.Generic;
+using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {
@@ -24,10 +25,15 @@ namespace ReWork.DataProvider.Repositories.Implementation
         {
             _db.EmployeeProfiles.Remove(item);
         }
-
-        public IEnumerable<EmployeeProfile> FindEmployesProfilesByAge(int age)
+ 
+        public IQueryable<EmployeeProfile> FindEmployes(Expression<Func<EmployeeProfile, Boolean>> predicate)
         {
-            return _db.EmployeeProfiles.Where(p=>p.Age.Equals(age));
+            return _db.EmployeeProfiles.Where(predicate);
+        }
+
+        public EmployeeProfile GetEmployeeProfileById(string id)
+        {
+            return _db.EmployeeProfiles.SingleOrDefault(p => p.Id.Equals(id));
         }
 
         public void Update(EmployeeProfile item)

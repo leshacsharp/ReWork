@@ -1,7 +1,6 @@
 ﻿using ReWork.DataProvider.Context;
 using ReWork.DataProvider.Entities;
 using ReWork.DataProvider.Repositories.Abstraction;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -25,9 +24,9 @@ namespace ReWork.DataProvider.Repositories.Implementation
             _db.CustomerProfiles.Remove(item);
         }
 
-        public IEnumerable<CustomerProfile> FindCustomerProfilesByName(string userName)
+        public CustomerProfile FindCustomerProfileByName(string userName)
         {
-            return _db.CustomerProfiles.Where(p => p.User.UserName.Equals(userName));
+            return _db.CustomerProfiles.FirstOrDefault(p => p.User.UserName.Equals(userName));
         }
 
         public void Update(CustomerProfile item)

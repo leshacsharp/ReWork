@@ -9,7 +9,7 @@ namespace ReWork.DataProvider.Entities
     public class FeedBack
     {
         [Key]
-        [ForeignKey("Task")]
+        [ForeignKey("Job")]
         public int Id { get; set; }
 
         [Required]

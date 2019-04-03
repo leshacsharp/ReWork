@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using ReWork.DataProvider.Entities;
 
 namespace ReWork.DataProvider.Identity
 {
-    public class AppRoleManager : RoleManager<Role>
+    public class AppRoleManager : RoleManager<IdentityRole>
     {
-        public AppRoleManager(RoleStore<Role> store)
+        public AppRoleManager(RoleStore<IdentityRole> store)
             : base(store)
         {
 

@@ -25,9 +25,9 @@ namespace ReWork.DataProvider.Repositories.Implementation
             _db.Skills.Remove(item);
         }
 
-        public IEnumerable<Skill> FindSkillByTitle(string title)
+        public Skill FindSkillByTitle(string title)
         {
-            return _db.Skills.Where(p => p.Title.Equals(title));
+            return _db.Skills.First(p => p.Title.Equals(title));
         }
 
         public void Update(Skill item)

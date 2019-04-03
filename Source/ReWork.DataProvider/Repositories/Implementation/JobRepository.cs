@@ -31,6 +31,11 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return _db.Jobs.Where(predicate);   
         }
 
+        public Job GetJobById(int id)
+        {
+            return _db.Jobs.SingleOrDefault(p=>p.Id.Equals(id));
+        }
+
         public void Update(Job item)
         {
             _db.Entry(item).State = EntityState.Modified;

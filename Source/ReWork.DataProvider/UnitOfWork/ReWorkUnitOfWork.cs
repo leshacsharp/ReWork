@@ -21,14 +21,14 @@ namespace ReWork.DataProvider.UnitOfWork
         private ISkillRepository _skillRepository;
 
         private UserManager<User> _userManager;
-        private RoleManager<Role> _roleManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         public ReWorkUnitOfWork()
         {
             _db = new ReWorkContext();
 
             _userManager = new AppUserManager(new UserStore<User>(_db));
-            _roleManager = new AppRoleManager(new RoleStore<Role>(_db));
+            _roleManager = new AppRoleManager(new RoleStore<IdentityRole>(_db));
         }
 
         public UserManager<User> UserManager    
@@ -39,7 +39,7 @@ namespace ReWork.DataProvider.UnitOfWork
             }
         }
 
-        public RoleManager<Role> RoleManager
+        public RoleManager<IdentityRole> RoleManager
         {
             get
             {

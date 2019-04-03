@@ -26,13 +26,13 @@ namespace ReWork.DataProvider.Entities
         public DateTime DateAdded { get; set; }
 
         [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         [Required]
         public virtual CustomerProfile Customer { get; set; }
 
         [ForeignKey("Employee")]
-        public int? EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         public virtual EmployeeProfile Employee { get; set; }
 

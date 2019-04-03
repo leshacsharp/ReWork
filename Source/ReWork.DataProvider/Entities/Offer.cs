@@ -24,14 +24,14 @@ namespace ReWork.DataProvider.Entities
         [Range(0,Int32.MaxValue)]
         public TimeSpan OfferPayment { get; set; }
 
-        [ForeignKey("Task")]
-        public int TaskId { get; set; }
+        [ForeignKey("Job")]
+        public int JobId { get; set; }
 
         [Required]
         public virtual Job Job { get; set; }
 
         [ForeignKey("Employee")]
-        public int EpmployeeId { get; set; }
+        public string EpmployeeId { get; set; }
 
         [Required]
         public virtual EmployeeProfile Employee { get; set; }
