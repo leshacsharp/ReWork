@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using ReWork.DataProvider.Entities;
 using ReWork.DataProvider.UnitOfWork;
 using ReWork.Logic.Dto;
@@ -19,10 +20,7 @@ namespace ReWork.Logic.Services.Implementation
         }
 
         public OperationDetails Create(UserDto userDto)
-        {
-            if (userDto.UserName == null)
-                throw new ArgumentNullException("userName", "userName not can be null");
-
+        {         
             User user =  _db.UserManager.FindByName(userDto.UserName);
             if(user == null)
             {
@@ -49,25 +47,10 @@ namespace ReWork.Logic.Services.Implementation
             User user = _db.UserManager.FindByName(userDto.UserName);
             if(user != null)
             {
-                claims = _db.UserManager.CreateIdentity(user,"");
+                claims = _db.UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
             }
 
             return claims;
-        }
-
-        public void SetInitial(UserDto userDto, IEnumerable<string> roles)
-        {
-            foreach (var roleName in roles)
-            {
-                bool roleExists = _db.RoleManager.RoleExists(roleName);
-                if (!roleExists)
-                {
-                    Role role = new Role() { Name = roleName };
-                    _db.RoleManager.Create(role);
-                }
-            }
-
-            Create(userDto);
         }
 
         public void Dispose()

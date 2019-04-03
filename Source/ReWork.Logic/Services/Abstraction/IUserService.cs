@@ -9,7 +9,6 @@ namespace ReWork.Logic.Services.Abstraction
     public interface IUserService : IDisposable
     {
         OperationDetails Create(UserDto userDto);
-        ClaimsIdentity Authenticate(UserDto userDto);
-        void SetInitial(UserDto userDto, IEnumerable<string> roles);
+        ClaimsIdentity Authenticate(UserDto userDto);  
     }
 }
