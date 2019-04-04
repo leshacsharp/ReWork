@@ -1,6 +1,6 @@
-﻿using ReWork.DataProvider.Context;
-using ReWork.DataProvider.Entities;
-using ReWork.DataProvider.Repositories.Abstraction;
+﻿using ReWork.DataProvider.Repositories.Abstraction;
+using ReWork.Model.Context;
+using ReWork.Model.Entities;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,8 +9,8 @@ namespace ReWork.DataProvider.Repositories.Implementation
 {
     public class OfferRepository : IOfferRepository
     {
-        private ReWorkContext _db;
-        public OfferRepository(ReWorkContext db)
+        private IDbContext _db;
+        public OfferRepository(IDbContext db)
         {
             _db = db;
         }

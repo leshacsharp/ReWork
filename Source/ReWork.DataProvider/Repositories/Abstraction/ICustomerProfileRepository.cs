@@ -1,4 +1,4 @@
-﻿using ReWork.DataProvider.Entities;
+﻿using ReWork.Model.Entities;
 
 namespace ReWork.DataProvider.Repositories.Abstraction
 {

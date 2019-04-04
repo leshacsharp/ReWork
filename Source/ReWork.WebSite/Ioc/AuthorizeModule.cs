@@ -8,7 +8,7 @@ namespace ReWork.WebSite.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
         }
     }
 }

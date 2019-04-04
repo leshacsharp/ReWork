@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using ReWork.DataProvider.UnitOfWork;
+using ReWork.Model.Context;
 
 namespace ReWork.Logic.Ioc
 {
@@ -7,7 +7,7 @@ namespace ReWork.Logic.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ReWorkUnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
+            builder.RegisterType<ReWorkContext>().As<IDbContext>().InstancePerLifetimeScope();
         }
     }
 }

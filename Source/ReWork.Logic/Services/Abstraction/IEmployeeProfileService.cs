@@ -1,10 +1,10 @@
-﻿using ReWork.Logic.Dto;
+﻿using ReWork.Model.Entities;
 
 namespace ReWork.Logic.Services.Abstraction
 {
     public interface IEmployeeProfileService
     {
-        void CreateEmployeeProfile(EmployeeProfileDto employee);
-        EmployeeProfileDto GetEmployeeProfileById(string id);
+        void CreateEmployeeProfile(EmployeeProfile employee);
+        EmployeeProfile GetEmployeeProfileById(string id);
     }
 }

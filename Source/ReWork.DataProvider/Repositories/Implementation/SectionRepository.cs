@@ -1,6 +1,6 @@
-﻿using ReWork.DataProvider.Context;
-using ReWork.DataProvider.Entities;
-using ReWork.DataProvider.Repositories.Abstraction;
+﻿using ReWork.DataProvider.Repositories.Abstraction;
+using ReWork.Model.Context;
+using ReWork.Model.Entities;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,8 +9,8 @@ namespace ReWork.DataProvider.Repositories.Implementation
 {
     public class SectionRepository : ISectionRepository
     {
-        private ReWorkContext _db;
-        public SectionRepository(ReWorkContext db)
+        private IDbContext _db;
+        public SectionRepository(IDbContext db)
         {
             _db = db;
         }
@@ -28,6 +28,11 @@ namespace ReWork.DataProvider.Repositories.Implementation
         public Section FindSectionByTitle(string title)
         {
             return _db.Sections.First(p => p.Title.Equals(title));
+        }
+
+        public IEnumerable<Section> GetAll()
+        {
+            return _db.Sections;
         }
 
         public void Update(Section item)

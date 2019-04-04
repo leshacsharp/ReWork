@@ -1,42 +1,45 @@
 ﻿using Microsoft.AspNet.Identity;
-using ReWork.DataProvider.Entities;
-using ReWork.DataProvider.UnitOfWork;
-using ReWork.Logic.Dto;
+using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
-using System;
-using ReWork.Common;
+using ReWork.Model.Entities;
 
 namespace ReWork.Logic.Services.Implementation
 {
     public class EmployeeProfileService : IEmployeeProfileService
     {
-        private IUnitOfWork _db;
-        public EmployeeProfileService(IUnitOfWork db)
+        private IEmployeeProfileRepository _employeeRepository;
+        private ISkillRepository _skillRepository;
+        private ICommitProvider _commitProvider;
+        private UserManager<User> _userManager;
+
+        public EmployeeProfileService(IEmployeeProfileRepository employeeRep, ISkillRepository skillRep, ICommitProvider commitProvider, UserManager<User> userManager)
         {
-            _db = db;
+            _employeeRepository = employeeRep;
+            _skillRepository = skillRep;
+            _commitProvider = commitProvider;
+            _userManager = userManager;
         }
 
-        public void CreateEmployeeProfile(EmployeeProfileDto employee)
+        public void CreateEmployeeProfile(EmployeeProfile employee)
         {
-            User user = _db.UserManager.FindByName(employee.UserName);
+            User user = _userManager.FindByName(employee.User.UserName);
             if (user != null && user.EmployeeProfile == null)
             {
                 EmployeeProfile employeeProfile = new EmployeeProfile() { User = user, Age = employee.Age };            
                 foreach (var it in employee.Skills)
                 {
-                    Skill skill = _db.SkillRepository.FindSkillByTitle(it.Title);
+                    Skill skill = _skillRepository.FindSkillByTitle(it.Title);
                     employeeProfile.Skills.Add(skill);
                 }
 
-                _db.EmployeeProfileRepository.Create(employeeProfile);
-                _db.SaveChanges();
+                _employeeRepository.Create(employeeProfile);
+                _commitProvider.SaveChanges();
             }  
         }
 
-        public EmployeeProfileDto GetEmployeeProfileById(string id)
+        public EmployeeProfile GetEmployeeProfileById(string id)
         {
-            EmployeeProfile employeeProfile = _db.EmployeeProfileRepository.GetEmployeeProfileById(id);
-            return Mapping<EmployeeProfile, EmployeeProfileDto>.MapObject(employeeProfile);
+            return _employeeRepository.GetEmployeeProfileById(id);
         }
     }
 }

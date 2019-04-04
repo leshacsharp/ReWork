@@ -1,14 +1,13 @@
-﻿using ReWork.Logic.Dto;
-using ReWork.Logic.Infustructure;
+﻿using ReWork.Logic.Infustructure;
+using ReWork.Model.ViewModels.Account;
 using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace ReWork.Logic.Services.Abstraction
 {
-    public interface IUserService : IDisposable
+    public interface IUserService 
     {
-        OperationDetails Create(UserDto userDto);
-        ClaimsIdentity Authenticate(UserDto userDto);  
+        OperationDetails Create(RegisterViewModel registerModel, string roleName);
+        ClaimsIdentity Authenticate(LoginViewModel loginModel);  
     }
 }

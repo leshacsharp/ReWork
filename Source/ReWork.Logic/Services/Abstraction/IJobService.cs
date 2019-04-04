@@ -1,10 +1,10 @@
-﻿using ReWork.Logic.Dto;
+﻿using ReWork.Model.Entities;
 
 namespace ReWork.Logic.Services.Abstraction
 {
     public interface IJobService 
     {
-        void CreateJob(JobDto job);
-        JobDto GetJobById(int id);
+        void CreateJob(Job job);
+        Job GetJobById(int id);
     }
 }

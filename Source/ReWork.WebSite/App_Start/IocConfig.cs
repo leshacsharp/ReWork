@@ -14,6 +14,7 @@ namespace ReWork.WebSite.App_Start
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             builder.RegisterModule<DbModule>();
+            builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<AuthorizeModule>();
 
             IContainer container = builder.Build();

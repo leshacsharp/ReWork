@@ -1,28 +1,32 @@
 ﻿using Microsoft.AspNet.Identity;
-using ReWork.DataProvider.Entities;
-using ReWork.DataProvider.UnitOfWork;
+using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
-using System;
+using ReWork.Model.Entities;
 
 namespace ReWork.Logic.Services.Implementation
 {
     public class CustomerProfileService : ICustomerProfileService
     {
-        private IUnitOfWork _db;
-        public CustomerProfileService(IUnitOfWork db)
+        private ICustomerProfileRepository _customerRepository;
+        private ICommitProvider _commitProvider;
+        private UserManager<User> _userManager;
+
+        public CustomerProfileService(ICustomerProfileRepository customerRep, ICommitProvider commitProvider, UserManager<User> userManager)
         {
-            _db = db;
+            _customerRepository = customerRep;
+            _commitProvider = commitProvider;
+            _userManager = userManager;
         }
 
         public void CreateCustomerProfile(string userName)
         {
-            User user = _db.UserManager.FindByName(userName);
+            User user = _userManager.FindByName(userName);
             if(user != null && user.CustomerProfile == null)
             {
                 CustomerProfile customerProfile = new CustomerProfile() { User = user };
-                _db.CustomerProfileRepository.Create(customerProfile);
+                _customerRepository.Create(customerProfile);
 
-                _db.SaveChanges();
+                _commitProvider.SaveChanges();
             }
         }
     }

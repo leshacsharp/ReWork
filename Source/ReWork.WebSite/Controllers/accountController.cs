@@ -1,9 +1,8 @@
 ﻿using Microsoft.Owin.Security;
 using ReWork.Common;
-using ReWork.Logic.Dto;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model;
-using ReWork.Model.Account;
+using ReWork.Model.ViewModels.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +12,10 @@ using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers
 {
-    public class accountController : Controller
+    public class AccountController : Controller
     {
         private IUserService _userService;
-        public accountController(IUserService userService)
+        public AccountController(IUserService userService)
         {
             _userService = userService;
         }
@@ -39,9 +38,7 @@ namespace ReWork.WebSite.Controllers
             if (!ModelState.IsValid)
                 return View(registerModel);
 
-            UserDto userDto = Mapping<RegisterViewModel, UserDto>.MapObject(registerModel);
-            userDto.Role = "user";
-            _userService.Create(userDto);
+            _userService.Create(registerModel, "user");
 
             return RedirectToAction("Index", "Home");
         }
@@ -57,9 +54,8 @@ namespace ReWork.WebSite.Controllers
         public ActionResult login(LoginViewModel loginModel, string returnUrl)
         {
             if (ModelState.IsValid)
-            {
-                UserDto userDto = Mapping<LoginViewModel, UserDto>.MapObject(loginModel);
-                ClaimsIdentity claims = _userService.Authenticate(userDto);
+            {  
+                ClaimsIdentity claims = _userService.Authenticate(loginModel);
 
                 if (claims != null)
                 {

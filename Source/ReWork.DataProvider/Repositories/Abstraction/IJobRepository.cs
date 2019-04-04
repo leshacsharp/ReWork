@@ -1,4 +1,4 @@
-﻿using ReWork.DataProvider.Entities;
+﻿using ReWork.Model.Entities;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

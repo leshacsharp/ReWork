@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNet.Identity;
-using ReWork.DataProvider.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
+using ReWork.Model.Context;
+using ReWork.Model.Entities;
 
 namespace ReWork.DataProvider.Identity
 {
     public class AppUserManager : UserManager<User>    
     {
-        public AppUserManager(IUserStore<User> store)
-            :base(store)
+        public AppUserManager(IDbContext context)
+            :base(new UserStore<User>((ReWorkContext)context))
         {
 
         }
