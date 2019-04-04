@@ -3,5 +3,5 @@ obj/
 packages/
 *.vs
 *.suo
-.mdf
-.ldf
+*.mdf
+*.ldf
