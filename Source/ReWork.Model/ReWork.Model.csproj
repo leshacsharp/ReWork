@@ -68,8 +68,6 @@
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Skill.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Identity\AppRoleManager.cs" />
-    <Compile Include="Identity\AppUserManager.cs" />
     <Compile Include="Migrations\201904021829221_init.cs" />
     <Compile Include="Migrations\201904021829221_init.Designer.cs">
       <DependentUpon>201904021829221_init.cs</DependentUpon>
