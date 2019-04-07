@@ -62,7 +62,6 @@ namespace ReWork.WebSite.Controllers
 
 
 
-
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
@@ -107,7 +106,6 @@ namespace ReWork.WebSite.Controllers
 
 
 
-
         [HttpGet]
         public ActionResult ConfirmEmail(string userId, string code)
         {
@@ -125,7 +123,6 @@ namespace ReWork.WebSite.Controllers
         {
             return View();
         }
-
 
 
 
