@@ -1,0 +1,29 @@
+﻿@model ReWork.Model.ViewModels.Account.EmployeeProfileViewModel
+@{
+    ViewBag.Title = "Employee";
+}
+
+@Html.LabelFor(p => p.Age) <br />
+@Html.EditorFor(p=>p.Age)
+<span class="field-validation-error" data-valmsg-for="Age" data-valmsg-replace="true"></span>
+
+
+@foreach (var section in ViewBag.Sections)
+{
+    <h2>@(section.Title)</h2> <br />
+
+    foreach (var skill in section.Skills)
+    {
+        <div>
+            @Html.Hidden("skill-id", (object)skill.Id)
+            <span class="skill-item">@skill.Title</span>
+        </div>
+    }
+}
+
+<input type="submit" name="send-form" value="Send" />
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/employee-registration.js"></script>
+}

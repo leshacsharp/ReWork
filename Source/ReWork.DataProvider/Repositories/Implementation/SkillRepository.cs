@@ -26,7 +26,12 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public Skill FindSkillByTitle(string title)
         {
-            return _db.Skills.First(p => p.Title.Equals(title));
+            return _db.Skills.FirstOrDefault(p => p.Title.Equals(title));
+        }
+
+        public Skill GetById(int id)
+        {
+            return _db.Skills.Single(p => p.Id.Equals(id));
         }
 
         public void Update(Skill item)

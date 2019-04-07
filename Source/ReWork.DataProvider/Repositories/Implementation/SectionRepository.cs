@@ -32,7 +32,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public IEnumerable<Section> GetAll()
         {
-            return _db.Sections;
+            return _db.Sections.Include("Skills");
         }
 
         public void Update(Section item)

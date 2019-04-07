@@ -15,5 +15,10 @@ namespace ReWork.Model.Entities
         public string Title { get; set; }
 
         public virtual ICollection<Skill> Skills { get; set; }
+
+        public Section()
+        {
+            Skills = new List<Skill>();
+        }
     }
 }

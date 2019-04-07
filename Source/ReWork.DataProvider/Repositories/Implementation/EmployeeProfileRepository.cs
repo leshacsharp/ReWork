@@ -33,7 +33,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public EmployeeProfile GetEmployeeProfileById(string id)
         {
-            return _db.EmployeeProfiles.SingleOrDefault(p => p.Id.Equals(id));
+            return _db.EmployeeProfiles.Single(p => p.Id.Equals(id));
         }
 
         public void Update(EmployeeProfile item)

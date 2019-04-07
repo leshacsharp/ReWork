@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace ReWork.WebSite.App_Start
 {
     public partial class Startup
     {
+        internal static IDataProtectionProvider DataProtectionProvider { get; private set; }
         public void Configuration(IAppBuilder app)
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions
@@ -19,6 +21,7 @@ namespace ReWork.WebSite.App_Start
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/account/login"),
             });
+            DataProtectionProvider = app.GetDataProtectionProvider();
         }
     }
 }

@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.skill-item{
+    color:red;
+    border:solid 1px black;
+}
+
+.skill-item:hover{
+    opacity: 0.5;
+    color:darkred;
+}

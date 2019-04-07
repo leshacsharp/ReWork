@@ -29,5 +29,16 @@ namespace ReWork.Logic.Services.Implementation
                 _commitProvider.SaveChanges();
             }
         }
+
+        public bool CustomerProfileExists(string userName)
+        {
+            User user = _userManager.FindByName(userName);
+            if(user != null)
+            {
+                return user.CustomerProfile != null;
+            }
+
+            return false;
+        }
     }
 }

@@ -29,5 +29,12 @@ namespace ReWork.Model.Entities
         public virtual ICollection<Offer> Offers { get; set; }
 
         public virtual ICollection<Skill> Skills { get; set; }
+
+        public EmployeeProfile()
+        {
+            PerfomedJobs = new List<Job>();
+            Offers = new List<Offer>();
+            Skills = new List<Skill>();
+        }
     }
 }

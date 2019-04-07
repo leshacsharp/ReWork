@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace ReWork.Model.Context
 {
-    public class ReWorkInitializer : DropCreateDatabaseIfModelChanges<ReWorkContext>
+    public class ReWorkInitializer : CreateDatabaseIfNotExists<ReWorkContext>
     {
         protected override void Seed(ReWorkContext context)
         {
@@ -26,7 +26,7 @@ namespace ReWork.Model.Context
             UserStore<User> userStore = new UserStore<User>(context);
             UserManager<User> userManager = new UserManager<User>(userStore);
 
-            User admin = new User() { UserName="alex", Email = "alex@yandex.ru", RegistrationdDate = DateTime.Now};
+            User admin = new User() { UserName = "alex", Email = "alex@yandex.ru", FirstName = "Aleksey", LastName = "Programmer", RegistrationdDate = DateTime.Now };
 
             userManager.Create(admin, "123456");
             userManager.AddToRole(admin.Id, "admin");

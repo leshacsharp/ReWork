@@ -43,6 +43,9 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -54,6 +57,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201904050715488_change_user.cs" />
+    <Compile Include="Migrations\201904050715488_change_user.Designer.cs">
+      <DependentUpon>201904050715488_change_user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904051702153_change_user1.cs" />
+    <Compile Include="Migrations\201904051702153_change_user1.Designer.cs">
+      <DependentUpon>201904051702153_change_user1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904061801493_change_user2.cs" />
+    <Compile Include="Migrations\201904061801493_change_user2.Designer.cs">
+      <DependentUpon>201904061801493_change_user2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\Account\ForgotPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="Context\IDbContext.cs" />
     <Compile Include="Context\ReWorkContext.cs" />
@@ -75,6 +92,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Account\EmployeeProfileViewModel.cs" />
+    <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -83,6 +102,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904021829221_init.resx">
       <DependentUpon>201904021829221_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904050715488_change_user.resx">
+      <DependentUpon>201904050715488_change_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904051702153_change_user1.resx">
+      <DependentUpon>201904051702153_change_user1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904061801493_change_user2.resx">
+      <DependentUpon>201904061801493_change_user2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

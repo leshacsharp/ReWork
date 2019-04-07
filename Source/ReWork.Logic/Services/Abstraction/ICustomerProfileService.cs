@@ -2,6 +2,7 @@
 {
     public interface ICustomerProfileService
     {
-        void CreateCustomerProfile(string userName); 
+        void CreateCustomerProfile(string userName);
+        bool CustomerProfileExists(string userName);
     }
 }

@@ -6,8 +6,8 @@
 @using (Html.BeginForm("login", "account", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
-
     @Html.Hidden("returnUrl", (object)ViewBag.returnUrl)
+
 
     @Html.LabelFor(p => p.UserName)
     <br />
@@ -22,10 +22,14 @@
     @Html.ValidationMessageFor(p => p.Password)
 
     <br />
-    @Html.LabelFor(p=>p.RememberMe)  
+    @Html.LabelFor(p => p.RememberMe)
     @Html.CheckBoxFor(p => p.RememberMe)
     <br /><br />
-   <input type="submit" value="Send"/>
+
+    <input type="submit" value="Send" />
+
+    <br /><br />
+    @Html.ActionLink("Forgot password?", "ForgotPassword", "Account")
 }
 
 

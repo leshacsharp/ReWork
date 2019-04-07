@@ -10,7 +10,8 @@ namespace ReWork.DataProvider.Identity
         public AppUserManager(IDbContext context)
             :base(new UserStore<User>((ReWorkContext)context))
         {
-
+            this.EmailService = new EmailService();
+            this.UserTokenProvider = TokenProvider.Provider;
         }
     }
 }

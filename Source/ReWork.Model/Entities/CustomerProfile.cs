@@ -15,5 +15,10 @@ namespace ReWork.Model.Entities
         public virtual User User { get; set; }
 
         public virtual ICollection<Job> Jobs { get; set; }
+
+        public CustomerProfile()
+        {
+            Jobs = new List<Job>();
+        }
     }
 }

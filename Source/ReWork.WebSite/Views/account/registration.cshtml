@@ -5,6 +5,10 @@
 
 @using (Html.BeginForm("registration", "account", FormMethod.Post))
 {
+    @Html.ValidationSummary(true);
+    <br /><br />
+
+
     @Html.LabelFor(p => p.UserName)
     <br />
     @Html.EditorFor(p => p.UserName)
@@ -29,7 +33,8 @@
     @Html.ValidationMessageFor(p => p.ConfirmPassword)
 
     <br /><br />
-    <input type="submit" value="Send"/>
+
+    <input type="submit" value="Send" />
 }
 
 
