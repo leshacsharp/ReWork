@@ -162,13 +162,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\JobController.cs" />
+    <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Ioc\AccountModule.cs" />
+    <Compile Include="Ioc\ServicesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +179,7 @@
     <Content Include="App_Data\ReWorkDb_log.ldf">
       <DependentUpon>ReWorkDb.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-multiselect.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -185,6 +189,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\account-settings.js" />
+    <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -213,17 +218,23 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\account\registration.cshtml" />
     <Content Include="Views\account\Login.cshtml" />
-    <Content Include="Views\Settings\Employee.cshtml" />
-    <Content Include="Views\Settings\Account.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Settings\ChangePassword.cshtml" />
     <Content Include="Views\account\ConfirmEmail.cshtml" />
     <Content Include="Views\account\DisplayEmail.cshtml" />
     <Content Include="Views\account\ForgotPassword.cshtml" />
     <Content Include="Views\account\ResetPasswordConfirm.cshtml" />
     <Content Include="Views\account\ResetPassword.cshtml" />
+    <Content Include="Views\Job\Create.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Moderator\Users.cshtml" />
+    <Content Include="Views\Moderator\Details.cshtml" />
+    <Content Include="Views\Moderator\Edit.cshtml" />
+    <Content Include="Views\Settings\General.cshtml" />
+    <Content Include="Views\Employee\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

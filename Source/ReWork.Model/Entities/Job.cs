@@ -20,10 +20,12 @@ namespace ReWork.Model.Entities
         public string Description { get; set; }
 
         [Range(0,Int32.MaxValue)]
-        public int? Price { get; set; }
+        public int Price { get; set; }
+
+        public bool PriceDiscussed { get; set; }
 
         [Required]
-        public DateTime DateAdded { get; set; }
+        public DateTime? DateAdded { get; set; }
 
         [ForeignKey("Customer")]
         public string CustomerId { get; set; }
@@ -35,7 +37,7 @@ namespace ReWork.Model.Entities
         public string EmployeeId { get; set; }
 
         public virtual EmployeeProfile Employee { get; set; }
-
+        
 
         
         public virtual ICollection<Offer> Offers{ get; set; }

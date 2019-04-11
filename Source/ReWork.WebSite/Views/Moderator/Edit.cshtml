@@ -1,0 +1,41 @@
+﻿@model ReWork.Model.ViewModels.Account.EditUserViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Delete", "Customer", FormMethod.Post))
+{
+    @Html.Hidden("userId", Model.Id)
+    <input type="submit" value="Delete Customer Profile" />
+}
+
+@using (Html.BeginForm("Delete", "Employee", FormMethod.Post))
+{
+    @Html.Hidden("userId", Model.Id)
+    <input type="submit" value="Delete Employee Profile" />
+}
+
+
+@using (Html.BeginForm("Edit", "Moderator", FormMethod.Post))
+{
+    @Html.HiddenFor(p => p.Id)
+
+    @Html.LabelFor(p => p.UserName)<br />
+    @Html.DisplayFor(p => p.UserName)
+
+
+    @Html.LabelFor(p => p.UserRoles)
+    foreach (var role in Model.AllRoles)
+    {
+        <h4>
+            @role
+            <input type="checkbox" name="UserRoles" value="@role" @(Model.UserRoles.Contains(role) ? "checked=\"checked\"" : "") />
+        </h4>
+    }
+    <br />
+    <input type="submit" value="Save" />
+}
+
+

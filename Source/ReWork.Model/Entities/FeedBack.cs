@@ -17,9 +17,8 @@ namespace ReWork.Model.Entities
         public string Text { get; set; }
 
         [Required]
-        public DateTime AddedDate { get; set; }
+        public DateTime? AddedDate { get; set; }
 
-        [Required]
         public QualityOfWork QualityOfWork { get; set; }
 
         [Required]

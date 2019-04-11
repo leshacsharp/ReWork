@@ -1,0 +1,50 @@
+﻿@model ReWork.Model.ViewModels.Job.CreateJobViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Job", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    @Html.LabelFor(p => p.Title)<br />
+    @Html.EditorFor(p => p.Title)
+    @Html.ValidationMessageFor(p => p.Title)
+    <br /><br />
+
+    @Html.LabelFor(p => p.Description)<br />
+    @Html.EditorFor(p => p.Description)
+    @Html.ValidationMessageFor(p => p.Description)
+    <br /><br />
+
+    @Html.LabelFor(p => p.Price)<br />
+    @Html.EditorFor(p => p.Title)
+    @Html.ValidationMessageFor(p => p.Title)
+    <br /><br />
+
+    @Html.LabelFor(p => p.PriceDiscussed)<br />
+    @Html.CheckBoxFor(p => p.PriceDiscussed)
+    <br /><br />
+
+    @Html.LabelFor(p => p.Skills)<br />
+    @Html.ListBoxFor(p => p.SelectedSkills, Model.Skills, new { multiple = "multiple" })
+    @Html.ValidationMessageFor(p=>p.SelectedSkills)
+    <br /><br />
+
+    <input type="submit" name="send-form" value="Send" />
+}
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("select[name=SelectedSkills]").multiselect({
+                buttonWidth: '250px',
+            })
+        })
+    </script>
+}
+
+
+

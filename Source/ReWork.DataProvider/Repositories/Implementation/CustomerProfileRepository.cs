@@ -24,9 +24,14 @@ namespace ReWork.DataProvider.Repositories.Implementation
             _db.CustomerProfiles.Remove(item);
         }
 
+        public CustomerProfile FindCustomerProfileById(string customerId)
+        {
+            return _db.CustomerProfiles.Find(customerId);
+        }
+
         public CustomerProfile FindCustomerProfileByName(string userName)
         {
-            return _db.CustomerProfiles.FirstOrDefault(p => p.User.UserName.Equals(userName));
+            return _db.CustomerProfiles.SingleOrDefault(p => p.User.UserName.Equals(userName));
         }
 
         public void Update(CustomerProfile item)

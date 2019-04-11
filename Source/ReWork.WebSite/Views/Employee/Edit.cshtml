@@ -1,0 +1,33 @@
+﻿@model ReWork.Model.ViewModels.Account.EmployeeProfileViewModel
+@{
+    ViewBag.Title = "EditEmployee";
+}
+
+<h2>EditEmployee</h2>
+
+
+@using (Html.BeginForm("Edit", "Employee", FormMethod.Post))
+{
+    @Html.LabelFor(p => p.Age) <br />
+    @Html.EditorFor(p => p.Age)
+    @Html.ValidationMessageFor(p => p.Age)
+
+    @Html.LabelFor(p => p.Skills)<br />
+    @Html.ListBoxFor(p => p.SelectedSkills, Model.Skills, new { multiple = "multiple" })
+
+    <br /><br />
+    <input type="submit" name="send-form" value="Send" />
+}
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("select[name=SelectedSkills]").multiselect({
+                buttonWidth: '250px',
+            });
+        })
+    </script>
+}
+

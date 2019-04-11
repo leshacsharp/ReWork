@@ -27,7 +27,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public IEnumerable<Offer> FindOffersByUserName(string userName)
         {
-            return _db.Offers.Where(p => p.Employee.User.UserName.Equals(userName));
+            return _db.Offers.Where(p => p.Employee.User.UserName.Equals(userName)).ToList();
         }
 
         public void Update(Offer item)

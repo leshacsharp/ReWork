@@ -70,15 +70,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Abstraction\ICustomerProfileService.cs" />
     <Compile Include="Services\Abstraction\IEmployeeProfileService.cs" />
+    <Compile Include="Services\Abstraction\IRoleService.cs" />
     <Compile Include="Services\Abstraction\ISectionService.cs" />
+    <Compile Include="Services\Abstraction\ISkillService.cs" />
     <Compile Include="Services\Abstraction\IUserService.cs" />
+    <Compile Include="Services\Abstraction\IJobService.cs" />
     <Compile Include="Services\Implementation\CustomerProfileService.cs" />
     <Compile Include="Services\Implementation\EmployeeProfileService.cs" />
+    <Compile Include="Services\Implementation\JobService.cs" />
+    <Compile Include="Services\Implementation\RoleService.cs" />
     <Compile Include="Services\Implementation\SectionService.cs" />
+    <Compile Include="Services\Implementation\SkillService.cs" />
     <Compile Include="Services\Implementation\UserService.cs" />
-    <Compile Include="Services\Params\ChangePasswordParams.cs" />
-    <Compile Include="Services\Params\LoginParams.cs" />
-    <Compile Include="Services\Params\RegisterParams.cs" />
+    <Compile Include="Services\Params\CreateJobParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReWork.Common\ReWork.Common.csproj">
@@ -98,5 +102,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

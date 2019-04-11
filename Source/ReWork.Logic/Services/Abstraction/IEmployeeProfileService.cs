@@ -1,12 +1,14 @@
-﻿using ReWork.Logic.Services.Params;
-using ReWork.Model.Entities;
+﻿using ReWork.Model.Entities;
+using System.Collections.Generic;
 
 namespace ReWork.Logic.Services.Abstraction
 {
     public interface IEmployeeProfileService
     {
-        void CreateEmployeeProfile(EmployeeProfile employeeProfile);
-        void EditEmpployeeProfile(EmployeeProfile employeeProfile);
+        void CreateEmployeeProfile(string userName, int age, IEnumerable<int> skillsId);
+        void EditEmployeeProfile(string employeeId, int age, IEnumerable<int> skillsId);
+        void DeleteEmployeeProfile(string employeeId);
+
         EmployeeProfile GetEmployeeProfileById(string id);  
         bool EmployeeProfileExists(string userName);
     }

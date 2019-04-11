@@ -12,7 +12,7 @@ namespace ReWork.Model.Entities
         public string LastName { get; set; }
 
         [Required]
-        public DateTime RegistrationdDate { get; set; }
+        public DateTime? RegistrationdDate { get; set; }
 
         public Status Status { get; set; }
 

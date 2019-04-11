@@ -15,7 +15,7 @@ namespace ReWork.WebSite.App_Start
 
             builder.RegisterModule<DbModule>();
             builder.RegisterModule<RepositoryModule>();
-            builder.RegisterModule<AccountModule>();
+            builder.RegisterModule<ServicesModule>();
 
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

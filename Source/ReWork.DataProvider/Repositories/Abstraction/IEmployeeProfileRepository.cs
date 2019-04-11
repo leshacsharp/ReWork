@@ -8,6 +8,6 @@ namespace ReWork.DataProvider.Repositories.Abstraction
     public interface IEmployeeProfileRepository : IRepository<EmployeeProfile>
     {
         IQueryable<EmployeeProfile> FindEmployes(Expression<Func<EmployeeProfile, Boolean>> predicate);
-        EmployeeProfile GetEmployeeProfileById(string id);
+        EmployeeProfile FindEmployeeProfileById(string employeeId);
     }
 }

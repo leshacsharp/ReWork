@@ -1,6 +1,7 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -29,14 +30,19 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return _db.Skills.FirstOrDefault(p => p.Title.Equals(title));
         }
 
-        public Skill GetById(int id)
+        public Skill FindById(int id)
         {
-            return _db.Skills.Single(p => p.Id.Equals(id));
+            return _db.Skills.Find(id);
         }
 
         public void Update(Skill item)
         {
             _db.Entry(item).State = EntityState.Modified;
+        }
+
+        public IEnumerable<Skill> GetAll()
+        {
+            return _db.Skills.ToList();
         }
     }
 }

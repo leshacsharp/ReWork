@@ -11,12 +11,10 @@ namespace ReWork.Model.Entities
         [Key]
         [ForeignKey("User")]
         public string Id { get; set; }
-
-        [Required]
+    
         [Range(8,100)]
         public int Age { get; set; }
-
-        [Required]
+ 
         public QualityOfWork Rating { get; set; }
 
         [Required]

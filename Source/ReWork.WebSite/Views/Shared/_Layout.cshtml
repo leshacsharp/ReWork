@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - ReWork</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" href="~/Content/bootstrap-multiselect.css" type="text/css" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,6 +26,10 @@
                     {
                         <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
                         <li>@Html.ActionLink("SignOut", "SignOut", "account")</li>
+                        if (User.IsInRole("moderator"))
+                        {
+                            <li>@Html.ActionLink("Moderator Panel", "Users", "Moderator")</li>
+                        }
                     }
                     else
                     {
@@ -45,7 +49,9 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

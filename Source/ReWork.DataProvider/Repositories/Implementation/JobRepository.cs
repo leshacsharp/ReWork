@@ -31,9 +31,9 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return _db.Jobs.Where(predicate);   
         }
 
-        public Job GetJobById(int id)
+        public Job FindJobById(int id)
         {
-            return _db.Jobs.SingleOrDefault(p=>p.Id.Equals(id));
+            return _db.Jobs.Find(id);
         }
 
         public void Update(Job item)

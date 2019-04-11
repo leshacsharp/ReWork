@@ -3,7 +3,7 @@
     $("input[name=create-customer]").click(function () {
         Ajax("/settings/CustomerProfileExists", "POST", "json", null, function (profileExists) {
             if (!profileExists) {
-                Ajax("/profile/Customer", "POST");
+                Ajax("/settings/Customer", "POST");
                 alert("customer profile created");
             }
             else {

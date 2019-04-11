@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReWork.DataProvider", "ReWo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReWork.Common", "ReWork.Common\ReWork.Common.csproj", "{77F30623-5DB7-44CA-AD47-D3E2FE882B2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb", "TestDb\TestDb.csproj", "{AC75A499-9A4A-4D0A-820D-661C773070A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{77F30623-5DB7-44CA-AD47-D3E2FE882B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77F30623-5DB7-44CA-AD47-D3E2FE882B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77F30623-5DB7-44CA-AD47-D3E2FE882B2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC75A499-9A4A-4D0A-820D-661C773070A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC75A499-9A4A-4D0A-820D-661C773070A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC75A499-9A4A-4D0A-820D-661C773070A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC75A499-9A4A-4D0A-820D-661C773070A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

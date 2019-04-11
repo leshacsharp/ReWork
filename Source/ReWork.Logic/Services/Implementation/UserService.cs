@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
-using ReWork.Common;
-using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
-using ReWork.Logic.Services.Params;
 using ReWork.Model.Entities;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Web;
 
@@ -12,42 +11,38 @@ namespace ReWork.Logic.Services.Implementation
 {
     public class UserService : IUserService
     {
-        private ICommitProvider _commitProvider;
         private UserManager<User> _userManager;
 
-        public UserService(ICommitProvider commitProvider, UserManager<User> userManager)
-        {
-            _commitProvider = commitProvider;
+        public UserService(UserManager<User> userManager)
+        { 
             _userManager = userManager;
         }
 
-        public IdentityResult Create(RegisterParams reg)
+        public IdentityResult Create(string userName, string email, string password, string role)
         {         
-            User user = _userManager.FindByName(reg.UserName);
+            User user = _userManager.FindByName(userName);
             if(user == null)
             {
-                User newUser = Mapping<RegisterParams, User>.MapObject(reg);
-                newUser.RegistrationdDate = DateTime.Now;
+                User newUser = new User() { UserName = userName, Email = email, RegistrationdDate = DateTime.Now };
 
-                IdentityResult regResult =  _userManager.Create(newUser, reg.Password);
+                IdentityResult regResult =  _userManager.Create(newUser, password);
                 if (!regResult.Succeeded)
                     return regResult;
 
-                IdentityResult addRoleResult = _userManager.AddToRole(newUser.Id, reg.Role);
+                IdentityResult addRoleResult = _userManager.AddToRole(newUser.Id, role);
                 if (!addRoleResult.Succeeded)
                     return addRoleResult;
 
-                _commitProvider.SaveChanges();
                 return regResult;
             }
 
             return new IdentityResult("User with such a UserName exists");
         }
 
-        public ClaimsIdentity Authenticate(LoginParams login)
+        public ClaimsIdentity Authenticate(string userName, string password)
         {
             ClaimsIdentity claims = null;
-            User user = _userManager.Find(login.UserName, login.Password);
+            User user = _userManager.Find(userName, password);
             if(user != null)
             {
                 claims = _userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
@@ -56,31 +51,19 @@ namespace ReWork.Logic.Services.Implementation
             return claims;
         }
 
-        public IdentityResult ChangePassword(ChangePasswordParams changeModel)
+
+
+        public IdentityResult ChangePassword(string userId, string oldPassword, string newPassword)
         {
-            User user = _userManager.FindByName(changeModel.UserName);
-            if (user != null) 
+            User user = _userManager.FindById(userId);
+            if (user != null)
             {
-                IdentityResult changeRes = _userManager.ChangePassword(user.Id, changeModel.OldPassword, changeModel.NewPassword);
+                IdentityResult changeRes = _userManager.ChangePassword(user.Id, oldPassword, newPassword); 
                 return changeRes;
             }
 
             return new IdentityResult("user with such a UserName not found");
         }
-
-
-        public bool UserNameExists(string userName)
-        {
-            User user = _userManager.FindByName(userName);
-            return user != null;
-        }
-
-        public User FindUserByName(string userName)
-        {
-            return _userManager.FindByName(userName);
-        }
-
-
 
         public void ResetPassword(string email)
         {
@@ -88,14 +71,20 @@ namespace ReWork.Logic.Services.Implementation
             if(user != null)
             {
                 string token = _userManager.GeneratePasswordResetToken(user.Id);
-                _userManager.SendEmail(user.Id, "Reset password", $"Your token:{token}");
+                _userManager.SendEmail(user.Id, "Reset password", $"Token for reset password:  {token}");
             }
         }
 
-        public IdentityResult ConfirmResetPassword(string userId,string newPassword, string token)
+        public IdentityResult ConfirmResetPassword(string email, string newPassword, string token)
         {
-            return _userManager.ResetPassword(userId, token, newPassword);
+            User user = _userManager.FindByEmail(email);
+            if (user != null)
+            {
+                return _userManager.ResetPassword(user.Id, token, newPassword);
+            }
+            return new IdentityResult("User with a such email not found");
         }
+           
 
 
 
@@ -119,6 +108,75 @@ namespace ReWork.Logic.Services.Implementation
         public bool IsEmailConfirmed(string userId)
         {
             return _userManager.IsEmailConfirmed(userId);
+        }
+
+
+
+     
+
+        public User FindUserByName(string userName)
+        {
+            return _userManager.FindByName(userName);
+        }
+
+        public User FindUserById(string userId)
+        {
+            return _userManager.FindById(userId);
+        }
+
+        public IEnumerable<User> GetNewUsers(int page, int usersCount)
+        {
+            return _userManager.Users.OrderByDescending(p=>p.RegistrationdDate)
+                                     .Skip(--page * usersCount)
+                                     .Take(usersCount)
+                                     .ToList();
+        }
+
+
+
+        public void DeleteUser(string userId)
+        {
+            User user = _userManager.FindById(userId);
+            if(user != null)
+            {
+                _userManager.Delete(user);
+            }
+        }
+
+        public void EditUser(string userId, IEnumerable<string> roles)
+        {
+            User user = _userManager.FindById(userId);
+            if(user != null)
+            {
+                IEnumerable<string> currentUserRoles = _userManager.GetRoles(user.Id);
+                IEnumerable<string> removedRoles = currentUserRoles.Except(roles);
+                _userManager.RemoveFromRoles(user.Id, removedRoles.ToArray());
+
+                foreach (var role in roles)
+                {
+                    if (!_userManager.IsInRole(userId, role)) 
+                    {
+                        _userManager.AddToRole(userId, role);
+                    }
+                }
+            }
+        }
+
+
+        public IEnumerable<string> GetUserRoles(string userId)
+        {
+            User user = _userManager.FindById(userId);
+            if(user != null)
+            {
+                return _userManager.GetRoles(userId);
+            }
+            return null;
+        }
+
+        public bool UserNameExists(string userName)
+        {
+            User user = _userManager.FindByName(userName);
+            return user != null;
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using ReWork.Common;
 using ReWork.Logic.Infustructure;
 using ReWork.Logic.Services.Abstraction;
-using ReWork.Logic.Services.Params;
 using ReWork.Model.Entities;
 using ReWork.Model.ViewModels.Account;
 using System.Security.Claims;
@@ -34,22 +32,20 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult registration(RegisterViewModel registerModel)
+        public ActionResult registration(RegisterViewModel regModel)
         {
             if (!ModelState.IsValid)
             {
-                if (registerModel.UserName != null && _userService.UserNameExists(registerModel.UserName))
+                if (regModel.UserName != null && _userService.UserNameExists(regModel.UserName))
                     ModelState.AddModelError("UserName", "user with such a UserName exists");
-                return View(registerModel);
+                return View(regModel);
             }
 
-            RegisterParams param = Mapping<RegisterViewModel, RegisterParams>.MapObject(registerModel);
-            param.Role = "user";
-            IdentityResult regResult = _userService.Create(param);
+            IdentityResult regResult = _userService.Create(regModel.UserName, regModel.Email, regModel.Password, "user");
 
             if (regResult.Succeeded)
             {
-                User user =_userService.FindUserByName(registerModel.UserName);
+                User user =_userService.FindUserByName(regModel.UserName);
                 string callbackUrl = Url.Action("ConfirmEmail", "account", null, Request.Url.Scheme);
                 _userService.EmailConfirmed(user.Id, callbackUrl);
 
@@ -57,7 +53,7 @@ namespace ReWork.WebSite.Controllers
             }
 
             AddModeErrors(regResult);
-            return View(registerModel);
+            return View(regModel);
         }
 
 
@@ -74,8 +70,7 @@ namespace ReWork.WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                LoginParams param = Mapping<LoginViewModel, LoginParams>.MapObject(loginModel);
-                ClaimsIdentity claims = _userService.Authenticate(param);
+                ClaimsIdentity claims = _userService.Authenticate(loginModel.UserName, loginModel.Password);
 
                 if (claims != null)
                 {
@@ -107,14 +102,14 @@ namespace ReWork.WebSite.Controllers
 
 
         [HttpGet]
-        public ActionResult ConfirmEmail(string userId, string code)
+        public ActionResult ConfirmEmail(string userId, string token)
         {
-            if (userId == null || code == null)
+            if (userId == null || token == null)
             {
                 return View("Error");
             }
           
-            IdentityResult identityResult = _userService.ConfirmEmail(userId, code);
+            IdentityResult identityResult = _userService.ConfirmEmail(userId, token);
             return View(identityResult.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -153,19 +148,14 @@ namespace ReWork.WebSite.Controllers
         {
             if (!ModelState.IsValid)
                 return View(resetPasswordModel);
-
-            User user = _userService.FindUserByName(resetPasswordModel.UserName);
-            if(user != null)
+       
+            IdentityResult resetResult = _userService.ConfirmResetPassword(resetPasswordModel.Email, resetPasswordModel.NewPassword,resetPasswordModel.Token);
+            if(resetResult.Succeeded)
             {
-                IdentityResult resetResult = _userService.ConfirmResetPassword(user.Id,resetPasswordModel.NewPassword,resetPasswordModel.Token);
-                if(resetResult.Succeeded)
-                {
-                    return View("ResetPasswordConfirm");
-                }
-
-                AddModeErrors(resetResult);
+                return View("ResetPasswordConfirm");
             }
 
+            AddModeErrors(resetResult);
             return View(resetPasswordModel);
         }
 
@@ -176,7 +166,7 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult SignOut()
         {

@@ -25,10 +25,15 @@ namespace ReWork.Logic.Services.Implementation
             {
                 CustomerProfile customerProfile = new CustomerProfile() { User = user };
                 _customerRepository.Create(customerProfile);
-
                 _commitProvider.SaveChanges();
             }
         }
+
+        public void DeleteCustomerProfile(string customerId)
+        {
+            _customerRepository.FindCustomerProfileById(customerId);
+        }
+
 
         public bool CustomerProfileExists(string userName)
         {
@@ -40,5 +45,6 @@ namespace ReWork.Logic.Services.Implementation
 
             return false;
         }
+    
     }
 }

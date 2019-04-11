@@ -3,16 +3,16 @@
 namespace ReWork.Model.ViewModels.Account
 {
     public class ResetPasswordViewModel
-    {
+    { 
         [Required]
-        [StringLength(20, ErrorMessage = "The UserName length must be at least 3 characters and no more than 20 characters", MinimumLength = 3)]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [StringLength(30, ErrorMessage = "The Passwordlength must be at least 6 characters and no more than 30 characters", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "New password")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
@@ -20,6 +20,7 @@ namespace ReWork.Model.ViewModels.Account
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
         public string Token { get; set; }
     }
 }

@@ -2,18 +2,19 @@
 using ReWork.Model.Entities;
 using System.Data.Entity;
 
+
 namespace ReWork.Model.Context
 {
     public class ReWorkContext : IdentityDbContext<User>, IDbContext
     {
         public ReWorkContext() : base("ReWorkConnectionString")
         {
-            Database.SetInitializer(new ReWorkInitializer());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ReWorkContext, ReWorkConfiguration>());
         }
 
         public ReWorkContext(string connectionString) : base(connectionString)
         {
-            Database.SetInitializer(new ReWorkInitializer());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ReWorkContext, ReWorkConfiguration>());
         }
 
         public DbSet<CustomerProfile> CustomerProfiles { get; set; }

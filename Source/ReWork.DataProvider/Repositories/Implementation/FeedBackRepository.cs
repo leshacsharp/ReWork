@@ -27,7 +27,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public IEnumerable<FeedBack> FindFeedBacksByUserName(string userName)
         {
-            return _db.FeedBacks.Where(p => p.Job.Customer.User.UserName.Equals(userName));
+            return _db.FeedBacks.Where(p => p.Job.Customer.User.UserName.Equals(userName)).ToList();
         }
 
         public void Update(FeedBack item)

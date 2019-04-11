@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
-using ReWork.Common;
+using Microsoft.Owin.Security;
 using ReWork.Logic.Services.Abstraction;
-using ReWork.Logic.Services.Params;
 using ReWork.Model.Entities;
 using ReWork.Model.ViewModels.Account;
 using System;
@@ -15,61 +14,57 @@ namespace ReWork.WebSite.Controllers
     [Authorize]
     public class SettingsController : Controller
     {
-        private ICustomerProfileService _customerService;
-        private IEmployeeProfileService _employeeService;
-        private ISectionService _sectionService;
+        private IUserService _userService;
 
-        public SettingsController(ICustomerProfileService customerService, IEmployeeProfileService employeeService, ISectionService sectionService)
+        public SettingsController(IUserService userService)
         {
-            _customerService = customerService;
-            _employeeService = employeeService;
-            _sectionService = sectionService;
+            _userService = userService;
         }
 
-        public ActionResult Account()
+        public ActionResult General()
         {
             return View();
         }
 
-        [HttpPost]
-        public void Customer()
-        { 
-            _customerService.CreateCustomerProfile(User.Identity.Name);
+        public IAuthenticationManager AuthenticationManager
+        {
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
 
         [HttpGet]
-        public ActionResult Employee()
+        public ActionResult ChangePassword()
         {
-            IEnumerable<Section> sections = _sectionService.GetAll();
-            ViewBag.Sections = sections;
-
             return View();
         }
 
-
         [HttpPost]
-        public ActionResult Employee(EmployeeProfileViewModel employee)
+        public ActionResult ChangePassword(ChangePasswordViewModel changeModel)
         {
-            EmployeeProfile param = Mapping<EmployeeProfileViewModel, EmployeeProfile>.MapObject(employee);
-            param.User = new User() { UserName = User.Identity.Name };
+            if (!ModelState.IsValid)
+                return View(changeModel);
 
-            _employeeService.CreateEmployeeProfile(param);
-            return RedirectToAction("Index", "Home");
+            string userId = User.Identity.GetUserId();
+            IdentityResult changeResult = _userService.ChangePassword(userId, changeModel.OldPassword, changeModel.NewPassword);
+
+            if (changeResult.Succeeded)
+            {
+                AuthenticationManager.SignOut();
+                return RedirectToAction("Login", "Account");
+            }
+
+            AddModeErrors(changeResult);
+            return View(changeModel);
         }
 
-        [HttpPost]
-        public ActionResult CustomerProfileExists()
-        {
-            bool exists = _customerService.CustomerProfileExists(User.Identity.Name);
-            return Json(exists);
-        }
 
-        [HttpPost]
-        public ActionResult EmployeeProfileExists()
+
+        private void AddModeErrors(IdentityResult result)
         {
-            bool exists = _employeeService.EmployeeProfileExists(User.Identity.Name);
-            return Json(exists);
+            foreach (var msg in result.Errors)
+            {
+                ModelState.AddModelError("", msg);
+            }
         }
     }
 }

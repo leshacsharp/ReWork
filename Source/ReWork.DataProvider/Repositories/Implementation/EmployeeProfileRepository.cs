@@ -31,9 +31,9 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return _db.EmployeeProfiles.Where(predicate);
         }
 
-        public EmployeeProfile GetEmployeeProfileById(string id)
+        public EmployeeProfile FindEmployeeProfileById(string employeeId)
         {
-            return _db.EmployeeProfiles.Single(p => p.Id.Equals(id));
+            return _db.EmployeeProfiles.Find(employeeId);
         }
 
         public void Update(EmployeeProfile item)

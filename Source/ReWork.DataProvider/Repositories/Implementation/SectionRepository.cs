@@ -27,17 +27,18 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public Section FindSectionByTitle(string title)
         {
-            return _db.Sections.First(p => p.Title.Equals(title));
+            return _db.Sections.SingleOrDefault(p => p.Title.Equals(title));
+        }
+
+       
+        public void Update(Section item)
+        {
+            _db.Entry(item).State = EntityState.Modified;
         }
 
         public IEnumerable<Section> GetAll()
         {
-            return _db.Sections.Include("Skills");
-        }
-
-        public void Update(Section item)
-        {
-            _db.Entry(item).State = EntityState.Modified;
+            return _db.Sections.ToList();
         }
     }
 }

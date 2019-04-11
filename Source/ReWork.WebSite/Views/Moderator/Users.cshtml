@@ -1,0 +1,18 @@
+﻿@model IEnumerable<ReWork.Model.Entities.User>
+@{
+    ViewBag.Title = "Users";
+}
+
+@foreach (var user in Model)
+{
+    <h3>@user.UserName</h3>
+
+    using (Html.BeginForm("Delete", "Moderator", FormMethod.Post))
+    {
+        @Html.Hidden("userId", user.Id)
+        <input type="submit" value="Delete" />
+    }
+
+    @Html.ActionLink("Details", "Details", "Moderator", new { userName = user.UserName }, null)<br />
+    @Html.ActionLink("Edit", "Edit", "Moderator", new { userName = user.UserName }, null)
+}
