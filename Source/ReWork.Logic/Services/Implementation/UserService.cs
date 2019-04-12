@@ -148,16 +148,12 @@ namespace ReWork.Logic.Services.Implementation
             User user = _userManager.FindById(userId);
             if(user != null)
             {
-                IEnumerable<string> currentUserRoles = _userManager.GetRoles(user.Id);
-                IEnumerable<string> removedRoles = currentUserRoles.Except(roles);
-                _userManager.RemoveFromRoles(user.Id, removedRoles.ToArray());
+                IEnumerable<string> currentUserRoles = _userManager.GetRoles(user.Id);             
+                _userManager.RemoveFromRoles(user.Id, currentUserRoles.ToArray());
 
                 foreach (var role in roles)
                 {
-                    if (!_userManager.IsInRole(userId, role)) 
-                    {
-                        _userManager.AddToRole(userId, role);
-                    }
+                    _userManager.AddToRole(userId, role);
                 }
             }
         }

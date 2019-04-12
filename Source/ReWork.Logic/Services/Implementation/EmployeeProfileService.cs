@@ -3,6 +3,7 @@ using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -42,24 +43,21 @@ namespace ReWork.Logic.Services.Implementation
 
         public void EditEmployeeProfile(string employeeId, int age, IEnumerable<int> skillsId)
         {
-            //TODO: переделать
+            EmployeeProfile employeeProfile = _employeeRepository.FindEmployeeProfileById(employeeId);
+            if (employeeProfile != null)
+            {
+                employeeProfile.Age = age;
+                employeeProfile.Skills.Clear();
 
-            //EmployeeProfile employeeProfile = _employeeRepository.FindEmployeeProfileById(employeeId);
-            //if (employeeProfile != null)
-            //{
-            //    List<Skill> newSkills = new List<Skill>();
-            //    foreach (var id in skillsId)
-            //    {
-            //        Skill skill = _skillRepository.FindById(id);
-            //        newSkills.Add(skill);
-            //    }
+                foreach (var id in skillsId)
+                {
+                    Skill skill = _skillRepository.FindById(id);
+                    employeeProfile.Skills.Add(skill);
+                }
 
-            //    employeeProfile.Age = age;
-            //    employeeProfile.Skills = newSkills;
-
-            //    _employeeRepository.Update(employeeProfile);
-            //    _commitProvider.SaveChanges();
-            //}
+                _employeeRepository.Update(employeeProfile);
+                _commitProvider.SaveChanges();
+            }
         }
 
         public void DeleteEmployeeProfile(string employeeId)

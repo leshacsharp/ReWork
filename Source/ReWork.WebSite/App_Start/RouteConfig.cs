@@ -14,6 +14,12 @@ namespace ReWork.WebSite
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+             name: "Default",
+             url: "{controller}/{action}",
+             defaults: new { controller = "Home", action = "Index"}
+          );
+
+            routes.MapRoute(
                 name: "Paging",
                 url: "{controller}/{action}/{page}",
                 defaults: new { controller = "Moderator", action = "Users", page = 1 },
@@ -23,13 +29,7 @@ namespace ReWork.WebSite
             routes.MapRoute(
                 name: "Details",
                 url: "{controller}/{action}/{userName}",
-                defaults: new { controller = "Home", action = "Index", userName = "" }
-            );
-
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Users", action = "Details", userName = "alex" }
             );
         }
     }

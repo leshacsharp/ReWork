@@ -28,7 +28,7 @@
                         <li>@Html.ActionLink("SignOut", "SignOut", "account")</li>
                         if (User.IsInRole("moderator"))
                         {
-                            <li>@Html.ActionLink("Moderator Panel", "Users", "Moderator")</li>
+                            <li>@Html.ActionLink("Users", "Users", "Moderator", new { page = 1 }, null)</li>
                         }
                     }
                     else

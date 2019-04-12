@@ -49,40 +49,44 @@ namespace ReWork.WebSite.Controllers
 
 
 
-        //[HttpGet]
-        //public ActionResult Edit()
-        //{
-        //    string userId = User.Identity.GetUserId();
-        //    EmployeeProfile employeeProfile = _employeeService.GetEmployeeProfileById(userId);
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            string userId = User.Identity.GetUserId();
+            EmployeeProfile employeeProfile = _employeeService.GetEmployeeProfileById(userId);
 
-        //    EmployeeProfileViewModel employeeProfileModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age };
-        //    List<int> selectedSkillsId = new List<int>();
+            if (employeeProfile != null)
+            {
+                EmployeeProfileViewModel employeeProfileModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age };
+                List<int> selectedSkillsId = new List<int>();
 
-        //    foreach (var skill in employeeProfile.Skills)
-        //    {
-        //        selectedSkillsId.Add(skill.Id);
-        //    }
+                foreach (var skill in employeeProfile.Skills)
+                {
+                    selectedSkillsId.Add(skill.Id);
+                }
 
-        //    employeeProfileModel.Skills = GetCategories();
-        //    employeeProfileModel.SelectedSkills = selectedSkillsId;
+                employeeProfileModel.Skills = GetCategories();
+                employeeProfileModel.SelectedSkills = selectedSkillsId;
 
-        //    return View(employeeProfileModel);
-        //}
+                return View(employeeProfileModel);
+            }
+            return View("Error");
+        }
 
-        //[HttpPost]
-        //public ActionResult Edit(EmployeeProfileViewModel employeeProfileModel)
-        //{
-        //    if(!ModelState.IsValid)
-        //    {
-        //        employeeProfileModel.Skills = GetCategories();
-        //        return View(employeeProfileModel);
-        //    }
+        [HttpPost]
+        public ActionResult Edit(EmployeeProfileViewModel employeeProfileModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                employeeProfileModel.Skills = GetCategories();
+                return View(employeeProfileModel);
+            }
 
-        //    string employeeId = User.Identity.GetUserId();
-        //    _employeeService.EditEmployeeProfile(employeeId, employeeProfileModel.Age, employeeProfileModel.SelectedSkills);
+            string employeeId = User.Identity.GetUserId();
+            _employeeService.EditEmployeeProfile(employeeId, employeeProfileModel.Age, employeeProfileModel.SelectedSkills);
 
-        //    return RedirectToAction("Index","Home");
-        //}
+            return RedirectToAction("Index", "Home");
+        }
 
         [HttpPost]
         public ActionResult Delete(string userId)
