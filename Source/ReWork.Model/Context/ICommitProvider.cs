@@ -1,4 +1,4 @@
-﻿namespace ReWork.DataProvider.Repositories.Abstraction
+﻿namespace ReWork.Model.Context
 {
     public interface ICommitProvider
     {

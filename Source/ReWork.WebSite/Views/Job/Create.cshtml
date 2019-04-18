@@ -18,8 +18,8 @@
     <br /><br />
 
     @Html.LabelFor(p => p.Price)<br />
-    @Html.EditorFor(p => p.Title)
-    @Html.ValidationMessageFor(p => p.Title)
+    @Html.EditorFor(p => p.Price)
+    @Html.ValidationMessageFor(p => p.Price)
     <br /><br />
 
     @Html.LabelFor(p => p.PriceDiscussed)<br />
@@ -31,7 +31,7 @@
     @Html.ValidationMessageFor(p=>p.SelectedSkills)
     <br /><br />
 
-    <input type="submit" name="send-form" value="Send" />
+    <input type="submit" value="Send" />
 }
 
 @section scripts

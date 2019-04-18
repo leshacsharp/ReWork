@@ -1,7 +1,6 @@
-﻿using ReWork.DataProvider.Repositories.Abstraction;
-using ReWork.Model.Context;
+﻿using ReWork.Model.Context;
 
-namespace ReWork.DataProvider.Repositories.Implementation
+namespace ReWork.Model.Context
 {
     public class CommitProvider : ICommitProvider
     {

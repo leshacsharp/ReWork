@@ -81,13 +81,13 @@
     <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\TokenProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Abstraction\ICommitProvider.cs" />
+    <Compile Include="Repositories\Abstraction\IBaseRepository.cs" />
     <Compile Include="Repositories\Abstraction\IEmployeeProfileRepository.cs" />
     <Compile Include="Repositories\Abstraction\ICustomerProfileRepository.cs" />
     <Compile Include="Repositories\Abstraction\IFeedBackRepository.cs" />
     <Compile Include="Repositories\Abstraction\IOfferRepository.cs" />
     <Compile Include="Repositories\Abstraction\IJobRepository.cs" />
-    <Compile Include="Repositories\Implementation\CommitProvider.cs" />
+    <Compile Include="Repositories\Implementation\BaseRepository.cs" />
     <Compile Include="Repositories\Implementation\CustomerProfileRepository.cs" />
     <Compile Include="Repositories\Abstraction\IRepository.cs" />
     <Compile Include="Repositories\Abstraction\ISectionRepository.cs" />

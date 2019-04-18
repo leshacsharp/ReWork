@@ -31,5 +31,6 @@ namespace ReWork.Logic.Services.Abstraction
 
         IEnumerable<string> GetUserRoles(string userId);
         bool UserNameExists(string userName);
+        int UsersCount();
     }
 }

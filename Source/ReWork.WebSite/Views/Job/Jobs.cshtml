@@ -1,0 +1,41 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<ReWork.Model.Entities.Job>
+@{
+    ViewBag.Title = "Jobs";
+}
+
+<h2>Jobs</h2>
+
+@foreach (var job in Model)
+{
+    <div style="border:1px solid black;">
+        <h3>
+            <a href="/Job/Details/">
+                @job.Title
+            </a>
+        </h3>
+        <h4>
+            @foreach (var skill in job.Skills)
+            {
+              //  <span>@skill.Title | </span>
+            }
+
+            <br />
+            <span>@job.Price $</span>
+            <br />
+            <span>@(((DateTime)job.DateAdded).ToString())</span>
+        </h4>
+
+        <br />
+
+        @foreach (var offer in job.Offers)
+        {
+            <span></span>
+        }
+    </div>
+}
+
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

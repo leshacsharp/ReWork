@@ -7,38 +7,31 @@ using System.Linq;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {
-    public class SectionRepository : ISectionRepository
+    public class SectionRepository : BaseRepository, ISectionRepository
     {
-        private IDbContext _db;
-        public SectionRepository(IDbContext db)
-        {
-            _db = db;
-        }
-
         public void Create(Section item)
         {
-            _db.Sections.Add(item);
+            Db.Sections.Add(item);
         }
 
         public void Delete(Section item)
         {
-            _db.Sections.Remove(item);
+            Db.Sections.Remove(item);
         }
 
         public Section FindSectionByTitle(string title)
         {
-            return _db.Sections.SingleOrDefault(p => p.Title.Equals(title));
+            return Db.Sections.SingleOrDefault(p => p.Title == title);
         }
-
        
         public void Update(Section item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            Db.Entry(item).State = EntityState.Modified;
         }
 
         public IEnumerable<Section> GetAll()
         {
-            return _db.Sections.ToList();
+            return Db.Sections.ToList();
         }
     }
 }

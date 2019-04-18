@@ -1,5 +1,6 @@
 ﻿using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
+using ReWork.Model.ViewModels;
 using ReWork.Model.ViewModels.Account;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,15 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Users(int page)
         {
-            IEnumerable<User> users = _userService.GetNewUsers(page, 10);
-            return View(users);
+            int usersCountOnPage = 1;
+            IEnumerable<User> users = _userService.GetNewUsers(page, usersCountOnPage);
+
+            PageInfo pageInfo = new PageInfo() { CurrentPage = page, ItemsOnPage = usersCountOnPage };
+            pageInfo.TotalItems = _userService.UsersCount();
+
+            UsersViewModel usersModel = new UsersViewModel() { PageInfo = pageInfo, Users = users };
+
+            return View(usersModel);
         }
 
         [HttpGet]
@@ -75,9 +83,9 @@ namespace ReWork.WebSite.Controllers
 
 
         [HttpPost]
-        public ActionResult Delete(string userId)
+        public ActionResult Delete(string id)
         {
-            _userService.DeleteUser(userId);
+            _userService.DeleteUser(id);
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 

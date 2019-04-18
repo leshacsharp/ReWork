@@ -1,4 +1,5 @@
 ﻿using ReWork.Logic.Services.Abstraction;
+using ReWork.Model.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,27 +12,31 @@ namespace ReWork.WebSite.Controllers
     public class CustomerController : Controller
     {
         private ICustomerProfileService _customerService;
+        private ICommitProvider _commitProvider;
 
-        public CustomerController(ICustomerProfileService customerService)
+        public CustomerController(ICustomerProfileService customerService, ICommitProvider commitProvider)
         {
             _customerService = customerService;
+            _commitProvider = commitProvider;
         }
 
         [HttpPost]
-        public void Customer()
+        public ActionResult Create()
         {
             _customerService.CreateCustomerProfile(User.Identity.Name);
-        }
-
-
-        [HttpPost]
-        public ActionResult Delete(string userId)
-        {
-            _customerService.DeleteCustomerProfile(userId);
+            _commitProvider.SaveChanges();
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
 
+        [HttpPost]
+        public void Delete(string id)
+        {
+            _customerService.DeleteCustomerProfile(id);
+            _commitProvider.SaveChanges();
+        }
+
+       
         [HttpPost]
         public ActionResult CustomerProfileExists()
         {

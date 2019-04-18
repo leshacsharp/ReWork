@@ -59,6 +59,19 @@ namespace ReWork.WebSite.Controllers
 
 
 
+        [HttpPost]
+        public void SetProfileOnCustomer()
+        {
+            Response.Cookies["profile"].Value = "customer";
+        }
+
+        [HttpPost]
+        public void SetProfileOnEmployee()
+        {
+            Response.Cookies["profile"].Value = "employee";
+        }
+
+
         private void AddModeErrors(IdentityResult result)
         {
             foreach (var msg in result.Errors)

@@ -43,6 +43,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FirstQuad.Common, Version=1.1.6390.28936, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirstQuad.Common.1.2.0\lib\net40\FirstQuad.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -77,12 +80,16 @@
     <Compile Include="Services\Abstraction\IJobService.cs" />
     <Compile Include="Services\Implementation\CustomerProfileService.cs" />
     <Compile Include="Services\Implementation\EmployeeProfileService.cs" />
+    <Compile Include="Services\Abstraction\IOfferService.cs" />
     <Compile Include="Services\Implementation\JobService.cs" />
+    <Compile Include="Services\Implementation\OfferService.cs" />
     <Compile Include="Services\Implementation\RoleService.cs" />
     <Compile Include="Services\Implementation\SectionService.cs" />
     <Compile Include="Services\Implementation\SkillService.cs" />
     <Compile Include="Services\Implementation\UserService.cs" />
     <Compile Include="Services\Params\CreateJobParams.cs" />
+    <Compile Include="Services\Params\CreateOfferParams.cs" />
+    <Compile Include="Services\Params\EditJobParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReWork.Common\ReWork.Common.csproj">

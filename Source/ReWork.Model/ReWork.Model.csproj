@@ -96,23 +96,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\ReWorkConfiguration.cs" />
-    <Compile Include="Migrations\201904050715488_change_user.cs" />
-    <Compile Include="Migrations\201904050715488_change_user.Designer.cs">
-      <DependentUpon>201904050715488_change_user.cs</DependentUpon>
+    <Compile Include="Context\CommitProvider.cs" />
+    <Compile Include="Context\ICommitProvider.cs" />
+    <Compile Include="EntitiesInfo\OfferInfo.cs" />
+    <Compile Include="Entities\SkillJob.cs" />
+    <Compile Include="Migrations\201904181656016_init.cs" />
+    <Compile Include="Migrations\201904181656016_init.Designer.cs">
+      <DependentUpon>201904181656016_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904051702153_change_user1.cs" />
-    <Compile Include="Migrations\201904051702153_change_user1.Designer.cs">
-      <DependentUpon>201904051702153_change_user1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904061801493_change_user2.cs" />
-    <Compile Include="Migrations\201904061801493_change_user2.Designer.cs">
-      <DependentUpon>201904061801493_change_user2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904091322062_init3.cs" />
-    <Compile Include="Migrations\201904091322062_init3.Designer.cs">
-      <DependentUpon>201904091322062_init3.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\EditUserViewModel.cs" />
@@ -130,37 +122,26 @@
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Skill.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201904021829221_init.cs" />
-    <Compile Include="Migrations\201904021829221_init.Designer.cs">
-      <DependentUpon>201904021829221_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\EmployeeProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Account\UsersViewModel.cs" />
     <Compile Include="ViewModels\Job\CreateJobViewModel.cs" />
+    <Compile Include="ViewModels\Job\DetailsJobViewModel.cs" />
+    <Compile Include="ViewModels\Job\EditJobViewModel.cs" />
+    <Compile Include="ViewModels\Job\JobsViewModel.cs" />
+    <Compile Include="ViewModels\Offer\CreateOfferViewModel.cs" />
+    <Compile Include="ViewModels\PageInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904021829221_init.resx">
-      <DependentUpon>201904021829221_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904050715488_change_user.resx">
-      <DependentUpon>201904050715488_change_user.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904051702153_change_user1.resx">
-      <DependentUpon>201904051702153_change_user1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904061801493_change_user2.resx">
-      <DependentUpon>201904061801493_change_user2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904091322062_init3.resx">
-      <DependentUpon>201904091322062_init3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904181656016_init.resx">
+      <DependentUpon>201904181656016_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

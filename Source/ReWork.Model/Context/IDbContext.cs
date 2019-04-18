@@ -7,6 +7,7 @@ namespace ReWork.Model.Context
 {
     public interface IDbContext : IDisposable
     {
+        IDbSet<User> Users { get; set; }
         DbSet<CustomerProfile> CustomerProfiles { get; set; }
         DbSet<EmployeeProfile> EmployeeProfiles { get; set; }
         DbSet<Job> Jobs { get; set; }
@@ -14,6 +15,7 @@ namespace ReWork.Model.Context
         DbSet<FeedBack> FeedBacks { get; set; }
         DbSet<Section> Sections { get; set; }
         DbSet<Skill> Skills { get; set; }
+
 
         DbEntityEntry Entry(object entity);
         int SaveChanges();

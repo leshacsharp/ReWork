@@ -1,5 +1,4 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
-using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using System;
 using System.Data.Entity;
@@ -8,37 +7,31 @@ using System.Linq.Expressions;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {
-    public class EmployeeProfileRepository : IEmployeeProfileRepository
+    public class EmployeeProfileRepository : BaseRepository, IEmployeeProfileRepository
     {
-        private IDbContext _db;
-        public EmployeeProfileRepository(IDbContext db)
-        {
-            _db = db;
-        }
-
         public void Create(EmployeeProfile item)
         {
-            _db.EmployeeProfiles.Add(item);
+            Db.EmployeeProfiles.Add(item);
         }
 
         public void Delete(EmployeeProfile item)
         {
-            _db.EmployeeProfiles.Remove(item);
+            Db.EmployeeProfiles.Remove(item);
         }
  
         public IQueryable<EmployeeProfile> FindEmployes(Expression<Func<EmployeeProfile, Boolean>> predicate)
         {
-            return _db.EmployeeProfiles.Where(predicate);
+            return Db.EmployeeProfiles.Where(predicate);
         }
 
         public EmployeeProfile FindEmployeeProfileById(string employeeId)
         {
-            return _db.EmployeeProfiles.Find(employeeId);
+            return Db.EmployeeProfiles.Find(employeeId);
         }
 
         public void Update(EmployeeProfile item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            Db.Entry(item).State = EntityState.Modified;
         }
     }
 }

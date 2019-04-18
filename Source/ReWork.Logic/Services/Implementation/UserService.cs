@@ -95,7 +95,7 @@ namespace ReWork.Logic.Services.Implementation
             {
                 string token = _userManager.GenerateEmailConfirmationToken(userId);
                 string encodedToken = HttpUtility.UrlEncode(token);
-                string changedCallbackUrl = $"{callbackUrl}?userId={userId}&token={encodedToken}";
+                string changedCallbackUrl = $"{callbackUrl}?id={userId}&token={encodedToken}";
                 _userManager.SendEmail(userId, "Confirm your account", $"Please confirm your account by clicking <a href=\"{changedCallbackUrl}\">here</a>");
             }
         }
@@ -173,6 +173,11 @@ namespace ReWork.Logic.Services.Implementation
         {
             User user = _userManager.FindByName(userName);
             return user != null;
+        }
+
+        public int UsersCount()
+        {
+            return _userManager.Users.Count();
         }
     }
 }

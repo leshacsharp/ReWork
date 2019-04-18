@@ -1,0 +1,64 @@
+﻿@model ReWork.Model.ViewModels.Job.DetailsJobViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+@Html.Hidden("id",Model.Job.Id)
+
+<h3>
+    @Model.Job.Title>
+</h3>
+<h4>
+    <span>@Model.Job.Description</span>
+    <br />
+
+    @foreach (var skill in Model.Job.Skills)
+    {
+        <span>@skill.Title | </span>
+    }
+
+    <br />
+    <span>@Model.Job.Price $</span>
+    <br />
+    <span>@(((DateTime)Model.Job.DateAdded).ToString())</span>
+</h4>
+<br /><br />
+
+@foreach (var offer in Model.Offers)
+{
+    <div>
+        <h3>@offer.UserName</h3>
+        <h3>@offer.Text</h3>
+        <h3>@offer.OfferPayment</h3>
+        <h3>@offer.ImplementationDays</h3>
+    </div>
+}
+
+<div>
+    @Html.Label("Text:")
+    @Html.Editor("text")
+    <span id="text-error"></span>
+    <br /><br />
+
+    @Html.Label("Days to implement:")
+    @Html.Editor("daysToImplement")
+    <span id="time-error"></span>
+    <br /><br />
+
+    @Html.Label("Offer Payement:")
+    @Html.TextBox("offerPayement", "0")
+    <span id="payment-error"></span>
+
+    <input type="submit" name="create-offer" value="Create offer" />
+</div>
+
+
+
+
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/job-details.js"></script>
+}
+

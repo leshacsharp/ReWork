@@ -6,37 +6,31 @@ using System.Linq;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {
-    public class CustomerProfileRepository : ICustomerProfileRepository
+    public class CustomerProfileRepository : BaseRepository, ICustomerProfileRepository
     {
-        private IDbContext _db;
-        public CustomerProfileRepository(IDbContext db)
-        {
-            _db = db; 
-        }
-
         public void Create(CustomerProfile item)
         {
-            _db.CustomerProfiles.Add(item);
+            Db.CustomerProfiles.Add(item);
         }
 
         public void Delete(CustomerProfile item)
         {
-            _db.CustomerProfiles.Remove(item);
+            Db.CustomerProfiles.Remove(item);
         }
 
         public CustomerProfile FindCustomerProfileById(string customerId)
         {
-            return _db.CustomerProfiles.Find(customerId);
+            return Db.CustomerProfiles.Find(customerId);
         }
 
         public CustomerProfile FindCustomerProfileByName(string userName)
         {
-            return _db.CustomerProfiles.SingleOrDefault(p => p.User.UserName.Equals(userName));
+            return Db.CustomerProfiles.SingleOrDefault(p => p.User.UserName == userName);
         }
 
         public void Update(CustomerProfile item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            Db.Entry(item).State = EntityState.Modified;
         }
     }
 }

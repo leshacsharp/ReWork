@@ -1,38 +1,52 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {
-    public class OfferRepository : IOfferRepository
+    public class OfferRepository : BaseRepository, IOfferRepository
     {
-        private IDbContext _db;
-        public OfferRepository(IDbContext db)
-        {
-            _db = db;
-        }
-
         public void Create(Offer item)
         {
-            _db.Offers.Add(item);
+            Db.Offers.Add(item);
         }
 
         public void Delete(Offer item)
         {
-            _db.Offers.Remove(item);
+            Db.Offers.Remove(item);
         }
 
-        public IEnumerable<Offer> FindOffersByUserName(string userName)
+        public IEnumerable<OfferInfo> FindJobOffers(int jobId)
         {
-            return _db.Offers.Where(p => p.Employee.User.UserName.Equals(userName)).ToList();
+            return  from o in Db.Offers
+                    join e in Db.EmployeeProfiles on o.EpmployeeId equals e.Id
+                    join u in Db.Users on e.Id equals u.Id 
+                    where o.JobId == jobId
+                    select new OfferInfo
+                    {
+                        Id = o.Id,
+                        Text = o.Text,
+                        AddedDate = o.AddedDate,
+                        ImplementationDays = o.ImplementationDays,
+                        OfferPayment = o.OfferPayment,
+
+                        EmployeeId = e.Id,
+                        UserName = u.UserName ?? null
+                    };
+        }
+
+        public IEnumerable<Offer> FindOffersByUserId(string userId)
+        {
+            return Db.Offers.Where(p => p.Employee.Id == userId).ToList();
         }
 
         public void Update(Offer item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            Db.Entry(item).State = EntityState.Modified;
         }
     }
 }

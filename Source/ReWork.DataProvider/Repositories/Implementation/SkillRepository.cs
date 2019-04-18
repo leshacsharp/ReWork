@@ -7,42 +7,36 @@ using System.Linq;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {
-    public class SkillRepository : ISkillRepository
-    {
-        private IDbContext _db;
-        public SkillRepository(IDbContext db)
-        {
-            _db = db;
-        }
-
+    public class SkillRepository : BaseRepository, ISkillRepository
+    {      
         public void Create(Skill item)
         {
-            _db.Skills.Add(item);
+            Db.Skills.Add(item);
         }
 
         public void Delete(Skill item)
         {
-            _db.Skills.Remove(item);
+            Db.Skills.Remove(item);
         }
 
         public Skill FindSkillByTitle(string title)
         {
-            return _db.Skills.FirstOrDefault(p => p.Title.Equals(title));
+            return Db.Skills.FirstOrDefault(p => p.Title == title);
         }
 
         public Skill FindById(int id)
         {
-            return _db.Skills.Find(id);
+            return Db.Skills.Find(id);
         }
 
         public void Update(Skill item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            Db.Entry(item).State = EntityState.Modified;
         }
 
         public IEnumerable<Skill> GetAll()
         {
-            return _db.Skills.ToList();
+            return Db.Skills.ToList();
         }
     }
 }

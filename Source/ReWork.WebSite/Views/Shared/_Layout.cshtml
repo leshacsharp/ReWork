@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using ReWork.WebSite.Helpers;
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,10 +25,17 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Jobs", "Jobs", "Job", new { page = 1 }, null)</li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
                         <li>@Html.ActionLink("SignOut", "SignOut", "account")</li>
+
+                        <li><input type="submit" name="customerProfile" value="Customer profile" /></li>
+                        <li><input type="submit" name="freelancerProfile" value="Freelance profile" /></li>
+
+                        <li><span style="color:white">Cuurrent profile: @Html.GetCurrentProfileName()</span></li>
+
                         if (User.IsInRole("moderator"))
                         {
                             <li>@Html.ActionLink("Users", "Users", "Moderator", new { page = 1 }, null)</li>
@@ -51,6 +61,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="~/Scripts/layout.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>

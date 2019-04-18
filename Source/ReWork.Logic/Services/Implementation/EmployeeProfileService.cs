@@ -10,15 +10,13 @@ namespace ReWork.Logic.Services.Implementation
     public class EmployeeProfileService : IEmployeeProfileService
     {
         private IEmployeeProfileRepository _employeeRepository;
-        private ISkillRepository _skillRepository;
-        private ICommitProvider _commitProvider;
+        private ISkillRepository _skillRepository; 
         private UserManager<User> _userManager;
 
-        public EmployeeProfileService(IEmployeeProfileRepository employeeRep, ISkillRepository skillRep, ICommitProvider commitProvider, UserManager<User> userManager)
+        public EmployeeProfileService(IEmployeeProfileRepository employeeRep, ISkillRepository skillRep, UserManager<User> userManager)
         {
             _employeeRepository = employeeRep;
             _skillRepository = skillRep;
-            _commitProvider = commitProvider;
             _userManager = userManager;
         }
 
@@ -37,7 +35,6 @@ namespace ReWork.Logic.Services.Implementation
                 }
 
                 _employeeRepository.Create(employeeProfile);
-                _commitProvider.SaveChanges();
             }  
         }
 
@@ -55,8 +52,7 @@ namespace ReWork.Logic.Services.Implementation
                     employeeProfile.Skills.Add(skill);
                 }
 
-                _employeeRepository.Update(employeeProfile);
-                _commitProvider.SaveChanges();
+                _employeeRepository.Update(employeeProfile);      
             }
         }
 
@@ -66,7 +62,6 @@ namespace ReWork.Logic.Services.Implementation
             if(employee != null)
             {
                 _employeeRepository.Delete(employee);
-                _commitProvider.SaveChanges();
             }
         }
 

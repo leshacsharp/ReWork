@@ -11,18 +11,18 @@ namespace ReWork.Model.Entities
         public int Id { get; set; }
 
         [Required]
-        [StringLength(maximumLength:250, MinimumLength = 3)]
+        [StringLength(maximumLength:500, MinimumLength = 3)]
         public string Text { get; set; }
 
         [Required]
         public DateTime? AddedDate { get; set; }
 
         [Required]
-        public TimeSpan ImplementationTime { get; set; }
+        public int? ImplementationDays { get; set; }
 
         [Required]
         [Range(0,Int32.MaxValue)]
-        public TimeSpan OfferPayment { get; set; }
+        public int OfferPayment { get; set; }
 
         [ForeignKey("Job")]
         public int JobId { get; set; }

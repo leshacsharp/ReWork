@@ -19,7 +19,6 @@ namespace ReWork.Logic.Services.Params
         public bool PriceDiscussed { get; set; }
        
 
-
         public IEnumerable<int> SkillsId { get; set; }
     }
 }

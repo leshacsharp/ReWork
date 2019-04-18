@@ -8,10 +8,11 @@
             }
             else {
                 alert("customer profile exists");
-            }
-            
+            }          
         })
     })
+
+
 
 
     function Ajax(url, type, dataType, data, success) {

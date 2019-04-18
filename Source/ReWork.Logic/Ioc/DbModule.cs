@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using ReWork.DataProvider.Repositories.Abstraction;
+using ReWork.DataProvider.Repositories.Implementation;
 using ReWork.Model.Context;
 
 namespace ReWork.Logic.Ioc
@@ -8,6 +10,9 @@ namespace ReWork.Logic.Ioc
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ReWorkContext>().As<IDbContext>().InstancePerLifetimeScope();
+            builder.RegisterType<BaseRepository>().As<IBaseRepository>().PropertiesAutowired().InstancePerRequest();
+    
+            builder.RegisterType<CommitProvider>().As<ICommitProvider>().InstancePerRequest();
         }
     }
 }

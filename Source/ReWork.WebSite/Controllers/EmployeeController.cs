@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using ReWork.Logic.Services.Abstraction;
+using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.ViewModels.Account;
 using System;
@@ -17,13 +18,15 @@ namespace ReWork.WebSite.Controllers
         private IUserService _userService;
         private ISectionService _sectionService;
         private ISkillService _skillService;
+        private ICommitProvider _commitProvider;
 
-        public EmployeeController(IEmployeeProfileService employeeService, IUserService userService, ISectionService sectionService, ISkillService skillService)
+        public EmployeeController(IEmployeeProfileService employeeService, IUserService userService, ISectionService sectionService, ISkillService skillService, ICommitProvider commitProvider)
         {
             _employeeService = employeeService;
             _userService = userService;
             _sectionService = sectionService;
             _skillService = skillService;
+            _commitProvider = commitProvider;
         }
 
         [HttpGet]
@@ -33,6 +36,7 @@ namespace ReWork.WebSite.Controllers
             employeeProfileModel.Skills = GetCategories();
             return View(employeeProfileModel);
         }
+
 
         [HttpPost]
         public ActionResult Create(EmployeeProfileViewModel employeeProfileModel)
@@ -44,6 +48,8 @@ namespace ReWork.WebSite.Controllers
             }
 
             _employeeService.CreateEmployeeProfile(User.Identity.Name, employeeProfileModel.Age, employeeProfileModel.SelectedSkills);
+            _commitProvider.SaveChanges();
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -58,15 +64,10 @@ namespace ReWork.WebSite.Controllers
             if (employeeProfile != null)
             {
                 EmployeeProfileViewModel employeeProfileModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age };
-                List<int> selectedSkillsId = new List<int>();
-
-                foreach (var skill in employeeProfile.Skills)
-                {
-                    selectedSkillsId.Add(skill.Id);
-                }
+                IEnumerable<int> employeeSkills = employeeProfile.Skills.Select(p=>p.Id);
 
                 employeeProfileModel.Skills = GetCategories();
-                employeeProfileModel.SelectedSkills = selectedSkillsId;
+                employeeProfileModel.SelectedSkills = employeeSkills;
 
                 return View(employeeProfileModel);
             }
@@ -84,15 +85,16 @@ namespace ReWork.WebSite.Controllers
 
             string employeeId = User.Identity.GetUserId();
             _employeeService.EditEmployeeProfile(employeeId, employeeProfileModel.Age, employeeProfileModel.SelectedSkills);
+            _commitProvider.SaveChanges();
 
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public ActionResult Delete(string userId)
+        public void Delete(string id)
         {
-            _employeeService.DeleteEmployeeProfile(userId);
-            return Redirect(Request.UrlReferrer.PathAndQuery);
+            _employeeService.DeleteEmployeeProfile(id);
+            _commitProvider.SaveChanges();
         }
 
 

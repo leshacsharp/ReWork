@@ -15,22 +15,10 @@ namespace ReWork.WebSite
 
             routes.MapRoute(
              name: "Default",
-             url: "{controller}/{action}",
-             defaults: new { controller = "Home", action = "Index"}
+             url: "{controller}/{action}/{id}",
+             defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
           );
 
-            routes.MapRoute(
-                name: "Paging",
-                url: "{controller}/{action}/{page}",
-                defaults: new { controller = "Moderator", action = "Users", page = 1 },
-                constraints: new {page = @"\d+" }
-             );
-
-            routes.MapRoute(
-                name: "Details",
-                url: "{controller}/{action}/{userName}",
-                defaults: new { controller = "Users", action = "Details", userName = "alex" }
-            );
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@using ReWork.WebSite.Helpers;
 @{
     ViewBag.Title = "General";
 }
@@ -7,7 +7,7 @@
 
 @using (Html.BeginForm("Create", "Customer", FormMethod.Post))
 {
-    <input type="submit" value="Create Customer Profile"/>
+    <input type="submit" value="Create Customer Profile" />
 }
 <br />
 @Html.ActionLink("Create Freelancer Profile", "Create", "Employee")
@@ -15,6 +15,15 @@
 @Html.ActionLink("change password", "ChangePassword", "Manage")
 <br />
 @Html.ActionLink("Edit Employee Profile", "Edit", "Employee");
+<br />
+
+@if (Html.IsProfile("customer"))
+{
+    @Html.ActionLink("Create Job", "Create", "Job");
+    <br />
+    @Html.ActionLink("My Jobs", "MyJobs", "Job", new { page = 1 }, null)
+}
+
 
 @section scripts
 {

@@ -5,17 +5,11 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Delete", "Customer", FormMethod.Post))
-{
-    @Html.Hidden("userId", Model.Id)
-    <input type="submit" value="Delete Customer Profile" />
-}
 
-@using (Html.BeginForm("Delete", "Employee", FormMethod.Post))
-{
-    @Html.Hidden("userId", Model.Id)
-    <input type="submit" value="Delete Employee Profile" />
-}
+@Html.Hidden("userId",Model.Id)
+<input type="submit" name="delete-customer" value="Delete Customer Profile" /><br />
+<input type="submit" name="delete-employee" value="Delete Employee Profile" /><br />
+
 
 
 @using (Html.BeginForm("Edit", "Moderator", FormMethod.Post))
@@ -23,7 +17,7 @@
     @Html.HiddenFor(p => p.Id)
 
     @Html.LabelFor(p => p.UserName)<br />
-    @Html.DisplayFor(p => p.UserName)
+    @Html.DisplayFor(p => p.UserName)<br />
 
 
     @Html.LabelFor(p => p.UserRoles)
@@ -36,6 +30,11 @@
     }
     <br />
     <input type="submit" value="Save" />
+}
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/edit-user.js"></script>
 }
 
 

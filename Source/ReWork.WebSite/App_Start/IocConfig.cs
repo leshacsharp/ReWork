@@ -2,6 +2,7 @@
 using Autofac.Integration.Mvc;
 using ReWork.Logic.Ioc;
 using ReWork.WebSite.Ioc;
+using System.Reflection;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.App_Start

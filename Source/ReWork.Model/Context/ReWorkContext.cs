@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using ReWork.Model.Entities;
+using ReWork.Model.Migrations;
 using System.Data.Entity;
 
 
@@ -9,12 +10,12 @@ namespace ReWork.Model.Context
     {
         public ReWorkContext() : base("ReWorkConnectionString")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ReWorkContext, ReWorkConfiguration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ReWorkContext, Configuration>());
         }
 
         public ReWorkContext(string connectionString) : base(connectionString)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ReWorkContext, ReWorkConfiguration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ReWorkContext, Configuration>());
         }
 
         public DbSet<CustomerProfile> CustomerProfiles { get; set; }
@@ -24,5 +25,6 @@ namespace ReWork.Model.Context
         public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<SkillJob> SkillJobs { get; set; }
     }
 }

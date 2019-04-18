@@ -7,32 +7,26 @@ using System.Linq;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {
-    public class FeedBackRepository : IFeedBackRepository
+    public class FeedBackRepository : BaseRepository, IFeedBackRepository
     {
-        private IDbContext _db;
-        public FeedBackRepository(IDbContext db)
-        {
-            _db = db;
-        }
-
         public void Create(FeedBack item)
         {
-            _db.FeedBacks.Add(item);
+            Db.FeedBacks.Add(item);
         }
 
         public void Delete(FeedBack item)
         {
-            _db.FeedBacks.Remove(item);
+            Db.FeedBacks.Remove(item);
         }
 
         public IEnumerable<FeedBack> FindFeedBacksByUserName(string userName)
         {
-            return _db.FeedBacks.Where(p => p.Job.Customer.User.UserName.Equals(userName)).ToList();
+            return Db.FeedBacks.Where(p => p.Job.Customer.User.UserName == userName).ToList();
         }
 
         public void Update(FeedBack item)
         {
-            _db.Entry(item).State = EntityState.Modified;
+            Db.Entry(item).State = EntityState.Modified;
         }
     }
 }

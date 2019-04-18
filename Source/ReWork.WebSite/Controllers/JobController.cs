@@ -1,7 +1,11 @@
-﻿using ReWork.Common;
+﻿using Microsoft.AspNet.Identity;
+using PagedList;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
+using ReWork.Model.Context;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
+using ReWork.Model.ViewModels;
 using ReWork.Model.ViewModels.Job;
 using System;
 using System.Collections.Generic;
@@ -11,19 +15,23 @@ using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers
 {
-
+    [Authorize]
     public class JobController : Controller
     {
         private IJobService _jobService;
+        private IOfferService _offerService;
         private ISectionService _sectionService;
         private ISkillService _skillService;
+        private ICommitProvider _commitProvider;
 
-        public JobController(IJobService jobService, ISectionService sectionService, ISkillService skillService)
+        public JobController(IJobService jobService, IOfferService offerService, ISectionService sectionService, ISkillService skillService, ICommitProvider commitProvider)
         {
             _jobService = jobService;
+            _offerService = offerService;
             _sectionService = sectionService;
             _skillService = skillService;
-        }
+            _commitProvider = commitProvider;
+        } 
 
         [HttpGet]
         public ActionResult Create()
@@ -46,8 +54,96 @@ namespace ReWork.WebSite.Controllers
             { CustomerUserName = User.Identity.Name, SkillsId = jobModel.SelectedSkills, Title = jobModel.Title, Description = jobModel.Description, Price = jobModel.Price, PriceDiscussed = jobModel.PriceDiscussed };
 
             _jobService.CreateJob(jobParams);
+            _commitProvider.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+
+
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            Job job = _jobService.FindById(id);
+            if(job != null)
+            {
+                EditJobViewModel editJobModel = new EditJobViewModel()
+                { Id = job.Id, Title = job.Title, Description = job.Description, Price = job.Price, PriceDiscussed = job.PriceDiscussed };
+
+             //   IEnumerable<int> jobSkills = job.Skills.Select(p => p.Id);
+
+               //editJobModel.SelectedSkills = jobSkills;
+                editJobModel.Skills = GetCategories();
+                return View(editJobModel);
+            }
+
+            return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditJobViewModel editJobModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                editJobModel.Skills = GetCategories();
+                return View(editJobModel);
+            }
+
+            EditJobParams editJobParams = new EditJobParams()
+            { Id = editJobModel.Id, SkillsId = editJobModel.SelectedSkills, Title = editJobModel.Title, Description = editJobModel.Description, Price = editJobModel.Price, PriceDiscussed = editJobModel.PriceDiscussed };
+
+            _jobService.Edit(editJobParams);
+            _commitProvider.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            _jobService.DeleteJob(id);
+            _commitProvider.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.PathAndQuery);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            Job job = _jobService.FindById(id);
+            IEnumerable<OfferInfo> offers = _offerService.FindJobOffers(id);
+
+            DetailsJobViewModel detailsJobModel = new DetailsJobViewModel() { Job = job, Offers = offers };
+
+            return job != null ? View(detailsJobModel) : View("Error");
+        }
+
+
+
+        [HttpGet]
+        public ActionResult MyJobs(int? page)
+        {
+            int jobsCountOnPage = 1;
+            int pageNumber = (page ?? 1);
+
+            string userId = User.Identity.GetUserId();
+            IEnumerable<Job> jobs = _jobService.FindUserJobs(userId);
+          
+            return View(jobs.ToPagedList(pageNumber, jobsCountOnPage));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Jobs(int? page, int? skillId, string keyWords, int priceFrom = 0)
+        {
+            int jobsCountOnPage = 1;
+            int pageNumber = (page ?? 1);
+
+            IEnumerable<Job> jobs = _jobService.FindJobs(skillId, priceFrom, keyWords);
+            return View(jobs.ToPagedList(pageNumber, jobsCountOnPage));
         }
 
 

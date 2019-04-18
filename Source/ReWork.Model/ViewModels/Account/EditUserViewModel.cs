@@ -9,6 +9,7 @@ namespace ReWork.Model.ViewModels.Account
 {
     public class EditUserViewModel
     {
+        [Required]
         public string Id { get; set; }
 
         [Required]

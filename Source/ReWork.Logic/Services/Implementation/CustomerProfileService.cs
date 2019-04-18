@@ -8,13 +8,11 @@ namespace ReWork.Logic.Services.Implementation
     public class CustomerProfileService : ICustomerProfileService
     {
         private ICustomerProfileRepository _customerRepository;
-        private ICommitProvider _commitProvider;
         private UserManager<User> _userManager;
 
-        public CustomerProfileService(ICustomerProfileRepository customerRep, ICommitProvider commitProvider, UserManager<User> userManager)
+        public CustomerProfileService(ICustomerProfileRepository customerRep, UserManager<User> userManager)
         {
-            _customerRepository = customerRep;
-            _commitProvider = commitProvider;
+            _customerRepository = customerRep;   
             _userManager = userManager;
         }
 
@@ -24,14 +22,17 @@ namespace ReWork.Logic.Services.Implementation
             if(user != null && user.CustomerProfile == null)
             {
                 CustomerProfile customerProfile = new CustomerProfile() { User = user };
-                _customerRepository.Create(customerProfile);
-                _commitProvider.SaveChanges();
+                _customerRepository.Create(customerProfile); 
             }
         }
 
         public void DeleteCustomerProfile(string customerId)
         {
-            _customerRepository.FindCustomerProfileById(customerId);
+            CustomerProfile customer = _customerRepository.FindCustomerProfileById(customerId);
+            if(customer != null)
+            {
+                _customerRepository.Delete(customer);
+            }
         }
 
 

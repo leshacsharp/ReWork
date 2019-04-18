@@ -102,14 +102,14 @@ namespace ReWork.WebSite.Controllers
 
 
         [HttpGet]
-        public ActionResult ConfirmEmail(string userId, string token)
+        public ActionResult ConfirmEmail(string id, string token)
         {
-            if (userId == null || token == null)
+            if (id == null || token == null)
             {
                 return View("Error");
             }
           
-            IdentityResult identityResult = _userService.ConfirmEmail(userId, token);
+            IdentityResult identityResult = _userService.ConfirmEmail(id, token);
             return View(identityResult.Succeeded ? "ConfirmEmail" : "Error");
         }
 

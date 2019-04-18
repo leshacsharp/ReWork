@@ -14,6 +14,7 @@ namespace ReWork.WebSite.Ioc
             builder.RegisterType<EmployeeProfileService>().As<IEmployeeProfileService>().InstancePerRequest();
 
             builder.RegisterType<JobService>().As<IJobService>().InstancePerRequest();
+            builder.RegisterType<OfferService>().As<IOfferService>().InstancePerRequest();
 
             builder.RegisterType<SectionService>().As<ISectionService>().InstancePerRequest();
             builder.RegisterType<SkillService>().As<ISkillService>().InstancePerRequest();

@@ -22,8 +22,6 @@ namespace ReWork.Logic.Ioc
 
             builder.RegisterType<AppUserManager>().As<UserManager<User>>().InstancePerRequest();
             builder.RegisterType<AppRoleManager>().As<RoleManager<IdentityRole>>().InstancePerRequest();
-
-            builder.RegisterType<CommitProvider>().As<ICommitProvider>().InstancePerRequest();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace ReWork.Model.Entities
         public string Title { get; set; }
 
         [Required]
-        [StringLength(maximumLength: 250, MinimumLength = 3)]
+        [StringLength(maximumLength: 700, MinimumLength = 3)]
         public string Description { get; set; }
 
         [Range(0,Int32.MaxValue)]
@@ -44,12 +44,12 @@ namespace ReWork.Model.Entities
    
         public virtual FeedBack FeedBack { get; set; }
 
-        public virtual ICollection<Skill> Skills { get; set; }
+        public virtual ICollection<SkillJob> Skills { get; set; }
 
         public Job()
         {
             Offers = new List<Offer>();
-            Skills = new List<Skill>();
+            Skills = new List<SkillJob>();
         }
     }
 }
