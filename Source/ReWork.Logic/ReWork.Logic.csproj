@@ -90,6 +90,7 @@
     <Compile Include="Services\Params\CreateJobParams.cs" />
     <Compile Include="Services\Params\CreateOfferParams.cs" />
     <Compile Include="Services\Params\EditJobParams.cs" />
+    <Compile Include="Services\Params\FindJobsParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReWork.Common\ReWork.Common.csproj">

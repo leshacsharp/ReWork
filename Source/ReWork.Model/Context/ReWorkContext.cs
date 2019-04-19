@@ -25,6 +25,5 @@ namespace ReWork.Model.Context
         public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Skill> Skills { get; set; }
-        public DbSet<SkillJob> SkillJobs { get; set; }
     }
 }

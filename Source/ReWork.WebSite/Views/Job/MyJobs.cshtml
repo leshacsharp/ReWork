@@ -12,18 +12,19 @@
         <h4>Description: @job.Description</h4>
         <h4>Price: @job.Price</h4>
         <h4>Date: @(((DateTime)job.DateAdded).ToString())</h4>
-    
+
         <br />
         @Html.ActionLink("Edit", "Edit", "Job", new { id = job.Id }, null)
-    
+
         @using (Html.BeginForm("Delete", "Job", FormMethod.Post))
         {
             @Html.Hidden("id", job.Id)
             <input type="submit" value="Delete" />
         }
-      
+
     </div>
 }
 
 <br />
-@Html.CreatePaging(Model.PageInfo, x => Url.Action("MyJobs","Job",new { page = x }))
+
+@Html.CreatePaging(Model.PageInfo, x => Url.Action("MyJobs", "Job", new { page = x }))

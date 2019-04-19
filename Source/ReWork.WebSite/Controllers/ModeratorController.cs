@@ -23,16 +23,17 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpGet]
-        public ActionResult Users(int page)
+        public ActionResult Users(int? page)
         {
             int usersCountOnPage = 1;
-            IEnumerable<User> users = _userService.GetNewUsers(page, usersCountOnPage);
+            int pageNumber = page ?? 1; 
 
-            PageInfo pageInfo = new PageInfo() { CurrentPage = page, ItemsOnPage = usersCountOnPage };
+            IEnumerable<User> users = _userService.GetNewUsers(pageNumber, usersCountOnPage);
+
+            PageInfo pageInfo = new PageInfo() { CurrentPage = pageNumber, ItemsOnPage = usersCountOnPage };
             pageInfo.TotalItems = _userService.UsersCount();
 
             UsersViewModel usersModel = new UsersViewModel() { PageInfo = pageInfo, Users = users };
-
             return View(usersModel);
         }
 

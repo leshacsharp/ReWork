@@ -13,7 +13,7 @@ namespace ReWork.Model.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201904181656016_init"; }
+            get { return "201904191633440_init"; }
         }
         
         string IMigrationMetadata.Source

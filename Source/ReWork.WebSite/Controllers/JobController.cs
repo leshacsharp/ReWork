@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using PagedList;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Context;
@@ -64,16 +63,15 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            Job job = _jobService.FindById(id);
+            JobInfo job = _jobService.FindById(id);
             if(job != null)
             {
                 EditJobViewModel editJobModel = new EditJobViewModel()
                 { Id = job.Id, Title = job.Title, Description = job.Description, Price = job.Price, PriceDiscussed = job.PriceDiscussed };
 
-             //   IEnumerable<int> jobSkills = job.Skills.Select(p => p.Id);
-
-               //editJobModel.SelectedSkills = jobSkills;
+                editJobModel.SelectedSkills = job.SkillsId;
                 editJobModel.Skills = GetCategories();
+
                 return View(editJobModel);
             }
 
@@ -113,7 +111,7 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            Job job = _jobService.FindById(id);
+            JobInfo job = _jobService.FindById(id);
             IEnumerable<OfferInfo> offers = _offerService.FindJobOffers(id);
 
             DetailsJobViewModel detailsJobModel = new DetailsJobViewModel() { Job = job, Offers = offers };
@@ -127,12 +125,16 @@ namespace ReWork.WebSite.Controllers
         public ActionResult MyJobs(int? page)
         {
             int jobsCountOnPage = 1;
-            int pageNumber = (page ?? 1);
+            int pageNumber = page ?? 1;
 
             string userId = User.Identity.GetUserId();
-            IEnumerable<Job> jobs = _jobService.FindUserJobs(userId);
-          
-            return View(jobs.ToPagedList(pageNumber, jobsCountOnPage));
+            IEnumerable<JobInfo> jobs = _jobService.FindUserJobs(userId, pageNumber, jobsCountOnPage);
+
+            PageInfo pageInfo = new PageInfo() { CurrentPage = pageNumber, ItemsOnPage = jobsCountOnPage };
+            pageInfo.TotalItems = _jobService.UserJobsCount(userId);
+
+            JobsViewModel jobsModel = new JobsViewModel() { PageInfo = pageInfo, Jobs = jobs };
+            return View(jobsModel);
         }
 
         [AllowAnonymous]
@@ -140,10 +142,18 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Jobs(int? page, int? skillId, string keyWords, int priceFrom = 0)
         {
             int jobsCountOnPage = 1;
-            int pageNumber = (page ?? 1);
+            int pageNumber = page ?? 1;
 
-            IEnumerable<Job> jobs = _jobService.FindJobs(skillId, priceFrom, keyWords);
-            return View(jobs.ToPagedList(pageNumber, jobsCountOnPage));
+            FindJobsParams findParams = new FindJobsParams()
+            { Page = pageNumber, CountJobsOnPage = jobsCountOnPage, SkillId = skillId, KeyWords = keyWords, PriceFrom = priceFrom };
+
+            IEnumerable<JobInfo> jobs = _jobService.FindJobs(findParams);
+
+            PageInfo pageInfo = new PageInfo() { CurrentPage = pageNumber, ItemsOnPage = jobsCountOnPage };
+            pageInfo.TotalItems = _jobService.JobsCount(skillId, priceFrom, keyWords);
+
+            JobsViewModel jobsModel = new JobsViewModel() { PageInfo = pageInfo, Jobs = jobs };
+            return View(jobsModel);
         }
 
 

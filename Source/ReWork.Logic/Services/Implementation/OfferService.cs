@@ -29,7 +29,7 @@ namespace ReWork.Logic.Services.Implementation
 
             if (employee != null && job != null) 
             {
-                bool existsOfferOnThisJob = employee.Offers.Any(p => p.JobId.Equals(offerParams.JobId));
+                bool existsOfferOnThisJob = employee.Offers.Any(p => p.JobId == offerParams.JobId);
                 if (!existsOfferOnThisJob)
                 {
                     Offer offer = new Offer()

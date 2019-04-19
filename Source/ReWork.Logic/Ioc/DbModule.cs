@@ -10,8 +10,8 @@ namespace ReWork.Logic.Ioc
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ReWorkContext>().As<IDbContext>().InstancePerLifetimeScope();
-            builder.RegisterType<BaseRepository>().As<IBaseRepository>().PropertiesAutowired().InstancePerRequest();
-    
+            builder.RegisterType<BaseRepository>().As<IBaseRepository>();
+
             builder.RegisterType<CommitProvider>().As<ICommitProvider>().InstancePerRequest();
         }
     }

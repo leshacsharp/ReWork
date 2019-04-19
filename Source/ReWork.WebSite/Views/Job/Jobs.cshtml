@@ -1,23 +1,23 @@
-﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<ReWork.Model.Entities.Job>
+﻿@using ReWork.WebSite.Helpers;
+@model ReWork.Model.ViewModels.Job.JobsViewModel
 @{
     ViewBag.Title = "Jobs";
 }
 
 <h2>Jobs</h2>
 
-@foreach (var job in Model)
+@foreach (var job in Model.Jobs)
 {
     <div style="border:1px solid black;">
         <h3>
-            <a href="/Job/Details/">
+            <a href="@Url.Action("Details","Job",new { id = job.Id})">
                 @job.Title
             </a>
         </h3>
         <h4>
             @foreach (var skill in job.Skills)
             {
-              //  <span>@skill.Title | </span>
+                <span>@skill | </span>
             }
 
             <br />
@@ -27,15 +27,11 @@
         </h4>
 
         <br />
-
-        @foreach (var offer in job.Offers)
-        {
-            <span></span>
-        }
     </div>
 }
 
 <br />
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+@Html.CreatePaging(Model.PageInfo, x => Url.Action("Jobs", "Job", new { page = x }))
+
+

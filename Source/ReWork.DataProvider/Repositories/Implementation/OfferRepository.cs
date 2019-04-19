@@ -35,7 +35,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         OfferPayment = o.OfferPayment,
 
                         EmployeeId = e.Id,
-                        UserName = u.UserName ?? null
+                        UserName = u.UserName
                     };
         }
 

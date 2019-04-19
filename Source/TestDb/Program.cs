@@ -96,27 +96,25 @@ namespace TestDb
                 //         }).ToList();
 
 
+                var jobs = db.Jobs.Where(p => true).Select(
+                                    j => new JobInfo()
+                                    {
+                                        Id = j.Id,
+                                        Title = j.Title,
+                                        Description = j.Description,
+                                        Price = j.Price,
+                                        PriceDiscussed = j.PriceDiscussed,
+                                        DateAdded = (DateTime)j.DateAdded,
+                                        CountOffers = j.Offers.Count(),
 
-                var jobs = (from j in db.Jobs
-                           // join sj in db.SkillJobs on j.Id equals sj.JobId
-                           // join s in db.Skills on sj.SkillId equals s.Id
-                            where j.Id == jobId
-                            select new JobInfo()
-                            {
-                                Id = j.Id,
-                                Title = j.Title,
-                                Description = j.Description,
-                                Price = j.Price,
-                                PriceDiscussed = j.PriceDiscussed,
-                                DateAdded = (DateTime)j.DateAdded,
-
-                                Skills = j.Skills.Select(p => p.Skill.Title)
-                            }).ToList();
-
+                                      //  SkillsId = j.Skills.Select(p => p.Id),
+                                       // Skills = j.Skills.Select(p => p.Title)
+                                    });
 
 
                 foreach (var it in jobs)
                 {
+                    Console.WriteLine(it.CountOffers);
                     foreach (var it2 in it.Skills)
                     {
                         Console.WriteLine(it2);
@@ -167,6 +165,11 @@ namespace TestDb
         public bool PriceDiscussed { get; set; }
 
         public DateTime DateAdded { get; set; }
+
+        public int CountOffers { get; set; }
+
+
+        public IEnumerable<int> SkillsId { get; set; }
 
         public IEnumerable<string> Skills { get; set; }
     }

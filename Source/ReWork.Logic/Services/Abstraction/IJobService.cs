@@ -1,5 +1,6 @@
 ﻿using ReWork.Logic.Services.Params;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace ReWork.Logic.Services.Abstraction
         void Edit(EditJobParams editJobParams);
         void DeleteJob(int jobId);
 
-        Job FindById(int jobId);
-        IEnumerable<Job> FindUserJobs(string customerId);
-        IEnumerable<Job> FindJobs(int? skillId, int priceFrom, string keyWords);
+        JobInfo FindById(int jobId);
+        IEnumerable<JobInfo> FindUserJobs(string customerId, int page, int countJobsOnPage);
+        IEnumerable<JobInfo> FindJobs(FindJobsParams findParams);
 
 
         int UserJobsCount(string customerId);

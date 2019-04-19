@@ -24,12 +24,12 @@ namespace ReWork.Model.Entities
 
         public virtual ICollection<EmployeeProfile> Employes { get; set; }
 
-        public virtual ICollection<SkillJob> Jobs { get; set; }
+        public virtual ICollection<Job> Jobs { get; set; }
 
         public Skill()
         {
             Employes = new List<EmployeeProfile>();
-            Jobs = new List<SkillJob>();
+            Jobs = new List<Job>();
         }
     }
 }

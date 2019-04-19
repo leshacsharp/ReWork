@@ -64,6 +64,8 @@ namespace ReWork.WebSite.Controllers
             if (employeeProfile != null)
             {
                 EmployeeProfileViewModel employeeProfileModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age };
+
+                //TODO: переделать запрос, чтобы не было ленивой загрузки(сделать EmployeeInfo)
                 IEnumerable<int> employeeSkills = employeeProfile.Skills.Select(p=>p.Id);
 
                 employeeProfileModel.Skills = GetCategories();

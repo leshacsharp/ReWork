@@ -98,11 +98,11 @@
   <ItemGroup>
     <Compile Include="Context\CommitProvider.cs" />
     <Compile Include="Context\ICommitProvider.cs" />
+    <Compile Include="EntitiesInfo\JobInfo.cs" />
     <Compile Include="EntitiesInfo\OfferInfo.cs" />
-    <Compile Include="Entities\SkillJob.cs" />
-    <Compile Include="Migrations\201904181656016_init.cs" />
-    <Compile Include="Migrations\201904181656016_init.Designer.cs">
-      <DependentUpon>201904181656016_init.cs</DependentUpon>
+    <Compile Include="Migrations\201904191633440_init.cs" />
+    <Compile Include="Migrations\201904191633440_init.Designer.cs">
+      <DependentUpon>201904191633440_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
@@ -140,8 +140,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904181656016_init.resx">
-      <DependentUpon>201904181656016_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904191633440_init.resx">
+      <DependentUpon>201904191633440_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
