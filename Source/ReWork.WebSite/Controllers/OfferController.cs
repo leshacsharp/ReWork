@@ -31,9 +31,9 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create(int jobId)
+        public ActionResult Create(int id)
         {
-            return PartialView(new CreateOfferViewModel() { JobId = jobId });
+            return PartialView(new CreateOfferViewModel() { JobId = id });
         }
 
 

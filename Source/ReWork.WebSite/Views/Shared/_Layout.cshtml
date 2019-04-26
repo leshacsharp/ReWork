@@ -34,7 +34,7 @@
                         <li>@Html.ActionLink("Search", "Search", "Home")</li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
+                            <li>@Html.ActionLink(User.Identity.Name, "general", "settings")</li>
                             <li>@Html.ActionLink("SignOut", "SignOut", "account")</li>
 
                             <li><input type="submit" name="customerProfile" value="Customer profile" /></li>

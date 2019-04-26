@@ -156,7 +156,7 @@
 
             html += "<td class='col-md-2 text-center'><span class='price'>" +
                 data[i].Price + "$</span></td><td class='col-md-1 text-center hidden-xs'><span class='count-offers'>" +
-                data[i].CountOffers + "ст </span></td><td class='col-md-2 text-center hidden-xs'><span class='date-added'>" +
+                data[i].CountOffers + "</span></td><td class='col-md-2 text-center hidden-xs'><span class='date-added'>" +
                 date + "</span></td></tr>"
 
             result.push(html);

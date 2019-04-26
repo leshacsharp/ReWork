@@ -37,14 +37,12 @@
     </div>
 }
 
-
-
-<a href="/Offer/Create?jobId=@Model.Job.Id" name="add-offer">
-    <input type="submit" class="btn btn-primary" value="Add Offer" />
-</a>
+<input type="submit" name="add-offer" class="btn btn-primary" value="Add Offer" />
 
 <div class="modal fade">
-    <div class="modal-dialog"></div>
+    <div class="modal-dialog">
+        @Html.Action("Create", "Offer", new { id = Model.Job.Id })
+    </div>
 </div>
 
 
@@ -53,29 +51,22 @@
     <script type="text/javascript" src="~/Scripts/job-details.js"></script>
     <script>
         $(function () {
-            $("a[name=add-offer]").click(function (e) {
+            $("input[name=add-offer]").click(function (e) {
                 if ("@User.Identity.IsAuthenticated" == "False") {
                     document.location.href = "/account/login?returnUrl=/job/details/" + @Model.Job.Id;
                 }
+            
+                var isEmployee = "@Html.IsProfile("employee")" == "True";
 
-                e.preventDefault();
-                $.get(this.href, function (data) {
-
-                    var isEmployee = "@Html.IsProfile("employee")" == "True";
-
-                    if (isEmployee) {
-                        $('.modal-dialog').html(data);
-                        $('.modal').modal('show');
-                        $.validator.unobtrusive.parse("form");
-                    }
-                    else {
-                        var error = "<div class='modal-content'><div class='modal-body'><center><h4>" +
-                            "Please go to freelance profile or add his <a href='/settings/general'>Setings</a></h4></center></div ></div>";
-                        $('.modal-dialog').html(error);
-                        $('.modal').modal('show');
-                    }
-
-                });
+                if (isEmployee) {
+                    $('.modal').modal('show');
+                }
+                else {
+                    var error = "<div class='modal-content'><div class='modal-body'><center><h4>" +
+                        "Please go to freelance profile or add his <a href='/settings/general'>Setings</a></h4></center></div ></div>";
+                    $('.modal-dialog').html(error);
+                    $('.modal').modal('show');
+                }
             });
         })
     </script>

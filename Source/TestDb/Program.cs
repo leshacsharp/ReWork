@@ -112,10 +112,6 @@ namespace TestDb
                 //                       // Skills = j.Skills.Select(p => p.Title)
                 //                    });
 
-                int[] skillsId = new int[] { 1, 2 };
-                var a = db.Jobs.Where(job => job.Skills.Any(p => skillsId.Contains(p.Id))).ToList();
-
-
 
                 //foreach (var it in jobs)
                 //{

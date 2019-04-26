@@ -432,4 +432,14 @@ label.input-error {
     margin-right: 20px;
 }
 
+.profile-inforamtion{
+    padding:30px;
+}
+
+.info-field {
+   font-size:90%;
+   font-weight:bold;
+   font-family: Tahoma, Helvetica, Arial, Verdana, sans-serif;
+}
+
 

@@ -62,7 +62,13 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
+        [HttpGet]
+        public ActionResult UserInformation()
+        {
+            string userId = User.Identity.GetUserId();
+            User user = _userService.FindUserById(userId);
+            return PartialView(user);
+        }
 
 
         [HttpPost]

@@ -11,19 +11,16 @@
 {
     <input type="submit" value="Create Customer Profile" />
 }
-<br />
+
 @Html.ActionLink("Create Freelancer Profile", "Create", "Employee")
-<br />
 @Html.ActionLink("change password", "ChangePassword", "Settings")
-<br />
 @Html.ActionLink("Edit Employee Profile", "Edit", "Employee");
-<br />
 
 @if (Html.IsProfile("customer"))
 {
     @Html.ActionLink("Create Job", "Create", "Job");
 }
-
+<br /><br />
 
 <div class="row">
     <table class="table profile-table">
@@ -36,7 +33,7 @@
                 </td>
 
                 <td class="col-md-3">
-                    <div class="profile-short-info-info">
+                    <div class="profile-short-info">
                         <div class="info-block">
                             <span class="user-name"> @Model.UserName </span>
                             <span class="fio">(@Model.FirstName @Model.LastName)</span>
@@ -109,13 +106,7 @@
         </div>
 
         <div class="tab-pane" id="information">
-            <div class="input-group search-group">
-                <input type="text" name="keyWords" style="max-width:600px;" class="form-control" placeholder="Input example alex, site...">
-
-                <span class="input-group-btn search-button">
-                    <button class="btn btn-secondary" name="search-employees" type="button">Search</button>
-                </span>
-            </div>
+            @Html.Action("UserInformation", "settings")
 
             <div class="pagination"></div>
         </div>

@@ -256,6 +256,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Employee\Employees.cshtml" />
     <Content Include="Views\Offer\Create.cshtml" />
+    <Content Include="Views\Settings\UserInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
