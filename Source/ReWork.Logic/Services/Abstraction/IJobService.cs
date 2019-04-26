@@ -16,11 +16,7 @@ namespace ReWork.Logic.Services.Abstraction
         void DeleteJob(int jobId);
 
         JobInfo FindById(int jobId);
-        IEnumerable<JobInfo> FindUserJobs(string customerId, int page, int countJobsOnPage);
-        IEnumerable<JobInfo> FindJobs(FindJobsParams findParams);
-
-
-        int UserJobsCount(string customerId);
-        int JobsCount(int? skillIdint, int priceFrom, string keyWords);
+        IEnumerable<JobInfo> FindUserJobs(string customerId, DateTime? fromDate);
+        IEnumerable<JobInfo> FindJobs(int[] skillsId, string keyWords, int priceFrom);
     }
 }

@@ -69,7 +69,7 @@ namespace ReWork.WebSite.Controllers
                 EditJobViewModel editJobModel = new EditJobViewModel()
                 { Id = job.Id, Title = job.Title, Description = job.Description, Price = job.Price, PriceDiscussed = job.PriceDiscussed };
 
-                editJobModel.SelectedSkills = job.SkillsId;
+                editJobModel.SelectedSkills = job.Skills.Select(p => p.Id);
                 editJobModel.Skills = GetCategories();
 
                 return View(editJobModel);
@@ -99,12 +99,10 @@ namespace ReWork.WebSite.Controllers
 
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public void Delete(int id)
         {
             _jobService.DeleteJob(id);
             _commitProvider.SaveChanges();
-
-            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
         [AllowAnonymous]
@@ -121,41 +119,33 @@ namespace ReWork.WebSite.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult MyJobs(int? page)
+        [HttpPost]
+        public ActionResult MyJobs(DateTime? fromDate)
         {
-            int jobsCountOnPage = 1;
-            int pageNumber = page ?? 1;
-
             string userId = User.Identity.GetUserId();
-            IEnumerable<JobInfo> jobs = _jobService.FindUserJobs(userId, pageNumber, jobsCountOnPage);
+            IEnumerable<JobInfo> jobs = _jobService.FindUserJobs(userId, fromDate);
 
-            PageInfo pageInfo = new PageInfo() { CurrentPage = pageNumber, ItemsOnPage = jobsCountOnPage };
-            pageInfo.TotalItems = _jobService.UserJobsCount(userId);
-
-            JobsViewModel jobsModel = new JobsViewModel() { PageInfo = pageInfo, Jobs = jobs };
-            return View(jobsModel);
+            return Json(jobs);
         }
+
+
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Jobs(int? page, int? skillId, string keyWords, int priceFrom = 0)
+        public ActionResult Jobs()
         {
-            int jobsCountOnPage = 1;
-            int pageNumber = page ?? 1;
-
-            FindJobsParams findParams = new FindJobsParams()
-            { Page = pageNumber, CountJobsOnPage = jobsCountOnPage, SkillId = skillId, KeyWords = keyWords, PriceFrom = priceFrom };
-
-            IEnumerable<JobInfo> jobs = _jobService.FindJobs(findParams);
-
-            PageInfo pageInfo = new PageInfo() { CurrentPage = pageNumber, ItemsOnPage = jobsCountOnPage };
-            pageInfo.TotalItems = _jobService.JobsCount(skillId, priceFrom, keyWords);
-
-            JobsViewModel jobsModel = new JobsViewModel() { PageInfo = pageInfo, Jobs = jobs };
-            return View(jobsModel);
+            IEnumerable<SectionInfo> sections = _sectionService.GetSectionsInfo(); 
+            return View(sections);
         }
 
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Jobs(int[] skillsId, string keyWords, int priceFrom = 0)
+        {
+            IEnumerable<JobInfo> jobs = _jobService.FindJobs(skillsId, keyWords, priceFrom);
+            return Json(jobs);
+        }
 
 
         private IEnumerable<SelectListItem> GetCategories()

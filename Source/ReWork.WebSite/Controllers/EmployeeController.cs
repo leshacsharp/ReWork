@@ -2,6 +2,7 @@
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using ReWork.Model.ViewModels.Account;
 using System;
 using System.Collections.Generic;
@@ -32,18 +33,16 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            EmployeeProfileViewModel employeeProfileModel = new EmployeeProfileViewModel();
-            employeeProfileModel.Skills = GetCategories();
-            return View(employeeProfileModel);
+            ViewBag.Skills = GetCategories();
+            return View();
         }
-
 
         [HttpPost]
         public ActionResult Create(EmployeeProfileViewModel employeeProfileModel)
         {
             if (!ModelState.IsValid)
             {
-                employeeProfileModel.Skills = GetCategories();
+                ViewBag.Skills = GetCategories();
                 return View(employeeProfileModel);
             }
 
@@ -59,18 +58,14 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Edit()
         {
             string userId = User.Identity.GetUserId();
-            EmployeeProfile employeeProfile = _employeeService.GetEmployeeProfileById(userId);
+            EmployeeProfileInfo employeeProfile = _employeeService.FindEmployeeInfoById(userId);
 
             if (employeeProfile != null)
             {
                 EmployeeProfileViewModel employeeProfileModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age };
+                employeeProfileModel.SelectedSkills = employeeProfile.Skills.Select(p => p.Id).ToArray();
 
-                //TODO: переделать запрос, чтобы не было ленивой загрузки(сделать EmployeeInfo)
-                IEnumerable<int> employeeSkills = employeeProfile.Skills.Select(p=>p.Id);
-
-                employeeProfileModel.Skills = GetCategories();
-                employeeProfileModel.SelectedSkills = employeeSkills;
-
+                ViewBag.Skills = GetCategories();
                 return View(employeeProfileModel);
             }
             return View("Error");
@@ -81,7 +76,7 @@ namespace ReWork.WebSite.Controllers
         {
             if (!ModelState.IsValid)
             {
-                employeeProfileModel.Skills = GetCategories();
+                ViewBag.Skills = GetCategories();
                 return View(employeeProfileModel);
             }
 
@@ -98,6 +93,24 @@ namespace ReWork.WebSite.Controllers
             _employeeService.DeleteEmployeeProfile(id);
             _commitProvider.SaveChanges();
         }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Employees()
+        {
+            IEnumerable<SectionInfo> sections = _sectionService.GetSectionsInfo();
+            return View(sections);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Employees(int[] skillsId)
+        {
+            IEnumerable<EmployeeProfileInfo> employees = _employeeService.FindEmployes(skillsId);
+            return Json(employees);
+        }
+
 
 
 
@@ -125,7 +138,7 @@ namespace ReWork.WebSite.Controllers
 
             return groupData;
         }
-
+      
         [HttpPost]
         public ActionResult EmployeeProfileExists()
         {

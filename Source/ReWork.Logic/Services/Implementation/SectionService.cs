@@ -1,6 +1,7 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace ReWork.Logic.Services.Implementation
         public SectionService(ISectionRepository sectionRep)
         {
             _sectionRepository = sectionRep;
+        }
+
+        public IEnumerable<SectionInfo> GetSectionsInfo()
+        {
+            return _sectionRepository.GetSectionsInfo();
         }
 
         public IEnumerable<Section> GetAll()

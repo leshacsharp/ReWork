@@ -1,12 +1,34 @@
-﻿body {
+﻿html {
+    height: 100%;
+}
+
+
+body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    font: PT Sans,Helvetica Neue,Arial,sans-serif !important;
+    font-size: 15px;
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex: 0 0 auto;
+    padding:25px 0 ;
+    background-color: #e5e5e9;
+    font-weight:600;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -23,6 +45,10 @@ textarea {
     max-width: 280px;
 }
 
+.link-disabled {
+    pointer-events: none;
+}
+
 .skill-item{
     color:red;
     border:solid 1px black;
@@ -32,3 +58,378 @@ textarea {
     opacity: 0.5;
     color:darkred;
 }
+
+.panel-inner {
+    font-size: 14px;
+}
+
+
+.skills-container {
+    border: 1px solid #cfcfd6;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.skills-container > .skills-container-header {
+    padding: 10px;
+    background-color: #e5e5e9;
+    border-radius: 5px 5px 0 0;
+    color: #707083;
+    padding-left: 1.3em;
+    font-size: 110%;
+    border-bottom: 1px solid #b4b4bf;
+}
+
+.skill-header {
+    padding: 10px;
+    border: none;
+}
+
+.skills-container .panel {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    margin: 0;
+}
+
+#skills-group .panel {
+    margin: 0;
+}
+
+#skills-group ul {
+    margin: 0;
+    padding:0;
+}
+
+#skills-group ul li {
+    list-style-type: none;
+    padding: 7px 20px 7px 25px;
+    cursor:pointer;
+}
+
+#skills-group ul li:hover {
+    background-color: #e5e5e9;
+}
+
+#skills-group ul li.active {
+    background-color: #337ab7;
+    color: white;
+    font-weight: 700;
+}
+
+#skills-group ul li.active a{
+    color: white;
+}
+
+#skills-group a {
+    text-decoration: none;
+}
+
+.skill-select {
+    font-size: 120%;
+    padding: 3px;
+}
+
+.bigger {
+    font-size: 110% !important;
+}
+
+.jobs-count {
+    font-size: 70%;
+    padding: 4px 6px;
+    background-color: #599cc7;
+    border-radius: 20%;
+    color: white;
+    font-weight: 600;
+}
+
+.job-table {
+    border: 1px solid #cdcdcd;
+}
+
+.search-table {
+    border: 0;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: white;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th {
+    background-color: #f9f9f9;
+}
+
+.search-table > tbody > tr:nth-child(odd) > td {
+    background-color: #f9f9f9;
+}
+
+.search-table > tbody > tr:nth-child(even) > td{
+    background-color: white;
+}
+
+.job-table td, .search-table td {
+    vertical-align: middle !important;
+}
+
+.job-table th {
+    color: #666;
+    font-size: 100%;
+    padding:12px 8px !important;
+    background-color: #f9f9f9;
+}
+
+
+.search-table tbody tr td {
+    border-top: none;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+
+.job-skills {
+    font-size: 75%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.skill-link {
+    cursor: pointer;
+}
+
+.job-skills a {
+    color: #808080;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.count-offers {
+    color: orange;
+    font-size: 180%;
+}
+
+.count-offers a {
+    color: orange;
+}
+
+.price {
+    color: #00ae5a;
+    font-size: 180%;
+}
+
+.date-added {
+    color: #555;
+    font-size:120%;
+}
+
+.jobs-counter {
+    color: #808080;
+    padding: 3px 5px;  
+    float:left;
+}
+
+.search-item-body{
+    margin-left:60px;
+}
+
+.job-title{
+    font-size:120%;
+}
+
+.filter{
+    margin:10px 0;
+}
+
+.filter-name{
+    font-size:130%;
+    font-weight:600;
+    margin:10px;
+}
+
+.filter-count {
+    padding: 2px 6px;
+    background-color: #6eb056;
+    font-size:110%;
+    color:white;
+    border-radius:10%;
+}
+
+.selected-skills-container {
+    padding: 7px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.selected-skills-header {
+    color: #aaa;
+    padding: 5px;
+}
+
+.selected-skill {
+    position: relative;
+    background-color: #e4e4e4;
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    display: inline-block;
+    margin-right:7px;
+}
+
+
+.selected-skill-name {
+    color: black;
+    font-size: 100%;
+    padding: 10px;
+    margin-left: 5px;
+}
+
+.delete-skill {
+    color: #999;
+    position: absolute;
+    cursor: pointer;
+    font-size: 100%;
+    padding: 1px 3px;
+    top: 2px;
+    left: 2px;
+}
+
+.delete-skill:hover {
+    color: black;
+}
+
+.skill-chekbox {
+    display: inline-block;
+    margin-left: 4px;
+}
+
+.skills-form{
+    padding:10px;
+}
+
+.input-error {
+    font-size:100%;
+}
+
+label.input-error {
+    color: #a94442;
+    font-size: 85%;
+    font-weight: 600;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-left:3px;
+}
+
+.search-group{
+    display:inline-block;
+    width:100%;
+    margin-bottom:20px;
+}
+
+.search-button{
+    width:0;
+}
+
+
+
+
+
+
+.profile-table {
+}
+
+.profile-table td {
+    vertical-align: middle !important;
+}
+
+.profile-short-info {
+    padding: 20px;
+}
+
+.info-block {
+    padding: 3px 0;
+}
+
+.user-name {
+    color: black;
+}
+
+.fio {
+    color: gray;
+    font-size: 90%;
+    font-weight: 600;
+}
+
+.reg-date-title {
+    color: black;
+    margin-right: 5px;
+}
+
+.reg-date-number {
+    color: gray;
+    font-size: 90%;
+    font-weight: 600;
+}
+
+.age-title {
+    color: :black;
+}
+
+.age-number {
+    color: gray;
+    font-size: 90%;
+    font-weight: 600;
+}
+
+.profile-dop-info {
+    padding: 20px;
+}
+
+.rating {
+    padding: 4px 0;
+}
+
+.rating-title {
+    color: black;
+    margin-right: 15px;
+}
+
+.rating-number {
+    padding: 3px 6px;
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+}
+
+.dop-count-feedback {
+    padding: 4px 0;
+}
+
+.count-feedback-title {
+    color: black;
+    margin-right: 15px;
+}
+
+.count-feedback-number {
+    padding: 3px 6px;
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+}
+
+.profile-short-image {
+    padding: 10px;
+}
+
+.search-data {
+    height: 35px;
+    display: table;
+    width: 0;
+}
+
+.job-button{
+    display:inline-block;
+    margin-right: 20px;
+}
+
+

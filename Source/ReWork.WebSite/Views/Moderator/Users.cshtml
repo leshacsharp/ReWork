@@ -1,10 +1,9 @@
-﻿@using ReWork.WebSite.Helpers;
-@model ReWork.Model.ViewModels.Account.UsersViewModel
+﻿@model  IEnumerable<ReWork.Model.Entities.User>
 @{
     ViewBag.Title = "Users";
 }
 
-@foreach (var user in Model.Users)
+@foreach (var user in Model)
 {
     <h3>@user.UserName</h3>
 
@@ -18,7 +17,12 @@
     @Html.ActionLink("Edit", "Edit", "Moderator", new { userName = user.UserName }, null)
 }
 
-<br />
 
-@Html.CreatePaging(Model.PageInfo, x => Url.Action("Users", "Moderator", new { page = x }))
+<div class="pagination"></div>
 
+@section scripts{
+
+    <script>
+     
+    </script>
+}

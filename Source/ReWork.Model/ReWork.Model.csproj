@@ -98,11 +98,20 @@
   <ItemGroup>
     <Compile Include="Context\CommitProvider.cs" />
     <Compile Include="Context\ICommitProvider.cs" />
+    <Compile Include="EntitiesInfo\EmployeeProfileInfo.cs" />
     <Compile Include="EntitiesInfo\JobInfo.cs" />
     <Compile Include="EntitiesInfo\OfferInfo.cs" />
+    <Compile Include="EntitiesInfo\SectionInfo.cs" />
+    <Compile Include="EntitiesInfo\SkillInfo.cs" />
+    <Compile Include="EntitiesInfo\SkillSectionInfo.cs" />
+    <Compile Include="Entities\Common\ProjectStatus.cs" />
     <Compile Include="Migrations\201904191633440_init.cs" />
     <Compile Include="Migrations\201904191633440_init.Designer.cs">
       <DependentUpon>201904191633440_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904241824035_change_job.cs" />
+    <Compile Include="Migrations\201904241824035_change_job.Designer.cs">
+      <DependentUpon>201904241824035_change_job.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
@@ -127,13 +136,12 @@
     <Compile Include="ViewModels\Account\EmployeeProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\UserDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Account\UsersViewModel.cs" />
     <Compile Include="ViewModels\Job\CreateJobViewModel.cs" />
     <Compile Include="ViewModels\Job\DetailsJobViewModel.cs" />
     <Compile Include="ViewModels\Job\EditJobViewModel.cs" />
     <Compile Include="ViewModels\Job\JobsViewModel.cs" />
     <Compile Include="ViewModels\Offer\CreateOfferViewModel.cs" />
-    <Compile Include="ViewModels\PageInfo.cs" />
+    <Compile Include="ViewModels\SearchType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -142,6 +150,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904191633440_init.resx">
       <DependentUpon>201904191633440_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904241824035_change_job.resx">
+      <DependentUpon>201904241824035_change_job.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

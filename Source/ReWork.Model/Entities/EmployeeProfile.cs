@@ -15,7 +15,7 @@ namespace ReWork.Model.Entities
         [Range(8,100)]
         public int Age { get; set; }
  
-        public QualityOfWork Rating { get; set; }
+        public int Rating { get; set; }
 
         [Required]
         public virtual User User { get; set; }

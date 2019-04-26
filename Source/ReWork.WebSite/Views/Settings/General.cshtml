@@ -1,4 +1,6 @@
 ﻿@using ReWork.WebSite.Helpers;
+@using System;
+@model ReWork.Model.Entities.User
 @{
     ViewBag.Title = "General";
 }
@@ -12,7 +14,7 @@
 <br />
 @Html.ActionLink("Create Freelancer Profile", "Create", "Employee")
 <br />
-@Html.ActionLink("change password", "ChangePassword", "Manage")
+@Html.ActionLink("change password", "ChangePassword", "Settings")
 <br />
 @Html.ActionLink("Edit Employee Profile", "Edit", "Employee");
 <br />
@@ -20,13 +22,117 @@
 @if (Html.IsProfile("customer"))
 {
     @Html.ActionLink("Create Job", "Create", "Job");
-    <br />
-    @Html.ActionLink("My Jobs", "MyJobs", "Job", new { page = 1 }, null)
 }
 
 
+<div class="row">
+    <table class="table profile-table">
+        <tbody>
+            <tr>
+                <td class="col-md-2">
+                    <div class="profile-short-image">
+                        Фотка
+                    </div>
+                </td>
+
+                <td class="col-md-3">
+                    <div class="profile-short-info-info">
+                        <div class="info-block">
+                            <span class="user-name"> @Model.UserName </span>
+                            <span class="fio">(@Model.FirstName @Model.LastName)</span>
+                        </div>
+
+                        <div class="info-block">
+                            <span class="reg-date-title">Data registration:</span>
+                            <span class="reg-date-number">@Model.RegistrationdDate.Value.ToShortDateString()</span>
+                        </div>
+
+                        <div class="info-block">
+                            <span class="age-title">Age: </span>
+                            <span class="age-number">100</span>
+                        </div>
+                    </div>
+                </td>
+
+                <td class="col-md-3 hidden-xs">
+                    <div class="profile-dop-info">
+                        <div class="rating">
+                            <span class="rating-title">Rating:</span>
+                            <span class="rating-number">5</span>
+                        </div>
+
+                        <div class="dop-count-feedback">
+                            <span class="count-feedback-title">Count feedbacks:</span>
+                            <span class="count-feedback-number">24</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#myjobs-tab" data-toggle="tab">My jobs</a></li>
+        <li><a href="#information" data-toggle="tab">Information</a></li>
+        <li><a href="#settings" data-toggle="tab">Settings</a></li>
+    </ul>
+
+    <br />
+    <div class="tab-content">
+        <div class="tab-pane active" id="myjobs-tab">
+
+            <div class="col-md-4" style="padding-left:0">
+                <div class="form-group search-group">
+                    <div class="input-group date" style="width:100%" id="datetimepicker">
+                        <input type='text' style="max-width:300px;" class="form-control disabled" disabled="disabled" />
+                        <span class="input-group-addon search-data">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-1" style="padding-left:0">
+                <input type="submit" class="btn btn-default" name="search-jobs" value="Search" />
+            </div>
+
+
+            <table class="table table-striped search-table">
+                <tbody>
+                </tbody>
+            </table>
+
+            <div class="pagination"></div>
+        </div>
+
+        <div class="tab-pane" id="information">
+            <div class="input-group search-group">
+                <input type="text" name="keyWords" style="max-width:600px;" class="form-control" placeholder="Input example alex, site...">
+
+                <span class="input-group-btn search-button">
+                    <button class="btn btn-secondary" name="search-employees" type="button">Search</button>
+                </span>
+            </div>
+
+            <div class="pagination"></div>
+        </div>
+
+        <div class="tab-pane" id="settings">
+
+            <div class="pagination"></div>
+        </div>
+    </div>
+</div>
+
 @section scripts
 {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="~/Scripts/account-settings.js"></script>
 }
 

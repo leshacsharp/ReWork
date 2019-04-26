@@ -12,8 +12,6 @@ namespace ReWork.Model.ViewModels.Account
         public int Age { get; set; }
 
         [CannotBeEmpty(ErrorMessage = "Select at least 1 skill")]
-        public IEnumerable<int> SelectedSkills { get; set; }
-
-        public IEnumerable<SelectListItem> Skills { get; set; }
+        public int[] SelectedSkills { get; set; }
     }
 }

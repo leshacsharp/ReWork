@@ -22,9 +22,21 @@ namespace ReWork.Logic.Services.Implementation
             _jobRepository = jobRep;
         }
 
+        public void AcceptOffer(int jobId, string employeeId)
+        {
+           Job job = _jobRepository.FindJobById(jobId);
+           if(job != null)
+           {
+                job.EmployeeId = employeeId;
+                job.Status = Model.Entities.Common.ProjectStatus.Closed;
+
+                _jobRepository.Update(job);
+           }
+        }
+
         public void CreateOffer(CreateOfferParams offerParams)
         {
-            EmployeeProfile employee = _employeeRepository.FindEmployeeProfileById(offerParams.EmployeeId);
+            EmployeeProfile employee = _employeeRepository.FindEmployeeById(offerParams.EmployeeId);
             Job job = _jobRepository.FindJobById(offerParams.JobId);
 
             if (employee != null && job != null) 

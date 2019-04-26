@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,7 +113,8 @@ namespace ReWork.Logic.Services.Implementation
 
 
 
-     
+
+       
 
         public User FindUserByName(string userName)
         {
@@ -124,12 +126,11 @@ namespace ReWork.Logic.Services.Implementation
             return _userManager.FindById(userId);
         }
 
-        public IEnumerable<User> GetNewUsers(int page, int usersCount)
+        public IEnumerable<User> FindUsers()
         {
-            return _userManager.Users.OrderByDescending(p=>p.RegistrationdDate)
-                                     .Skip(--page * usersCount)
-                                     .Take(usersCount)
-                                     .ToList();
+            return _userManager.Users
+                               .OrderByDescending(p=>p.RegistrationdDate)                 
+                               .ToList();
         }
 
 

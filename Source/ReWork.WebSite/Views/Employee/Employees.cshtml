@@ -1,34 +1,23 @@
 ﻿@model  IEnumerable<ReWork.Model.EntitiesInfo.SectionInfo>
 @{
-    ViewBag.Title = "Jobs";
+    ViewBag.Title = "Employees";
     var sections = Model.ToList();
 }
 
 <div class="row">
     <div class="col-md-12">
         <div class="filter">
-            <span class="filter-name">Count Jobs</span>
+            <span class="filter-name">Count Employees</span>
             <span class="filter-count"></span>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-9 col-md-push-3">
-        <table class="table table-striped job-table">
-            <thead>
-                <tr>
-                    <th>Job title</th>
-                    <th class="text-center">Budget</th>
-                    <th class="text-center">Offers</th>
-                    <th class="text-center">Open</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="col-md-9 col-md-push-3">   
+        <div id="employees">
 
-            </tbody>
-        </table>
-
+        </div>
         <div class="pagination"></div>
     </div>
 
@@ -39,15 +28,6 @@
             </div>
 
             <form class="skills-form">
-                <div class="form-group">
-                    @Html.TextBox("PriceFrom", null, new { @class = "form-control", placeholder = "Price from", style = "max-width: 100%;" })
-                </div>
-
-                <div class="form-group">
-                    @Html.TextBox("KeyWords", null, new { @class = "form-control", placeholder = "Key words", style = "max-width: 100%;" })
-                </div>
-
-
                 <div class="form-group">
                     <div class="selected-skills-container">
                         <div class="selected-skills-header">
@@ -80,13 +60,13 @@
                             {
                                 <li class="pannel-inner">
                                     <div class="pull-right">
-                                        <span class="jobs-count">@skill.CountJobs</span>
+                                        <span class="jobs-count">@skill.CountEmployees</span>
                                     </div>
 
-                                    <a class="skill-link"> 
+                                    <a class="skill-link">
                                         @skill.Title
                                     </a>
-
+  
                                     <input type="hidden" value="@skill.Id" />
                                 </li>
                             }
@@ -98,10 +78,7 @@
     </div>
 </div>
 
-
-@section scripts{
-    <script type="text/javascript" src="~/Scripts/jobs.js"></script>
+@section scripts
+{
+  <script type="text/javascript" src="~/Scripts/employees.js"></script>  
 }
-
-
-

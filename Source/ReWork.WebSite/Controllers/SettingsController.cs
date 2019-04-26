@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using ReWork.Model.ViewModels.Account;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,9 @@ namespace ReWork.WebSite.Controllers
 
         public ActionResult General()
         {
-            return View();
+            string userId = User.Identity.GetUserId();
+            User user = _userService.FindUserById(userId);
+            return View(user);
         }
 
         public IAuthenticationManager AuthenticationManager
@@ -38,6 +41,7 @@ namespace ReWork.WebSite.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordViewModel changeModel)
         {
@@ -56,6 +60,8 @@ namespace ReWork.WebSite.Controllers
             AddModeErrors(changeResult);
             return View(changeModel);
         }
+
+
 
 
 

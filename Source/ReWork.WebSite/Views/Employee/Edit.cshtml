@@ -1,6 +1,7 @@
 ﻿@model ReWork.Model.ViewModels.Account.EmployeeProfileViewModel
 @{
     ViewBag.Title = "EditEmployee";
+    var skills = (IEnumerable<SelectListItem>)ViewBag.Skills;
 }
 
 <h2>EditEmployee</h2>
@@ -12,11 +13,11 @@
     @Html.EditorFor(p => p.Age)
     @Html.ValidationMessageFor(p => p.Age)
 
-    @Html.LabelFor(p => p.Skills)<br />
-    @Html.ListBoxFor(p => p.SelectedSkills, Model.Skills, new { multiple = "multiple" })
+    @Html.Label("Skills")<br />
+    @Html.ListBoxFor(p => p.SelectedSkills, skills, new { multiple = "multiple" })
 
     <br /><br />
-    <input type="submit" name="send-form" value="Save" />
+    <input type="submit"  value="Save" />
 }
 
 @section scripts

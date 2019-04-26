@@ -29,20 +29,25 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public IQueryable<JobInfo> FindJobsInfo(Expression<Func<Job, bool>> predicate)
         {
-            return Db.Jobs.Where(predicate).Select(
-                     j => new JobInfo()
-                     {
-                         Id = j.Id,
-                         Title = j.Title,
-                         Description = j.Description,
-                         Price = j.Price,
-                         PriceDiscussed = j.PriceDiscussed,
-                         DateAdded = (DateTime)j.DateAdded,
-                         CountOffers = j.Offers.Count(),
+            return Db.Jobs.Where(predicate).Select(j => new JobInfo()
+            {
+                Id = j.Id,
+                Title = j.Title,
+                Description = j.Description,
+                Price = j.Price,
+                PriceDiscussed = j.PriceDiscussed,
+                DateAdded = (DateTime)j.DateAdded,
+                CountOffers = j.Offers.Count(),
 
-                         SkillsId = j.Skills.Select(p => p.Id),
-                         Skills = j.Skills.Select(p => p.Title)
-                     });
+                UserName = j.Customer.User.UserName,
+                CustomerId = j.CustomerId,
+
+                Skills = j.Skills.Select(p => new SkillInfo()
+                {
+                    Id = p.Id,
+                    Title = p.Title
+                })
+            });
         }
 
 
@@ -59,8 +64,14 @@ namespace ReWork.DataProvider.Repositories.Implementation
                           DateAdded = (DateTime)j.DateAdded,
                           CountOffers = j.Offers.Count(),
 
-                          SkillsId = j.Skills.Select(p => p.Id),
-                          Skills = j.Skills.Select(p => p.Title)
+                          UserName = j.Customer.User.UserName,
+                          CustomerId = j.CustomerId,
+
+                          Skills = j.Skills.Select(p => new SkillInfo()
+                          {
+                              Id = p.Id,
+                              Title = p.Title
+                          })
                       }).SingleOrDefault();
         }
 

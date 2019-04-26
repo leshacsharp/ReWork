@@ -3,33 +3,51 @@
     ViewBag.Title = "login";
 }
 
-@using (Html.BeginForm("login", "account", FormMethod.Post))
+@using (Html.BeginForm("login", "account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    @Html.ValidationSummary(true)
-    @Html.Hidden("returnUrl", (object)ViewBag.returnUrl)
+    @Html.AntiForgeryToken()
+    <h4>Use a local account to log in.</h4>
+    <hr />
 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    @Html.LabelFor(p => p.UserName)
-    <br />
-    @Html.EditorFor(p => p.UserName)
-    @Html.ValidationMessageFor(p => p.UserName)
+    <div class="form-group">
+        @Html.LabelFor(p => p.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(p => p.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    <br /><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(p => p.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    @Html.LabelFor(p => p.Password)
-    <br />
-    @Html.EditorFor(p => p.Password)
-    @Html.ValidationMessageFor(p => p.Password)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="checkbox">
+                @Html.CheckBoxFor(p => p.RememberMe)
+                @Html.LabelFor(p => p.RememberMe)
+            </div>
+        </div>
+    </div>
 
-    <br />
-    @Html.LabelFor(p => p.RememberMe)
-    @Html.CheckBoxFor(p => p.RememberMe)
-    <br /><br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Log in" class="btn btn-default" />
+        </div>
+    </div>
 
-    <input type="submit" value="Send" />
-
-    <br /><br />
-    @Html.ActionLink("Forgot password?", "ForgotPassword", "Account")
+    <p>
+        @Html.ActionLink("Register as a new user", "Registration")
+    </p>  
+    <p>
+        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+    </p>
 }
 
 

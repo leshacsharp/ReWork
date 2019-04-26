@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<br />
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#jobs-tab" data-toggle="tab">Jobs</a></li>
+    <li><a href="#employees-tab" data-toggle="tab">Employees</a></li>
+</ul>
+
+<br />
+<div class="tab-content">
+    <div class="tab-pane active" id="jobs-tab">
+        <div class="input-group search-group">
+            <input type="text" name="keyWords" style="max-width:600px;" class="form-control" placeholder="Input example site, copyright...">
+
+            <span class="input-group-btn search-button">
+                <button class="btn btn-secondary" name="search-jobs" type="button">Search</button>
+            </span>
+        </div>
+
+        <table class="table table-striped search-table">
+            <tbody></tbody>
+        </table>
+
+        <div class="pagination"></div>
+    </div>
+
+    <div class="tab-pane" id="employees-tab">
+        <div class="input-group search-group">
+            <input type="text" name="keyWords" style="max-width:600px;" class="form-control" placeholder="Input example alex, site...">
+
+            <span class="input-group-btn search-button">
+                <button class="btn btn-secondary" name="search-employees" type="button">Search</button>
+            </span>
+        </div>
+
+        <div>
+
+        </div>
+
+        <div class="pagination"></div>
+    </div> 
+</div>
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/search.js"></script>
+}

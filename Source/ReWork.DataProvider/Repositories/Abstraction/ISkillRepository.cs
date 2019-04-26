@@ -1,4 +1,5 @@
 ﻿using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using System.Collections.Generic;
 
 namespace ReWork.DataProvider.Repositories.Abstraction
@@ -6,7 +7,7 @@ namespace ReWork.DataProvider.Repositories.Abstraction
     public interface ISkillRepository : IRepository<Skill>
     {
         Skill FindSkillByTitle(string title);
-        Skill FindById(int id);   
+        Skill FindById(int id);
         IEnumerable<Skill> GetAll();
     }
 }

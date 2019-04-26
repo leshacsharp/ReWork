@@ -18,10 +18,11 @@ namespace ReWork.Model.Entities
         public DateTime? AddedDate { get; set; }
 
         [Required]
+        [Range(0, 10000)]
         public int? ImplementationDays { get; set; }
 
         [Required]
-        [Range(0,Int32.MaxValue)]
+        [Range(0,1000000)]
         public int OfferPayment { get; set; }
 
         [ForeignKey("Job")]

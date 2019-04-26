@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReWork.Model.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,12 @@ namespace ReWork.WebSite.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        public ActionResult Index()
         {
+            return View();
         }
 
-        public ActionResult Index()
+        public ActionResult Search()
         {
             return View();
         }

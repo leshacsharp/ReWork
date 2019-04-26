@@ -24,15 +24,36 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpPost]
-        public void Create(int jobId, string text, int daysToImplement, int offerPayement)
+        public void AcceptOffer(int jobId, string employeeId)
         {
+            _offerService.AcceptOffer(jobId, employeeId);
+            _commitProvider.SaveChanges();
+        }
+
+        [HttpGet]
+        public ActionResult Create(int jobId)
+        {
+            return PartialView(new CreateOfferViewModel() { JobId = jobId });
+        }
+
+
+        [HttpPost]
+        public ActionResult Create(CreateOfferViewModel createModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return PartialView(createModel);
+            }
+
             string userId = User.Identity.GetUserId();
 
             CreateOfferParams createOfferParams = new CreateOfferParams()
-            { EmployeeId = userId, JobId = jobId, Text = text,  ImplementationDays = daysToImplement, OfferPayment = offerPayement };
+            { EmployeeId = userId, JobId = createModel.JobId, Text = createModel.Text,  ImplementationDays = createModel.DaysToImplement, OfferPayment = createModel.OfferPayment };
 
             _offerService.CreateOffer(createOfferParams);
             _commitProvider.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
     }
 }

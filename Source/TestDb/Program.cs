@@ -1,6 +1,7 @@
 ﻿using FirstQuad.Common.Helpers;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -96,30 +97,34 @@ namespace TestDb
                 //         }).ToList();
 
 
-                var jobs = db.Jobs.Where(p => true).Select(
-                                    j => new JobInfo()
-                                    {
-                                        Id = j.Id,
-                                        Title = j.Title,
-                                        Description = j.Description,
-                                        Price = j.Price,
-                                        PriceDiscussed = j.PriceDiscussed,
-                                        DateAdded = (DateTime)j.DateAdded,
-                                        CountOffers = j.Offers.Count(),
+                //var jobs = db.Jobs.Where(p => true).Select(
+                //                    j => new JobInfo()
+                //                    {
+                //                        Id = j.Id,
+                //                        Title = j.Title,
+                //                        Description = j.Description,
+                //                        Price = j.Price,
+                //                        PriceDiscussed = j.PriceDiscussed,
+                //                        DateAdded = (DateTime)j.DateAdded,
+                //                        CountOffers = j.Offers.Count(),
 
-                                      //  SkillsId = j.Skills.Select(p => p.Id),
-                                       // Skills = j.Skills.Select(p => p.Title)
-                                    });
+                //                      //  SkillsId = j.Skills.Select(p => p.Id),
+                //                       // Skills = j.Skills.Select(p => p.Title)
+                //                    });
+
+                int[] skillsId = new int[] { 1, 2 };
+                var a = db.Jobs.Where(job => job.Skills.Any(p => skillsId.Contains(p.Id))).ToList();
 
 
-                foreach (var it in jobs)
-                {
-                    Console.WriteLine(it.CountOffers);
-                    foreach (var it2 in it.Skills)
-                    {
-                        Console.WriteLine(it2);
-                    }
-                }
+
+                //foreach (var it in jobs)
+                //{
+                //    Console.WriteLine(it.CountOffers);
+                //    foreach (var it2 in it.Skills)
+                //    {
+                //        Console.WriteLine(it2);
+                //    }
+                //}
                 //var a = from j in db.Jobs
                 //        join s in db.Skills
                 //        where j.Id == jobId

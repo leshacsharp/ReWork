@@ -6,4 +6,9 @@
 <h2>ConfirmEmail</h2>
 Thanks for registration, 
 @Html.ActionLink("Log in", "login", "account");
-
+<div>
+    <p>
+        Thank you for confirming your email. Please
+        @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: null)
+    </p>
+</div>

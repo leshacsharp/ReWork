@@ -7,8 +7,10 @@ using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ReWork.Model.Entities.Common;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -82,55 +84,29 @@ namespace ReWork.Logic.Services.Implementation
              return _jobRepository.FindJobInfoById(jobId);
         }
 
-        public IEnumerable<JobInfo> FindUserJobs(string customerId, int page, int countJobsOnPage)
-        {
-            return _jobRepository.FindJobsInfo(p => p.CustomerId == customerId)
-                                 .OrderByDescending(p => p.DateAdded)
-                                 .Skip(--page * countJobsOnPage)
-                                 .Take(countJobsOnPage)
-                                 .ToList();
-        }
-
-        public IEnumerable<JobInfo> FindJobs(FindJobsParams findParams)
+        public IEnumerable<JobInfo> FindUserJobs(string customerId, DateTime? fromDate)
         {
             var filter = PredicateBuilder.True<Job>();
+            filter = filter.AndAlso<Job>(job=>job.CustomerId == customerId);
 
-            if (findParams.SkillId != null)
+            if(fromDate != null)
             {
-                filter = filter.AndAlso<Job>(job => job.Skills.Any(skill => skill.Id == findParams.SkillId));
-            }
-
-            if (!String.IsNullOrWhiteSpace(findParams.KeyWords))
-            {
-                filter = filter.AndAlso(p => p.Title.Contains(findParams.KeyWords) || p.Description.Contains(findParams.KeyWords));
-            }
-
-            if (findParams.PriceFrom > 0)
-            {
-                filter = filter.AndAlso(p => p.Price >= findParams.PriceFrom);
+                filter = filter.AndAlso<Job>(job => job.DateAdded >= fromDate);
             }
 
             return _jobRepository.FindJobsInfo(filter)
                                  .OrderByDescending(p => p.DateAdded)
-                                 .Skip(--findParams.Page * findParams.CountJobsOnPage)
-                                 .Take(findParams.CountJobsOnPage)
                                  .ToList();
         }
 
-
-
-        public int UserJobsCount(string customerId)
-        {
-            return _jobRepository.FindJobsInfo(p => p.CustomerId == customerId).Count();
-        }
-
-        public int JobsCount(int? skillId, int priceFrom, string keyWords)
+        public IEnumerable<JobInfo> FindJobs(int[] skillsId, string keyWords, int priceFrom)
         {
             var filter = PredicateBuilder.True<Job>();
+            filter = filter.AndAlso<Job>(job => job.Status == ProjectStatus.Open);
 
-            if (skillId != null)
+            if (skillsId != null && skillsId.Length > 0)
             {
-                filter = filter.AndAlso<Job>(job => job.Skills.Any(skill => skill.Id == skillId));
+                filter = filter.AndAlso<Job>(job => job.Skills.Any(p => skillsId.Contains(p.Id)));
             }
 
             if (!String.IsNullOrWhiteSpace(keyWords))
@@ -143,7 +119,9 @@ namespace ReWork.Logic.Services.Implementation
                 filter = filter.AndAlso(p => p.Price >= priceFrom);
             }
 
-            return _jobRepository.FindJobsInfo(filter).Count();
+            return _jobRepository.FindJobsInfo(filter)
+                                 .OrderByDescending(p => p.DateAdded)
+                                 .ToList();
         }
     }
 }

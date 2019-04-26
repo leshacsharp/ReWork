@@ -24,7 +24,6 @@ namespace ReWork.WebSite.Controllers
             get { return HttpContext.GetOwinContext().Authentication; }
         }
 
-
         [HttpGet]
         public ActionResult registration()
         {
@@ -32,6 +31,7 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult registration(RegisterViewModel regModel)
         {
             if (!ModelState.IsValid)
@@ -65,6 +65,7 @@ namespace ReWork.WebSite.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Login(LoginViewModel loginModel, string returnUrl)
         {
@@ -127,6 +128,7 @@ namespace ReWork.WebSite.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult ForgotPassword(ForgotPasswordViewModel forgotPasswordModel)
         {
@@ -143,6 +145,7 @@ namespace ReWork.WebSite.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult ResetPassword(ResetPasswordViewModel resetPasswordModel)
         {
@@ -173,6 +176,9 @@ namespace ReWork.WebSite.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
+
+
 
         private void AddModeErrors(IdentityResult result)
         {

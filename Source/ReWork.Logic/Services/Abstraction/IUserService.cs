@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -23,7 +24,7 @@ namespace ReWork.Logic.Services.Abstraction
 
         User FindUserByName(string userName);
         User FindUserById(string userId);
-        IEnumerable<User> GetNewUsers(int page, int usersCount);
+        IEnumerable<User> FindUsers();
 
 
         void DeleteUser(string userId);

@@ -10,59 +10,71 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="~/Content/bootstrap-multiselect.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/pagination.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("ReWork", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Jobs", "Jobs", "Job", new { page = 1 }, null)</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
-                        <li>@Html.ActionLink("SignOut", "SignOut", "account")</li>
-
-                        <li><input type="submit" name="customerProfile" value="Customer profile" /></li>
-                        <li><input type="submit" name="freelancerProfile" value="Freelance profile" /></li>
-
-                        <li><span style="color:white">Cuurrent profile: @Html.GetCurrentProfileName()</span></li>
-
-                        if (User.IsInRole("moderator"))
+    <div class="content">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("ReWork", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Jobs", "Jobs", "Job")</li>
+                        <li>@Html.ActionLink("Employees", "Employees", "Employee")</li>
+                        <li>@Html.ActionLink("Search", "Search", "Home")</li>
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink("Users", "Users", "Moderator", new { page = 1 }, null)</li>
+                            <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
+                            <li>@Html.ActionLink("SignOut", "SignOut", "account")</li>
+
+                            <li><input type="submit" name="customerProfile" value="Customer profile" /></li>
+                            <li><input type="submit" name="freelancerProfile" value="Freelance profile" /></li>
+
+                            <li><span style="color:white">Cuurrent profile: @Html.GetCurrentProfileName()</span></li>
+
+                            if (User.IsInRole("moderator"))
+                            {
+                                <li>@Html.ActionLink("Users", "Users", "Moderator", new { page = 1 }, null)</li>
+                            }
                         }
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Registration", "registration", "account")</li>
-                        <li>@Html.ActionLink("Login", "login", "account")</li>
-                    }
-                </ul>
+                        else
+                        {
+                            <li>@Html.ActionLink("Registration", "registration", "account")</li>
+                            <li>@Html.ActionLink("Login", "login", "account")</li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - ReWork</p>
-        </footer>
+
+
+        <div class="container body-content">
+            @RenderBody()
+        </div>
     </div>
 
+    <footer>
+        <div class="container">
+            <span>&copy; @DateTime.Now.Year - ReWork</span>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+    
     <script type="text/javascript" src="~/Scripts/layout.js"></script>
-
+    <script type="text/javascript" src="~/Scripts/pagination.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

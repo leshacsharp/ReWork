@@ -6,7 +6,7 @@
 
         public int CountJobsOnPage { get; set; }
 
-        public int? SkillId { get; set; }
+        public int[] SkillsId { get; set; }
 
         public int PriceFrom { get; set; }
 

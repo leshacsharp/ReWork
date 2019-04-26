@@ -19,9 +19,11 @@ namespace ReWork.Model.EntitiesInfo
 
         public int CountOffers { get; set; }
 
+        public string CustomerId { get; set; }
 
-        public IEnumerable<int> SkillsId { get; set; }
+        public string UserName { get; set; }
 
-        public IEnumerable<string> Skills { get; set; }
+
+        public IEnumerable<SkillInfo> Skills { get; set; }
     }
 }

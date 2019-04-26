@@ -8,5 +8,6 @@ namespace ReWork.Logic.Services.Abstraction
     {
         void CreateOffer(CreateOfferParams offerParams);
         IEnumerable<OfferInfo> FindJobOffers(int jobId);
+        void AcceptOffer(int jobId, string employeeId);
     }
 }
