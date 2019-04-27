@@ -1,0 +1,55 @@
+﻿@using ReWork.WebSite.Helpers;
+@model ReWork.Model.Entities.User
+@{
+    ViewBag.Title = "info";
+}
+
+@Html.Action("userinformation", "profile")
+
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li><a href="@Url.Action("myjobs","job")">My jobs</a></li>
+        <li class="active"><a href="@Url.Action("information","profile")">Information</a></li>
+        <li><a href="@Url.Action("settings","profile")">Settings</a></li>
+    </ul>
+
+    <br />
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <div class="row">
+                <div class="profile-inforamtion">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-3"><span class="info-field">Date registration:</span></td>
+                                <td class="col-md-9"><span>@Model.RegistrationdDate.Value.ToShortDateString()</span></td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3"><span class="info-field">User name:</span></td>
+                                <td class="col-md-9"><span>@Model.UserName</span></td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3"><span class="info-field">First name:</span></td>
+                                <td class="col-md-3=9"><span>@Model.FirstName</span></td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3"><span class="info-field">Last name:</span></td>
+                                <td class="col-md-9"><span>@Model.LastName</span></td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3"><span class="info-field">Have customer profile:</span></td>
+                                <td class="col-md-9"><span>@(Model.CustomerProfile != null ? "+" : "-") </span></td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3"><span class="info-field">Have employer profile:</span></td>
+                                <td class="col-md-9"><span>@(Model.EmployeeProfile != null ? "+" : "-") </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

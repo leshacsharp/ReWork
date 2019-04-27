@@ -169,6 +169,36 @@ namespace ReWork.WebSite.Controllers
         }
 
 
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordViewModel changeModel)
+        {
+            if (!ModelState.IsValid)
+                return View(changeModel);
+
+            string userId = User.Identity.GetUserId();
+            IdentityResult changeResult = _userService.ChangePassword(userId, changeModel.OldPassword, changeModel.NewPassword);
+
+            if (changeResult.Succeeded)
+            {
+                AuthenticationManager.SignOut();
+                return RedirectToAction("Login", "Account");
+            }
+
+            AddModeErrors(changeResult);
+            return View(changeModel);
+        }
+
+
+
+
         [Authorize]
         [HttpGet]
         public ActionResult SignOut()

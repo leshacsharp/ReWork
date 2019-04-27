@@ -20,7 +20,7 @@ namespace ReWork.WebSite.Controllers
         private IJobService _jobService;
         private IOfferService _offerService;
         private ISectionService _sectionService;
-        private ISkillService _skillService;
+        private ISkillService _skillService; 
         private ICommitProvider _commitProvider;
 
         public JobController(IJobService jobService, IOfferService offerService, ISectionService sectionService, ISkillService skillService, ICommitProvider commitProvider)
@@ -118,6 +118,12 @@ namespace ReWork.WebSite.Controllers
         }
 
 
+
+        [HttpGet]
+        public ActionResult MyJobs()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult MyJobs(DateTime? fromDate)

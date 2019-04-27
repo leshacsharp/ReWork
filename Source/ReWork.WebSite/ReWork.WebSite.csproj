@@ -175,7 +175,7 @@
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Controllers\OfferController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -199,7 +199,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\account-settings.js" />
+    <Content Include="Scripts\my-jobs.js" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -221,6 +221,7 @@
     <Content Include="Scripts\jobs.js" />
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\search.js" />
+    <Content Include="Scripts\settings.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -235,7 +236,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\account\registration.cshtml" />
     <Content Include="Views\account\Login.cshtml" />
-    <Content Include="Views\Settings\ChangePassword.cshtml" />
     <Content Include="Views\account\ConfirmEmail.cshtml" />
     <Content Include="Views\account\DisplayEmail.cshtml" />
     <Content Include="Views\account\ForgotPassword.cshtml" />
@@ -246,7 +246,6 @@
     <Content Include="Views\Moderator\Users.cshtml" />
     <Content Include="Views\Moderator\Details.cshtml" />
     <Content Include="Views\Moderator\Edit.cshtml" />
-    <Content Include="Views\Settings\General.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Job\Edit.cshtml" />
     <Content Include="Views\Job\Jobs.cshtml" />
@@ -256,7 +255,11 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Employee\Employees.cshtml" />
     <Content Include="Views\Offer\Create.cshtml" />
-    <Content Include="Views\Settings\UserInformation.cshtml" />
+    <Content Include="Views\Profile\Information.cshtml" />
+    <Content Include="Views\Job\MyJobs.cshtml" />
+    <Content Include="Views\Profile\UserInformation.cshtml" />
+    <Content Include="Views\Profile\Settings.cshtml" />
+    <Content Include="Views\account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

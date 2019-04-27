@@ -13,20 +13,13 @@ using System.Web.Mvc;
 namespace ReWork.WebSite.Controllers
 {
     [Authorize]
-    public class SettingsController : Controller
+    public class ProfileController : Controller
     {
         private IUserService _userService;
 
-        public SettingsController(IUserService userService)
+        public ProfileController(IUserService userService)
         {
             _userService = userService;
-        }
-
-        public ActionResult General()
-        {
-            string userId = User.Identity.GetUserId();
-            User user = _userService.FindUserById(userId);
-            return View(user);
         }
 
         public IAuthenticationManager AuthenticationManager
@@ -35,32 +28,12 @@ namespace ReWork.WebSite.Controllers
         }
 
 
+
         [HttpGet]
-        public ActionResult ChangePassword()
+        public ActionResult Settings()
         {
             return View();
         }
-
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordViewModel changeModel)
-        {
-            if (!ModelState.IsValid)
-                return View(changeModel);
-
-            string userId = User.Identity.GetUserId();
-            IdentityResult changeResult = _userService.ChangePassword(userId, changeModel.OldPassword, changeModel.NewPassword);
-
-            if (changeResult.Succeeded)
-            {
-                AuthenticationManager.SignOut();
-                return RedirectToAction("Login", "Account");
-            }
-
-            AddModeErrors(changeResult);
-            return View(changeModel);
-        }
-
 
         [HttpGet]
         public ActionResult UserInformation()
@@ -69,6 +42,16 @@ namespace ReWork.WebSite.Controllers
             User user = _userService.FindUserById(userId);
             return PartialView(user);
         }
+
+        [HttpGet]
+        public ActionResult Information()
+        {
+            string userId = User.Identity.GetUserId();
+            User user = _userService.FindUserById(userId);
+            return View(user);
+        }
+
+
 
 
         [HttpPost]

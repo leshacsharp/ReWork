@@ -111,7 +111,7 @@
     function FormatResult(data) {
         var result = [];
         for (var i = 0; i < data.length; i++) {
-            var html = "<div>" + data[i].UserName;
+            var html = "<div style='border:1px solid black;'>" + data[i].UserName;
 
             var skillsHtml = "";
             var skills = data[i].Skills;

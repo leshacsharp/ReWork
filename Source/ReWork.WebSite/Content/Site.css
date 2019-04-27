@@ -96,32 +96,41 @@ textarea {
     margin: 0;
 }
 
-#skills-group ul {
-    margin: 0;
-    padding:0;
+.skills-group{
+}
+.settings-group {
 }
 
-#skills-group ul li {
+.skills-group ul {
+    margin: 0;
+    padding: 0;
+}
+
+.skills-group ul li {
     list-style-type: none;
     padding: 7px 20px 7px 25px;
     cursor:pointer;
 }
 
-#skills-group ul li:hover {
+.skills-group ul li:hover,
+.settings-group .panel .panel-heading {
     background-color: #e5e5e9;
 }
 
-#skills-group ul li.active {
+.skills-group ul li.active,
+.settings-group .panel.active .panel-heading {
     background-color: #337ab7;
     color: white;
     font-weight: 700;
 }
 
-#skills-group ul li.active a{
+.skills-group ul li.active a,
+.settings-group .panel.active .panel-heading a {
     color: white;
 }
 
-#skills-group a {
+.skills-group a,
+.settings-group a{
     text-decoration: none;
 }
 
@@ -441,5 +450,4 @@ label.input-error {
    font-weight:bold;
    font-family: Tahoma, Helvetica, Arial, Verdana, sans-serif;
 }
-
 

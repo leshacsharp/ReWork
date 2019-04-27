@@ -7,17 +7,6 @@
         endDate: new Date()
     });
 
-    $("input[name=create-customer]").click(function () {
-        Ajax("/settings/CustomerProfileExists", "POST", "json", null, function (profileExists) {
-            if (!profileExists) {
-                Ajax("/settings/Customer", "POST");
-                alert("customer profile created");
-            }
-            else {
-                alert("customer profile exists");
-            }          
-        })
-    })
 
     $("input[name=search-jobs]").click(function () {
         SendFindJobs();
@@ -45,7 +34,7 @@
     function AppendJobs(data) {
         //TODO: СДЕЛАТЬ сколько найдено items
 
-        $("#myjobs-tab .pagination").pagination({
+        $(".pagination").pagination({
             dataSource: data,
             pageSize: 3,
             formatResult: FormatResult,

@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("userinformation", "profile")
+
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li><a href="@Url.Action("myjobs","job")">My jobs</a></li>
+        <li><a href="@Url.Action("information","profile")">Information</a></li>
+        <li class="active"><a href="@Url.Action("settings","profile")">Settings</a></li>
+    </ul>
+
+    <br />
+    <div class="tab-content">
+        <div class="tab-pane active">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel-group settings-group" id="settings-header">
+
+                        <div class="panel panel-default active">
+                            <div class="panel-heading">
+                                <a href="@Url.Action("settings","profile")">
+                                    Main settings
+                                    <span class="fa fa-chevron-right pull-right skill-select"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a href="@Url.Action("changepassword","account")">
+                                    Change password
+                                    <span class="fa fa-chevron-right pull-right skill-select"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a href="@Url.Action("edit","employee")">
+                                    Employee profile
+                                    <span class="fa fa-chevron-right pull-right skill-select"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="form-group">
+                        @Html.Label("Create employee profile", new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            <a href="@Url.Action("create","employee")">
+                                <input type="submit" name="create-employee" value="create" class="btn btn-success" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="form-group">
+                        @Html.Label("Create customer profile", new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            <input type="submit" name="create-customer" value="create" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+  <script type="text/javascript" src="~/Scripts/settings.js"></script>  
+}

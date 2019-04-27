@@ -1,0 +1,49 @@
+﻿@model ReWork.Model.Entities.User
+
+<br /><br /><br /><br />
+<div class="row">
+    <table class="table profile-table">
+        <tbody>
+            <tr>
+                <td class="col-md-2">
+                    <div class="profile-short-image">
+                        Фотка
+                    </div>
+                </td>
+
+                <td class="col-md-3">
+                    <div class="profile-short-info">
+                        <div class="info-block">
+                            <span class="user-name"> @Model.UserName </span>
+                            <span class="fio">(@Model.FirstName @Model.LastName)</span>
+                        </div>
+
+                        <div class="info-block">
+                            <span class="reg-date-title">Data registration:</span>
+                            <span class="reg-date-number">@Model.RegistrationdDate.Value.ToShortDateString()</span>
+                        </div>
+
+                        <div class="info-block">
+                            <span class="age-title">Age: </span>
+                            <span class="age-number">100</span>
+                        </div>
+                    </div>
+                </td>
+
+                <td class="col-md-3 hidden-xs">
+                    <div class="profile-dop-info">
+                        <div class="rating">
+                            <span class="rating-title">Rating:</span>
+                            <span class="rating-number">5</span>
+                        </div>
+
+                        <div class="dop-count-feedback">
+                            <span class="count-feedback-title">Count feedbacks:</span>
+                            <span class="count-feedback-number">24</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
