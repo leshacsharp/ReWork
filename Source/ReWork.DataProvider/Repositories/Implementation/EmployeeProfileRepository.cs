@@ -56,9 +56,9 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     select new EmployeeProfileInfo()
                     {
                         Id = e.Id,
-                        UserName = e.User.UserName,
-                        FirstName = e.User.FirstName,
-                        LastName = e.User.LastName,
+                        UserName = u.UserName,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
                         Rating = e.Rating,
                         Age = e.Age,
                         RegistrationdDate = (DateTime)u.RegistrationdDate,
