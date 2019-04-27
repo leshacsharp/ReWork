@@ -38,6 +38,30 @@ namespace TestDb
 
                 //                     .ToList();
 
+
+                var a =  (from j in db.Jobs
+                        join c in db.CustomerProfiles on j.CustomerId equals c.Id
+                        where j.Id == 3
+                        select new JobInfo()
+                        {
+                            Id = j.Id,
+                            Title = j.Title,
+                            Description = j.Description,
+                            Price = j.Price,
+                            PriceDiscussed = j.PriceDiscussed,
+                            DateAdded = (DateTime)j.DateAdded,
+                            CountOffers = j.Offers.Count(),
+
+                            UserName = j.Customer.User.UserName,
+                            CustomerId = j.CustomerId,
+
+                            Skills = j.Skills.Select(p => new SkillInfo()
+                            {
+                                Id = p.Id,
+                                Title = p.Title
+                            })
+                        }).SingleOrDefault();
+
                 //foreach (var it in jobs)
                 //{
                 //    foreach (var skill in it.Skills)
@@ -130,7 +154,7 @@ namespace TestDb
                 //{
                 //    Console.WriteLine(it.s.Title);
                 //}
-
+                
 
             }
         }
@@ -153,25 +177,5 @@ namespace TestDb
         public string EmployeeId { get; set; }
     }
 
-    class JobInfo
-    {
-        public int Id { get; set; }
-
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public int Price { get; set; }
-
-        public bool PriceDiscussed { get; set; }
-
-        public DateTime DateAdded { get; set; }
-
-        public int CountOffers { get; set; }
-
-
-        public IEnumerable<int> SkillsId { get; set; }
-
-        public IEnumerable<string> Skills { get; set; }
-    }
+   
 }

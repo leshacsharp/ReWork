@@ -19,26 +19,28 @@ namespace ReWork.DataProvider.Repositories.Implementation
         {
             Db.EmployeeProfiles.Remove(item);
         }
- 
+
         public IQueryable<EmployeeProfileInfo> FindEmployes(Expression<Func<EmployeeProfile, Boolean>> predicate)
         {
-            return Db.EmployeeProfiles.Where(predicate).Select(e => new EmployeeProfileInfo()
-            {
-                Id = e.Id,
-                UserName = e.User.UserName,
-                FirstName = e.User.FirstName,
-                LastName = e.User.LastName,
-                Rating = e.Rating,
-                Age = e.Age,
-                RegistrationdDate = (DateTime)e.User.RegistrationdDate,
-                CountPerfomedJobs = e.PerfomedJobs.Count,
+            return Db.EmployeeProfiles
+                     .Where(predicate)
+                     .Select(e => new EmployeeProfileInfo()
+                     {
+                         Id = e.Id,
+                         UserName = e.User.UserName,
+                         FirstName = e.User.FirstName,
+                         LastName = e.User.LastName,
+                         Rating = e.Rating,
+                         Age = e.Age,
+                         RegistrationdDate = (DateTime)e.User.RegistrationdDate,
+                         CountPerfomedJobs = e.PerfomedJobs.Count,
 
-                Skills = e.Skills.Select(p => new SkillInfo()
-                {
-                    Id = p.Id,
-                    Title = p.Title
-                })
-            });
+                         Skills = e.Skills.Select(p => new SkillInfo()
+                         {
+                             Id = p.Id,
+                             Title = p.Title
+                         })
+                     });
         }
 
         public EmployeeProfile FindEmployeeById(string employeeId)
@@ -49,6 +51,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
         public EmployeeProfileInfo FindEmployeeInfoById(string employeeId)
         {
             return (from e in Db.EmployeeProfiles
+                    join u in Db.Users on e.Id equals u.Id
                     where e.Id == employeeId
                     select new EmployeeProfileInfo()
                     {
@@ -58,7 +61,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         LastName = e.User.LastName,
                         Rating = e.Rating,
                         Age = e.Age,
-                        RegistrationdDate = (DateTime)e.User.RegistrationdDate,
+                        RegistrationdDate = (DateTime)u.RegistrationdDate,
                         CountPerfomedJobs = e.PerfomedJobs.Count,
 
                         Skills = e.Skills.Select(p => new SkillInfo()

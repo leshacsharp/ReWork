@@ -53,26 +53,28 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public JobInfo FindJobInfoById(int id)
         {
-            return Db.Jobs.Where(p => p.Id == id).Select(j =>
-                      new JobInfo()
-                      {
-                          Id = j.Id,
-                          Title = j.Title,
-                          Description = j.Description,
-                          Price = j.Price,
-                          PriceDiscussed = j.PriceDiscussed,
-                          DateAdded = (DateTime)j.DateAdded,
-                          CountOffers = j.Offers.Count(),
+            return (from j in Db.Jobs
+                    join c in Db.CustomerProfiles on j.CustomerId equals c.Id
+                    where j.Id == id
+                    select new JobInfo()
+                    {
+                        Id = j.Id,
+                        Title = j.Title,
+                        Description = j.Description,
+                        Price = j.Price,
+                        PriceDiscussed = j.PriceDiscussed,
+                        DateAdded = (DateTime)j.DateAdded,
+                        CountOffers = j.Offers.Count(),
 
-                          UserName = j.Customer.User.UserName,
-                          CustomerId = j.CustomerId,
+                        UserName = j.Customer.User.UserName,
+                        CustomerId = j.CustomerId,
 
-                          Skills = j.Skills.Select(p => new SkillInfo()
-                          {
-                              Id = p.Id,
-                              Title = p.Title
-                          })
-                      }).SingleOrDefault();
+                        Skills = j.Skills.Select(p => new SkillInfo()
+                        {
+                            Id = p.Id,
+                            Title = p.Title
+                        })
+                    }).SingleOrDefault();
         }
 
 
