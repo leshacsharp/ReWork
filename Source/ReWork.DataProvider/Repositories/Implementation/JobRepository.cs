@@ -55,6 +55,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
         {
             return (from j in Db.Jobs
                     join c in Db.CustomerProfiles on j.CustomerId equals c.Id
+                    join u in Db.Users on c.Id equals u.Id
                     where j.Id == id
                     select new JobInfo()
                     {
@@ -66,8 +67,8 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         DateAdded = (DateTime)j.DateAdded,
                         CountOffers = j.Offers.Count(),
 
-                        UserName = j.Customer.User.UserName,
-                        CustomerId = j.CustomerId,
+                        UserName = u.UserName,
+                        CustomerId = c.Id,
 
                         Skills = j.Skills.Select(p => new SkillInfo()
                         {
