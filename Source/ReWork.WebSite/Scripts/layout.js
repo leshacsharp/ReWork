@@ -1,4 +1,11 @@
 ﻿$(document).ready(function () {
+
+    var currentCulture = $.cookie("lang");
+    if (currentCulture != undefined) {
+        var option = $("select").find("option[value=" + currentCulture + "]");
+        option.attr("selected","selected");
+    }
+
     $("input[name=customerProfile]").click(function () {
         var customer = $(this);
         Ajax("/profile/SetProfileOnCustomer", "POST", null, null, function () {

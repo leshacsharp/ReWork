@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using ReWork.WebSite.Filters;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite
@@ -8,6 +9,7 @@ namespace ReWork.WebSite
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new CultureFilterAttribute());
         }
     }
 }

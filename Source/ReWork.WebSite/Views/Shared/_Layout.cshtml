@@ -24,24 +24,45 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("ReWork", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("ReWork", "Jobs", "Job", null, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Jobs", "Jobs", "Job")</li>
-                        <li>@Html.ActionLink("Employees", "Employees", "Employee")</li>
-                        <li>@Html.ActionLink("Search", "Search", "Home")</li>
+                        <li>@Html.ActionLink(Resources.Global.Jobs, "Jobs", "Job")</li>
+                        <li>@Html.ActionLink(Resources.Global.Employes, "Employees", "Employee")</li>
+                        <li>@Html.ActionLink(Resources.Global.Search, "Search", "Home")</li>
+
+                        <li>
+                            @using (Html.BeginForm("ChangeCulture", "Home", FormMethod.Post))
+                            {
+                                <div class="form-group">
+                                    <select name="lang" class="form-control" style="width:65px" onchange="this.form.submit()">
+                                        <option value="en">en</option>
+                                        <option value="ru">ru</option>
+                                    </select>
+                                </div>
+                            }
+                        </li>
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("MyJobs", "myjobs", "job")</li>
                             <li>@Html.ActionLink("Settings", "settings", "profile")</li>
                             <li>@Html.ActionLink(User.Identity.Name, "settings", "profile")</li>
-                            <li>@Html.ActionLink("SignOut", "SignOut", "account")</li>
+                            <li>@Html.ActionLink(Resources.Global.SignOut, "SignOut", "account")</li>
 
-                            <li><input type="submit" name="customerProfile" value="Customer profile" /></li>
-                            <li><input type="submit" name="freelancerProfile" value="Freelance profile" /></li>
+                            <li>
+                                <div>
+                                    <span style="color:white">profile:@Html.GetCurrentProfileName()</span>
+                                </div>
+                                <div style="display:inline-block">
+                                    <input type="submit" class="btn btn-default" name="customerProfile" value="Customer" style="width:80px;" />
+                                </div>
+                                <div style="display:inline-block">
+                                    <input type="submit" class="btn btn-default" name="freelancerProfile" value="Freelancer" style="width:85px;" />
+                                </div>
+                            </li>
 
-                            <li><span style="color:white">Cuurrent profile: @Html.GetCurrentProfileName()</span></li>
 
                             if (User.IsInRole("moderator"))
                             {
@@ -50,10 +71,10 @@
                         }
                         else
                         {
-                            <li>@Html.ActionLink("Registration", "registration", "account")</li>
-                            <li>@Html.ActionLink("Login", "login", "account")</li>
+                            <li>@Html.ActionLink(Resources.Global.Registration, "registration", "account")</li>
+                            <li>@Html.ActionLink(Resources.Global.Login, "login", "account")</li>
                         }
-                    </ul>
+                        </ul>
                 </div>
             </div>
         </div>
