@@ -1,4 +1,4 @@
-﻿@model ReWork.Model.ViewModels.Account.EditUserViewModel
+﻿@model ReWork.Model.ViewModels.Account.EditUserRolesViewModel
 @{
     ViewBag.Title = "Edit";
 }
@@ -12,7 +12,7 @@
 
 
 
-@using (Html.BeginForm("Edit", "Moderator", FormMethod.Post))
+@using (Html.BeginForm("EditUserRoles", "Moderator", FormMethod.Post))
 {
     @Html.HiddenFor(p => p.Id)
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ReWork.Model.ViewModels.Account
 {
@@ -15,7 +10,12 @@ namespace ReWork.Model.ViewModels.Account
         [Required]
         public string UserName { get; set; }
 
-        public IEnumerable<string> AllRoles { get; set; }
-        public IEnumerable<string> UserRoles { get; set; }
+        [MaxLength(30)]
+        public string FirstName { get; set; }
+
+        [MaxLength(40)]
+        public string LastName { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }

@@ -74,6 +74,7 @@ namespace ReWork.WebSite.Controllers
         [HttpPost]
         public ActionResult Edit(EmployeeProfileViewModel employeeProfileModel)
         {
+            //TODO: изменить вместо form на ajax
             if (!ModelState.IsValid)
             {
                 ViewBag.Skills = GetCategories();

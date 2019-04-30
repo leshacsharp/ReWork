@@ -7,7 +7,7 @@
             <tr>
                 <td class="col-md-2">
                     <div class="profile-short-image">
-                        Фотка
+                        @Html.Raw("<img style='width:250px; height:180px;' src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Image) + "\" />")
                     </div>
                 </td>
 

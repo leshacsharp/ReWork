@@ -4,6 +4,8 @@ using ReWork.Logic.Infustructure;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
 using ReWork.Model.ViewModels.Account;
+using System;
+using System.IO;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
@@ -198,6 +200,48 @@ namespace ReWork.WebSite.Controllers
 
 
 
+        [Authorize]
+        [HttpGet]
+        public ActionResult Settings()
+        {
+            string userId = User.Identity.GetUserId();
+            User user = _userService.FindUserById(userId);
+
+            EditUserViewModel editModel = new EditUserViewModel()
+            { Id = user.Id, UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName };
+            editModel.ImagePath = Convert.ToBase64String(user.Image);
+
+            return View(editModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Settings(EditUserViewModel editModel)
+        {
+            if(!ModelState.IsValid )
+            {
+                return View(editModel);
+            }
+
+            var userPhoto = Request.Files["userphoto"];
+            byte[] imageBytes = null;
+
+            if (userPhoto.ContentLength > 0)
+            {
+                imageBytes = new byte[userPhoto.InputStream.Length];
+                using (BinaryReader reader = new BinaryReader(userPhoto.InputStream))
+                {
+                    reader.Read(imageBytes, 0, imageBytes.Length);
+                }
+            } 
+
+
+            _userService.EditUser(editModel.Id, editModel.FirstName, editModel.LastName, imageBytes);
+            return Redirect(Request.UrlReferrer.PathAndQuery);
+        }
+
+       
+
 
         [Authorize]
         [HttpGet]
@@ -206,9 +250,6 @@ namespace ReWork.WebSite.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
-
-
 
         private void AddModeErrors(IdentityResult result)
         {

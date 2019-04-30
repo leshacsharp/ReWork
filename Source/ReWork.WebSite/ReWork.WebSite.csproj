@@ -204,6 +204,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cube-512.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\pagination.css" />
     <Content Include="favicon.ico" />
@@ -256,7 +257,7 @@
     <Content Include="Views\Employee\Create.cshtml" />
     <Content Include="Views\Moderator\Users.cshtml" />
     <Content Include="Views\Moderator\Details.cshtml" />
-    <Content Include="Views\Moderator\Edit.cshtml" />
+    <Content Include="Views\Moderator\EditUser.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Job\Edit.cshtml" />
     <Content Include="Views\Job\Jobs.cshtml" />
@@ -269,8 +270,8 @@
     <Content Include="Views\Profile\Information.cshtml" />
     <Content Include="Views\Job\MyJobs.cshtml" />
     <Content Include="Views\Profile\UserInformation.cshtml" />
-    <Content Include="Views\Profile\Settings.cshtml" />
     <Content Include="Views\account\ChangePassword.cshtml" />
+    <Content Include="Views\account\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

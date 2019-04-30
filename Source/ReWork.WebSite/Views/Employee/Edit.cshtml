@@ -23,7 +23,7 @@
                     <div class="panel-group settings-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a href="@Url.Action("settings","profile")">
+                                <a href="@Url.Action("settings","account")">
                                     Main settings
                                     <span class="fa fa-chevron-right pull-right skill-select"></span>
                                 </a>
@@ -67,7 +67,7 @@
 
 
                         <div class="form-group">
-                            @Html.Label("Skills", new { @class = "col-md-2 control-label" })<br />
+                            @Html.Label("Skills", new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.ListBoxFor(p => p.SelectedSkills, skills, new { multiple = "multiple" })
                             </div>

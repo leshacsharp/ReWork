@@ -24,7 +24,11 @@ namespace ReWork.Logic.Services.Implementation
             User user = _userManager.FindByName(userName);
             if(user == null)
             {
-                User newUser = new User() { UserName = userName, Email = email, RegistrationdDate = DateTime.Now };
+                string defaultImagePath = HttpContext.Current.Server.MapPath("~/Content/cube-512.png");
+                byte[] imageBytes = System.IO.File.ReadAllBytes(defaultImagePath);
+
+                User newUser = new User()
+                { UserName = userName, Email = email, RegistrationdDate = DateTime.Now, Image = imageBytes };
 
                 IdentityResult regResult =  _userManager.Create(newUser, password);
                 if (!regResult.Succeeded)
@@ -144,7 +148,7 @@ namespace ReWork.Logic.Services.Implementation
             }
         }
 
-        public void EditUser(string userId, IEnumerable<string> roles)
+        public void EditUserRoles(string userId, IEnumerable<string> roles)
         {
             User user = _userManager.FindById(userId);
             if(user != null)
@@ -156,6 +160,18 @@ namespace ReWork.Logic.Services.Implementation
                 {
                     _userManager.AddToRole(userId, role);
                 }
+            }
+        }
+
+        public void EditUser(string userId, string firstName, string lastName, byte[] image)
+        {
+            User user = _userManager.FindById(userId);
+            if(user != null)
+            {
+                user.FirstName = firstName;
+                user.LastName = lastName;
+                user.Image = image;
+                _userManager.Update(user);
             }
         }
 

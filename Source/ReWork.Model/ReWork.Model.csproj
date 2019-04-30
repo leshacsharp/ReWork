@@ -113,9 +113,18 @@
     <Compile Include="Migrations\201904241824035_change_job.Designer.cs">
       <DependentUpon>201904241824035_change_job.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904291536508_change_user.cs" />
+    <Compile Include="Migrations\201904291536508_change_user.Designer.cs">
+      <DependentUpon>201904291536508_change_user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904291606096_change_user1.cs" />
+    <Compile Include="Migrations\201904291606096_change_user1.Designer.cs">
+      <DependentUpon>201904291606096_change_user1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\Account\EditUserRolesViewModel.cs" />
     <Compile Include="ViewModels\Account\EditUserViewModel.cs" />
     <Compile Include="ViewModels\Account\ForgotPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
@@ -153,6 +162,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904241824035_change_job.resx">
       <DependentUpon>201904241824035_change_job.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904291536508_change_user.resx">
+      <DependentUpon>201904291536508_change_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904291606096_change_user1.resx">
+      <DependentUpon>201904291606096_change_user1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

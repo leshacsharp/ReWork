@@ -47,8 +47,8 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("MyJobs", "myjobs", "job")</li>
-                            <li>@Html.ActionLink("Settings", "settings", "profile")</li>
-                            <li>@Html.ActionLink(User.Identity.Name, "settings", "profile")</li>
+                            <li>@Html.ActionLink("Settings", "settings", "account")</li>
+                           // <li>@Html.ActionLink(User.Identity.Name, "settings", "profile")</li>
                             <li>@Html.ActionLink(Resources.Global.SignOut, "SignOut", "account")</li>
 
                             <li>

@@ -51,13 +51,17 @@ namespace ReWork.WebSite.Controllers
             return View("Error");
         }
 
+
+
         [HttpGet]
-        public ActionResult Edit(string userName)
+        public ActionResult EditUser(string userName)
         {
             User user = _userService.FindUserByName(userName);
             if (user != null)
             {
-                EditUserViewModel editUserModel = new EditUserViewModel() { Id = user.Id, UserName = user.UserName };
+                EditUserRolesViewModel editUserModel = new EditUserRolesViewModel()
+                { Id = user.Id, UserName = user.UserName };
+
                 editUserModel.AllRoles = _roleService.GetAll();
                 editUserModel.UserRoles = _userService.GetUserRoles(user.Id);
 
@@ -67,9 +71,9 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(EditUserViewModel editUserModel)
+        public ActionResult EditUserRoles(EditUserRolesViewModel editUserModel)
         {
-            _userService.EditUser(editUserModel.Id, editUserModel.UserRoles);
+            _userService.EditUserRoles(editUserModel.Id, editUserModel.UserRoles);
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 

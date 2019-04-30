@@ -28,27 +28,19 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
-        [HttpGet]
-        public ActionResult Settings()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult UserInformation()
-        {
-            string userId = User.Identity.GetUserId();
-            User user = _userService.FindUserById(userId);
-            return PartialView(user);
-        }
-
         [HttpGet]
         public ActionResult Information()
         {
             string userId = User.Identity.GetUserId();
             User user = _userService.FindUserById(userId);
             return View(user);
+        }
+
+        public ActionResult UserInformation()
+        {
+            string userId = User.Identity.GetUserId();
+            User user = _userService.FindUserById(userId);
+            return PartialView(user);
         }
 
 

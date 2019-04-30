@@ -1,0 +1,130 @@
+﻿@model ReWork.Model.ViewModels.Account.EditUserViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Action("userinformation", "profile")
+
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li><a href="@Url.Action("myjobs","job")">My jobs</a></li>
+        <li><a href="@Url.Action("information","profile")">Information</a></li>
+        <li class="active"><a href="@Url.Action("settings","profile")">Settings</a></li>
+    </ul>
+
+    <br />
+    <div class="tab-content">
+        <div class="tab-pane active">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel-group settings-group" id="settings-header">
+
+                        <div class="panel panel-default active">
+                            <div class="panel-heading">
+                                <a href="@Url.Action("settings","account")">
+                                    Main settings
+                                    <span class="fa fa-chevron-right pull-right skill-select"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a href="@Url.Action("changepassword","account")">
+                                    Change password
+                                    <span class="fa fa-chevron-right pull-right skill-select"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a href="@Url.Action("edit","employee")">
+                                    Employee profile
+                                    <span class="fa fa-chevron-right pull-right skill-select"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+
+                    @using (Html.BeginForm("Settings", "Account", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(p => p.Id)
+
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.UserName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(p => p.UserName, new { @class = "form-control" @*disabled = "disabled"*@ })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.FirstName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(p => p.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.LastName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(p => p.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(p => p.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                @Html.HiddenFor(p => p.ImagePath)   
+                                @Html.Raw("<img style='width:100px; height:60px;' src=\"data:image/jpeg;base64," + Model.ImagePath + "\" />")  
+                            </div>
+                            <div class="col-md-10">
+                                <input type="file" name="userphoto" />
+                            </div>  
+                        </div>
+                       
+
+                        <div class="form-group">
+                            @Html.Label("Freelancer profile", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                <a href="@Url.Action("create", "employee")">
+                                    <input type="button" value="create" class="btn btn-success" />
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.Label("Customer profile", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                             
+                                <button type="button" name="create-customer" class="btn btn-success">create</button>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-default" value="Save" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/settings.js"></script>
+}

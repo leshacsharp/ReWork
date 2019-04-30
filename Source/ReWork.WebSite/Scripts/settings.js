@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("input[name=create-customer]").click(function () {
+    $("button[name=create-customer]").click(function () {
         $.ajax({
             url: "/customer/create",
             type: "POST",

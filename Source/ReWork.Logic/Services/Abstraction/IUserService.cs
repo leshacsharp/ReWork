@@ -12,6 +12,11 @@ namespace ReWork.Logic.Services.Abstraction
         ClaimsIdentity Authenticate(string userName, string password);
 
 
+        void DeleteUser(string userId);
+        void EditUserRoles(string userId, IEnumerable<string> roles);
+        void EditUser(string userId, string firstName, string lastName, byte[] image);
+
+
         IdentityResult ChangePassword(string userId, string oldPassword, string newPassword);
         void ResetPassword(string email);
         IdentityResult ConfirmResetPassword(string userId,string newPassword, string token);
@@ -26,9 +31,6 @@ namespace ReWork.Logic.Services.Abstraction
         User FindUserById(string userId);
         IEnumerable<User> FindUsers();
 
-
-        void DeleteUser(string userId);
-        void EditUser(string userId, IEnumerable<string> roles);
 
         IEnumerable<string> GetUserRoles(string userId);
         bool UserNameExists(string userName);
