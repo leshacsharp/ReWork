@@ -16,9 +16,12 @@ namespace ReWork.Model.Entities
 
         public virtual ICollection<Job> Jobs { get; set; }
 
+        public virtual ICollection<FeedBack> FeedBacks { get; set; }
+
         public CustomerProfile()
         {
             Jobs = new List<Job>();
+            FeedBacks = new List<FeedBack>();
         }
     }
 }

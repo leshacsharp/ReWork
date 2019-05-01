@@ -14,13 +14,18 @@ namespace ReWork.Model.EntitiesInfo
 
         public string LastName { get; set; }
 
-        public int Rating { get; set; }
+        public byte[] Image { get; set; }
 
         public int Age { get; set; }
 
+        public string AboutMe { get; set; }
+
         public DateTime RegistrationdDate { get; set; }
 
-        public int CountPerfomedJobs { get; set; }
+        public int CountDevolopingJobs { get; set; }
+
+        public IEnumerable<QualityOfWork> QualityOfWorks { get; set; }
+
 
         public IEnumerable<SkillInfo> Skills{ get; set; }
     }

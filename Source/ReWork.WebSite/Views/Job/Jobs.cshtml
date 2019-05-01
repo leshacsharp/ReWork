@@ -4,11 +4,16 @@
     var sections = Model.ToList();
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="filter">
+<div class="filter">
+    <div class="row">
+        <div class="col-md-10">
             <span class="filter-name">Count Jobs</span>
             <span class="filter-count"></span>
+        </div>
+        <div class="col-md-2">
+            <a href="@Url.Action("create","job")">
+                <input type="submit" class="btn btn-primary" value="Create job" />
+            </a>
         </div>
     </div>
 </div>
@@ -18,10 +23,11 @@
         <table class="table table-striped job-table">
             <thead>
                 <tr>
-                    <th>Job title</th>
-                    <th class="text-center">Budget</th>
-                    <th class="text-center">Offers</th>
-                    <th class="text-center">Open</th>
+                    <th class="col-md-7">Job title</th>
+                    <th class="col-md-2 text-center">Customer</th>
+                    <th class="col-md-1 text-center">Budget</th>
+                    <th class="col-md-1 text-center">Offers</th>
+                    <th class="col-md-1 text-center">Open</th>
                 </tr>
             </thead>
             <tbody>

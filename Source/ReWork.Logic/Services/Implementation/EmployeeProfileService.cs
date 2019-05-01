@@ -4,6 +4,7 @@ using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,12 +24,12 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
-        public void CreateEmployeeProfile(string userName, int age, int[] skillsId)
+        public void CreateEmployeeProfile(string userId, int age, string aboutMe, int[] skillsId)
         {
-            User user = _userManager.FindByName(userName);
+            User user = _userManager.FindById(userId);
             if (user != null && user.EmployeeProfile == null)
             {
-                EmployeeProfile employeeProfile = new EmployeeProfile() { User = user, Age = age };
+                EmployeeProfile employeeProfile = new EmployeeProfile() { User = user, Age = age, AboutMe = aboutMe };
 
                 foreach (var id in skillsId)
                 {
@@ -40,12 +41,13 @@ namespace ReWork.Logic.Services.Implementation
             }  
         }
 
-        public void EditEmployeeProfile(string employeeId, int age, int[] skillsId)
+        public void EditEmployeeProfile(string employeeId, int age, string aboutMe, int[] skillsId)
         {
             EmployeeProfile employeeProfile = _employeeRepository.FindEmployeeById(employeeId);
             if (employeeProfile != null)
             {
                 employeeProfile.Age = age;
+                employeeProfile.AboutMe = aboutMe;
                 employeeProfile.Skills.Clear();
 
                 foreach (var id in skillsId)
@@ -74,7 +76,7 @@ namespace ReWork.Logic.Services.Implementation
             return _employeeRepository.FindEmployeeInfoById(id);
         }
 
-        public IEnumerable<EmployeeProfileInfo> FindEmployes(int[] skillsId)
+        public IEnumerable<EmployeeProfileInfo> FindEmployes(int[] skillsId, string keyWords)
         {
             var filter = PredicateBuilder.True<EmployeeProfile>();
 
@@ -83,16 +85,25 @@ namespace ReWork.Logic.Services.Implementation
                 filter = filter.AndAlso<EmployeeProfile>(e => e.Skills.Any(p => skillsId.Contains(p.Id)));
             }
 
+            if (!String.IsNullOrEmpty(keyWords))
+            {
+                filter = filter.AndAlso<EmployeeProfile>(e =>
+                                e.AboutMe.Contains(keyWords) ||
+                                e.User.FirstName.Contains(keyWords) ||
+                                e.User.LastName.Contains(keyWords) ||
+                                e.User.UserName.Contains(keyWords));
+            }
+           
             return _employeeRepository.FindEmployes(filter)
-                                 .OrderByDescending(p => p.Rating)
+                                 .OrderByDescending(p=>p.CountDevolopingJobs)
                                  .ToList();
         }
 
 
 
-        public bool EmployeeProfileExists(string userName)
+        public bool EmployeeProfileExists(string userId)
         {
-            User user = _userManager.FindByName(userName);
+            User user = _userManager.FindById(userId);
             if (user != null)
             {
                 return user.EmployeeProfile != null;

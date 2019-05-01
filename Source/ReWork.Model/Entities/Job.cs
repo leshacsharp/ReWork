@@ -44,8 +44,6 @@ namespace ReWork.Model.Entities
 
         
         public virtual ICollection<Offer> Offers{ get; set; }
-   
-        public virtual FeedBack FeedBack { get; set; }
 
         public virtual ICollection<Skill> Skills { get; set; }
 

@@ -56,6 +56,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return (from j in Db.Jobs
                     join c in Db.CustomerProfiles on j.CustomerId equals c.Id
                     join u in Db.Users on c.Id equals u.Id
+                    join o in Db.Offers on j.Id equals o.JobId into offers
                     where j.Id == id
                     select new JobInfo()
                     {
@@ -65,7 +66,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         Price = j.Price,
                         PriceDiscussed = j.PriceDiscussed,
                         DateAdded = (DateTime)j.DateAdded,
-                        CountOffers = j.Offers.Count(),
+                        CountOffers = offers.Count(),
 
                         UserName = u.UserName,
                         CustomerId = c.Id,

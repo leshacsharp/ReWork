@@ -55,23 +55,31 @@
                     {
                         <h4>Edit employee</h4>
                         <hr />
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true,"", new { @class = "text-danger" })
 
                         <div class="form-group">
                             @Html.LabelFor(p => p.Age, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
-                                @Html.PasswordFor(p => p.Age, new { @class = "form-control" })
+                                @Html.TextBoxFor(p => p.Age, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(p => p.Age, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.AboutMe, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(p => p.AboutMe, new { @class = "form-control", rows = 8, style = "max-width:400px" })
+                                @Html.ValidationMessageFor(p => p.AboutMe, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             @Html.Label("Skills", new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.ListBoxFor(p => p.SelectedSkills, skills, new { multiple = "multiple" })
+                                @Html.ValidationMessageFor(p => p.SelectedSkills, "", new { @class = "text-danger" })
                             </div>
-                        </div>  
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">

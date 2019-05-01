@@ -19,11 +19,6 @@ namespace ReWork.DataProvider.Repositories.Implementation
             Db.FeedBacks.Remove(item);
         }
 
-        public IEnumerable<FeedBack> FindFeedBacksByUserName(string userName)
-        {
-            return Db.FeedBacks.Where(p => p.Job.Customer.User.UserName == userName).ToList();
-        }
-
         public void Update(FeedBack item)
         {
             Db.Entry(item).State = EntityState.Modified;

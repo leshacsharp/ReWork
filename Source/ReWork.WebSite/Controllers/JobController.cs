@@ -35,9 +35,8 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            CreateJobViewModel createJobModel = new CreateJobViewModel();
-            createJobModel.Skills = GetCategories();
-            return View(createJobModel);
+            ViewBag.Skills = GetCategories();
+            return View();
         }
 
         [HttpPost]
@@ -45,7 +44,7 @@ namespace ReWork.WebSite.Controllers
         {
             if (!ModelState.IsValid)
             {
-                jobModel.Skills = GetCategories();
+                ViewBag.Skills = GetCategories();
                 return View(jobModel);
             }
 

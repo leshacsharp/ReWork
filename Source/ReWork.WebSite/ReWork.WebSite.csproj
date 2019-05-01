@@ -272,6 +272,7 @@
     <Content Include="Views\Profile\UserInformation.cshtml" />
     <Content Include="Views\account\ChangePassword.cshtml" />
     <Content Include="Views\account\Settings.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

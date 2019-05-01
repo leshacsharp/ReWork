@@ -19,7 +19,7 @@
     $("button[name=reset]").click(function () {
         $(".selected-skills-container .selected-skill").remove();
         AppendSelectedSkillsHeader();
-        $("#employees").empty();
+        $(".employees-container").empty();
         $(".panel-group ul li.active").removeClass("active");
 
         SendFindEmployees();
@@ -93,7 +93,6 @@
     }
 
     function appendEmployees(data) {
-        $("#employees").empty();
         $(".filter-count").html(data.length);
 
         $(".pagination").pagination({
@@ -102,27 +101,65 @@
             formatResult: FormatResult,
 
             callback: function (data, pagination) {
-                $("#employees").empty();
-                $("#employees").append(data);
+                $(".employees-container").empty();
+                $(".employees-container").append(data);
             }
         })
     }
 
     function FormatResult(data) {
         var result = [];
+
         for (var i = 0; i < data.length; i++) {
-            var html = "<div style='border:1px solid black;'>" + data[i].UserName;
+
+            var employee = "/employee/details/" + data[i].Id;
+
+            var feedbacks = data[i].QualityOfWorks;
+            var countPositiveFeedbacks = 0;
+            for (var j = 0; j < feedbacks.length; j++) {
+                if (feedbacks[j] >= 3) {
+                    countPositiveFeedbacks++;
+                }
+            }
+            var percentPositiveFeedbacks = countPositiveFeedbacks / (feedbacks.length == 0 ? 1 : feedbacks.length);
+            
+            var imageBytes = new Uint8Array(data[i].Image);
+            var imagePath = "data:image/jpeg;base64," + ArrayBufferToBase64(data[i].Image);
+
+            var html = "<div class='employee'><div class='row'><div class='col-md-8 col-sm-7 col-xs-12'><div class='pull-left employee-photo'>" +
+                "<a href='" + employee + "'><img src='" + imagePath + "'" +
+                "</a></div><div class='employee-name'><a href='" + employee + "'>" + data[i].UserName +
+                "</a><span class='hidden-xs'> (" + data[i].FirstName + " " + data[i].LastName + ")</span></div><div class='employee-skills'>";
+               
+
 
             var skillsHtml = "";
             var skills = data[i].Skills;
             for (var j = 0; j < skills.length; j++) {
-                skillsHtml += "<a class='skill-link' skill-id='" + skills[j].Id + "'>" +
-                    skills[j].Title + " </a>";
+                skillsHtml += "<a class='skill-link' skill-id='" + skills[j].Id + "'>" +  skills[j].Title + " </a>";
             }
-            html += skillsHtml + "</div>";
+
+            html += skillsHtml + "</div><div class='employee-country'><span>Беларусь</span></div></div>" +
+                "<div class='col-md-4 col-sm-5 col-xs-12'><div class='employee-card'><div class='offer-job'>" +
+                "<input type='submit' class='btn btn-success offer-job-btn' value='Offer job' /></div>" +
+                "<div class='employee-feedbacks'><div class='employee-feedbacks-count'>" + feedbacks.length + "</div>" +
+                "<a href='" + employee + "'>reviews</a></div><div class='employee-feedbacks-info'>" +
+                "<div class='employee-feedbacks-info-num'>" + percentPositiveFeedbacks + "%</div>" +
+                "<span>positive</span></div></div></div></div></div>"
 
             result.push(html);
         }
         return result;
+    }
+
+
+    function ArrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
     }
 })

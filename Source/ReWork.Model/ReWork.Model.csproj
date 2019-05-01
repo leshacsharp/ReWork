@@ -70,6 +70,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -105,21 +106,9 @@
     <Compile Include="EntitiesInfo\SkillInfo.cs" />
     <Compile Include="EntitiesInfo\SkillSectionInfo.cs" />
     <Compile Include="Entities\Common\ProjectStatus.cs" />
-    <Compile Include="Migrations\201904191633440_init.cs" />
-    <Compile Include="Migrations\201904191633440_init.Designer.cs">
-      <DependentUpon>201904191633440_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904241824035_change_job.cs" />
-    <Compile Include="Migrations\201904241824035_change_job.Designer.cs">
-      <DependentUpon>201904241824035_change_job.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291536508_change_user.cs" />
-    <Compile Include="Migrations\201904291536508_change_user.Designer.cs">
-      <DependentUpon>201904291536508_change_user.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904291606096_change_user1.cs" />
-    <Compile Include="Migrations\201904291606096_change_user1.Designer.cs">
-      <DependentUpon>201904291606096_change_user1.cs</DependentUpon>
+    <Compile Include="Migrations\201905011337136_init.cs" />
+    <Compile Include="Migrations\201905011337136_init.Designer.cs">
+      <DependentUpon>201905011337136_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
@@ -157,17 +146,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904191633440_init.resx">
-      <DependentUpon>201904191633440_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904241824035_change_job.resx">
-      <DependentUpon>201904241824035_change_job.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291536508_change_user.resx">
-      <DependentUpon>201904291536508_change_user.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904291606096_change_user1.resx">
-      <DependentUpon>201904291606096_change_user1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905011337136_init.resx">
+      <DependentUpon>201905011337136_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

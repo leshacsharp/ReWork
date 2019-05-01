@@ -38,15 +38,16 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(EmployeeProfileViewModel employeeProfileModel)
+        public ActionResult Create(EmployeeProfileViewModel createModel)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.Skills = GetCategories();
-                return View(employeeProfileModel);
+                return View(createModel);
             }
 
-            _employeeService.CreateEmployeeProfile(User.Identity.Name, employeeProfileModel.Age, employeeProfileModel.SelectedSkills);
+            string userId = User.Identity.GetUserId();
+            _employeeService.CreateEmployeeProfile(userId, createModel.Age, createModel.AboutMe, createModel.SelectedSkills);
             _commitProvider.SaveChanges();
 
             return RedirectToAction("Index", "Home");
@@ -62,27 +63,27 @@ namespace ReWork.WebSite.Controllers
 
             if (employeeProfile != null)
             {
-                EmployeeProfileViewModel employeeProfileModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age };
-                employeeProfileModel.SelectedSkills = employeeProfile.Skills.Select(p => p.Id).ToArray();
+                EmployeeProfileViewModel editModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age, AboutMe = employeeProfile.AboutMe };
+                editModel.SelectedSkills = employeeProfile.Skills.Select(p => p.Id).ToArray();
 
                 ViewBag.Skills = GetCategories();
-                return View(employeeProfileModel);
+                return View(editModel);
             }
             return View("Error");
         }
 
         [HttpPost]
-        public ActionResult Edit(EmployeeProfileViewModel employeeProfileModel)
+        public ActionResult Edit(EmployeeProfileViewModel editModel)
         {
             //TODO: изменить вместо form на ajax
             if (!ModelState.IsValid)
             {
                 ViewBag.Skills = GetCategories();
-                return View(employeeProfileModel);
+                return View(editModel);
             }
 
             string employeeId = User.Identity.GetUserId();
-            _employeeService.EditEmployeeProfile(employeeId, employeeProfileModel.Age, employeeProfileModel.SelectedSkills);
+            _employeeService.EditEmployeeProfile(employeeId, editModel.Age, editModel.AboutMe, editModel.SelectedSkills);
             _commitProvider.SaveChanges();
 
             return RedirectToAction("Index", "Home");
@@ -98,6 +99,17 @@ namespace ReWork.WebSite.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        public ActionResult Details(string id)
+        {
+            EmployeeProfileInfo employee = _employeeService.FindEmployeeInfoById(id);
+
+            return employee != null ? View(employee) : View("Error");
+        }
+
+
+
+        [AllowAnonymous]
+        [HttpGet]
         public ActionResult Employees()
         {
             IEnumerable<SectionInfo> sections = _sectionService.GetSectionsInfo();
@@ -106,9 +118,9 @@ namespace ReWork.WebSite.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Employees(int[] skillsId)
+        public ActionResult Employees(int[] skillsId, string keyWords)
         {
-            IEnumerable<EmployeeProfileInfo> employees = _employeeService.FindEmployes(skillsId);
+            IEnumerable<EmployeeProfileInfo> employees = _employeeService.FindEmployes(skillsId, keyWords);
             return Json(employees);
         }
 
@@ -143,7 +155,8 @@ namespace ReWork.WebSite.Controllers
         [HttpPost]
         public ActionResult EmployeeProfileExists()
         {
-            bool exists = _employeeService.EmployeeProfileExists(User.Identity.Name);
+            string userId = User.Identity.GetUserId();
+            bool exists = _employeeService.EmployeeProfileExists(userId);
             return Json(exists);
         }
     }

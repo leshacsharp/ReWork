@@ -2,6 +2,7 @@
 using ReWork.Model.Entities.Common;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReWork.Model.Entities
 {
@@ -20,7 +21,10 @@ namespace ReWork.Model.Entities
 
         public byte[] Image { get; set; }
 
+
+
         public virtual CustomerProfile CustomerProfile{ get; set; }
+
         public virtual EmployeeProfile EmployeeProfile { get; set; }
     }
 }

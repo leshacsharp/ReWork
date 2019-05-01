@@ -30,10 +30,12 @@ namespace ReWork.DataProvider.Repositories.Implementation
                          UserName = e.User.UserName,
                          FirstName = e.User.FirstName,
                          LastName = e.User.LastName,
-                         Rating = e.Rating,
+                         Image = e.User.Image,
                          Age = e.Age,
                          RegistrationdDate = (DateTime)e.User.RegistrationdDate,
-                         CountPerfomedJobs = e.PerfomedJobs.Count,
+
+                         CountDevolopingJobs = e.DevelopingJobs.Count,
+                         QualityOfWorks = e.FeedBacks.Select(p=>p.QualityOfWork),
 
                          Skills = e.Skills.Select(p => new SkillInfo()
                          {
@@ -52,6 +54,8 @@ namespace ReWork.DataProvider.Repositories.Implementation
         {
             return (from e in Db.EmployeeProfiles
                     join u in Db.Users on e.Id equals u.Id
+                    join f in Db.FeedBacks on e.Id equals f.EmployeeProfileId into feedBacks
+                    join j in Db.Jobs on e.Id equals j.EmployeeId into jobs
                     where e.Id == employeeId
                     select new EmployeeProfileInfo()
                     {
@@ -59,10 +63,13 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         UserName = u.UserName,
                         FirstName = u.FirstName,
                         LastName = u.LastName,
-                        Rating = e.Rating,
+                        AboutMe = e.AboutMe,
+                        Image = u.Image,
                         Age = e.Age,
                         RegistrationdDate = (DateTime)u.RegistrationdDate,
-                        CountPerfomedJobs = e.PerfomedJobs.Count,
+
+                        CountDevolopingJobs = jobs.Count(),
+                        QualityOfWorks = feedBacks.Select(p=>p.QualityOfWork),                    
 
                         Skills = e.Skills.Select(p => new SkillInfo()
                         {

@@ -7,7 +7,9 @@ namespace ReWork.Model.Migrations
     using ReWork.Model.Entities;
     using System;
     using System.Data.Entity.Migrations;
+    using System.IO;
     using System.Linq;
+    using System.Web;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ReWork.Model.Context.ReWorkContext>
     {
@@ -38,8 +40,12 @@ namespace ReWork.Model.Migrations
             if (userManager.FindByName("alex") == null)
             {
                 User moderator = new User() { UserName = "alex", Email = "star4enko.aleksey2015@yandex.ru", FirstName = "Aleksey", LastName = "Programmer", RegistrationdDate = DateTime.UtcNow };
-                userManager.Create(moderator, "123456");
 
+                string pathToDefaultImage = HttpContext.Current.Server.MapPath("~/Content/cube-512.png");
+                byte[] defaultImage = File.ReadAllBytes(pathToDefaultImage);
+                moderator.Image = defaultImage;
+
+                userManager.Create(moderator, "123456");
                 userManager.AddToRole(moderator.Id, "user");
                 userManager.AddToRole(moderator.Id, "moderator");
 

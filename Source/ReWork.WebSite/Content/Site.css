@@ -204,9 +204,6 @@ textarea {
 
 .skill-link {
     cursor: pointer;
-}
-
-.job-skills a {
     color: #808080;
 }
 
@@ -244,8 +241,14 @@ textarea {
 }
 
 .job-title{
-    font-size:120%;
+    font-size:140%;
 }
+
+
+.job-customer {
+    font-size: 150%;
+}
+
 
 .filter{
     margin:10px 0;
@@ -381,7 +384,7 @@ label.input-error {
 }
 
 .age-title {
-    color: :black;
+    color:black;
 }
 
 .age-number {
@@ -451,3 +454,89 @@ label.input-error {
    font-family: Tahoma, Helvetica, Arial, Verdana, sans-serif;
 }
 
+
+.employees-container{
+    margin-right:-15px;
+    margin-left:15px;
+}
+
+.employee {
+    border-top: 1px solid #e8e8e8;
+    padding-top:10px;
+    margin-bottom:10px;
+}
+
+
+.employee-photo {
+    margin-right: 20px;
+}
+
+.employee-photo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 7px;
+}
+
+.employee-name {
+    font-size: 150%;
+}
+
+.employee-skills {
+    font-size: 85%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    color: #808080;
+}
+
+
+.employee-country {
+    font-size: 110%;
+}
+
+.green {
+    color: #00ae5a
+}
+
+.gray {
+    color: #00ae5a
+}
+
+.employee-card {
+    padding: 5px 7px;
+}
+
+.employee-feedbacks {
+    padding-right: 10px;
+    padding-left: 20px;
+    display: inline-block;
+}
+
+.offer-job {
+    padding: 0 5px 5px 5px;
+}
+
+.offer-job-btn {
+    width: 100%;
+    max-width:180px;
+}
+
+.employee-feedbacks-count {
+    font-size: 140%;
+    text-align: center;
+}
+
+.employee-feedbacks a {
+    color: green;
+    text-decoration: none;
+}
+
+.employee-feedbacks-info {
+    display: inline-block;
+    padding: 0 20px;
+    border-left: 1px solid #e8e8e8;
+}
+
+.employee-feedbacks-info-num {
+    font-size: 140%;
+    text-align: center;
+}

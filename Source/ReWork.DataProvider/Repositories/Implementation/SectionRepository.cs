@@ -28,11 +28,11 @@ namespace ReWork.DataProvider.Repositories.Implementation
         public IEnumerable<SectionInfo> GetSectionsInfo()
         {
             return (from se in Db.Sections
-                    join sk in Db.Skills on se.Id equals sk.SectionId into joined
+                    join sk in Db.Skills on se.Id equals sk.SectionId into skills
                     select new SectionInfo()
                     {
                         Title = se.Title,
-                        Skills = joined.Select(p => new SkillSectionInfo()
+                        Skills = skills.Select(p => new SkillSectionInfo()
                         {
                             Id = p.Id,
                             Title = p.Title,

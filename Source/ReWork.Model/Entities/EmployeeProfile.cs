@@ -14,25 +14,30 @@ namespace ReWork.Model.Entities
     
         [Range(8,100)]
         public int Age { get; set; }
- 
-        public int Rating { get; set; }
+
+        [Required]
+        [StringLength(700, MinimumLength = 10)]
+        public string AboutMe { get; set; }
 
         [Required]
         public virtual User User { get; set; }
 
+ 
 
-
-        public virtual ICollection<Job> PerfomedJobs { get; set; }
+        public virtual ICollection<Job> DevelopingJobs { get; set; }
 
         public virtual ICollection<Offer> Offers { get; set; }
 
         public virtual ICollection<Skill> Skills { get; set; }
 
+        public virtual ICollection<FeedBack> FeedBacks { get; set; }
+
         public EmployeeProfile()
         {
-            PerfomedJobs = new List<Job>();
+            DevelopingJobs = new List<Job>();
             Offers = new List<Offer>();
             Skills = new List<Skill>();
+            FeedBacks = new List<FeedBack>();
         }
     }
 }

@@ -39,27 +39,18 @@ namespace TestDb
                 //                     .ToList();
 
 
-                var a =  (from j in db.Jobs
-                        join c in db.CustomerProfiles on j.CustomerId equals c.Id
-                        where j.Id == 3
-                        select new JobInfo()
+                var a = (from e in db.EmployeeProfiles
+                        join u in db.Users on e.Id equals u.Id
+                        join f in db.FeedBacks on e.Id equals f.EmployeeProfileId into feedBacks
+                        where e.Id == "1"
+                        select new EmployeeProfileInfo()
                         {
-                            Id = j.Id,
-                            Title = j.Title,
-                            Description = j.Description,
-                            Price = j.Price,
-                            PriceDiscussed = j.PriceDiscussed,
-                            DateAdded = (DateTime)j.DateAdded,
-                            CountOffers = j.Offers.Count(),
-
-                            UserName = j.Customer.User.UserName,
-                            CustomerId = j.CustomerId,
-
-                            Skills = j.Skills.Select(p => new SkillInfo()
-                            {
-                                Id = p.Id,
-                                Title = p.Title
-                            })
+                           
+                            //UserName = u.UserName,
+                            //FirstName = u.FirstName,
+                            //LastName = u.LastName
+                           
+                           QualityOfWorks = feedBacks.Select(p=>p.QualityOfWork)
                         }).SingleOrDefault();
 
                 //foreach (var it in jobs)

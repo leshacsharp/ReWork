@@ -141,7 +141,7 @@
         var result = [];
         for (var i = 0; i < data.length; i++) {
             var html = "<tr>" +
-                "<td class='col-ms-7'>" +
+                "<td class='col-md-7'>" +
                 "<a href='/Job/Details/" + data[i].Id + "' class='job-title'>" +
                 data[i].Title + "</a><div class='job-skills'>";
 
@@ -152,11 +152,13 @@
                     skills[j].Title + " </a>";
             }
             html += skillsHtml + "</div></td>";
+           
             var date = ParseCsharpDate(data[i].DateAdded);
-
-            html += "<td class='col-md-2 text-center'><span class='price'>" +
+            html += "<td class='col-md-2 text-center hidden-xs'>" +
+                "<a class='job-customer' href='/customer/details/" + data[i].CustomerId + "'>" +
+                data[i].UserName + "</a></td><td class='col-md-1 text-center'><span class='price'>" +
                 data[i].Price + "$</span></td><td class='col-md-1 text-center hidden-xs'><span class='count-offers'>" +
-                data[i].CountOffers + "</span></td><td class='col-md-2 text-center hidden-xs'><span class='date-added'>" +
+                data[i].CountOffers + "</span></td><td class='col-md-1 text-center hidden-xs'><span class='date-added'>" +
                 date + "</span></td></tr>"
 
             result.push(html);
@@ -168,6 +170,16 @@
         var dateMs = date.replace(/[^0-9 +]/g, '');
         var dateMsInt = parseInt(dateMs);
         var fullDate = new Date(dateMsInt);
-        return fullDate.toDateString().replace(/,/, '');
+
+        var monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
+
+        var day = fullDate.getDate();
+        var monthIndex = fullDate.getMonth();
+        return day + ' ' + monthNames[monthIndex];
     }
 })

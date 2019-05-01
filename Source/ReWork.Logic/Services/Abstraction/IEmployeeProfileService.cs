@@ -6,12 +6,12 @@ namespace ReWork.Logic.Services.Abstraction
 {
     public interface IEmployeeProfileService
     {
-        void CreateEmployeeProfile(string userName, int age, int[] skillsId);
-        void EditEmployeeProfile(string employeeId, int age, int[] skillsId);
+        void CreateEmployeeProfile(string userId, int age, string aboutMe, int[] skillsId);
+        void EditEmployeeProfile(string employeeId, int age, string aboutMe, int[] skillsId);
         void DeleteEmployeeProfile(string employeeId);
 
-        IEnumerable<EmployeeProfileInfo> FindEmployes(int [] skillsId);
-        EmployeeProfileInfo FindEmployeeInfoById(string id);  
-        bool EmployeeProfileExists(string userName);
+        IEnumerable<EmployeeProfileInfo> FindEmployes(int [] skillsId, string keyWords);
+        EmployeeProfileInfo FindEmployeeInfoById(string userId);  
+        bool EmployeeProfileExists(string userId);
     }
 }

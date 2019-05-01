@@ -9,7 +9,6 @@ namespace ReWork.Model.Entities
     public class FeedBack
     {
         [Key]
-        [ForeignKey("Job")]
         public int Id { get; set; }
 
         [Required]
@@ -21,7 +20,16 @@ namespace ReWork.Model.Entities
 
         public QualityOfWork QualityOfWork { get; set; }
 
+        [ForeignKey("CustomerProfile")]
+        public string CustomerProfileId { get; set; }
+
         [Required]
-        public virtual Job Job { get; set; }
+        public virtual CustomerProfile CustomerProfile { get; set; }
+
+        [ForeignKey("EmployeeProfile")]
+        public string EmployeeProfileId { get; set; }
+
+        [Required]
+        public virtual EmployeeProfile EmployeeProfile { get; set; }
     }
 }
