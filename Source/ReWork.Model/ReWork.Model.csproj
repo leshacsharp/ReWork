@@ -139,7 +139,8 @@
     <Compile Include="ViewModels\Job\EditJobViewModel.cs" />
     <Compile Include="ViewModels\Job\JobsViewModel.cs" />
     <Compile Include="ViewModels\Offer\CreateOfferViewModel.cs" />
-    <Compile Include="ViewModels\SearchType.cs" />
+    <Compile Include="ViewModels\Profile\ProfileType.cs" />
+    <Compile Include="ViewModels\Profile\ShortUserInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

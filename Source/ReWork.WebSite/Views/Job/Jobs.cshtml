@@ -3,20 +3,22 @@
     ViewBag.Title = "Jobs";
     var sections = Model.ToList();
 }
-
 <div class="filter">
     <div class="row">
-        <div class="col-md-10">
-            <span class="filter-name">Count Jobs</span>
-            <span class="filter-count"></span>
-        </div>
-        <div class="col-md-2">
-            <a href="@Url.Action("create","job")">
-                <input type="submit" class="btn btn-primary" value="Create job" />
+        <div class="col-md-12">
+            <a href="@Url.Action("create","job")" class="btn btn-primary pull-right">
+                <span class="fa fa-plus"></span>
+                Create job
             </a>
+            <div class="counter">
+                <span class="filter-name">Count Jobs</span>
+                <span class="filter-count"></span>
+            </div>
+           
         </div>
     </div>
 </div>
+
 
 <div class="row">
     <div class="col-md-9 col-md-push-3">
@@ -24,10 +26,10 @@
             <thead>
                 <tr>
                     <th class="col-md-7">Job title</th>
-                    <th class="col-md-2 text-center">Customer</th>
+                    <th class="col-md-2 text-center hidden-xs">Customer</th>
                     <th class="col-md-1 text-center">Budget</th>
-                    <th class="col-md-1 text-center">Offers</th>
-                    <th class="col-md-1 text-center">Open</th>
+                    <th class="col-md-1 text-center hidden-xs">Offers</th>
+                    <th class="col-md-1 text-center hidden-xs">Open</th>
                 </tr>
             </thead>
             <tbody>

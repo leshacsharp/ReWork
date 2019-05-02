@@ -121,7 +121,7 @@
                     countPositiveFeedbacks++;
                 }
             }
-            var percentPositiveFeedbacks = countPositiveFeedbacks / (feedbacks.length == 0 ? 1 : feedbacks.length);
+            var percentPositiveFeedbacks = countPositiveFeedbacks * 100 / (feedbacks.length == 0 ? 1 : feedbacks.length);
             
             var imageBytes = new Uint8Array(data[i].Image);
             var imagePath = "data:image/jpeg;base64," + ArrayBufferToBase64(data[i].Image);

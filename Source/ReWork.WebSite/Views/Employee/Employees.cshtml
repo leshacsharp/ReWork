@@ -4,20 +4,28 @@
     var sections = Model.ToList();
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="filter">
-            <span class="filter-name">Count Employees</span>
-            <span class="filter-count"></span>
+<div class="filter">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("create","employee")" class="btn btn-primary pull-right">
+                <span class="fa fa-plus"></span>
+                Create freelancer profile
+            </a>
+            <div class="counter">
+                <span class="filter-name">Count freelancers</span>
+                <span class="filter-count"></span>
+            </div>
+
         </div>
     </div>
 </div>
+
 
 <div class="row">
     <div class="col-md-9 col-md-push-3">
         <div class="employees-container">
 
-        </div> 
+        </div>
 
         <div class="pagination"></div>
     </div>
@@ -67,7 +75,7 @@
                                     <a class="skill-link">
                                         @skill.Title
                                     </a>
-  
+
                                     <input type="hidden" value="@skill.Id" />
                                 </li>
                             }
@@ -81,5 +89,5 @@
 
 @section scripts
 {
-  <script type="text/javascript" src="~/Scripts/employees.js"></script>  
+    <script type="text/javascript" src="~/Scripts/employees.js"></script>
 }

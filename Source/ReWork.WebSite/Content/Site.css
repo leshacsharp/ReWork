@@ -205,6 +205,7 @@ textarea {
 .skill-link {
     cursor: pointer;
     color: #808080;
+    font-size:110%;
 }
 
 .text-center {
@@ -342,97 +343,6 @@ label.input-error {
     width:0;
 }
 
-
-
-
-
-
-.profile-table {
-}
-
-.profile-table td {
-    vertical-align: middle !important;
-}
-
-.profile-short-info {
-    padding: 20px;
-}
-
-.info-block {
-    padding: 3px 0;
-}
-
-.user-name {
-    color: black;
-}
-
-.fio {
-    color: gray;
-    font-size: 90%;
-    font-weight: 600;
-}
-
-.reg-date-title {
-    color: black;
-    margin-right: 5px;
-}
-
-.reg-date-number {
-    color: gray;
-    font-size: 90%;
-    font-weight: 600;
-}
-
-.age-title {
-    color:black;
-}
-
-.age-number {
-    color: gray;
-    font-size: 90%;
-    font-weight: 600;
-}
-
-.profile-dop-info {
-    padding: 20px;
-}
-
-.rating {
-    padding: 4px 0;
-}
-
-.rating-title {
-    color: black;
-    margin-right: 15px;
-}
-
-.rating-number {
-    padding: 3px 6px;
-    background-color: green;
-    color: white;
-    border-radius: 4px;
-}
-
-.dop-count-feedback {
-    padding: 4px 0;
-}
-
-.count-feedback-title {
-    color: black;
-    margin-right: 15px;
-}
-
-.count-feedback-number {
-    padding: 3px 6px;
-    background-color: green;
-    color: white;
-    border-radius: 4px;
-}
-
-.profile-short-image {
-    padding: 10px;
-}
-
 .search-data {
     height: 35px;
     display: table;
@@ -472,9 +382,10 @@ label.input-error {
 }
 
 .employee-photo img {
-    width: 100px;
-    height: 100px;
+    width: 85px;
+    height: 85px;
     border-radius: 7px;
+    border-radius:5px;
 }
 
 .employee-name {
@@ -482,9 +393,7 @@ label.input-error {
 }
 
 .employee-skills {
-    font-size: 85%;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    font-size:80%;
     color: #808080;
 }
 
@@ -538,5 +447,82 @@ label.input-error {
 
 .employee-feedbacks-info-num {
     font-size: 140%;
+    text-align: center;
+}
+
+.counter{
+    margin-top:7px;
+}
+
+.profile-image {
+    margin-right: 20px;
+    float: left;
+}
+
+    .profile-image img {
+        width: 100px;
+        height: 100px;
+    }
+
+.profile-short-info {
+    display: inline-block;
+    padding: 25px 0;
+}
+
+.profile-username {
+    font-size: 125%;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.date-registration {
+    color: #959595;
+    ;
+    font-size: 90%;
+}
+
+.profile-view {
+    color: #959595;
+    ;
+    font-size: 90%;
+}
+
+.profile-dop-info {
+    display: inline-block;
+    margin-left: 100px;
+}
+
+.profile-feedbacks-info {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.profile-feedbacks-info-count {
+    font-size: 160%;
+    text-align: center;
+    color: #ff5722;
+}
+
+.profile-feedbacks-info a {
+    color: green;
+    font-size: 90%;
+}
+
+.profile-feedbacks-dop-info {
+    display: inline-block;
+    padding-left: 30px;
+    border-left: 1px solid #e8e8e8;
+    padding: 15px;
+}
+
+.profile-feedbacks-info-percent {
+    font-size: 160%;
+    color: #ff5722;
+    text-align: center;
+}
+
+.profile-feedbacks-info-text {
+    color: black;
+    font-size: 90%;
     text-align: center;
 }

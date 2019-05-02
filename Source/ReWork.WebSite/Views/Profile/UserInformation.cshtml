@@ -1,49 +1,49 @@
-﻿@model ReWork.Model.Entities.User
+﻿@model ReWork.Model.ViewModels.Profile.ShortUserInfoViewModel
 
-<br /><br /><br /><br />
-<div class="row">
-    <table class="table profile-table">
-        <tbody>
-            <tr>
-                <td class="col-md-2">
-                    <div class="profile-short-image">
-                        @Html.Raw("<img style='width:250px; height:180px;' src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Image) + "\" />")
-                    </div>
-                </td>
+<div class="profile-short-info">
 
-                <td class="col-md-3">
-                    <div class="profile-short-info">
-                        <div class="info-block">
-                            <span class="user-name"> @Model.UserName </span>
-                            <span class="fio">(@Model.FirstName @Model.LastName)</span>
-                        </div>
+    <div class="profile-image">
+        @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Image) + "\" />")
+    </div>
 
-                        <div class="info-block">
-                            <span class="reg-date-title">Data registration:</span>
-                            <span class="reg-date-number">@Model.RegistrationdDate.Value.ToShortDateString()</span>
-                        </div>
 
-                        <div class="info-block">
-                            <span class="age-title">Age: </span>
-                            <span class="age-number">100</span>
-                        </div>
-                    </div>
-                </td>
+    <div class="profile-short-info">
+        <div class="profile-username">
+            <span>
+                @(Model.FirstName == null ? "FirstName" : Model.FirstName)
+            </span>
+            <span>
+                @(Model.LastName == null ? "LastName" : Model.LastName)
+            </span>
+        </div>
 
-                <td class="col-md-3 hidden-xs">
-                    <div class="profile-dop-info">
-                        <div class="rating">
-                            <span class="rating-title">Rating:</span>
-                            <span class="rating-number">5</span>
-                        </div>
+        <div class="date-registration">
+            Data registration: @Model.DateRegistration.ToShortDateString()
+        </div>
 
-                        <div class="dop-count-feedback">
-                            <span class="count-feedback-title">Count feedbacks:</span>
-                            <span class="count-feedback-number">24</span>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="profile-view">
+            Посмотреть, как выглядит профиль для всех,
+            <a class="green" href="#">
+                здесь
+            </a>
+        </div>
+    </div>
+
+
+    <div class="profile-dop-info hidden-xs hidden-sm">
+        <div class="profile-feedbacks-info">
+            <div class="profile-feedbacks-info-count">
+                @Model.CountFeedbacks
+            </div>
+            <a>reviews</a>
+        </div>
+        <div class="profile-feedbacks-dop-info">
+            <div class="profile-feedbacks-info-percent">
+                @Model.PercentPositiveFeedbacks%
+            </div>
+            <span class="profile-feedbacks-info-text">
+                positive
+            </span>
+        </div>
+    </div>
 </div>

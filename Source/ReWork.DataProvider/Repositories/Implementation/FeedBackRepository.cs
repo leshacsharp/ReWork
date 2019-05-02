@@ -19,6 +19,16 @@ namespace ReWork.DataProvider.Repositories.Implementation
             Db.FeedBacks.Remove(item);
         }
 
+        public IEnumerable<FeedBack> FindFeedBacksForCustomer(string customerId)
+        {
+            return Db.FeedBacks.Where(p => p.CustomerProfileId == customerId).ToList();
+        }
+
+        public IEnumerable<FeedBack> FindFeedBacksForEmployee(string employeeId)
+        {
+            return Db.FeedBacks.Where(p => p.EmployeeProfileId == employeeId).ToList();
+        }
+
         public void Update(FeedBack item)
         {
             Db.Entry(item).State = EntityState.Modified;

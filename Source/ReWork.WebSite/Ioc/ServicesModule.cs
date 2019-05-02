@@ -13,6 +13,7 @@ namespace ReWork.WebSite.Ioc
             builder.RegisterType<CustomerProfileService>().As<ICustomerProfileService>().InstancePerRequest();
             builder.RegisterType<EmployeeProfileService>().As<IEmployeeProfileService>().InstancePerRequest();
 
+            builder.RegisterType<FeedBackService>().As<IFeedBackService>().InstancePerRequest();
             builder.RegisterType<JobService>().As<IJobService>().InstancePerRequest();
             builder.RegisterType<OfferService>().As<IOfferService>().InstancePerRequest();
 

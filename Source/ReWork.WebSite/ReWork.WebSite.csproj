@@ -268,15 +268,16 @@
     <Content Include="Views\Employee\Employees.cshtml" />
     <Content Include="Views\Offer\Create.cshtml" />
     <Content Include="Views\Profile\Information.cshtml" />
-    <Content Include="Views\Job\MyJobs.cshtml" />
+    <Content Include="Views\Home\MyJobs.cshtml" />
     <Content Include="Views\Profile\UserInformation.cshtml" />
     <Content Include="Views\account\ChangePassword.cshtml" />
-    <Content Include="Views\account\Settings.cshtml" />
+    <Content Include="Views\Customer\Settings.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Job\MyJobs.cshtml" />
+    <Content Include="Views\account\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

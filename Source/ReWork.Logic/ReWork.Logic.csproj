@@ -73,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Abstraction\ICustomerProfileService.cs" />
     <Compile Include="Services\Abstraction\IEmployeeProfileService.cs" />
+    <Compile Include="Services\Abstraction\IFeedBackService.cs" />
     <Compile Include="Services\Abstraction\IRoleService.cs" />
     <Compile Include="Services\Abstraction\ISectionService.cs" />
     <Compile Include="Services\Abstraction\ISkillService.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Services\Implementation\CustomerProfileService.cs" />
     <Compile Include="Services\Implementation\EmployeeProfileService.cs" />
     <Compile Include="Services\Abstraction\IOfferService.cs" />
+    <Compile Include="Services\Implementation\FeedBackService.cs" />
     <Compile Include="Services\Implementation\JobService.cs" />
     <Compile Include="Services\Implementation\OfferService.cs" />
     <Compile Include="Services\Implementation\RoleService.cs" />

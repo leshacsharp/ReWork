@@ -56,7 +56,7 @@
                     document.location.href = "/account/login?returnUrl=/job/details/" + @Model.Job.Id;
                 }
             
-                var isEmployee = "@Html.IsProfile("employee")" == "True";
+                var isEmployee = "@Html.IsProfile("Employee")" == "True";
 
                 if (isEmployee) {
                     $('.modal').modal('show');
