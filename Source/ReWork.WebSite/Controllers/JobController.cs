@@ -118,23 +118,6 @@ namespace ReWork.WebSite.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult MyJobs()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult MyJobs(DateTime? fromDate)
-        {
-            string userId = User.Identity.GetUserId();
-            IEnumerable<JobInfo> jobs = _jobService.FindUserJobs(userId, fromDate);
-
-            return Json(jobs);
-        }
-
-
-
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Jobs()

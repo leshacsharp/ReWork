@@ -1,5 +1,7 @@
-﻿using ReWork.Logic.Services.Abstraction;
+﻿using Microsoft.AspNet.Identity;
+using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
+using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +14,17 @@ namespace ReWork.WebSite.Controllers
     public class CustomerController : Controller
     {
         private ICustomerProfileService _customerService;
+        private IJobService _jobService;
+        private IOfferService _offerService;
         private ICommitProvider _commitProvider;
 
-        public CustomerController(ICustomerProfileService customerService, ICommitProvider commitProvider)
+        public CustomerController(ICustomerProfileService customerService, IJobService jobService, IOfferService offerService, ICommitProvider commitProvider)
         {
             _customerService = customerService;
+            _jobService = jobService;
+            _offerService = offerService;
             _commitProvider = commitProvider;
         }
-
-        [HttpPost]
-        public ActionResult Create()
-        {
-            _customerService.CreateCustomerProfile(User.Identity.Name);
-            _commitProvider.SaveChanges();
-            return Redirect(Request.UrlReferrer.PathAndQuery);
-        }
-
 
         [HttpPost]
         public void Delete(string id)
@@ -36,7 +33,40 @@ namespace ReWork.WebSite.Controllers
             _commitProvider.SaveChanges();
         }
 
-       
+
+        [HttpGet]
+        public ActionResult MyJobs()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult MyJobs(DateTime? fromDate)
+        {
+            string userId = User.Identity.GetUserId();
+            IEnumerable<JobInfo> jobs = _jobService.FindCustomerJobs(userId, fromDate);
+
+            return Json(jobs);
+        }
+
+
+        [HttpGet]
+        public ActionResult MyOffers()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CustomerOffers()
+        {
+            string userId = User.Identity.GetUserId();
+            IEnumerable<OfferInfo> customerOffers = _offerService.FindCustomerOffers(userId);
+
+            return Json(customerOffers);
+        }
+
+
+
         [HttpPost]
         public ActionResult CustomerProfileExists()
         {

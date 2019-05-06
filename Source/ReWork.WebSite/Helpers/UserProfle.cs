@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReWork.Model.ViewModels.Profile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,12 +19,15 @@ namespace ReWork.WebSite.Helpers
             return null;
         }
 
-        public static bool IsProfile(this HtmlHelper helper, string profileName)
+        public static bool IsProfile(this HtmlHelper helper, ProfileType checkProfile)
         {
             HttpCookie profileCookie = HttpContext.Current.Request.Cookies["profile"];
 
             if (profileCookie != null)
-                return profileCookie.Value == profileName;
+            {
+                ProfileType profileType = (ProfileType)Enum.Parse(typeof(ProfileType), profileCookie.Value);
+                return profileType == checkProfile;
+            }
 
             return false;
         }

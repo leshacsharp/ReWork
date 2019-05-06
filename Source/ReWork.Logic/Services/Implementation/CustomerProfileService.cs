@@ -16,9 +16,9 @@ namespace ReWork.Logic.Services.Implementation
             _userManager = userManager;
         }
 
-        public void CreateCustomerProfile(string userName)
+        public void CreateCustomerProfile(string userId)
         {
-            User user = _userManager.FindByName(userName);
+            User user = _userManager.FindById(userId);
             if(user != null && user.CustomerProfile == null)
             {
                 CustomerProfile customerProfile = new CustomerProfile() { User = user };

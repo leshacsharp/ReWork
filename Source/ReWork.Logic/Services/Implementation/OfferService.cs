@@ -52,15 +52,19 @@ namespace ReWork.Logic.Services.Implementation
             }
         }
 
+        public IEnumerable<OfferInfo> FindCustomerOffers(string customerId)
+        {
+            return _offerRepository.FindCustomerOffers(customerId);
+        }
+
+        public IEnumerable<OfferInfo> FindEmployeeOffers(string employeeId)
+        {
+            return _offerRepository.FindEmployeeOffers(employeeId); 
+        }
+
         public IEnumerable<OfferInfo>FindJobOffers(int jobId)
         {
-            Job job = _jobRepository.FindJobById(jobId);
-            if(job != null)
-            {
-                return _offerRepository.FindJobOffers(jobId);
-            }
-
-            return null;
+            return _offerRepository.FindJobOffers(jobId);
         }
     }
 }

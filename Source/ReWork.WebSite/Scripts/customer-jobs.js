@@ -12,7 +12,7 @@
         SendFindJobs();
     })
 
-    $(".search-table tbody").on("click", "input[name=delete-job]", function () {
+    $("tbody").on("click", "input[name=delete-job]", function () {
         var tr = $(this).parent().parent().parent();
         var jobId = tr.find("input[name=jobId]").val();
         Ajax("/job/delete", "POST", null, { "id": jobId }, function () {
@@ -22,13 +22,19 @@
 
 
     function SendFindJobs() {
-        $(".search-table tbody").empty();
+        $("tbody").empty();
         var fromDate = "";
         var fromDateStr = $("#datetimepicker input[type=text]").val();
         if (fromDateStr != "") {
             fromDate = (new Date(fromDateStr)).toISOString();
         }
-        Ajax("/job/myjobs", "POST", "json", { "fromDate": fromDate }, AppendJobs);
+
+        $.ajax({
+            url: "/Customer/Myjobs",
+            type: "POST",
+            data: { "fromDate": fromDate } ,    
+            success: AppendJobs
+        })
     }
 
     function AppendJobs(data) {
@@ -40,8 +46,8 @@
             formatResult: FormatResult,
 
             callback: function (data, pagination) {
-                $(".search-table tbody").empty();
-                $(".search-table tbody").append(data);
+                $("tbody").empty();
+                $("tbody").append(data);
             }
         })
     }
@@ -90,16 +96,5 @@
         var day = fullDate.getDate();
         var monthIndex = fullDate.getMonth();
         return day + ' ' + monthNames[monthIndex];
-    }
-
-
-    function Ajax(url, type, dataType, data, success) {
-        $.ajax({
-            url: url,
-            type: type,
-            dataType: dataType,
-            data: data,
-            success:success
-        })
     }
 })

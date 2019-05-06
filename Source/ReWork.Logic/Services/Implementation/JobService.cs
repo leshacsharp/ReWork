@@ -84,12 +84,27 @@ namespace ReWork.Logic.Services.Implementation
              return _jobRepository.FindJobInfoById(jobId);
         }
 
-        public IEnumerable<JobInfo> FindUserJobs(string customerId, DateTime? fromDate)
+        public IEnumerable<JobInfo> FindCustomerJobs(string customerId, DateTime? fromDate)
         {
             var filter = PredicateBuilder.True<Job>();
             filter = filter.AndAlso<Job>(job=>job.CustomerId == customerId);
 
             if(fromDate != null)
+            {
+                filter = filter.AndAlso<Job>(job => job.DateAdded >= fromDate);
+            }
+
+            return _jobRepository.FindJobsInfo(filter)
+                                 .OrderByDescending(p => p.DateAdded)
+                                 .ToList();
+        }
+
+        public IEnumerable<JobInfo> FindEmployeeJobs(string employeeId, DateTime? fromDate)
+        {
+            var filter = PredicateBuilder.True<Job>();
+            filter = filter.AndAlso<Job>(job => job.EmployeeId == employeeId);
+
+            if (fromDate != null)
             {
                 filter = filter.AndAlso<Job>(job => job.DateAdded >= fromDate);
             }

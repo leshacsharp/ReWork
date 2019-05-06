@@ -1,5 +1,5 @@
 ﻿@using ReWork.WebSite.Helpers;
-
+@using ReWork.Model.ViewModels.Profile;
 
 <!DOCTYPE html>
 <html>
@@ -46,21 +46,28 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink("MyJobs", "myjobs", "job")</li>
+                            if (Html.IsProfile(ProfileType.Employee))
+                            {
+                                <li>@Html.ActionLink("MyJobs", "myjobs", "employee")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("MyJobs", "myjobs", "customer")</li>
+                            }
+
                             <li>@Html.ActionLink("Settings", "settings", "account")</li>
-                           // <li>@Html.ActionLink(User.Identity.Name, "settings", "profile")</li>
                             <li>@Html.ActionLink(Resources.Global.SignOut, "SignOut", "account")</li>
 
-                            <li>
-                                <div>
-                                    <span style="color:white">profile:@Html.GetCurrentProfileName()</span>
-                                </div>
-                                <div style="display:inline-block">
-                                    <input type="submit" class="btn btn-default" name="customerProfile" value="Customer" style="width:80px;" />
-                                </div>
-                                <div style="display:inline-block">
-                                    <input type="submit" class="btn btn-default" name="freelancerProfile" value="Freelancer" style="width:85px;" />
-                                </div>
+                            <li>                       
+                                @using (Html.BeginForm("ChangeProfileType", "profile", FormMethod.Post))
+                                {
+                                    <div class="form-group">
+                                        <select name="profile" class="form-control" style="width:100px" onchange="this.form.submit()">
+                                            <option value="Customer">customer</option>
+                                            <option value="Employee">freelancer</option>
+                                        </select>
+                                    </div>
+                                }  
                             </li>
 
 
@@ -74,7 +81,7 @@
                             <li>@Html.ActionLink(Resources.Global.Registration, "registration", "account")</li>
                             <li>@Html.ActionLink(Resources.Global.Login, "login", "account")</li>
                         }
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>

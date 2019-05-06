@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security;
 using ReWork.Logic.Infustructure;
 using ReWork.Logic.Services.Abstraction;
+using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.ViewModels.Account;
 using System;
@@ -15,10 +16,14 @@ namespace ReWork.WebSite.Controllers
     public class AccountController : Controller
     {
         private IUserService _userService;
+        private ICustomerProfileService _cusomerService;
+        private ICommitProvider _commitProvider;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, ICustomerProfileService customerService, ICommitProvider commitProvider)
         {
-            _userService = userService;        
+            _userService = userService;
+            _cusomerService = customerService;
+            _commitProvider = commitProvider;
         }
 
         public IAuthenticationManager AuthenticationManager
@@ -50,6 +55,9 @@ namespace ReWork.WebSite.Controllers
                 User user =_userService.FindUserByName(regModel.UserName);
                 string callbackUrl = Url.Action("ConfirmEmail", "account", null, Request.Url.Scheme);
                 _userService.EmailConfirmed(user.Id, callbackUrl);
+
+                _cusomerService.CreateCustomerProfile(user.Id);
+                _commitProvider.SaveChanges();
 
                 return RedirectToAction("DisplayEmail", "account");
             }

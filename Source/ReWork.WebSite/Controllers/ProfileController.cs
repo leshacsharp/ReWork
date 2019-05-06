@@ -72,15 +72,15 @@ namespace ReWork.WebSite.Controllers
 
 
         [HttpPost]
-        public void SetProfileOnCustomer()
+        public ActionResult ChangeProfileType(ProfileType profile)
         {
-            Response.Cookies["profile"].Value = Enum.GetName(typeof(ProfileType), ProfileType.Customer);
-        }
+            HttpCookie profileCookie = Request.Cookies["profile"];
 
-        [HttpPost]
-        public void SetProfileOnEmployee()
-        {
-            Response.Cookies["profile"].Value = Enum.GetName(typeof(ProfileType), ProfileType.Employee);
+            profileCookie.Value = Enum.GetName(typeof(ProfileType), profile);
+            profileCookie.Expires = DateTime.UtcNow.AddYears(1);
+            Response.Cookies.Add(profileCookie);
+
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
 

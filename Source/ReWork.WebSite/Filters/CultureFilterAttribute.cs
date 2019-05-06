@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReWork.Model.ViewModels.Common;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -11,17 +12,23 @@ namespace ReWork.WebSite.Filters
     {
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            string cultureName = String.Empty;
+            Culture currentCulture = Culture.en;
+            HttpCookie cultureCookie = filterContext.HttpContext.Request.Cookies["lang"];
 
-            HttpCookie culture = filterContext.HttpContext.Request.Cookies["lang"];
-            cultureName = culture != null ? culture.Value : "en";
-
-            string[] cultures = new string[] { "en", "ru" };
-            if (!cultures.Contains(cultureName))
+            if(cultureCookie != null)
             {
-                cultureName = "en";
+                currentCulture = (Culture)Enum.Parse(typeof(Culture), cultureCookie.Value); 
+            }
+            else
+            {
+                string defaultCulture = Enum.GetName(typeof(Culture), currentCulture);
+                cultureCookie = new HttpCookie("lang", defaultCulture);
+                cultureCookie.Expires = DateTime.UtcNow.AddYears(1);
+
+                filterContext.HttpContext.Response.Cookies.Add(cultureCookie);
             }
 
+            string cultureName = Enum.GetName(typeof(Culture), currentCulture);
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(cultureName);
         }

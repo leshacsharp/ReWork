@@ -6,7 +6,8 @@ namespace ReWork.DataProvider.Repositories.Abstraction
 {
     public interface IOfferRepository : IRepository<Offer>
     {
-        IEnumerable<Offer> FindOffersByUserId(string userId);
         IEnumerable<OfferInfo> FindJobOffers(int jobId);
+        IEnumerable<OfferInfo> FindCustomerOffers(string customerId);
+        IEnumerable<OfferInfo> FindEmployeeOffers(string employeeId);
     }
 }

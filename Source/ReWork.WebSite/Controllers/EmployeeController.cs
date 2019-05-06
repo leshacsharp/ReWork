@@ -17,18 +17,55 @@ namespace ReWork.WebSite.Controllers
     {   
         private IEmployeeProfileService _employeeService;
         private IUserService _userService;
+        private IJobService _jobService;
+        private IOfferService _offerService;
         private ISectionService _sectionService;
         private ISkillService _skillService;
         private ICommitProvider _commitProvider;
 
-        public EmployeeController(IEmployeeProfileService employeeService, IUserService userService, ISectionService sectionService, ISkillService skillService, ICommitProvider commitProvider)
+        public EmployeeController(IEmployeeProfileService employeeService, IJobService jobService, IOfferService offerService, IUserService userService, ISectionService sectionService, ISkillService skillService, ICommitProvider commitProvider)
         {
             _employeeService = employeeService;
             _userService = userService;
+            _jobService = jobService;
+            _offerService = offerService;
             _sectionService = sectionService;
             _skillService = skillService;
             _commitProvider = commitProvider;
         }
+
+
+        [HttpGet]
+        public ActionResult MyJobs()
+        {     
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult MyJobs(DateTime? fromDate)
+        {
+            string userId = User.Identity.GetUserId();
+            IEnumerable<JobInfo> jobs = _jobService.FindEmployeeJobs(userId, fromDate);
+
+            return Json(jobs);
+        }
+
+        [HttpGet]
+        public ActionResult MyOffers()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EmployeeOffers()
+        {
+            string userId = User.Identity.GetUserId();
+            IEnumerable<OfferInfo> employeeOffers = _offerService.FindEmployeeOffers(userId);
+
+            return Json(employeeOffers);
+        }
+
+
 
         [HttpGet]
         public ActionResult Create()

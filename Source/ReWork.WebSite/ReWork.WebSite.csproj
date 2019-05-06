@@ -177,6 +177,7 @@
     <Compile Include="Controllers\OfferController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Filters\CultureFilterAttribute.cs" />
+    <Compile Include="Filters\ProfileFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,12 +212,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\my-jobs.js" />
+    <Content Include="Scripts\customer-jobs.js" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\customer-offers.js" />
     <Content Include="Scripts\edit-user.js" />
+    <Content Include="Scripts\employee-jobs.js" />
+    <Content Include="Scripts\employee-offers.js" />
     <Content Include="Scripts\employees.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -233,7 +237,6 @@
     <Content Include="Scripts\jobs.js" />
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\search.js" />
-    <Content Include="Scripts\settings.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -271,10 +274,12 @@
     <Content Include="Views\Home\MyJobs.cshtml" />
     <Content Include="Views\Profile\UserInformation.cshtml" />
     <Content Include="Views\account\ChangePassword.cshtml" />
-    <Content Include="Views\Customer\Settings.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
-    <Content Include="Views\Job\MyJobs.cshtml" />
+    <Content Include="Views\Customer\MyJobs.cshtml" />
     <Content Include="Views\account\Settings.cshtml" />
+    <Content Include="Views\Customer\MyOffers.cshtml" />
+    <Content Include="Views\Employee\MyJobs.cshtml" />
+    <Content Include="Views\Employee\MyOffers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

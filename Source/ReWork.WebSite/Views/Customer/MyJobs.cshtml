@@ -7,13 +7,13 @@
 
 <div class="row">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#jobs-tab" data-toggle="tab" name="link-jobs-tab">Jobs</a></li>
-        <li><a href="#offers-tab" data-toggle="tab" name="link-offers-tab">Offers</a></li>
+        <li class="active"><a href="@Url.Action("myjobs","customer")">Jobs</a></li>
+        <li><a href="@Url.Action("myoffers","customer")">Offers</a></li>
     </ul>
 
     <br />
     <div class="tab-content">
-        <div class="tab-pane active" id="jobs-tab">
+        <div class="tab-pane active">
 
             <div class="col-md-4 col-sm-6 col-xs-12" style="padding-left:0">
                 <div class="form-group search-group">
@@ -44,10 +44,6 @@
 
             <div class="pagination"></div>
         </div>
-
-        <div class="tab-pane active" id="offers-tab">
-
-        </div>
     </div>
 </div>
 
@@ -57,7 +53,7 @@
             integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/my-jobs.js"></script>
+    <script type="text/javascript" src="~/Scripts/customer-jobs.js"></script>
 }
 
 

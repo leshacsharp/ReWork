@@ -2,6 +2,7 @@
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Context;
+using ReWork.Model.EntitiesInfo;
 using ReWork.Model.ViewModels.Offer;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,6 @@ namespace ReWork.WebSite.Controllers
             _commitProvider = commitProvider;
         }
 
-        [HttpPost]
-        public void AcceptOffer(int jobId, string employeeId)
-        {
-            _offerService.AcceptOffer(jobId, employeeId);
-            _commitProvider.SaveChanges();
-        }
 
         [HttpGet]
         public ActionResult Create(int id)
@@ -36,11 +31,10 @@ namespace ReWork.WebSite.Controllers
             return PartialView(new CreateOfferViewModel() { JobId = id });
         }
 
-
         [HttpPost]
         public ActionResult Create(CreateOfferViewModel createModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return PartialView(createModel);
             }
@@ -48,12 +42,20 @@ namespace ReWork.WebSite.Controllers
             string userId = User.Identity.GetUserId();
 
             CreateOfferParams createOfferParams = new CreateOfferParams()
-            { EmployeeId = userId, JobId = createModel.JobId, Text = createModel.Text,  ImplementationDays = createModel.DaysToImplement, OfferPayment = createModel.OfferPayment };
+            { EmployeeId = userId, JobId = createModel.JobId, Text = createModel.Text, ImplementationDays = createModel.DaysToImplement, OfferPayment = createModel.OfferPayment };
 
             _offerService.CreateOffer(createOfferParams);
             _commitProvider.SaveChanges();
 
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
+
+        [HttpPost]
+        public void AcceptOffer(int jobId, string employeeId)
+        {
+            _offerService.AcceptOffer(jobId, employeeId);
+            _commitProvider.SaveChanges();
+        }
+
     }
 }

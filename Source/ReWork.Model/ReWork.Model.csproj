@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\Account\EmployeeProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Common\Culture.cs" />
     <Compile Include="ViewModels\Job\CreateJobViewModel.cs" />
     <Compile Include="ViewModels\Job\DetailsJobViewModel.cs" />
     <Compile Include="ViewModels\Job\EditJobViewModel.cs" />

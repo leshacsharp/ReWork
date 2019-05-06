@@ -6,8 +6,11 @@ namespace ReWork.Logic.Services.Abstraction
 {
     public interface IOfferService
     {
-        void CreateOffer(CreateOfferParams offerParams);
-        IEnumerable<OfferInfo> FindJobOffers(int jobId);
+        void CreateOffer(CreateOfferParams offerParams);     
         void AcceptOffer(int jobId, string employeeId);
+
+        IEnumerable<OfferInfo> FindJobOffers(int jobId);
+        IEnumerable<OfferInfo> FindEmployeeOffers(string employeeId);
+        IEnumerable<OfferInfo> FindCustomerOffers(string customerId);
     }
 }

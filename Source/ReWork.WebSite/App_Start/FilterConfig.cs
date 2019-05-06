@@ -10,6 +10,7 @@ namespace ReWork.WebSite
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new CultureFilterAttribute());
+            filters.Add(new ProfileFilterAttribute());
         }
     }
 }

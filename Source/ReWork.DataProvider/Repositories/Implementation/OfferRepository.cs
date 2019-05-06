@@ -22,9 +22,9 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public IEnumerable<OfferInfo> FindJobOffers(int jobId)
         {
-            return  from o in Db.Offers
+            return (from o in Db.Offers
                     join e in Db.EmployeeProfiles on o.EpmployeeId equals e.Id
-                    join u in Db.Users on e.Id equals u.Id 
+                    join u in Db.Users on e.Id equals u.Id
                     where o.JobId == jobId
                     select new OfferInfo
                     {
@@ -33,15 +33,52 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         AddedDate = o.AddedDate,
                         ImplementationDays = o.ImplementationDays,
                         OfferPayment = o.OfferPayment,
+                        EmployeeImage = u.Image,
 
                         EmployeeId = e.Id,
                         UserName = u.UserName
-                    };
+                    }).ToList();
         }
 
-        public IEnumerable<Offer> FindOffersByUserId(string userId)
+        public IEnumerable<OfferInfo> FindEmployeeOffers(string employeeId)
         {
-            return Db.Offers.Where(p => p.Employee.Id == userId).ToList();
+            return from o in Db.Offers
+                   join e in Db.EmployeeProfiles on o.EpmployeeId equals e.Id
+                   join u in Db.Users on e.Id equals u.Id
+                   where e.Id == employeeId
+                   select new OfferInfo
+                   {
+                       Id = o.Id,
+                       Text = o.Text,
+                       AddedDate = o.AddedDate,
+                       ImplementationDays = o.ImplementationDays,
+                       OfferPayment = o.OfferPayment,
+                       EmployeeImage = u.Image,
+
+                       EmployeeId = e.Id,
+                       UserName = u.UserName
+                   };
+        }
+
+        public IEnumerable<OfferInfo> FindCustomerOffers(string customerId)
+        {
+            return (from o in Db.Offers
+                    join j in Db.Jobs on o.JobId equals j.Id
+                    join e in Db.EmployeeProfiles on o.EpmployeeId equals e.Id
+                    join u in Db.Users on e.Id equals u.Id
+                    where j.CustomerId == customerId
+                    select new OfferInfo()
+                    {
+                        Id = o.Id,
+                        Text = o.Text,
+                        AddedDate = o.AddedDate,
+                        ImplementationDays = o.ImplementationDays,
+                        OfferPayment = o.OfferPayment,
+                        EmployeeImage = u.Image,
+
+                        EmployeeId = e.Id,
+                        UserName = u.UserName
+                    }).ToList();
         }
 
         public void Update(Offer item)

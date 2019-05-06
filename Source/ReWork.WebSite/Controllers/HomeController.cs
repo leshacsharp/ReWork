@@ -1,4 +1,5 @@
 ﻿using ReWork.Model.ViewModels;
+using ReWork.Model.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,30 +22,14 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeCulture(string lang)
+        public ActionResult ChangeCulture(Culture lang)
         {
-            string cultureName = String.Empty;
-            cultureName = lang != null ? lang : "en";
-
-            string[] cultures = new string[] { "en", "ru" };
-            if (!cultures.Contains(cultureName))
-            {
-                cultureName = "en";
-            }
-
             HttpCookie cultureCookie = Request.Cookies["lang"];
 
-            if(cultureCookie != null)
-            {
-                cultureCookie.Value = cultureName;
-            }
-            else
-            {
-                cultureCookie = new HttpCookie("lang", cultureName);
-                cultureCookie.Expires = DateTime.Now.AddYears(1);
-            }
-
+            cultureCookie.Value = Enum.GetName(typeof(Culture), lang);
+            cultureCookie.Expires = DateTime.UtcNow.AddYears(1);
             Response.Cookies.Add(cultureCookie);
+
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
     } 
