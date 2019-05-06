@@ -1,4 +1,5 @@
 ﻿using ReWork.Logic.Services.Abstraction;
+using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.ViewModels;
 using ReWork.Model.ViewModels.Account;
@@ -15,11 +16,13 @@ namespace ReWork.WebSite.Controllers
     {
         private IUserService _userService;
         private IRoleService _roleService;
+        private ICommitProvider _commitProvider;
 
-        public ModeratorController(IUserService userService, IRoleService roleService)
+        public ModeratorController(IUserService userService, IRoleService roleService, ICommitProvider commitProvider)
         {
             _userService = userService;
             _roleService = roleService;
+            _commitProvider = commitProvider;
         }
 
         [HttpGet]
@@ -83,6 +86,7 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Delete(string id)
         {
             _userService.DeleteUser(id);
+            _commitProvider.SaveChanges();
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 

@@ -140,8 +140,8 @@
             }
 
             html += skillsHtml + "</div><div class='employee-country'><span>Беларусь</span></div></div>" +
-                "<div class='col-md-4 col-sm-5 col-xs-12'><div class='employee-card'><div class='offer-job'>" +
-                "<input type='submit' class='btn btn-success offer-job-btn' value='Offer job' /></div>" +
+                "<div class='col-md-4 col-sm-5 col-xs-12'><div class='employee-card'><div class='see-profile'>" +
+                "<a href='" + employee + "'><input type='submit' class='btn btn-success see-profile-btn' value='profile' /></a></div>" +
                 "<div class='employee-feedbacks'><div class='employee-feedbacks-count'>" + feedbacks.length + "</div>" +
                 "<a href='" + employee + "'>reviews</a></div><div class='employee-feedbacks-info'>" +
                 "<div class='employee-feedbacks-info-num'>" + percentPositiveFeedbacks + "%</div>" +

@@ -11,16 +11,16 @@ namespace ReWork.Model.Entities
         [Key]
         [ForeignKey("User")]
         public string Id { get; set; }
-    
+
+        [Required]
+        public virtual User User { get; set; }
+
         [Range(8,100)]
         public int Age { get; set; }
 
         [Required]
         [StringLength(700, MinimumLength = 10)]
         public string AboutMe { get; set; }
-
-        [Required]
-        public virtual User User { get; set; }
 
  
 

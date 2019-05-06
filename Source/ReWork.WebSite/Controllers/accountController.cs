@@ -245,6 +245,8 @@ namespace ReWork.WebSite.Controllers
 
 
             _userService.EditUser(editModel.Id, editModel.FirstName, editModel.LastName, imageBytes);
+            _commitProvider.SaveChanges();
+
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 

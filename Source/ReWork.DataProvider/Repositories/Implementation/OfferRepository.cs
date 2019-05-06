@@ -2,6 +2,7 @@
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     {
                         Id = o.Id,
                         Text = o.Text,
-                        AddedDate = o.AddedDate,
+                        AddedDate = (DateTime)o.AddedDate,
                         ImplementationDays = o.ImplementationDays,
                         OfferPayment = o.OfferPayment,
                         EmployeeImage = u.Image,
@@ -50,7 +51,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                    {
                        Id = o.Id,
                        Text = o.Text,
-                       AddedDate = o.AddedDate,
+                       AddedDate = (DateTime)o.AddedDate,
                        ImplementationDays = o.ImplementationDays,
                        OfferPayment = o.OfferPayment,
                        EmployeeImage = u.Image,
@@ -71,7 +72,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     {
                         Id = o.Id,
                         Text = o.Text,
-                        AddedDate = o.AddedDate,
+                        AddedDate = (DateTime)o.AddedDate,
                         ImplementationDays = o.ImplementationDays,
                         OfferPayment = o.OfferPayment,
                         EmployeeImage = u.Image,

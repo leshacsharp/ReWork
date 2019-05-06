@@ -27,7 +27,8 @@
                         <div class="form-group">
                             @Html.LabelFor(p => p.UserName, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
-                                @Html.TextBoxFor(p => p.UserName, new { @class = "form-control disabled", disabled = "disabled" })
+                                @Html.TextBoxFor(p => p.UserName, new { @class = "form-control disabled" })
+                                @Html.ValidationMessageFor(p => p.UserName, "", new { @class = "text-danger" })
                             </div>
                         </div>
 

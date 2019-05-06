@@ -222,6 +222,7 @@
     <Content Include="Scripts\employee-jobs.js" />
     <Content Include="Scripts\employee-offers.js" />
     <Content Include="Scripts\employees.js" />
+    <Content Include="Scripts\job-details.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />

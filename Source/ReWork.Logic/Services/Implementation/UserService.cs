@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
@@ -13,10 +14,14 @@ namespace ReWork.Logic.Services.Implementation
     public class UserService : IUserService
     {
         private UserManager<User> _userManager;
+        private ICustomerProfileRepository _customerRep;
+        private IEmployeeProfileRepository _employeeRep;
 
-        public UserService(UserManager<User> userManager)
+        public UserService(UserManager<User> userManager, ICustomerProfileRepository customerRep, IEmployeeProfileRepository employeeRep)
         { 
             _userManager = userManager;
+            _customerRep = customerRep;
+            _employeeRep = employeeRep;
         }
 
         public IdentityResult Create(string userName, string email, string password, string role)
@@ -144,6 +149,12 @@ namespace ReWork.Logic.Services.Implementation
             User user = _userManager.FindById(userId);
             if(user != null)
             {
+                if(user.CustomerProfile != null)
+                    _customerRep.Delete(user.CustomerProfile);
+
+                if (user.EmployeeProfile != null)
+                    _employeeRep.Delete(user.EmployeeProfile);
+
                 _userManager.Delete(user);
             }
         }

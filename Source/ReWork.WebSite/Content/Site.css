@@ -382,8 +382,8 @@ label.input-error {
 }
 
 .employee-photo img {
-    width: 85px;
-    height: 85px;
+    width: 95px;
+    height: 95px;
     border-radius: 7px;
     border-radius:5px;
 }
@@ -415,16 +415,15 @@ label.input-error {
 }
 
 .employee-feedbacks {
-    padding-right: 10px;
-    padding-left: 20px;
+    padding: 0 20px;
     display: inline-block;
 }
 
-.offer-job {
+.see-profile {
     padding: 0 5px 5px 5px;
 }
 
-.offer-job-btn {
+.see-profile-btn {
     width: 100%;
     max-width:180px;
 }
@@ -477,13 +476,11 @@ label.input-error {
 
 .date-registration {
     color: #959595;
-    ;
     font-size: 90%;
 }
 
 .profile-view {
     color: #959595;
-    ;
     font-size: 90%;
 }
 
@@ -525,4 +522,161 @@ label.input-error {
     color: black;
     font-size: 90%;
     text-align: center;
+}
+
+
+.job-details-title {
+    margin: 20px 0;
+}
+
+.well {
+    border-color: #cfcfd6;
+    box-shadow: inset 0 0 10px rgba(0,0,0,.05);
+}
+
+.widget {
+    border-radius: 4px;
+    background-clip: padding-box;
+    border: 1px solid #cfcfd6;
+    margin-bottom: 1.5em;
+}
+
+    .widget > .widget-header {
+        border-radius: 5px 5px 0 0;
+        background-clip: padding-box;
+        border-bottom: 1px solid #b4b4bf;
+        color: #707083;
+        font-size: 1.1em;
+        border-top: 1px solid #fff;
+        padding-left: 1em;
+        border-radius: 5px 5px 0 0;
+        background: -webkit-gradient(linear,left bottom,left top,color-stop(0,#e5e5e9),color-stop(1,#fbfbfc));
+    }
+
+    .widget > div {
+        padding: 10px;
+        position: relative;
+    }
+
+
+.fancy-tab-container {
+    border: 1px solid #cacad2;
+    border-radius: 5px;
+}
+
+ul.nav.nav-tabs.fancy {
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0,#e5e5e9),color-stop(1,#fbfbfc));
+    border-bottom-width: 0;
+    font-size: 1.1em;
+    border-radius: 5px 5px 0 0;
+}
+
+    ul.nav.nav-tabs.fancy > li:first-child {
+        border-radius: 5px 0 0 0;
+    }
+
+    ul.nav.nav-tabs.fancy > li:first-child {
+        margin-left: -1px;
+    }
+
+    ul.nav.nav-tabs.fancy.two-tabs > li {
+        width: 50%;
+        text-align: center;
+    }
+
+    ul.nav.nav-tabs.fancy > li {
+        margin-bottom: 0;
+        border-left: 1px solid #cfcfd6;
+        border-bottom: 1px solid #cfcfd6;
+    }
+
+        ul.nav.nav-tabs.fancy > li.active {
+            border-bottom: 0;
+            background: #fff;
+        }
+
+        ul.nav.nav-tabs.fancy > li > a {
+            color: #707083;
+            border: 0;
+        }
+
+        ul.nav.nav-tabs.fancy > li.active > a:hover {
+            background: transparent;
+        }
+
+        ul.nav.nav-tabs.fancy > li.active > a {
+            border-bottom: 1px solid transparent;
+        }
+
+.offers-filter {
+    margin: 15px;
+}
+
+.job-offers-container {
+}
+
+.job-offer {
+    padding: 15px;
+    border-bottom: 1px solid #cacad2;
+}
+
+
+.job-offer-time {
+    margin: 0 4px;
+    padding: 4px 8px;
+    background-color: #599cc7;
+    color: white;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.job-offer-price {
+    margin: 0 4px;
+    padding: 4px 8px;
+    background-color: #6eb056;
+    color: white;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.offer-employee-photo {
+    display: inline-block;
+    margin-right: 7px;
+}
+
+    .offer-employee-photo img {
+        width: 60px;
+        height: 60px;
+    }
+
+.offer-employee-name {
+    display: inline-block;
+    margin-top: 3px;
+    font-size: 110%;
+    position: relative;
+    top: -10px;
+}
+
+.job-offer-text {
+    margin-top: 20px;
+}
+
+.job-offer-registration {
+    font-size: 110%;
+    color: #959595;
+    margin-right: 10px;
+}
+
+.job-offer-employee-info {
+    display: inline-block;
+}
+
+.job-details-skills{
+    margin-top:-8px;
+}
+
+.job-details-skills > span{
+    margin-right:5px;
+    color:gray;
+    font-size:90%;
 }
