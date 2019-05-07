@@ -2,10 +2,8 @@
 
 namespace ReWork.Model.EntitiesInfo
 {
-    public class OfferInfo
+    public class EmployeeOfferInfo
     {
-        public string UserName { get; set; }
-
         public string Text { get; set; }
 
         public DateTime AddedDate { get; set; }
@@ -13,9 +11,11 @@ namespace ReWork.Model.EntitiesInfo
         public int? ImplementationDays { get; set; }
 
         public int OfferPayment { get; set; }
+  
+        public int JobId { get; set; }
 
-        public byte[] EmployeeImage { get; set; }
+        public string JobTitle { get; set; }
 
-        public string EmployeeId { get; set; }
+        public DateTime JobAdded { get; set; }
     }
 }

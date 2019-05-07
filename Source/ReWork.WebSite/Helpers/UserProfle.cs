@@ -21,12 +21,15 @@ namespace ReWork.WebSite.Helpers
 
         public static bool IsProfile(this HtmlHelper helper, ProfileType checkProfile)
         {
-            HttpCookie profileCookie = HttpContext.Current.Request.Cookies["profile"];
-
-            if (profileCookie != null)
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                ProfileType profileType = (ProfileType)Enum.Parse(typeof(ProfileType), profileCookie.Value);
-                return profileType == checkProfile;
+                HttpCookie profileCookie = HttpContext.Current.Request.Cookies["profile"];
+
+                if (profileCookie != null)
+                {
+                    ProfileType profileType = (ProfileType)Enum.Parse(typeof(ProfileType), profileCookie.Value);
+                    return profileType == checkProfile;
+                }
             }
 
             return false;

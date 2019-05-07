@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ReWork.Model.EntitiesInfo
 {
-    public class OfferInfo
+    public class CustomerOfferInfo
     {
         public string UserName { get; set; }
+
+        public DateTime UserDateRegistration { get; set; }
 
         public string Text { get; set; }
 
@@ -17,5 +23,9 @@ namespace ReWork.Model.EntitiesInfo
         public byte[] EmployeeImage { get; set; }
 
         public string EmployeeId { get; set; }
+
+        public string JobTitle { get; set; }
+
+        public int JobId { get; set; }
     }
 }

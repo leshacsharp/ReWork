@@ -29,56 +29,55 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     where o.JobId == jobId
                     select new OfferInfo
                     {
-                        Id = o.Id,
                         Text = o.Text,
                         AddedDate = (DateTime)o.AddedDate,
                         ImplementationDays = o.ImplementationDays,
                         OfferPayment = o.OfferPayment,
-                        EmployeeImage = u.Image,
 
+                        EmployeeImage = u.Image,
                         EmployeeId = e.Id,
                         UserName = u.UserName
                     }).ToList();
         }
 
-        public IEnumerable<OfferInfo> FindEmployeeOffers(string employeeId)
+        public IEnumerable<EmployeeOfferInfo> FindEmployeeOffers(string employeeId)
         {
             return from o in Db.Offers
-                   join e in Db.EmployeeProfiles on o.EpmployeeId equals e.Id
-                   join u in Db.Users on e.Id equals u.Id
-                   where e.Id == employeeId
-                   select new OfferInfo
+                   join j in Db.Jobs on o.JobId equals j.Id
+                   where o.EpmployeeId == employeeId
+                   select new EmployeeOfferInfo
                    {
-                       Id = o.Id,
                        Text = o.Text,
                        AddedDate = (DateTime)o.AddedDate,
                        ImplementationDays = o.ImplementationDays,
                        OfferPayment = o.OfferPayment,
-                       EmployeeImage = u.Image,
-
-                       EmployeeId = e.Id,
-                       UserName = u.UserName
+                       
+                       JobId = j.Id,
+                       JobTitle = j.Title,
+                       JobAdded = (DateTime)j.DateAdded
                    };
         }
 
-        public IEnumerable<OfferInfo> FindCustomerOffers(string customerId)
+        public IEnumerable<CustomerOfferInfo> FindCustomerOffers(string customerId)
         {
             return (from o in Db.Offers
                     join j in Db.Jobs on o.JobId equals j.Id
                     join e in Db.EmployeeProfiles on o.EpmployeeId equals e.Id
                     join u in Db.Users on e.Id equals u.Id
                     where j.CustomerId == customerId
-                    select new OfferInfo()
+                    select new CustomerOfferInfo()
                     {
-                        Id = o.Id,
                         Text = o.Text,
                         AddedDate = (DateTime)o.AddedDate,
                         ImplementationDays = o.ImplementationDays,
                         OfferPayment = o.OfferPayment,
-                        EmployeeImage = u.Image,
 
+                        EmployeeImage = u.Image,
                         EmployeeId = e.Id,
-                        UserName = u.UserName
+                        UserName = u.UserName,
+
+                        JobTitle = j.Title,
+                        JobId = j.Id
                     }).ToList();
         }
 

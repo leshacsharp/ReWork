@@ -384,7 +384,6 @@ label.input-error {
 .employee-photo img {
     width: 95px;
     height: 95px;
-    border-radius: 7px;
     border-radius:5px;
 }
 
@@ -647,6 +646,7 @@ ul.nav.nav-tabs.fancy {
     .offer-employee-photo img {
         width: 60px;
         height: 60px;
+        border-radius:5px;
     }
 
 .offer-employee-name {
@@ -679,4 +679,68 @@ ul.nav.nav-tabs.fancy {
     margin-right:5px;
     color:gray;
     font-size:90%;
+}
+
+
+.job-offers-count {
+    padding: 2px 8px;
+    font-weight: 600;
+    color: white;
+    border-radius: 4px;
+    background-color: #00ae5a;
+    font-size:90%;
+}
+
+.employee-offer-photo {
+    width: 95px;
+    height: 95px;
+    border-radius: 5px;
+}
+
+.employee-offer-name {
+    font-size: 110%;
+}
+
+.employee-offer-date {
+    font-size: 110%;
+    color: #808080;
+}
+
+.employee-offer-job-title {
+    margin-top: 10px;
+    font-size: 110%;
+}
+
+.employee-offer-reg-date {
+    color: #808080;
+}
+
+.accept-offer-btn {
+    width: 100%;
+    max-width: 140px;
+}
+
+
+.employee-offer-text {
+    margin-top: 10px;
+}
+
+.employee-offer-time {
+    margin-right: 4px;
+    padding: 3px 6px;
+    background-color: #599cc7;
+    color: white;
+    font-weight: 600;
+    border-radius: 4px;
+    font-size: 90%;
+}
+
+.employee-offer-price {
+    margin: 0 4px;
+    padding: 3px 6px;
+    background-color: #6eb056;
+    color: white;
+    font-weight: 600;
+    border-radius: 4px;
+    font-size: 90%;
 }

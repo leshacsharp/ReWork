@@ -10,7 +10,7 @@ namespace ReWork.Logic.Services.Abstraction
         void AcceptOffer(int jobId, string employeeId);
 
         IEnumerable<OfferInfo> FindJobOffers(int jobId);
-        IEnumerable<OfferInfo> FindEmployeeOffers(string employeeId);
-        IEnumerable<OfferInfo> FindCustomerOffers(string customerId);
+        IEnumerable<EmployeeOfferInfo> FindEmployeeOffers(string employeeId);
+        IEnumerable<CustomerOfferInfo> FindCustomerOffers(string customerId);
     }
 }

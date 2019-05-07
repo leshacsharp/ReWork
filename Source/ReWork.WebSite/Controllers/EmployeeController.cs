@@ -60,7 +60,7 @@ namespace ReWork.WebSite.Controllers
         public ActionResult EmployeeOffers()
         {
             string userId = User.Identity.GetUserId();
-            IEnumerable<OfferInfo> employeeOffers = _offerService.FindEmployeeOffers(userId);
+            IEnumerable<EmployeeOfferInfo> employeeOffers = _offerService.FindEmployeeOffers(userId);
 
             return Json(employeeOffers);
         }

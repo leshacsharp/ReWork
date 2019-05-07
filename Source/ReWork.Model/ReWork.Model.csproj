@@ -99,6 +99,8 @@
   <ItemGroup>
     <Compile Include="Context\CommitProvider.cs" />
     <Compile Include="Context\ICommitProvider.cs" />
+    <Compile Include="EntitiesInfo\CustomerOfferInfo.cs" />
+    <Compile Include="EntitiesInfo\EmployeeOfferInfo.cs" />
     <Compile Include="EntitiesInfo\EmployeeProfileInfo.cs" />
     <Compile Include="EntitiesInfo\JobInfo.cs" />
     <Compile Include="EntitiesInfo\OfferInfo.cs" />

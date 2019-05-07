@@ -52,12 +52,12 @@ namespace ReWork.Logic.Services.Implementation
             }
         }
 
-        public IEnumerable<OfferInfo> FindCustomerOffers(string customerId)
+        public IEnumerable<CustomerOfferInfo> FindCustomerOffers(string customerId)
         {
             return _offerRepository.FindCustomerOffers(customerId);
         }
 
-        public IEnumerable<OfferInfo> FindEmployeeOffers(string employeeId)
+        public IEnumerable<EmployeeOfferInfo> FindEmployeeOffers(string employeeId)
         {
             return _offerRepository.FindEmployeeOffers(employeeId); 
         }
