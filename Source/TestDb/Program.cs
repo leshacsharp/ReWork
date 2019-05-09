@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace TestDb
 {
@@ -18,51 +19,11 @@ namespace TestDb
             {
                 db.Database.Log = Console.Write;
 
-                //var filter = PredicateBuilder.True<Job>();
 
+              
 
-                //filter = filter.AndAlso<Job>(p => p.Skills.Any(f => f.Id.Equals(2)));
-
-
-
-                //filter = filter.AndAlso(p => p.Title.Contains("site") || p.Description.Contains("site"));
-
-
-                //filter = filter.AndAlso(p => p.Price >= 100);
-
-
-                //var jobs = db.Jobs.Include(p => p.Skills).Where(p => p.Id > 0)
-                //                    // .OrderByDescending(p => p.DateAdded)
-                //                     //.Skip(0 * 1)
-                //                    // .Take(1)
-
-                //                     .ToList();
-
-
-                var a = (from e in db.EmployeeProfiles
-                        join u in db.Users on e.Id equals u.Id
-                        join f in db.FeedBacks on e.Id equals f.EmployeeProfileId into feedBacks
-                        where e.Id == "1"
-                        select new EmployeeProfileInfo()
-                        {
-                           
-                            //UserName = u.UserName,
-                            //FirstName = u.FirstName,
-                            //LastName = u.LastName
-                           
-                           QualityOfWorks = feedBacks.Select(p=>p.QualityOfWork)
-                        }).SingleOrDefault();
-
-                //foreach (var it in jobs)
-                //{
-                //    foreach (var skill in it.Skills)
-                //    {
-                //        Console.WriteLine(skill.Title);
-                //    }
-                //}
-
-
-                //int jobId = 6;
+                // var b = a.SingleOrDefault();
+                int jobId = 6;
 
                 //var offers = from o in db.Offers
                 //             join e in db.EmployeeProfiles on o.EpmployeeId equals e.Id
@@ -80,72 +41,6 @@ namespace TestDb
                 //                 EmployeeId = e.Id,
                 //                 UserName = u.UserName ?? null
                 //             };
-
-
-                //foreach (var it in offers)
-                //{
-                //    Console.WriteLine(it.UserName);
-                //}
-
-                // var jobs = db.Jobs.Include("Skills").ToList();
-
-
-                int jobId = 1;
-
-                //var a = (from j in db.Jobs
-                //         join sj in (from sj in db.SkillJobs
-                //                     join s in db.Skills on sj.SkillId equals s.Id
-                //                     select sj)
-                //                     on j.Id equals sj.JobId
-
-                //         where j.Id == jobId
-                //         select new JobInfo()
-                //         {
-                //             Id = j.Id,
-                //             Title = j.Title,
-                //             Description = j.Description,
-                //             Price = j.Price,
-                //             PriceDiscussed = j.PriceDiscussed,
-                //             DateAdded = (DateTime)j.DateAdded,
-
-                //             Skills = j.Skills.Select(p => p.Skill.Title)
-                //         }).ToList();
-
-
-                //var jobs = db.Jobs.Where(p => true).Select(
-                //                    j => new JobInfo()
-                //                    {
-                //                        Id = j.Id,
-                //                        Title = j.Title,
-                //                        Description = j.Description,
-                //                        Price = j.Price,
-                //                        PriceDiscussed = j.PriceDiscussed,
-                //                        DateAdded = (DateTime)j.DateAdded,
-                //                        CountOffers = j.Offers.Count(),
-
-                //                      //  SkillsId = j.Skills.Select(p => p.Id),
-                //                       // Skills = j.Skills.Select(p => p.Title)
-                //                    });
-
-
-                //foreach (var it in jobs)
-                //{
-                //    Console.WriteLine(it.CountOffers);
-                //    foreach (var it2 in it.Skills)
-                //    {
-                //        Console.WriteLine(it2);
-                //    }
-                //}
-                //var a = from j in db.Jobs
-                //        join s in db.Skills
-                //        where j.Id == jobId
-                //        select new { j,s };
-
-                //foreach (var it in a)
-                //{
-                //    Console.WriteLine(it.s.Title);
-                //}
-                
 
             }
         }

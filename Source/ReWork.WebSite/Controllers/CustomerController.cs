@@ -49,6 +49,12 @@ namespace ReWork.WebSite.Controllers
             return Json(jobs);
         }
 
+        [HttpGet]
+        public ActionResult MyJobDetails(int jobId)
+        {
+            JobInfo job = _jobService.FindById(jobId);
+            return View();
+        }
 
         [HttpGet]
         public ActionResult MyOffers()

@@ -81,7 +81,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public JobInfo FindById(int jobId)
         {
-             return _jobRepository.FindJobInfoById(jobId);
+            return _jobRepository.FindJobsInfo(p => p.Id == jobId).SingleOrDefault();
         }
 
         public IEnumerable<JobInfo> FindCustomerJobs(string customerId, DateTime? fromDate)

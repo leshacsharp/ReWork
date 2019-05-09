@@ -51,7 +51,7 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpPost]
-        public void AcceptOffer(int jobId, string employeeId)
+        public void AcceptOffer(string employeeId, int jobId)
         {
             _offerService.AcceptOffer(jobId, employeeId);
             _commitProvider.SaveChanges();

@@ -9,7 +9,7 @@ namespace ReWork.DataProvider.Repositories.Abstraction
     public interface IJobRepository : IRepository<Job>
     {
         IQueryable<JobInfo> FindJobsInfo(Expression<Func<Job, Boolean>> predicate);
-        JobInfo FindJobInfoById(int id);
+        MyJobInfo FindMyJobInfo(int id);
         Job FindJobById(int id);
     }
 }

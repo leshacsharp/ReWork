@@ -716,8 +716,8 @@ ul.nav.nav-tabs.fancy {
 }
 
 .accept-offer-btn {
+    max-width: 120px;
     width: 100%;
-    max-width: 140px;
 }
 
 
@@ -743,4 +743,13 @@ ul.nav.nav-tabs.fancy {
     font-weight: 600;
     border-radius: 4px;
     font-size: 90%;
+}
+
+.offer-job-title {
+    font-size: 120%;
+}
+
+.offer-job-price {
+    font-size: 120%;
+    color: #00ae5a;
 }

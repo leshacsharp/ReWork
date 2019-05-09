@@ -73,7 +73,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public EmployeeProfileInfo FindEmployeeInfoById(string id)
         {
-            return _employeeRepository.FindEmployeeInfoById(id);
+            return _employeeRepository.FindEmployes(p => p.Id == id).SingleOrDefault();
         }
 
         public IEnumerable<EmployeeProfileInfo> FindEmployes(int[] skillsId, string keyWords)

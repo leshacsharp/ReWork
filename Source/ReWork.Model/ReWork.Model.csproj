@@ -103,6 +103,7 @@
     <Compile Include="EntitiesInfo\EmployeeOfferInfo.cs" />
     <Compile Include="EntitiesInfo\EmployeeProfileInfo.cs" />
     <Compile Include="EntitiesInfo\JobInfo.cs" />
+    <Compile Include="EntitiesInfo\MyJobInfo.cs" />
     <Compile Include="EntitiesInfo\OfferInfo.cs" />
     <Compile Include="EntitiesInfo\SectionInfo.cs" />
     <Compile Include="EntitiesInfo\SkillInfo.cs" />

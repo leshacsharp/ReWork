@@ -54,6 +54,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                        
                        JobId = j.Id,
                        JobTitle = j.Title,
+                       JobPrice = j.Price,
                        JobAdded = (DateTime)j.DateAdded
                    };
         }

@@ -20,12 +20,12 @@ namespace ReWork.Model.EntitiesInfo
 
         public int OfferPayment { get; set; }
 
-        public byte[] EmployeeImage { get; set; }
-
         public string EmployeeId { get; set; }
 
-        public string JobTitle { get; set; }
+        public byte[] EmployeeImage { get; set; }
 
         public int JobId { get; set; }
+
+        public string JobTitle { get; set; }
     }
 }

@@ -29,47 +29,49 @@ namespace ReWork.DataProvider.Repositories.Implementation
 
         public IQueryable<JobInfo> FindJobsInfo(Expression<Func<Job, bool>> predicate)
         {
-            return Db.Jobs.Where(predicate).Select(j => new JobInfo()
-            {
-                Id = j.Id,
-                Title = j.Title,
-                Description = j.Description,
-                Price = j.Price,
-                PriceDiscussed = j.PriceDiscussed,
-                DateAdded = (DateTime)j.DateAdded,
-                CountOffers = j.Offers.Count(),
+            return from j in Db.Jobs.Where(predicate)
+                   join c in Db.CustomerProfiles on j.CustomerId equals c.Id
+                   join u in Db.Users on c.Id equals u.Id
+                   select new JobInfo()
+                   {
+                       Id = j.Id,
+                       Title = j.Title,
+                       Description = j.Description,
+                       Price = j.Price,
+                       PriceDiscussed = j.PriceDiscussed,
+                       DateAdded = (DateTime)j.DateAdded,
+                       CountOffers = j.Offers.Count,
 
-                UserName = j.Customer.User.UserName,
-                CustomerId = j.CustomerId,
+                       UserName = u.UserName,
+                       CustomerId = c.Id,
 
-                Skills = j.Skills.Select(p => new SkillInfo()
-                {
-                    Id = p.Id,
-                    Title = p.Title
-                })
-            });
+                       Skills = j.Skills.Select(p => new SkillInfo()
+                       {
+                           Id = p.Id,
+                           Title = p.Title
+                       })
+                   };
         }
+      
 
-
-        public JobInfo FindJobInfoById(int id)
+        public MyJobInfo FindMyJobInfo(int id)
         {
             return (from j in Db.Jobs
-                    join c in Db.CustomerProfiles on j.CustomerId equals c.Id
-                    join u in Db.Users on c.Id equals u.Id
-                    join o in Db.Offers on j.Id equals o.JobId into offers
+                    join e in Db.EmployeeProfiles on j.EmployeeId equals e.Id into eJoin
+                    from e in eJoin.DefaultIfEmpty()
+                    join u in Db.Users on e.Id equals u.Id into uJoin
+                    from u in uJoin.DefaultIfEmpty()
                     where j.Id == id
-                    select new JobInfo()
+                    select new MyJobInfo()
                     {
-                        Id = j.Id,
                         Title = j.Title,
                         Description = j.Description,
                         Price = j.Price,
                         PriceDiscussed = j.PriceDiscussed,
                         DateAdded = (DateTime)j.DateAdded,
-                        CountOffers = offers.Count(),
-
-                        UserName = u.UserName,
-                        CustomerId = c.Id,
+                       
+                        EmployeeId = (e != null ? e.Id : null),
+                        EmployeeUserName = (u != null ? u.UserName : null),
 
                         Skills = j.Skills.Select(p => new SkillInfo()
                         {

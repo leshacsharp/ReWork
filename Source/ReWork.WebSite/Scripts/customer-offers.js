@@ -42,13 +42,30 @@
                 "<span class='employee-offer-time'>" + data[i].ImplementationDays + " days</span> <span class='employee-offer-price'>" +
                 data[i].OfferPayment + " $</span><span class='employee-offer-reg-date hidden-xs'>Date offer: " + offerRegDate + "</span>" +
                 "<div class='employee-offer-text'>" + data[i].Text + "</div></td>" +
-                "<td class='col-md-2 col-sm-2 col-xs-2'><div style='margin-top: -5px;'> <input type='submit' class='btn btn-primary accept-offer-btn' value='Accept offer'></div></td></tr>";
+                "<td class='col-md-2 col-sm-2 col-xs-2'><input type='hidden' name='jobId' value='" + data[i].JobId + "'>" +
+                "<input type='hidden' name='employeeId' value='" + data[i].EmployeeId + "'>" + 
+                "<div style='margin-top: -5px;'> <input type='submit' class='btn btn-primary accept-offer-btn' value='Accept offer'></div></td></tr>";
 
             result.push(html);
         }
         return result;
     }
 
+
+    $("tbody").on("click", ".accept-offer-btn", function () {
+        var employeeId = $(this).parent().parent().find("input[name=employeeId]").val();
+        var jobId = $(this).parent().parent().find("input[name=jobId]").val();
+
+        $.ajax({
+            url: "/offer/acceptoffer",
+            type: "POST",
+            data: { "employeeId": employeeId, "jobId": jobId },
+            success: function () {
+                var userName = $(".employee-offer-name a").html();
+                alert("now" + userName + " will work on this project");
+            }
+        })
+    })
 
 
     function ArrayBufferToBase64(buffer) {
