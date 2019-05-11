@@ -19,6 +19,6 @@ namespace ReWork.Model.EntitiesInfo
 
         public int JobId { get; set; }
 
-        public string jobTitle { get; set; }
+        public string JobTitle { get; set; }
     }
 }

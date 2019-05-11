@@ -8,6 +8,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="profile-short-info">
+            @Html.HiddenFor(p=>p.Id)
 
             <div class="profile-image">
                 @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Image) + "\" />")
@@ -59,8 +60,8 @@
     <div class="col-md-12">
 
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#reviews-tab" data-toggle="tab" name="link-reviews-tab">Jobs</a></li>
-            <li><a href="#information" data-toggle="tab" name="link-information-tab">Employees</a></li>
+            <li class="active"><a href="#reviews-tab" data-toggle="tab" name="link-reviews-tab">Reviews</a></li>
+            <li><a href="#information" data-toggle="tab" name="link-information-tab">Information</a></li>
         </ul>
 
         <br />
@@ -104,13 +105,17 @@
                     </div>
 
 
-
                     <div class="review-container">
-                        
-                    </div>
-                </div>
 
-                <div class="pagination"></div>
+                    </div>
+
+                    <div class="pagination"></div>
+                </div>
+     
+            </div>
+
+            <div class="tab-pane" id="information">
+                info
             </div>
         </div>
     </div>

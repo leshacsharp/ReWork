@@ -89,6 +89,7 @@
     <Compile Include="Services\Implementation\SectionService.cs" />
     <Compile Include="Services\Implementation\SkillService.cs" />
     <Compile Include="Services\Implementation\UserService.cs" />
+    <Compile Include="Services\Params\CreateFeedBackParams.cs" />
     <Compile Include="Services\Params\CreateJobParams.cs" />
     <Compile Include="Services\Params\CreateOfferParams.cs" />
     <Compile Include="Services\Params\EditJobParams.cs" />

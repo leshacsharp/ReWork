@@ -3,9 +3,12 @@
     SendFindReviews();
 
     function SendFindReviews() {
+        var userId = $(".profile-short-info input[name=Id]").val();
+
         $.ajax({
             url: "/profile/RecivedFeedBacks",
             type: "POST",
+            data: {"userId":userId},
             success: appendReviews
         })
     }
@@ -44,7 +47,7 @@
                 html += "<span class='fa fa-star star'></span>";
             }
 
-            html += "</div><div>Review to job:<a href='/job/details/" + data[i].JobId + "' class='review-job'>" + data[i].JobTitle + "</a></div></div>" +
+            html += "</div><div>Review to job: <a href='/job/details/" + data[i].JobId + "' class='review-job'>" + data[i].JobTitle + "</a></div></div>" +
                 "<div class='col-md-7 col-sm-5'><div class='review-dop'>Added: " + offerDate + "</div>" +
                 "<div class='review-text'>" + data[i].Text + "</div></div></div></div>";
 

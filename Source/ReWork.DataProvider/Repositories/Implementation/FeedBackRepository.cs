@@ -37,7 +37,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         SenderImage = s.Image,
 
                         JobId = j.Id,
-                        jobTitle = j.Title
+                        JobTitle = j.Title
                     }).ToList();
         }
 
@@ -58,7 +58,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         SenderImage = s.Image,
 
                         JobId = j.Id,
-                        jobTitle = j.Title
+                        JobTitle = j.Title
                     }).ToList();
         }
 

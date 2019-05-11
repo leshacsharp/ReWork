@@ -142,6 +142,7 @@ namespace ReWork.WebSite.Controllers
             EmployeeProfileInfo employee = _employeeService.FindEmployee(id);
             EmployeeDetailsViewModel viewModel = new EmployeeDetailsViewModel()
             {
+                Id =employee.Id,
                 Age = employee.Age,
                 AboutMe = employee.AboutMe,
                 FirstName = employee.FirstName,

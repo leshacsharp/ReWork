@@ -12,6 +12,8 @@ namespace ReWork.Logic.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<BaseRepository>().As<IBaseRepository>().InstancePerRequest();
+
             builder.RegisterType<CustomerProfileRepository>().As<ICustomerProfileRepository>().PropertiesAutowired().InstancePerRequest();
             builder.RegisterType<EmployeeProfileRepository>().As<IEmployeeProfileRepository>().PropertiesAutowired().InstancePerRequest();
             builder.RegisterType<JobRepository>().As<IJobRepository>().PropertiesAutowired().InstancePerRequest();

@@ -31,10 +31,12 @@ namespace ReWork.WebSite.Controllers
         }
 
 
+
+
+        [AllowAnonymous]
         [HttpPost]
-        public ActionResult RecivedFeedBacks()
+        public ActionResult RecivedFeedBacks(string userId)
         {
-            string userId = User.Identity.GetUserId();
             IEnumerable<FeedBackInfo> feedbacks = _feedBackService.FindRecivedFeedBacks(userId);
 
             return Json(feedbacks);
