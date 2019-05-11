@@ -34,6 +34,7 @@ namespace ReWork.Logic.Services.Implementation
            }
         }
 
+
         public void CreateOffer(CreateOfferParams offerParams)
         {
             EmployeeProfile employee = _employeeRepository.FindEmployeeById(offerParams.EmployeeId);
@@ -52,15 +53,18 @@ namespace ReWork.Logic.Services.Implementation
             }
         }
 
+
         public IEnumerable<CustomerOfferInfo> FindCustomerOffers(string customerId)
         {
             return _offerRepository.FindCustomerOffers(customerId);
         }
 
+
         public IEnumerable<EmployeeOfferInfo> FindEmployeeOffers(string employeeId)
         {
             return _offerRepository.FindEmployeeOffers(employeeId); 
         }
+
 
         public IEnumerable<OfferInfo>FindJobOffers(int jobId)
         {

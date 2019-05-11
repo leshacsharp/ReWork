@@ -31,6 +31,15 @@ namespace ReWork.WebSite.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult RecivedFeedBacks()
+        {
+            string userId = User.Identity.GetUserId();
+            IEnumerable<FeedBackInfo> feedbacks = _feedBackService.FindRecivedFeedBacks(userId);
+
+            return Json(feedbacks);
+        }
+
         [HttpGet]
         public ActionResult Information()
         {
@@ -45,25 +54,20 @@ namespace ReWork.WebSite.Controllers
             User user = _userService.FindUserById(userId);
 
             ShortUserInfoViewModel userInfo = new ShortUserInfoViewModel()
-            { FirstName = user.FirstName, LastName = user.LastName, DateRegistration = (DateTime)user.RegistrationdDate, Image = user.Image };
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateRegistration = (DateTime)user.RegistrationdDate,
+                Image = user.Image
+            };
 
+            IEnumerable<FeedBack> feedBacks = user.FeedBacks.ToList();
 
-            string profileName = Request.Cookies["profile"]?.Value;
-            ProfileType profileType = (ProfileType)Enum.Parse(typeof(ProfileType), profileName);
+            int countFeedbacksForPer = feedBacks.Count() == 0 ? 1 : feedBacks.Count();
+            double percentPositiveFeedBacks = (double)feedBacks.Count(p => (int)p.QualityOfWork >= 3) * 100 / countFeedbacksForPer;
 
-
-            IEnumerable<FeedBack> profileFeedbacks = null;
-
-            if(profileType == ProfileType.Employee)
-                profileFeedbacks = _feedBackService.FindFeedBacksForEmployee(userId);
-            else
-                profileFeedbacks = _feedBackService.FindFeedBacksForCustomer(userId);
-
-            int countFeedbacksForPer = profileFeedbacks.Count() == 0 ? 1 : profileFeedbacks.Count();
-            double perPositiveFeedBacks = (double)profileFeedbacks.Count(p => (int)p.QualityOfWork >= 3) * 100 / countFeedbacksForPer;
-
-            userInfo.CountFeedbacks = profileFeedbacks.Count();
-            userInfo.PercentPositiveFeedbacks = (int)Math.Round(perPositiveFeedBacks);
+            userInfo.CountFeedbacks = feedBacks.Count();
+            userInfo.PercentPositiveFeedbacks = (int)Math.Round(percentPositiveFeedBacks);
 
             return PartialView(userInfo);
         }
@@ -82,7 +86,6 @@ namespace ReWork.WebSite.Controllers
 
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
-
 
         private void AddModeErrors(IdentityResult result)
         {

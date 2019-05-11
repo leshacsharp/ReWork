@@ -26,10 +26,7 @@ namespace ReWork.Model.ViewModels.Job
 
         public bool PriceDiscussed { get; set; }
 
-
-        [CannotBeEmpty]
+        [CannotBeEmpty(ErrorMessage = "Select at least 1 skill")]
         public IEnumerable<int> SelectedSkills { get; set; }
-
-        public IEnumerable<SelectListItem> Skills { get; set; }
     }
 }

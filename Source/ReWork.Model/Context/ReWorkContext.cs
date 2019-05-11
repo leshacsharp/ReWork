@@ -26,5 +26,20 @@ namespace ReWork.Model.Context
         public DbSet<Section> Sections { get; set; }
         public DbSet<Skill> Skills { get; set; }
 
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FeedBack>()
+                .HasRequired(s => s.Sender)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<FeedBack>()
+               .HasRequired(s => s.Receiver)
+               .WithMany()
+               .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

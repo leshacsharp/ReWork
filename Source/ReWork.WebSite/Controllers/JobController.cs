@@ -62,14 +62,14 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            JobInfo job = _jobService.FindById(id);
+            JobInfo job = _jobService.FindJob(id);
             if(job != null)
             {
                 EditJobViewModel editJobModel = new EditJobViewModel()
                 { Id = job.Id, Title = job.Title, Description = job.Description, Price = job.Price, PriceDiscussed = job.PriceDiscussed };
 
                 editJobModel.SelectedSkills = job.Skills.Select(p => p.Id);
-                editJobModel.Skills = GetCategories();
+                ViewBag.Skills = GetCategories();
 
                 return View(editJobModel);
             }
@@ -82,7 +82,7 @@ namespace ReWork.WebSite.Controllers
         {
             if(!ModelState.IsValid)
             {
-                editJobModel.Skills = GetCategories();
+                ViewBag.Skills = GetCategories();
                 return View(editJobModel);
             }
 
@@ -104,11 +104,18 @@ namespace ReWork.WebSite.Controllers
             _commitProvider.SaveChanges();
         }
 
+        [HttpPost]
+        public void DeleteEmployeeFromJob(int id)
+        {
+            _jobService.DeleteEmployeeFromJob(id);
+            _commitProvider.SaveChanges();
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Details(int id)
         {
-            JobInfo job = _jobService.FindById(id);
+            JobInfo job = _jobService.FindJob(id);
             IEnumerable<OfferInfo> offers = _offerService.FindJobOffers(id);
 
             DetailsJobViewModel detailsJobModel = new DetailsJobViewModel() { Job = job, Offers = offers };

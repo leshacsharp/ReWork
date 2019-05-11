@@ -13,6 +13,19 @@
     //})
 
 
+    $("tbody").on("click", "input[name=delete-job]", function () {
+        var tr = $(this).parent().parent().parent();
+        var jobId = tr.find("input[name=jobId]").val();
+
+        $.ajax({
+            url: "/job/DeleteEmployeeFromJob",
+            type: "POST",
+            data: { "id": jobId },
+            success: function () {
+                SendFindJobs();
+            }
+        })
+    })
 
     function SendFindJobs() {
         $("tbody").empty();
@@ -49,7 +62,7 @@
         var result = [];
         for (var i = 0; i < data.length; i++) {
             var html = "<tr>" +
-                "<td class='col-md-7'>" +
+                "<td class='col-md-6'><input type='hidden' name='jobId' value='" + data[i].Id + "'/>" +
                 "<a href='/Job/Details/" + data[i].Id + "' class='job-title'>" +
                 data[i].Title + "</a><div class='job-skills'>";
 
@@ -65,9 +78,9 @@
             html += "<td class='col-md-2 text-center hidden-xs'>" +
                 "<a class='job-customer' href='/customer/details/" + data[i].CustomerId + "'>" +
                 data[i].UserName + "</a></td><td class='col-md-1 text-center'><span class='price'>" +
-                data[i].Price + "$</span></td><td class='col-md-1 text-center hidden-xs'><span class='count-offers'>" +
-                data[i].CountOffers + "</span></td><td class='col-md-1 text-center hidden-xs'><span class='date-added'>" +
-                date + "</span></td></tr>"
+                data[i].Price + "$</span></td><td class='col-md-2 text-center hidden-sm hidden-xs'><span class='count-offers'>" +
+                data[i].CountOffers + " offers</span></td><td class='col-md-1 text-center hidden-xs'><span class='date-added'>" +
+                date + "</span></td><td class='col-md-1'><input type='submit' class='btn btn-primary' name='delete-job' value='Reject'/></td></tr>"
 
             result.push(html);
         }

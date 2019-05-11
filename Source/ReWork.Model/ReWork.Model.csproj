@@ -102,6 +102,7 @@
     <Compile Include="EntitiesInfo\CustomerOfferInfo.cs" />
     <Compile Include="EntitiesInfo\EmployeeOfferInfo.cs" />
     <Compile Include="EntitiesInfo\EmployeeProfileInfo.cs" />
+    <Compile Include="EntitiesInfo\FeedBackInfo.cs" />
     <Compile Include="EntitiesInfo\JobInfo.cs" />
     <Compile Include="EntitiesInfo\MyJobInfo.cs" />
     <Compile Include="EntitiesInfo\OfferInfo.cs" />
@@ -112,6 +113,10 @@
     <Compile Include="Migrations\201905011337136_init.cs" />
     <Compile Include="Migrations\201905011337136_init.Designer.cs">
       <DependentUpon>201905011337136_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905111440177_change_user_feedback.cs" />
+    <Compile Include="Migrations\201905111440177_change_user_feedback.Designer.cs">
+      <DependentUpon>201905111440177_change_user_feedback.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
@@ -138,6 +143,7 @@
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\Common\Culture.cs" />
+    <Compile Include="ViewModels\Employee\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\Job\CreateJobViewModel.cs" />
     <Compile Include="ViewModels\Job\DetailsJobViewModel.cs" />
     <Compile Include="ViewModels\Job\EditJobViewModel.cs" />
@@ -153,6 +159,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905011337136_init.resx">
       <DependentUpon>201905011337136_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905111440177_change_user_feedback.resx">
+      <DependentUpon>201905111440177_change_user_feedback.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

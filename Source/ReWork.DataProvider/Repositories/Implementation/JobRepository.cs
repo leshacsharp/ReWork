@@ -65,7 +65,6 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     select new MyJobInfo()
                     {
                         Title = j.Title,
-                        Description = j.Description,
                         Price = j.Price,
                         PriceDiscussed = j.PriceDiscussed,
                         DateAdded = (DateTime)j.DateAdded,

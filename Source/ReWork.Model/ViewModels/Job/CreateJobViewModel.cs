@@ -23,7 +23,5 @@ namespace ReWork.Model.ViewModels.Job
 
         [CannotBeEmpty(ErrorMessage = "Select at least 1 skill")]
         public IEnumerable<int> SelectedSkills { get; set; }
-
-        public IEnumerable<SelectListItem> Skills { get; set; }
     }
 }

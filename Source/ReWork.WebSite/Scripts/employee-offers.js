@@ -37,7 +37,7 @@
                 data[i].JobPrice + "$</span></div><div class='employee-offer-reg-date hidden-xs'>Date registration: " +
                 jobDate + "</div></td><td class='col-md-8'><span class='employee-offer-time'>" +
                 data[i].ImplementationDays + " days</span><span class='employee-offer-price'>" +
-                data[i].OfferPayment + "</span><span class='employee-offer-reg-date'>Added: " +
+                data[i].OfferPayment + " $</span><span class='employee-offer-reg-date'>Added: " +
                 offerDate + "</span> <div class='employee-offer-text'>" + data[i].Text + "</div></td></tr>";
 
             result.push(html);

@@ -17,19 +17,21 @@ namespace ReWork.Logic.Services.Implementation
     public class JobService : IJobService
     {
         private IJobRepository _jobRepository;
-        private ICustomerProfileRepository _customerProfileRepository;
+        private ICustomerProfileRepository _customerRepository;
+        private IEmployeeProfileRepository _employeeRepository;
         private ISkillRepository _skillRepository;
 
-        public JobService(IJobRepository jobRep, ICustomerProfileRepository customerProfileRep, ISkillRepository skillRep)
+        public JobService(IJobRepository jobRep, ICustomerProfileRepository customerRep, IEmployeeProfileRepository employeeRep, ISkillRepository skillRep)
         {
             _jobRepository = jobRep;
-            _customerProfileRepository = customerProfileRep;
+            _customerRepository = customerRep;
+            _employeeRepository = employeeRep;
             _skillRepository = skillRep;
         }
 
         public void CreateJob(CreateJobParams jobParams)
         {
-            CustomerProfile customerProfile = _customerProfileRepository.FindCustomerProfileByName(jobParams.CustomerUserName);
+            CustomerProfile customerProfile = _customerRepository.FindCustomerProfileByName(jobParams.CustomerUserName);
             if (customerProfile != null)
             {
                 Job job = new Job()
@@ -76,13 +78,29 @@ namespace ReWork.Logic.Services.Implementation
                 _jobRepository.Delete(job);
             }
         }
- 
+
+        public void DeleteEmployeeFromJob(int jobId)
+        {
+            Job job = _jobRepository.FindJobById(jobId);
+            if(job != null && job.EmployeeId != null)
+            {
+                job.Status = ProjectStatus.Open;
+                job.EmployeeId = null;
+            }
+        }
 
 
-        public JobInfo FindById(int jobId)
+
+        public JobInfo FindJob(int jobId)
         {
             return _jobRepository.FindJobsInfo(p => p.Id == jobId).SingleOrDefault();
         }
+
+        public MyJobInfo FindCustomerJob(int jobId)
+        {
+            return _jobRepository.FindMyJobInfo(jobId);
+        }
+
 
         public IEnumerable<JobInfo> FindCustomerJobs(string customerId, DateTime? fromDate)
         {

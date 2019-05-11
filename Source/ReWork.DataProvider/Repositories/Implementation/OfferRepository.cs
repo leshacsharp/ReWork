@@ -65,7 +65,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     join j in Db.Jobs on o.JobId equals j.Id
                     join e in Db.EmployeeProfiles on o.EpmployeeId equals e.Id
                     join u in Db.Users on e.Id equals u.Id
-                    where j.CustomerId == customerId
+                    where j.CustomerId == customerId && j.EmployeeId == null
                     select new CustomerOfferInfo()
                     {
                         Text = o.Text,

@@ -15,8 +15,29 @@
     $("tbody").on("click", "input[name=delete-job]", function () {
         var tr = $(this).parent().parent().parent();
         var jobId = tr.find("input[name=jobId]").val();
-        Ajax("/job/delete", "POST", null, { "id": jobId }, function () {
-            SendFindJobs();
+
+        $.ajax({
+            url: "/job/delete",
+            type: "POST",
+            data: { "id": jobId },
+            success: function () {
+                SendFindJobs();
+            }
+        })
+    })
+
+    $("tbody").on("click", "input[name=job-details]", function () {
+        var tr = $(this).parent().parent().parent();
+        var jobId = tr.find("input[name=jobId]").val();
+        $.ajax({
+            url: "/customer/myjobdetails",
+            type: "POST",
+            data: { "id": jobId },
+            success: function (html) {
+                $(".modal-dialog").empty();
+                $(".modal-dialog").append(html);
+                $('.modal').modal('show');
+            }
         })
     })
 
@@ -72,7 +93,7 @@
                 data[i].Price + "$</span></td><td class='col-md-1 hidden-sm hidden-xs'><span class='date-added'>" +
                 dateAdded + "</span></td> <td class='col-md-2 text-center hidden-sm hidden-xs'><span class='count-offers'>" +
                 data[i].CountOffers + " offers</span></td><td class='col-md-4'>" +
-                "<div class='job-button'><a href='/job/details/" + data[i].Id + "'><input type='submit' class='btn btn-primary' value='Details'/></a></div>" +
+                "<div class='job-button'><input type='submit' class='btn btn-primary' name='job-details' value='Details'/></div>" +
                 "<div class='job-button'><a href='/job/edit/" + data[i].Id + "'><input type='submit' class='btn btn-primary' value='Edit'/></a></div>" +
                 "<div class='job-button'><input type='submit' class='btn btn-primary' name='delete-job' value='Delete'/></div></td>";
 

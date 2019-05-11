@@ -19,28 +19,27 @@ namespace TestDb
             {
                 db.Database.Log = Console.Write;
 
+                string recivedId = "sdg";
 
-              
+                var feedBacks = (from f in db.FeedBacks
+                                 join j in db.Jobs on f.JobId equals j.Id
+                                 join s in db.Users on f.SenderId equals s.Id
+                                 join r in db.Users on f.ReceiverId equals r.Id
+                                 where f.ReceiverId == recivedId
+                                 select new FeedBackInfo()
+                                 {
+                                     Text = f.Text,
+                                     AddedDate = f.AddedDate,
+                                     QualityOfWork = f.QualityOfWork,
 
-                // var b = a.SingleOrDefault();
-                int jobId = 6;
+                                     ReceiverName = r.UserName,
+                                     ReceiverId = r.Id,
+                                     SenderName = s.UserName,
+                                     SenderId = s.Id,
 
-                //var offers = from o in db.Offers
-                //             join e in db.EmployeeProfiles on o.EpmployeeId equals e.Id
-                //             join u in db.Users on e.Id equals u.Id into ju
-                //             from u in ju.DefaultIfEmpty()
-                //             where o.JobId == jobId
-                //             select new OfferInfo
-                //             {
-                //                 Id = o.Id,
-                //                 Text = o.Text,
-                //                 AddedDate = o.AddedDate,
-                //                 ImplementationDays = o.ImplementationDays,
-                //                 OfferPayment = o.OfferPayment,
-
-                //                 EmployeeId = e.Id,
-                //                 UserName = u.UserName ?? null
-                //             };
+                                     JobId = j.Id,
+                                     jobTitle = j.Title
+                                 }).ToList();
 
             }
         }

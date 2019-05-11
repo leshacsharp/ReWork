@@ -47,10 +47,13 @@ namespace ReWork.Model.Entities
 
         public virtual ICollection<Skill> Skills { get; set; }
 
+        public virtual ICollection<FeedBack> FeedBacks { get; set; }
+
         public Job()
         {
             Offers = new List<Offer>();
             Skills = new List<Skill>();
+            FeedBacks = new List<FeedBack>();
         }
     }
 }

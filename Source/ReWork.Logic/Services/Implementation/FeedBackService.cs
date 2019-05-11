@@ -1,6 +1,7 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,14 @@ namespace ReWork.Logic.Services.Implementation
             _feedBackRepository = feedBackRepository;
         }
 
-        public IEnumerable<FeedBack> FindFeedBacksForCustomer(string customerId)
+        public IEnumerable<FeedBackInfo> FindRecivedFeedBacks(string recivedId)
         {
-            return _feedBackRepository.FindFeedBacksForCustomer(customerId);
+            return _feedBackRepository.FindRecivedFeedBacks(recivedId);
         }
 
-        public IEnumerable<FeedBack> FindFeedBacksForEmployee(string employeeId)
+        public IEnumerable<FeedBackInfo> FindSentFeedBacks(string senderId)
         {
-            return _feedBackRepository.FindFeedBacksForEmployee(employeeId);
+            return _feedBackRepository.FindSentFeedBacks(senderId);
         }
     }
 }

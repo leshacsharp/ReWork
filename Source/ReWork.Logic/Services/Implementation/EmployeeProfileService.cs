@@ -70,10 +70,9 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
-
-        public EmployeeProfileInfo FindEmployeeInfoById(string id)
+        public EmployeeProfileInfo FindEmployee(string employeeId)
         {
-            return _employeeRepository.FindEmployes(p => p.Id == id).SingleOrDefault();
+            return _employeeRepository.FindEmployes(p => p.Id == employeeId).SingleOrDefault();
         }
 
         public IEnumerable<EmployeeProfileInfo> FindEmployes(int[] skillsId, string keyWords)
@@ -100,10 +99,9 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
-
-        public bool EmployeeProfileExists(string userId)
+        public bool EmployeeProfileExists(string employeeId)
         {
-            User user = _userManager.FindById(userId);
+            User user = _userManager.FindById(employeeId);
             if (user != null)
             {
                 return user.EmployeeProfile != null;

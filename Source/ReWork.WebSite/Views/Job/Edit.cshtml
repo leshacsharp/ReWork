@@ -1,41 +1,64 @@
 ﻿@model ReWork.Model.ViewModels.Job.EditJobViewModel
 @{
     ViewBag.Title = "Edit";
+    var skills = (IEnumerable<SelectListItem>)ViewBag.Skills;
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm("Edit", "Job", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Job", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    @Html.ValidationSummary(true);
+    <h4>Edit job</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(p => p.Id);
 
-    @Html.LabelFor(p => p.Title)<br />
-    @Html.EditorFor(p => p.Title)
-    @Html.ValidationMessageFor(p => p.Title)
-    <br /><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(p => p.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    @Html.LabelFor(p => p.Description)<br />
-    @Html.EditorFor(p => p.Description)
-    @Html.ValidationMessageFor(p => p.Description)
-    <br /><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(p => p.Description, new { @class = "form-control", rows = 7, style = "max-width:500px" })
+            @Html.ValidationMessageFor(p => p.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    @Html.LabelFor(p => p.Price)<br />
-    @Html.EditorFor(p => p.Price)
-    @Html.ValidationMessageFor(p => p.Price)
-    <br /><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Price, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(p => p.Price, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    @Html.LabelFor(p => p.PriceDiscussed)<br />
-    @Html.CheckBoxFor(p => p.PriceDiscussed)
-    <br /><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.PriceDiscussed, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(p => p.PriceDiscussed)
+        </div>
+    </div>
 
-    @Html.LabelFor(p => p.Skills)<br />
-    @Html.ListBoxFor(p => p.SelectedSkills, Model.Skills, new { multiple = "multiple" })
-    @Html.ValidationMessageFor(p => p.SelectedSkills)
-    <br /><br />
 
-    <input type="submit" name="send-form" value="Save" />
+    <div class="form-group">
+        @Html.Label("Skills", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.ListBoxFor(p => p.SelectedSkills, skills, new { multiple = "multiple" })
+            @Html.ValidationMessageFor(p => p.SelectedSkills, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
 }
+
 
 @section scripts
 {

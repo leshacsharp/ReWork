@@ -20,16 +20,22 @@ namespace ReWork.Model.Entities
 
         public QualityOfWork QualityOfWork { get; set; }
 
-        [ForeignKey("CustomerProfile")]
-        public string CustomerProfileId { get; set; }
+        [ForeignKey("Sender")]
+        public string SenderId { get; set; }
 
         [Required]
-        public virtual CustomerProfile CustomerProfile { get; set; }
+        public virtual User Sender { get; set; }
 
-        [ForeignKey("EmployeeProfile")]
-        public string EmployeeProfileId { get; set; }
+        [ForeignKey("Receiver")]
+        public string ReceiverId { get; set; }
 
         [Required]
-        public virtual EmployeeProfile EmployeeProfile { get; set; }
+        public virtual User Receiver { get; set; }
+
+        [ForeignKey("Job")]
+        public int JobId { get; set; }
+
+        [Required]
+        public virtual Job Job { get; set; }
     }
 }

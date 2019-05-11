@@ -30,14 +30,11 @@ namespace ReWork.Model.Entities
 
         public virtual ICollection<Skill> Skills { get; set; }
 
-        public virtual ICollection<FeedBack> FeedBacks { get; set; }
-
         public EmployeeProfile()
         {
             DevelopingJobs = new List<Job>();
             Offers = new List<Offer>();
             Skills = new List<Skill>();
-            FeedBacks = new List<FeedBack>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using ReWork.Model.Entities.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,5 +27,7 @@ namespace ReWork.Model.Entities
         public virtual CustomerProfile CustomerProfile{ get; set; }
 
         public virtual EmployeeProfile EmployeeProfile { get; set; }
+
+        public virtual ICollection<FeedBack> FeedBacks { get; set; }
     }
 }

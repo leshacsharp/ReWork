@@ -4,6 +4,7 @@ using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using ReWork.Model.ViewModels.Account;
+using ReWork.Model.ViewModels.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,7 +97,7 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Edit()
         {
             string userId = User.Identity.GetUserId();
-            EmployeeProfileInfo employeeProfile = _employeeService.FindEmployeeInfoById(userId);
+            EmployeeProfileInfo employeeProfile = _employeeService.FindEmployee(userId);
 
             if (employeeProfile != null)
             {
@@ -138,9 +139,30 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Details(string id)
         {
-            EmployeeProfileInfo employee = _employeeService.FindEmployeeInfoById(id);
+            EmployeeProfileInfo employee = _employeeService.FindEmployee(id);
+            EmployeeDetailsViewModel viewModel = new EmployeeDetailsViewModel()
+            {
+                Age = employee.Age,
+                AboutMe = employee.AboutMe,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Image = employee.Image,
+                UserName = employee.UserName,
+                CountDevolopingJobs = employee.CountDevolopingJobs,
+                RegistrationdDate = employee.RegistrationdDate,
+                Skills = employee.Skills.Select(p => p.Title),
+                CountReviews = employee.QualityOfWorks.Count(),
+            };
 
-            return employee != null ? View(employee) : View("Error");
+            if(employee.QualityOfWorks.Count() > 0)
+                viewModel.AvarageReviewMark = (int)employee.QualityOfWorks.Select(p => (int)p).Average();
+
+            int countFeedbacksForPer = viewModel.CountReviews == 0 ? 1 : viewModel.CountReviews;
+            double percentPositiveFeedBacks = (double)employee.QualityOfWorks.Count(p => (int)p >= 3) * 100 / countFeedbacksForPer;
+
+            viewModel.PercentPositiveReviews = (int)Math.Round(percentPositiveFeedBacks);
+
+            return employee != null ? View(viewModel) : View("Error");
         }
 
 

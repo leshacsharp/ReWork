@@ -11,7 +11,7 @@ namespace ReWork.Logic.Services.Abstraction
         void DeleteEmployeeProfile(string employeeId);
 
         IEnumerable<EmployeeProfileInfo> FindEmployes(int [] skillsId, string keyWords);
-        EmployeeProfileInfo FindEmployeeInfoById(string userId);  
-        bool EmployeeProfileExists(string userId);
+        EmployeeProfileInfo FindEmployee(string employeeId);  
+        bool EmployeeProfileExists(string employeeId);
     }
 }

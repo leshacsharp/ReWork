@@ -1,0 +1,71 @@
+﻿@model ReWork.Model.EntitiesInfo.MyJobInfo
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Job details</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(p => p.Title, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    <label class="control-label">@Model.Title</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(p => p.Price, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    <label class="control-label">@Model.Price $</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(p => p.PriceDiscussed, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    <label class="control-label">@(Model.PriceDiscussed ? "+" : "-")</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(p => p.DateAdded, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    <label class="control-label">@Model.DateAdded.ToString()</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(p => p.Skills, new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @foreach (var it in Model.Skills)
+                    {
+                        <label class="control-label">@it.Title</label>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Freelancer", new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+
+                    @if (Model.EmployeeUserName != null)
+                    {
+                        <label class="control-label">
+                            <a href="@Url.Action("details","employee",new { id = Model.EmployeeId})">
+                                @Model.EmployeeUserName
+                            </a>
+                        </label>
+                    }
+                    else
+                    {
+                        <label class="control-label">no freelancer in this project</label>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

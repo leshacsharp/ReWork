@@ -238,6 +238,7 @@
     <Content Include="Scripts\jobs.js" />
     <Content Include="Scripts\pagination.js" />
     <Content Include="Scripts\search.js" />
+    <Content Include="Scripts\user-details.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -281,6 +282,8 @@
     <Content Include="Views\Customer\MyOffers.cshtml" />
     <Content Include="Views\Employee\MyJobs.cshtml" />
     <Content Include="Views\Employee\MyOffers.cshtml" />
+    <Content Include="Views\Customer\MyJobDetails.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

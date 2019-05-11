@@ -26,6 +26,12 @@ namespace ReWork.WebSite.Controllers
             _commitProvider = commitProvider;
         }
 
+        [HttpGet]
+        public ActionResult Details(string id)
+        {
+            return View();
+        }
+
         [HttpPost]
         public void Delete(string id)
         {
@@ -49,11 +55,11 @@ namespace ReWork.WebSite.Controllers
             return Json(jobs);
         }
 
-        [HttpGet]
-        public ActionResult MyJobDetails(int jobId)
+        [HttpPost]
+        public ActionResult MyJobDetails(int id)
         {
-            JobInfo job = _jobService.FindById(jobId);
-            return View();
+            MyJobInfo job = _jobService.FindCustomerJob(id);
+            return PartialView(job);
         }
 
         [HttpGet]
