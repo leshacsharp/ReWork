@@ -10,11 +10,16 @@
         $("#offer-form").validate();
         var isValid = $("#offer-form").valid();
 
+
         if (isValid) {
+
+            var reciverId = $("input[name=CustomerId]").val();
+            var jobTitle = $("#jobTitle").val();
+
             $.ajax({
                 url: "/notification/CreateNotify",
                 type: "POST",
-                data: { "reciverId": reciverId, "text": "you made offer to job - " + jobTitle }
+                data: { "reciverId": reciverId, "text": "you made offer to job - " + jobTitle },   
             })
         }
     })
