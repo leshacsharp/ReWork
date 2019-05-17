@@ -36,7 +36,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                        RegistrationdDate = (DateTime)u.RegistrationdDate,
 
                        CountDevolopingJobs = e.DevelopingJobs.Count,
-                       QualityOfWorks = u.FeedBacks.Select(p => p.QualityOfWork),
+                       QualityOfWorks = u.RecivedFeedBacks.Select(p => p.QualityOfWork),
 
                        Skills = e.Skills.Select(p => new SkillInfo()
                        {

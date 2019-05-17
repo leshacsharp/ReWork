@@ -16,11 +16,12 @@ namespace ReWork.WebSite.Controllers
     public class OfferController : Controller
     {
         private IOfferService _offerService;
+        private INotificationService _notificationService;
         private ICommitProvider _commitProvider;
 
         public OfferController(IOfferService offerService, ICommitProvider commitProvider)
         {
-            _offerService = offerService;
+            _offerService = offerService; 
             _commitProvider = commitProvider;
         }
 
@@ -45,8 +46,8 @@ namespace ReWork.WebSite.Controllers
             { EmployeeId = userId, JobId = createModel.JobId, Text = createModel.Text, ImplementationDays = createModel.DaysToImplement, OfferPayment = createModel.OfferPayment };
 
             _offerService.CreateOffer(createOfferParams);
-            _commitProvider.SaveChanges();
 
+            _commitProvider.SaveChanges();
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 

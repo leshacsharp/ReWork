@@ -4,6 +4,21 @@
         $('.modal').modal('show');
     });
 
+
+    $("#offer-form input[type=submit]").click(function () {
+
+        $("#offer-form").validate();
+        var isValid = $("#offer-form").valid();
+
+        if (isValid) {
+            $.ajax({
+                url: "/notification/CreateNotify",
+                type: "POST",
+                data: { "reciverId": reciverId, "text": "you made offer to job - " + jobTitle }
+            })
+        }
+    })
+
     $("a[name=sort-payment]").click(function () {
         sortOffers($(this),"data-payment");
     })
@@ -15,6 +30,7 @@
     $("a[name=sort-time]").click(function () {
         sortOffers($(this),"data-days");
     })
+
 
     function sortOffers(btn, attrName, attrType) {
         var sortOffers;
@@ -44,8 +60,7 @@
         $(".job-offers-container").empty();
         $(".job-offers-container").append(sortOffers);
     }
-
-
+    
     function getSorted(selector, attrName, side, attrType) {
         var array = $(selector).toArray();
         return $(array.sort(function (a, b) {

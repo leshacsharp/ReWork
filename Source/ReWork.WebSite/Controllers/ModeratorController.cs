@@ -27,68 +27,68 @@ namespace ReWork.WebSite.Controllers
 
         [HttpGet]
         public ActionResult Users()
-        {
-            IEnumerable<User> users = _userService.FindUsers();     
-            return View(users);
-        }
-
-        [HttpGet]
-        public ActionResult Details(string userName)
-        {
-            User user = _userService.FindUserByName(userName);
-            if (user != null)
-            {
-                UserDetailsViewModel userDetails = new UserDetailsViewModel()
-                {
-                    UserName = user.UserName,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    RegistrationDate = (DateTime)user.RegistrationdDate,
-                    Roles = _userService.GetUserRoles(user.Id)
-                };
-
-                return View(userDetails);
-            }
-
-            return View("Error");
-        }
-
-
-
-        [HttpGet]
-        public ActionResult EditUser(string userName)
-        {
-            User user = _userService.FindUserByName(userName);
-            if (user != null)
-            {
-                EditUserRolesViewModel editUserModel = new EditUserRolesViewModel()
-                { Id = user.Id, UserName = user.UserName };
-
-                editUserModel.AllRoles = _roleService.GetAll();
-                editUserModel.UserRoles = _userService.GetUserRoles(user.Id);
-
-                return View(editUserModel);
-            }
-            return View("Error");
+        {   
+            return View();
         }
 
         [HttpPost]
-        public ActionResult EditUserRoles(EditUserRolesViewModel editUserModel)
+        public ActionResult AllUsers()
+        {
+            var users = _userService.FindUsersInfo();
+            return Json(users);
+        }
+
+
+        [HttpGet]
+        public ActionResult DetailsUser(string id)
+        {
+            User user = _userService.FindUserById(id);
+            if (user == null)
+                return View("Error");
+
+            UserDetailsViewModel userDetails = new UserDetailsViewModel()
+            {
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                RegistrationDate = (DateTime)user.RegistrationdDate,
+                Roles = _userService.GetUserRoles(user.Id)
+            };
+
+            return View(userDetails);
+        }
+
+
+
+        [HttpGet]
+        public ActionResult EditUser(string id)
+        {
+            User user = _userService.FindUserById(id);
+            if (user == null)
+                return View("Error");
+
+            EditUserRolesViewModel editUserModel = new EditUserRolesViewModel()
+            { Id = user.Id, UserName = user.UserName };
+
+            editUserModel.AllRoles = _roleService.GetAll();
+            editUserModel.UserRoles = _userService.GetUserRoles(user.Id);
+
+            return View(editUserModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(EditUserRolesViewModel editUserModel)
         {
             _userService.EditUserRoles(editUserModel.Id, editUserModel.UserRoles);
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
-
-
         [HttpPost]
-        public ActionResult Delete(string id)
+        public void DeleteUser(string id)
         {
             _userService.DeleteUser(id);
             _commitProvider.SaveChanges();
-            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
-
     }
 }

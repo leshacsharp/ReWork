@@ -6,6 +6,7 @@ using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,24 +28,31 @@ namespace ReWork.Logic.Services.Implementation
 
         public void CreateFeedBack(CreateFeedBackParams createParams)
         {
-            User sender = _userManager.FindById(createParams.SenderId);
-            User reciver = _userManager.FindById(createParams.ReciverId);
-            Job job = _jobRepository.FindJobById(createParams.JobId);
+            var sender = _userManager.FindById(createParams.SenderId);
+            if (sender == null)
+                throw new ObjectNotFoundException($"Sender with id={createParams.SenderId} not found");
 
-            if(sender != null && reciver != null && job != null)
+            var reciver = _userManager.FindById(createParams.ReciverId);
+            if (reciver == null)
+                throw new ObjectNotFoundException($"Reciver with id={createParams.ReciverId} not found");
+
+
+            var job = _jobRepository.FindJobById(createParams.JobId);
+            if (job == null)
+                throw new ObjectNotFoundException($"Job with id={createParams.JobId} not found");
+
+
+            var feedBack = new FeedBack()
             {
-                FeedBack feedBack = new FeedBack()
-                {
-                    Sender = sender,
-                    Receiver = reciver,
-                    Job = job,
-                    Text = createParams.Text,
-                    QualityOfWork = createParams.QualityOfWork,
-                    AddedDate = DateTime.UtcNow
-                };
+                Sender = sender,
+                Receiver = reciver,
+                Job = job,
+                Text = createParams.Text,
+                QualityOfWork = createParams.QualityOfWork,
+                AddedDate = DateTime.UtcNow
+            };
 
-                _feedBackRepository.Create(feedBack);
-            }
+            _feedBackRepository.Create(feedBack); 
         }
 
         public IEnumerable<FeedBackInfo> FindRecivedFeedBacks(string reciverId)

@@ -28,6 +28,12 @@ namespace ReWork.Model.Entities
 
         public virtual EmployeeProfile EmployeeProfile { get; set; }
 
-        public virtual ICollection<FeedBack> FeedBacks { get; set; }
+        public virtual ICollection<FeedBack> RecivedFeedBacks { get; set; }
+
+        public virtual ICollection<FeedBack> SentFeedBacks { get; set; }
+
+        public virtual ICollection<Notification> RecivedNotifications { get; set; }
+
+        public virtual ICollection<Notification> SentNofications { get; set; }
     }
 }

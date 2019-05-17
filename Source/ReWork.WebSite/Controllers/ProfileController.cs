@@ -31,7 +31,11 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
+        [HttpGet]
+        public ActionResult FeedBacks()
+        {
+            return View();
+        }
 
         [AllowAnonymous]
         [HttpPost]
@@ -41,6 +45,8 @@ namespace ReWork.WebSite.Controllers
 
             return Json(feedbacks);
         }
+
+
 
         [HttpGet]
         public ActionResult Information()
@@ -57,23 +63,25 @@ namespace ReWork.WebSite.Controllers
 
             ShortUserInfoViewModel userInfo = new ShortUserInfoViewModel()
             {
+                Id = userId,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 DateRegistration = (DateTime)user.RegistrationdDate,
                 Image = user.Image
             };
 
-            IEnumerable<FeedBack> feedBacks = user.FeedBacks.ToList();
+            var feedBacks = user.RecivedFeedBacks?.ToList();
+            int countFeedBacks = feedBacks != null ? feedBacks.Count() : 0;
 
-            int countFeedbacksForPer = feedBacks.Count() == 0 ? 1 : feedBacks.Count();
+
+            int countFeedbacksForPer = countFeedBacks == 0 ? 1 : feedBacks.Count();
             double percentPositiveFeedBacks = (double)feedBacks.Count(p => (int)p.QualityOfWork >= 3) * 100 / countFeedbacksForPer;
 
-            userInfo.CountFeedbacks = feedBacks.Count();
+            userInfo.CountFeedbacks = countFeedBacks;
             userInfo.PercentPositiveFeedbacks = (int)Math.Round(percentPositiveFeedBacks);
 
             return PartialView(userInfo);
         }
-
 
 
 

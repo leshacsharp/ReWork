@@ -1,28 +1,17 @@
-﻿@model  IEnumerable<ReWork.Model.Entities.User>
-@{
+﻿@{
     ViewBag.Title = "Users";
 }
 
-@foreach (var user in Model)
-{
-    <h3>@user.UserName</h3>
-
-    using (Html.BeginForm("Delete", "Moderator", FormMethod.Post))
-    {
-        @Html.Hidden("id", user.Id)
-        <input type="submit" value="Delete" />
-    }
-
-    @Html.ActionLink("Details", "Details", "Moderator", new { userName = user.UserName }, null)<br />
-    @Html.ActionLink("Edit", "EditUser", "Moderator", new { userName = user.UserName }, null)
-}
-
+<div class="row">
+    <table class="table users-table">
+        <tbody>    
+        </tbody>
+    </table>
+</div>
 
 <div class="pagination"></div>
 
-@section scripts{
-
-    <script>
-     
-    </script>
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/app/users.js"></script>
 }

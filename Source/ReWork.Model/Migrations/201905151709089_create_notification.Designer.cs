@@ -7,13 +7,13 @@ namespace ReWork.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class create_notification : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(create_notification));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905011337136_init"; }
+            get { return "201905151709089_create_notification"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,12 +1,10 @@
-﻿using ReWork.Model.Entities;
-
-namespace ReWork.Logic.Services.Abstraction
+﻿namespace ReWork.Logic.Services.Abstraction
 {
     public interface ICustomerProfileService
     {
         void CreateCustomerProfile(string userId);
         void DeleteCustomerProfile(string customerId);
 
-        bool CustomerProfileExists(string userName);
+        bool CustomerProfileExists(string userId);
     }
 }

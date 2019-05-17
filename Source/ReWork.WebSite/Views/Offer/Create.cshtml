@@ -8,11 +8,11 @@
         </div>
         <div class="modal-body">
             <div class="dl-horizontal">
-                @using (Html.BeginForm("Create", "Offer", FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("Create", "Offer", FormMethod.Post, new { @class = "form-horizontal", id="offer-form" }))
                 {
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    @Html.HiddenFor(p => p.JobId);
+                    @Html.HiddenFor(p => p.JobId)
 
                     <div class="form-group">
                         @Html.LabelFor(p => p.Text, new { @class = "col-md-3 control-label" })

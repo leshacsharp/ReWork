@@ -88,7 +88,10 @@
             url: "/Employee/Employees",
             type: "POST",
             data: { "skillsId": skillsId },
-            success: appendEmployees
+            success: appendEmployees,
+            error: function (jqXHR, exception) {
+                var a = jqXHR;
+            }
         })
     }
 

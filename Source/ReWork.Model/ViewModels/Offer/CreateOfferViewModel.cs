@@ -7,8 +7,6 @@ namespace ReWork.Model.ViewModels.Offer
     {
         public int JobId { get; set; }
 
-        public string EmployeeId { get; set; }
-
         [Required]
         [StringLength(maximumLength: 500, MinimumLength = 3)]
         public string Text { get; set; }

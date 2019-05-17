@@ -1,5 +1,6 @@
 ﻿@using ReWork.WebSite.Helpers;
 @using ReWork.Model.ViewModels.Profile;
+@using Microsoft.AspNet.Identity;
 
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,7 @@
 </head>
 <body>
     <div class="content">
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,48 +33,11 @@
                         <li>@Html.ActionLink(Resources.Global.Employes, "Employees", "Employee")</li>
                         <li>@Html.ActionLink(Resources.Global.Search, "Search", "Home")</li>
 
-                        <li>
-                            @using (Html.BeginForm("ChangeCulture", "Home", FormMethod.Post))
-                            {
-                                <div class="form-group">
-                                    <select name="lang" class="form-control" style="width:65px" onchange="this.form.submit()">
-                                        <option value="en">en</option>
-                                        <option value="ru">ru</option>
-                                    </select>
-                                </div>
-                            }
-                        </li>
-
                         @if (User.Identity.IsAuthenticated)
                         {
-                            if (Html.IsProfile(ProfileType.Employee))
-                            {
-                                <li>@Html.ActionLink("MyJobs", "myjobs", "employee")</li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink("MyJobs", "myjobs", "customer")</li>
-                            }
-
-                            <li>@Html.ActionLink("Settings", "settings", "account")</li>
-                            <li>@Html.ActionLink(Resources.Global.SignOut, "SignOut", "account")</li>
-
-                            <li>                       
-                                @using (Html.BeginForm("ChangeProfileType", "profile", FormMethod.Post))
-                                {
-                                    <div class="form-group">
-                                        <select name="profile" class="form-control" style="width:100px" onchange="this.form.submit()">
-                                            <option value="Customer">customer</option>
-                                            <option value="Employee">freelancer</option>
-                                        </select>
-                                    </div>
-                                }  
-                            </li>
-
-
                             if (User.IsInRole("moderator"))
                             {
-                                <li>@Html.ActionLink("Users", "Users", "Moderator", new { page = 1 }, null)</li>
+                                <li>@Html.ActionLink("Users", "Users", "Moderator")</li>
                             }
                         }
                         else
@@ -81,6 +45,78 @@
                             <li>@Html.ActionLink(Resources.Global.Registration, "registration", "account")</li>
                             <li>@Html.ActionLink(Resources.Global.Login, "login", "account")</li>
                         }
+                    </ul>
+
+
+
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li style="padding-top:10px">
+                            @using (Html.BeginForm("ChangeCulture", "Home", FormMethod.Post))
+                            {
+                                <select name="lang" class="form-control" style="width:65px" onchange="this.form.submit()">
+                                    <option value="en">en</option>
+                                    <option value="ru">ru</option>
+                                </select>
+                            }
+
+                        </li>
+
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="dropdown">
+                                @Html.Hidden("userId", User.Identity.GetUserId())
+                                <a href="#" class="dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @User.Identity.Name
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-profile-menu">
+                                    <li style="text-align:center">
+                                        @using (Html.BeginForm("ChangeProfileType", "profile", FormMethod.Post))
+                                        {
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn btn-secondary" name="profile" value="Customer">Cuctomer</button>
+                                                <button type="submit" class="btn btn-secondary" name="profile" value="Employee">Employee</button>
+                                            </div>
+                                        }
+                                    </li>
+                                    <li class="divider"></li>
+
+                                    @if (Html.IsProfile(ProfileType.Employee))
+                                    {
+                                        <li>@Html.ActionLink("MyJobs", "myjobs", "employee")</li>
+                                        <li>@Html.ActionLink("Offers", "myoffers", "employee")</li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("MyJobs", "myjobs", "customer")</li>
+                                        <li>@Html.ActionLink("Offers", "myoffers", "customer")</li>
+                                    }
+
+                                    <li>@Html.ActionLink("Settings", "settings", "account")</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink(Resources.Global.SignOut, "SignOut", "account")</li>
+                                </ul>
+                            </li>
+                        }
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="fa fa-bell"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-notifications">
+                                    <div class="notification-container-header">
+                                        <span class="notification-title">Notifications</span>
+                                        <a href="#" class="notification-delete-all">mark all as read</a>
+                                    </div>
+
+                                    <div id="notifications-container">
+                                       
+                                    </div>
+                                </div>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -101,9 +137,15 @@
 
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
-    
-    <script type="text/javascript" src="~/Scripts/layout.js"></script>
-    <script type="text/javascript" src="~/Scripts/pagination.js"></script>
+
+
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
+    <script src="~/signalr/hubs"></script>
+
+    <script type="text/javascript" src="~/Scripts/app/layout.js"></script>
+    <script type="text/javascript" src="~/Scripts/components/pagination.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -7,7 +7,7 @@ namespace ReWork.Logic.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ReWorkContext>().As<IDbContext>().InstancePerLifetimeScope();           
+            builder.RegisterType<ReWorkContext>().As<IDbContext>().InstancePerLifetimeScope();
 
             builder.RegisterType<CommitProvider>().As<ICommitProvider>().InstancePerRequest();
         }

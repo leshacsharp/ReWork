@@ -6,6 +6,7 @@ using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 
 namespace ReWork.Logic.Services.Implementation
@@ -26,47 +27,59 @@ namespace ReWork.Logic.Services.Implementation
 
         public void CreateEmployeeProfile(string userId, int age, string aboutMe, int[] skillsId)
         {
-            User user = _userManager.FindById(userId);
-            if (user != null && user.EmployeeProfile == null)
+            var user = _userManager.FindById(userId);
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            if (user.EmployeeProfile != null)
+                throw new ArgumentException($"Employee profile with id={userId} already exists", "EmployeeProfile");
+
+
+            var employeeProfile = new EmployeeProfile() { User = user, Age = age, AboutMe = aboutMe };
+
+            foreach (var skillId in skillsId)
             {
-                EmployeeProfile employeeProfile = new EmployeeProfile() { User = user, Age = age, AboutMe = aboutMe };
+                Skill skill = _skillRepository.FindById(skillId);
 
-                foreach (var id in skillsId)
-                {
-                    Skill skill = _skillRepository.FindById(id);
-                    employeeProfile.Skills.Add(skill);
-                }
+                if (skill == null)
+                    throw new ObjectNotFoundException($"Skill with id={skillId} not found");
 
-                _employeeRepository.Create(employeeProfile);
-            }  
+                employeeProfile.Skills.Add(skill);
+            }
+
+            _employeeRepository.Create(employeeProfile);
         }
 
         public void EditEmployeeProfile(string employeeId, int age, string aboutMe, int[] skillsId)
         {
-            EmployeeProfile employeeProfile = _employeeRepository.FindEmployeeById(employeeId);
-            if (employeeProfile != null)
+            var employeeProfile = _employeeRepository.FindEmployeeById(employeeId);
+            if (employeeProfile == null)
+                throw new ObjectNotFoundException($"Employee profile with id={employeeId} not found");
+
+            employeeProfile.Age = age;
+            employeeProfile.AboutMe = aboutMe;
+            employeeProfile.Skills.Clear();
+
+            foreach (var skillId in skillsId)
             {
-                employeeProfile.Age = age;
-                employeeProfile.AboutMe = aboutMe;
-                employeeProfile.Skills.Clear();
+                Skill skill = _skillRepository.FindById(skillId);
 
-                foreach (var id in skillsId)
-                {
-                    Skill skill = _skillRepository.FindById(id);
-                    employeeProfile.Skills.Add(skill);
-                }
+                if (skill == null)
+                    throw new ObjectNotFoundException($"Skill with id={skillId} not found");
 
-                _employeeRepository.Update(employeeProfile);      
+                employeeProfile.Skills.Add(skill);
             }
+
+            _employeeRepository.Update(employeeProfile);
         }
 
         public void DeleteEmployeeProfile(string employeeId)
         {
             EmployeeProfile employee = _employeeRepository.FindEmployeeById(employeeId);
-            if(employee != null)
-            {
-                _employeeRepository.Delete(employee);
-            }
+            if (employee == null)
+                throw new ObjectNotFoundException($"Employee profile with id={employeeId} not found");
+           
+            _employeeRepository.Delete(employee); 
         }
 
 
@@ -101,13 +114,8 @@ namespace ReWork.Logic.Services.Implementation
 
         public bool EmployeeProfileExists(string employeeId)
         {
-            User user = _userManager.FindById(employeeId);
-            if (user != null)
-            {
-                return user.EmployeeProfile != null;
-            }
-
-            return false;
+            EmployeeProfile employeeProfile = _employeeRepository.FindEmployeeById(employeeId);;
+            return employeeProfile != null;
         }
     }
 }

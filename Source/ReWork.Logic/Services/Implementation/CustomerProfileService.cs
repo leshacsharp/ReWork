@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
+using System.Data.Entity.Core;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -18,34 +20,32 @@ namespace ReWork.Logic.Services.Implementation
 
         public void CreateCustomerProfile(string userId)
         {
-            User user = _userManager.FindById(userId);
-            if(user != null && user.CustomerProfile == null)
-            {
-                CustomerProfile customerProfile = new CustomerProfile() { User = user };
-                _customerRepository.Create(customerProfile); 
-            }
+            var user = _userManager.FindById(userId);
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            if (user.CustomerProfile != null)
+                throw new ArgumentException($"Customer profile with id={userId} already exists", "CustomerProfile");
+
+
+            var customerProfile = new CustomerProfile() { User = user };
+            _customerRepository.Create(customerProfile);
         }
 
         public void DeleteCustomerProfile(string customerId)
         {
-            CustomerProfile customer = _customerRepository.FindCustomerProfileById(customerId);
-            if(customer != null)
-            {
-                _customerRepository.Delete(customer);
-            }
+            var customer = _customerRepository.FindCustomerProfileById(customerId);
+            if (customer == null)
+                throw new ObjectNotFoundException($"Customer profile with id={customerId} not found");
+            
+            _customerRepository.Delete(customer);  
         }
 
 
-        public bool CustomerProfileExists(string userName)
+        public bool CustomerProfileExists(string userId)
         {
-            User user = _userManager.FindByName(userName);
-            if(user != null)
-            {
-                return user.CustomerProfile != null;
-            }
-
-            return false;
+            CustomerProfile customerProfile = _customerRepository.FindCustomerProfileById(userId);
+            return customerProfile != null;
         }
-    
     }
 }

@@ -7,13 +7,13 @@ namespace ReWork.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class change_user_feedback : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(change_user_feedback));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905111440177_change_user_feedback"; }
+            get { return "201905121901487_init"; }
         }
         
         string IMigrationMetadata.Source

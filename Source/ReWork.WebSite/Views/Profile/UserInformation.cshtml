@@ -8,6 +8,8 @@
 
 
     <div class="profile-short-info">
+        @Html.HiddenFor(p => p.Id)
+
         <div class="profile-username">
             <span>
                 @(Model.FirstName == null ? "FirstName" : Model.FirstName)

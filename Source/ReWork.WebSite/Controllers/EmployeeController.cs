@@ -46,7 +46,7 @@ namespace ReWork.WebSite.Controllers
         public ActionResult MyJobs(DateTime? fromDate)
         {
             string userId = User.Identity.GetUserId();
-            IEnumerable<JobInfo> jobs = _jobService.FindEmployeeJobs(userId, fromDate);
+            var jobs = _jobService.FindEmployeeJobs(userId, fromDate);
 
             return Json(jobs);
         }
@@ -61,7 +61,7 @@ namespace ReWork.WebSite.Controllers
         public ActionResult EmployeeOffers()
         {
             string userId = User.Identity.GetUserId();
-            IEnumerable<EmployeeOfferInfo> employeeOffers = _offerService.FindEmployeeOffers(userId);
+            var employeeOffers = _offerService.FindEmployeeOffers(userId);
 
             return Json(employeeOffers);
         }
@@ -100,14 +100,13 @@ namespace ReWork.WebSite.Controllers
             EmployeeProfileInfo employeeProfile = _employeeService.FindEmployee(userId);
 
             if (employeeProfile != null)
-            {
-                EmployeeProfileViewModel editModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age, AboutMe = employeeProfile.AboutMe };
-                editModel.SelectedSkills = employeeProfile.Skills.Select(p => p.Id).ToArray();
+                return View("Error");
 
-                ViewBag.Skills = GetCategories();
-                return View(editModel);
-            }
-            return View("Error");
+            EmployeeProfileViewModel editModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age, AboutMe = employeeProfile.AboutMe };
+            editModel.SelectedSkills = employeeProfile.Skills.Select(p => p.Id).ToArray();
+
+            ViewBag.Skills = GetCategories();
+            return View(editModel);
         }
 
         [HttpPost]
@@ -140,6 +139,9 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Details(string id)
         {
             EmployeeProfileInfo employee = _employeeService.FindEmployee(id);
+            if (employee == null)
+                return View("Error");
+
             EmployeeDetailsViewModel viewModel = new EmployeeDetailsViewModel()
             {
                 Id =employee.Id,
@@ -163,7 +165,7 @@ namespace ReWork.WebSite.Controllers
 
             viewModel.PercentPositiveReviews = (int)Math.Round(percentPositiveFeedBacks);
 
-            return employee != null ? View(viewModel) : View("Error");
+            return View(viewModel);
         }
 
 
@@ -172,7 +174,7 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Employees()
         {
-            IEnumerable<SectionInfo> sections = _sectionService.GetSectionsInfo();
+            var sections = _sectionService.GetSectionsInfo();
             return View(sections);
         }
 
@@ -180,8 +182,8 @@ namespace ReWork.WebSite.Controllers
         [HttpPost]
         public ActionResult Employees(int[] skillsId, string keyWords)
         {
-            IEnumerable<EmployeeProfileInfo> employees = _employeeService.FindEmployes(skillsId, keyWords);
-            return Json(employees);
+            var employees = _employeeService.FindEmployes(skillsId, keyWords);
+            return new JsonResult() { Data = employees, MaxJsonLength = Int32.MaxValue };
         }
 
 
@@ -189,25 +191,28 @@ namespace ReWork.WebSite.Controllers
 
         private IEnumerable<SelectListItem> GetCategories()
         {
-            IEnumerable<Section> sections = _sectionService.GetAll();
-            IEnumerable<Skill> skills = _skillService.GetAll();
+            var sections = _sectionService.GetAll();
+            var skills = _skillService.GetAll();
 
-            IEnumerable<SelectListGroup> groups = sections.Select(p => new SelectListGroup() { Name = p.Title }).ToList();
+            var groups = (from se in sections
+                          select new SelectListGroup() { Name = se.Title }).ToList();
 
-            var skillsWithSections = sections.Join(skills, p => p.Id, p => p.SectionId,
-                                                 (section, skill) => new
-                                                 {
-                                                     Id = skill.Id,
-                                                     Title = skill.Title,
-                                                     SectionTitle = section.Title
-                                                 });
+            var skillsWithSections = (from se in sections
+                                      join sk in skills on se.Id equals sk.SectionId
+                                      select new
+                                      {
+                                          Id = sk.Id,
+                                          Title = sk.Title,
+                                          SectionTitle = se.Title
+                                      }).ToList();
 
-            IEnumerable<SelectListItem> groupData = skillsWithSections.Select(p => new SelectListItem()
-            {
-                Value = p.Id.ToString(),
-                Text = p.Title,
-                Group = groups.First(sec => sec.Name.Equals(p.SectionTitle))
-            });
+            var groupData = (from sk in skillsWithSections
+                             select new SelectListItem()
+                             {
+                                 Value = sk.Id.ToString(),
+                                 Text = sk.Title,
+                                 Group = groups.First(sec => sec.Name.Equals(sk.SectionTitle))
+                             }).ToList();
 
             return groupData;
         }

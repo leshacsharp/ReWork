@@ -14,13 +14,17 @@
     </div>
 }
 
+<input type="submit" name="btn" value="btn"/>
 
 <div class="row">
     <div class="col-md-12">
         <div class="job-details-title">
             <h3>
+                @Html.Hidden("CustomerId",Model.Job.CustomerId)
+
                 <a href="@Url.Action("jobs","job")">Freelance Projects</a>
-                <span style="color:#555;"> › @Model.Job.Title</span>
+                <span style="color:#555;"> › </span>
+                <span style="color:#555;" id="jobTitle">@Model.Job.Title</span>
             </h3>
             <div class="job-details-skills">
                 @foreach (var skill in Model.Job.Skills)
@@ -164,6 +168,6 @@
 
 @section scripts
 {
-    <script type="text/javascript" src="~/Scripts/job-details.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/job-details.js"></script>
 }
 

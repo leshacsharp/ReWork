@@ -85,6 +85,7 @@
     <Compile Include="Repositories\Abstraction\IEmployeeProfileRepository.cs" />
     <Compile Include="Repositories\Abstraction\ICustomerProfileRepository.cs" />
     <Compile Include="Repositories\Abstraction\IFeedBackRepository.cs" />
+    <Compile Include="Repositories\Abstraction\INotificationRepository.cs" />
     <Compile Include="Repositories\Abstraction\IOfferRepository.cs" />
     <Compile Include="Repositories\Abstraction\IJobRepository.cs" />
     <Compile Include="Repositories\Implementation\BaseRepository.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Repositories\Abstraction\ISkillRepository.cs" />
     <Compile Include="Repositories\Implementation\EmployeeProfileRepository.cs" />
     <Compile Include="Repositories\Implementation\FeedBackRepository.cs" />
+    <Compile Include="Repositories\Implementation\NotificationRepository.cs" />
     <Compile Include="Repositories\Implementation\OfferRepository.cs" />
     <Compile Include="Repositories\Implementation\SectionRepository.cs" />
     <Compile Include="Repositories\Implementation\SkillRepository.cs" />

@@ -5,6 +5,7 @@ using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -26,13 +27,14 @@ namespace ReWork.Logic.Services.Implementation
 
         public IdentityResult Create(string userName, string email, string password, string role)
         {         
-            User user = _userManager.FindByName(userName);
+            var user = _userManager.FindByName(userName);
+
             if(user == null)
             {
                 string defaultImagePath = HttpContext.Current.Server.MapPath("~/Content/cube-512.png");
                 byte[] imageBytes = System.IO.File.ReadAllBytes(defaultImagePath);
 
-                User newUser = new User()
+                var newUser = new User()
                 { UserName = userName, Email = email, RegistrationdDate = DateTime.Now, Image = imageBytes };
 
                 IdentityResult regResult =  _userManager.Create(newUser, password);
@@ -123,8 +125,6 @@ namespace ReWork.Logic.Services.Implementation
 
 
 
-       
-
         public User FindUserByName(string userName)
         {
             return _userManager.FindByName(userName);
@@ -135,11 +135,18 @@ namespace ReWork.Logic.Services.Implementation
             return _userManager.FindById(userId);
         }
 
-        public IEnumerable<User> FindUsers()
+        public IEnumerable<UserInfo> FindUsersInfo()
         {
-            return _userManager.Users
-                               .OrderByDescending(p=>p.RegistrationdDate)                 
-                               .ToList();
+            return (from u in _userManager.Users
+                    orderby u.RegistrationdDate descending
+                    select new UserInfo()
+                    {
+                        Id = u.Id,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        UserName = u.UserName,
+                        Email = u.Email
+                    }).ToList();  
         }
 
 
@@ -147,54 +154,64 @@ namespace ReWork.Logic.Services.Implementation
         public void DeleteUser(string userId)
         {
             User user = _userManager.FindById(userId);
-            if(user != null)
-            {
-                if(user.CustomerProfile != null)
-                    _customerRep.Delete(user.CustomerProfile);
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
 
-                if (user.EmployeeProfile != null)
-                    _employeeRep.Delete(user.EmployeeProfile);
 
-                _userManager.Delete(user);
-            }
+            if (user.CustomerProfile != null)
+                _customerRep.Delete(user.CustomerProfile);
+
+            if (user.EmployeeProfile != null)
+                _employeeRep.Delete(user.EmployeeProfile);
+
+            _userManager.Delete(user);
         }
 
         public void EditUserRoles(string userId, IEnumerable<string> roles)
         {
             User user = _userManager.FindById(userId);
-            if(user != null)
-            {
-                IEnumerable<string> currentUserRoles = _userManager.GetRoles(user.Id);             
-                _userManager.RemoveFromRoles(user.Id, currentUserRoles.ToArray());
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
 
-                foreach (var role in roles)
-                {
-                    _userManager.AddToRole(userId, role);
-                }
+            var currentUserRoles = _userManager.GetRoles(user.Id);
+            _userManager.RemoveFromRoles(user.Id, currentUserRoles.ToArray());
+
+            foreach (var role in roles)
+            {
+                _userManager.AddToRole(userId, role);
             }
         }
 
-        public void EditUser(string userId, string firstName, string lastName, byte[] image)
+        public void EditUser(string userId, string firstName, string lastName)
         {
             User user = _userManager.FindById(userId);
-            if(user != null)
-            {
-                user.FirstName = firstName;
-                user.LastName = lastName;
-                user.Image = image;
-                _userManager.Update(user);
-            }
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            user.FirstName = firstName;
+            user.LastName = lastName;
+
+            _userManager.Update(user); 
+        }
+
+        public void UploadImage(string userId, byte[] image)
+        {
+            User user = _userManager.FindById(userId);
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            user.Image = image;
+            _userManager.Update(user);
         }
 
 
         public IEnumerable<string> GetUserRoles(string userId)
         {
             User user = _userManager.FindById(userId);
-            if(user != null)
-            {
-                return _userManager.GetRoles(userId);
-            }
-            return null;
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            return _userManager.GetRoles(userId);
         }
 
         public bool UserNameExists(string userName)

@@ -18,35 +18,6 @@ namespace ReWork.Model.Migrations
                 .Index(t => t.Id);
             
             CreateTable(
-                "dbo.FeedBacks",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Text = c.String(nullable: false, maxLength: 250),
-                        AddedDate = c.DateTime(nullable: false),
-                        QualityOfWork = c.Int(nullable: false),
-                        CustomerProfileId = c.String(nullable: false, maxLength: 128),
-                        EmployeeProfileId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.CustomerProfiles", t => t.CustomerProfileId, cascadeDelete: true)
-                .ForeignKey("dbo.EmployeeProfiles", t => t.EmployeeProfileId, cascadeDelete: true)
-                .Index(t => t.CustomerProfileId)
-                .Index(t => t.EmployeeProfileId);
-            
-            CreateTable(
-                "dbo.EmployeeProfiles",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Age = c.Int(nullable: false),
-                        AboutMe = c.String(nullable: false, maxLength: 700),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.Id)
-                .Index(t => t.Id);
-            
-            CreateTable(
                 "dbo.Jobs",
                 c => new
                     {
@@ -65,6 +36,18 @@ namespace ReWork.Model.Migrations
                 .ForeignKey("dbo.EmployeeProfiles", t => t.EmployeeId)
                 .Index(t => t.CustomerId)
                 .Index(t => t.EmployeeId);
+            
+            CreateTable(
+                "dbo.EmployeeProfiles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Age = c.Int(nullable: false),
+                        AboutMe = c.String(nullable: false, maxLength: 700),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Id)
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.Offers",
@@ -156,6 +139,26 @@ namespace ReWork.Model.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.FeedBacks",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Text = c.String(nullable: false, maxLength: 250),
+                        AddedDate = c.DateTime(nullable: false),
+                        QualityOfWork = c.Int(nullable: false),
+                        SenderId = c.String(nullable: false, maxLength: 128),
+                        ReceiverId = c.String(nullable: false, maxLength: 128),
+                        JobId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Jobs", t => t.JobId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.ReceiverId)
+                .ForeignKey("dbo.AspNetUsers", t => t.SenderId)
+                .Index(t => t.SenderId)
+                .Index(t => t.ReceiverId)
+                .Index(t => t.JobId);
+            
+            CreateTable(
                 "dbo.AspNetUserRoles",
                 c => new
                     {
@@ -210,9 +213,12 @@ namespace ReWork.Model.Migrations
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.CustomerProfiles", "Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.FeedBacks", "EmployeeProfileId", "dbo.EmployeeProfiles");
+            DropForeignKey("dbo.Jobs", "EmployeeId", "dbo.EmployeeProfiles");
             DropForeignKey("dbo.EmployeeProfiles", "Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.FeedBacks", "SenderId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.FeedBacks", "ReceiverId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.FeedBacks", "JobId", "dbo.Jobs");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Skills", "SectionId", "dbo.Sections");
@@ -222,9 +228,7 @@ namespace ReWork.Model.Migrations
             DropForeignKey("dbo.SkillEmployeeProfiles", "Skill_Id", "dbo.Skills");
             DropForeignKey("dbo.Offers", "JobId", "dbo.Jobs");
             DropForeignKey("dbo.Offers", "EpmployeeId", "dbo.EmployeeProfiles");
-            DropForeignKey("dbo.Jobs", "EmployeeId", "dbo.EmployeeProfiles");
             DropForeignKey("dbo.Jobs", "CustomerId", "dbo.CustomerProfiles");
-            DropForeignKey("dbo.FeedBacks", "CustomerProfileId", "dbo.CustomerProfiles");
             DropIndex("dbo.SkillJobs", new[] { "Job_Id" });
             DropIndex("dbo.SkillJobs", new[] { "Skill_Id" });
             DropIndex("dbo.SkillEmployeeProfiles", new[] { "EmployeeProfile_Id" });
@@ -232,31 +236,32 @@ namespace ReWork.Model.Migrations
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.FeedBacks", new[] { "JobId" });
+            DropIndex("dbo.FeedBacks", new[] { "ReceiverId" });
+            DropIndex("dbo.FeedBacks", new[] { "SenderId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Skills", new[] { "SectionId" });
             DropIndex("dbo.Offers", new[] { "EpmployeeId" });
             DropIndex("dbo.Offers", new[] { "JobId" });
+            DropIndex("dbo.EmployeeProfiles", new[] { "Id" });
             DropIndex("dbo.Jobs", new[] { "EmployeeId" });
             DropIndex("dbo.Jobs", new[] { "CustomerId" });
-            DropIndex("dbo.EmployeeProfiles", new[] { "Id" });
-            DropIndex("dbo.FeedBacks", new[] { "EmployeeProfileId" });
-            DropIndex("dbo.FeedBacks", new[] { "CustomerProfileId" });
             DropIndex("dbo.CustomerProfiles", new[] { "Id" });
             DropTable("dbo.SkillJobs");
             DropTable("dbo.SkillEmployeeProfiles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.FeedBacks");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Sections");
             DropTable("dbo.Skills");
             DropTable("dbo.Offers");
-            DropTable("dbo.Jobs");
             DropTable("dbo.EmployeeProfiles");
-            DropTable("dbo.FeedBacks");
+            DropTable("dbo.Jobs");
             DropTable("dbo.CustomerProfiles");
         }
     }

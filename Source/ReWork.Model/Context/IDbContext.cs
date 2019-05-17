@@ -15,6 +15,7 @@ namespace ReWork.Model.Context
         DbSet<FeedBack> FeedBacks { get; set; }
         DbSet<Section> Sections { get; set; }
         DbSet<Skill> Skills { get; set; }
+        DbSet<Notification> Notifications { get; set; }
 
         DbEntityEntry Entry(object entity);
         int SaveChanges();

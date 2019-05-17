@@ -49,7 +49,14 @@ namespace ReWork.WebSite.Controllers
             }
 
             CreateJobParams jobParams = new CreateJobParams()
-            { CustomerUserName = User.Identity.Name, SkillsId = jobModel.SelectedSkills, Title = jobModel.Title, Description = jobModel.Description, Price = jobModel.Price, PriceDiscussed = jobModel.PriceDiscussed };
+            {
+                CustomerId = User.Identity.GetUserId(),
+                SkillsId = jobModel.SelectedSkills,
+                Title = jobModel.Title,
+                Description = jobModel.Description,
+                Price = jobModel.Price,
+                PriceDiscussed = jobModel.PriceDiscussed
+            };
 
             _jobService.CreateJob(jobParams);
             _commitProvider.SaveChanges();
@@ -63,18 +70,22 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Edit(int id)
         {
             JobInfo job = _jobService.FindJob(id);
-            if(job != null)
+            if (job == null)
+                return View("Error");
+
+            EditJobViewModel editJobModel = new EditJobViewModel()
             {
-                EditJobViewModel editJobModel = new EditJobViewModel()
-                { Id = job.Id, Title = job.Title, Description = job.Description, Price = job.Price, PriceDiscussed = job.PriceDiscussed };
+                JobId = job.Id,
+                Title = job.Title,
+                Description = job.Description,
+                Price = job.Price,
+                PriceDiscussed = job.PriceDiscussed
+            };
 
-                editJobModel.SelectedSkills = job.Skills.Select(p => p.Id);
-                ViewBag.Skills = GetCategories();
+            editJobModel.SelectedSkills = job.Skills.Select(p => p.Id);
+            ViewBag.Skills = GetCategories();
 
-                return View(editJobModel);
-            }
-
-            return View("Error");
+            return View(editJobModel);
         }
 
         [HttpPost]
@@ -87,7 +98,14 @@ namespace ReWork.WebSite.Controllers
             }
 
             EditJobParams editJobParams = new EditJobParams()
-            { Id = editJobModel.Id, SkillsId = editJobModel.SelectedSkills, Title = editJobModel.Title, Description = editJobModel.Description, Price = editJobModel.Price, PriceDiscussed = editJobModel.PriceDiscussed };
+            {
+                JobId = editJobModel.JobId,
+                SkillsId = editJobModel.SelectedSkills,
+                Title = editJobModel.Title,
+                Description = editJobModel.Description,
+                Price = editJobModel.Price,
+                PriceDiscussed = editJobModel.PriceDiscussed
+            };
 
             _jobService.Edit(editJobParams);
             _commitProvider.SaveChanges();
@@ -116,11 +134,13 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Details(int id)
         {
             JobInfo job = _jobService.FindJob(id);
-            IEnumerable<OfferInfo> offers = _offerService.FindJobOffers(id);
+            if (job == null)
+                return View("Error");
 
+            var offers = _offerService.FindJobOffers(id);
             DetailsJobViewModel detailsJobModel = new DetailsJobViewModel() { Job = job, Offers = offers };
 
-            return job != null ? View(detailsJobModel) : View("Error");
+            return View(detailsJobModel);
         }
 
 
@@ -129,41 +149,43 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Jobs()
         {
-            IEnumerable<SectionInfo> sections = _sectionService.GetSectionsInfo(); 
+            var sections = _sectionService.GetSectionsInfo(); 
             return View(sections);
         }
-
 
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Jobs(int[] skillsId, string keyWords, int priceFrom = 0)
         {
-            IEnumerable<JobInfo> jobs = _jobService.FindJobs(skillsId, keyWords, priceFrom);
+            var jobs = _jobService.FindJobs(skillsId, keyWords, priceFrom);
             return Json(jobs);
         }
 
 
         private IEnumerable<SelectListItem> GetCategories()
         {
-            IEnumerable<Section> sections = _sectionService.GetAll();
-            IEnumerable<Skill> skills = _skillService.GetAll();
+            var sections = _sectionService.GetAll();
+            var skills = _skillService.GetAll();
 
-            IEnumerable<SelectListGroup> groups = sections.Select(p => new SelectListGroup() { Name = p.Title }).ToList();
+            var groups = (from se in sections
+                          select new SelectListGroup() { Name = se.Title }).ToList();
 
-            var skillsWithSections = sections.Join(skills, p => p.Id, p => p.SectionId,
-                                                 (section, skill) => new
-                                                 {
-                                                     Id = skill.Id,
-                                                     Title = skill.Title,
-                                                     SectionTitle = section.Title
-                                                 });
+            var skillsWithSections = (from se in sections
+                     join sk in skills on se.Id equals sk.SectionId
+                     select new
+                     {
+                         Id = sk.Id,
+                         Title = sk.Title,
+                         SectionTitle = se.Title
+                     }).ToList();
 
-            IEnumerable<SelectListItem> groupData = skillsWithSections.Select(p => new SelectListItem()
-            {
-                Value = p.Id.ToString(),
-                Text = p.Title,
-                Group = groups.First(sec => sec.Name.Equals(p.SectionTitle))
-            });
+            var groupData = (from sk in skillsWithSections
+                     select new SelectListItem()
+                     {
+                         Value = sk.Id.ToString(),
+                         Text = sk.Title,
+                         Group = groups.First(sec => sec.Name.Equals(sk.SectionTitle))
+                     }).ToList();
 
             return groupData;
         }

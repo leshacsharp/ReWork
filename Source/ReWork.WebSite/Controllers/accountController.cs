@@ -213,9 +213,9 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Settings()
         {
             string userId = User.Identity.GetUserId();
-            User user = _userService.FindUserById(userId);
+            var user = _userService.FindUserById(userId);
 
-            EditUserViewModel editModel = new EditUserViewModel()
+            var editModel = new EditUserViewModel()
             { Id = user.Id, UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName };
             editModel.ImagePath = Convert.ToBase64String(user.Image);
 
@@ -231,7 +231,18 @@ namespace ReWork.WebSite.Controllers
                 return View(editModel);
             }
 
-            var userPhoto = Request.Files["userphoto"];
+            _userService.EditUser(editModel.Id, editModel.FirstName, editModel.LastName);
+            _commitProvider.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.PathAndQuery);
+        }
+
+      
+        [HttpPost]
+        public ActionResult UploadImage()
+        {
+            string userId = User.Identity.GetUserId();
+            var userPhoto = Request.Files["userphoto[0]"];
             byte[] imageBytes = null;
 
             if (userPhoto.ContentLength > 0)
@@ -241,16 +252,13 @@ namespace ReWork.WebSite.Controllers
                 {
                     reader.Read(imageBytes, 0, imageBytes.Length);
                 }
-            } 
+            }
 
-
-            _userService.EditUser(editModel.Id, editModel.FirstName, editModel.LastName, imageBytes);
+            _userService.UploadImage(userId, imageBytes);
             _commitProvider.SaveChanges();
 
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
-
-       
 
 
         [Authorize]

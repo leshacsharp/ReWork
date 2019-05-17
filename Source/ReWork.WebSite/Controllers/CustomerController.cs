@@ -29,6 +29,7 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult Details(string id)
         {
+            //Todo: create customer details
             return View();
         }
 
@@ -50,7 +51,7 @@ namespace ReWork.WebSite.Controllers
         public ActionResult MyJobs(DateTime? fromDate)
         {
             string userId = User.Identity.GetUserId();
-            IEnumerable<JobInfo> jobs = _jobService.FindCustomerJobs(userId, fromDate);
+            var jobs = _jobService.FindCustomerJobs(userId, fromDate);
 
             return Json(jobs);
         }
@@ -59,6 +60,9 @@ namespace ReWork.WebSite.Controllers
         public ActionResult MyJobDetails(int id)
         {
             MyJobInfo job = _jobService.FindCustomerJob(id);
+            if (job == null)
+                return View("Error");
+
             return PartialView(job);
         }
 
@@ -72,7 +76,7 @@ namespace ReWork.WebSite.Controllers
         public ActionResult CustomerOffers()
         {
             string userId = User.Identity.GetUserId();
-            IEnumerable<CustomerOfferInfo> customerOffers = _offerService.FindCustomerOffers(userId);
+            var customerOffers = _offerService.FindCustomerOffers(userId);
 
             return Json(customerOffers);
         }

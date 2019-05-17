@@ -34,12 +34,10 @@
 
 
     $("button[name=reset]").click(function () {
-        var price = $("input[name=PriceFrom]").val("");
-        var keyWords = $("input[name=KeyWords]").val("");
 
         $(".selected-skills-container .selected-skill").remove();
         AppendSelectedSkillsHeader();
-        $("tbody").empty();
+        $(".job-table tbody").empty();
         $(".panel-group ul li.active").removeClass("active");
 
         SendFindJobs();
@@ -86,7 +84,7 @@
         AppendSelectedSkillsHeader();
     })
 
-    $("tbody").on("click", ".job-skills a", function () {
+    $(".job-table tbody").on("click", ".job-skills a", function () {
         var skillId = $(this).attr("skill-id");
         var skillsId = [skillId];
         SendFindJobs(skillsId);
@@ -121,7 +119,7 @@
     }
 
     function appendJobs(data) {
-        $("tbody").empty();
+        $(".job-table tbody").empty();
         $(".filter-count").html(data.length);
 
         $(".pagination").pagination({
@@ -131,8 +129,8 @@
 
 
             callback: function (data, pagination) {
-                $("tbody").empty();
-                $("tbody").append(data);
+                $(".job-table tbody").empty();
+                $(".job-table tbody").append(data);
             }
         })
     }

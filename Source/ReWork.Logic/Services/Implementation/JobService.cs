@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using ReWork.Model.Entities.Common;
+using System.Data.Entity.Core;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -31,62 +32,79 @@ namespace ReWork.Logic.Services.Implementation
 
         public void CreateJob(CreateJobParams jobParams)
         {
-            CustomerProfile customerProfile = _customerRepository.FindCustomerProfileByName(jobParams.CustomerUserName);
-            if (customerProfile != null)
+            var customerProfile = _customerRepository.FindCustomerProfileById(jobParams.CustomerId);
+            if(customerProfile == null)
+                throw new ObjectNotFoundException($"Customer profile with id={jobParams} not found");
+ 
+            var job = new Job()
             {
-                Job job = new Job()
-                { Customer = customerProfile, Title = jobParams.Title, Description = jobParams.Description, Price = jobParams.Price, PriceDiscussed = jobParams.PriceDiscussed, DateAdded = DateTime.Now };
+                Customer = customerProfile,
+                Title = jobParams.Title,
+                Description = jobParams.Description,
+                Price = jobParams.Price,
+                PriceDiscussed = jobParams.PriceDiscussed,
+                DateAdded = DateTime.UtcNow
+            };
 
-                _jobRepository.Create(job);
 
-                foreach (var skillId in jobParams.SkillsId)
-                {
-                    Skill skill = _skillRepository.FindById(skillId);
-                    job.Skills.Add(skill);
-                }
+            foreach (var skillId in jobParams.SkillsId)
+            {
+                Skill skill = _skillRepository.FindById(skillId);
 
-                _jobRepository.Create(job);
+                if (skill == null)
+                    throw new ObjectNotFoundException($"Skill with id={skillId} not found");
+
+                job.Skills.Add(skill);
             }
+
+            _jobRepository.Create(job);
         }
 
         public void Edit(EditJobParams editJobParams)
         {
-            Job job = _jobRepository.FindJobById(editJobParams.Id);
-            if (job != null)
+            Job job = _jobRepository.FindJobById(editJobParams.JobId);
+            if (job == null)
+                throw new ObjectNotFoundException($"Job with id={editJobParams.JobId} not found");
+
+            job.Title = editJobParams.Title;
+            job.Description = editJobParams.Description;
+            job.Price = editJobParams.Price;
+            job.PriceDiscussed = editJobParams.PriceDiscussed;
+
+            job.Skills.Clear();
+            foreach (var skillId in editJobParams.SkillsId)
             {
-                job.Title = editJobParams.Title;
-                job.Description = editJobParams.Description;
-                job.Price = editJobParams.Price;
-                job.PriceDiscussed = editJobParams.PriceDiscussed;
+                Skill skill = _skillRepository.FindById(skillId);
 
-                job.Skills.Clear();
-                foreach (var skillId in editJobParams.SkillsId)
-                {
-                    Skill skill = _skillRepository.FindById(skillId);
-                    job.Skills.Add(skill);
-                }
+                if (skill == null)
+                    throw new ObjectNotFoundException($"Skill with id={skillId} not found");
 
-                _jobRepository.Update(job);
+                job.Skills.Add(skill);
             }
+
+            _jobRepository.Update(job);
         }
 
         public void DeleteJob(int jobId)
         {
-            Job job = _jobRepository.FindJobById(jobId);
-            if(job != null)
-            {
-                _jobRepository.Delete(job);
-            }
+            var job = _jobRepository.FindJobById(jobId);
+            if (job == null)
+                throw new ObjectNotFoundException($"Job with id={jobId} not found");
+
+            _jobRepository.Delete(job);
         }
 
         public void DeleteEmployeeFromJob(int jobId)
         {
-            Job job = _jobRepository.FindJobById(jobId);
-            if(job != null && job.EmployeeId != null)
-            {
-                job.Status = ProjectStatus.Open;
-                job.EmployeeId = null;
-            }
+            var job = _jobRepository.FindJobById(jobId);
+            if (job == null)
+                throw new ObjectNotFoundException($"Job with id={jobId} not found");   
+
+            if(job.Employee == null)
+                throw new ObjectNotFoundException($"Employee profile in job with id={jobId} not found");
+
+            job.Status = ProjectStatus.Open;
+            job.EmployeeId = null;
         }
 
 

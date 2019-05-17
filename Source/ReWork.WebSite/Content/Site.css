@@ -31,6 +31,7 @@ footer {
 
 }
 
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -44,6 +45,26 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.dropdown-profile-menu{
+    min-width:200px;
+}
+
+.dropdown-profile-menu > li:first-child button {
+    background-color: transparent;
+    border: 1px solid;
+}
+
+.dropdown-profile-menu > li:first-child button.active {
+    border-color:orangered;
+    box-shadow:none!important;
+}
+
+.dropdown-profile-menu > li:not(:first-child) {
+    font-weight: 600;
+}
+
+
 
 .link-disabled {
     pointer-events: none;
@@ -920,4 +941,96 @@ ul.nav.nav-tabs.fancy {
 
 .review-text {
     margin-top: 10px;
+}
+
+
+.users-table {
+}
+
+.users-table tr {
+    margin: 30px 0;
+    border-bottom: 1px solid #95959;
+}
+
+
+.user-fullname {
+    font-size: 120%;
+}
+
+.user-email {
+    font-size: 120%;
+    color: #95959;
+}
+
+.dropdown-notifications{
+    border-radius:4px;
+}
+
+.notification-container-header {
+    padding: 10px 15px;
+}
+
+.notification-title {
+    color: #333;
+}
+
+.notification-delete-all {
+    color: #999 !important;
+    float: right;
+}
+
+.notification-item {
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-top: 1px solid rgba(0,0,0,.05);
+    position: relative;
+}
+
+
+.notification-item-delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px
+}
+
+    .notification-item-delete span:hover {
+        color: red;
+        cursor: pointer;
+    }
+
+.notification-item:hover {
+    background-color: rgba(26,109,187,.05);
+}
+
+.notification-item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+
+.notificaton-item-details {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.notification-item-username {
+    display: inline-block;
+    color: #999;
+}
+
+.notification-item-date {
+    display: inline-block;
+    color: #999;
+    margin-left: 5px;
+}
+
+.notification-item-text {
+    color: #333
+}
+
+.empty-notification-item {
+    padding: 20px 50px;
+    color: #333;
 }

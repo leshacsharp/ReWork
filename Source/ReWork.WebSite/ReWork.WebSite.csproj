@@ -57,6 +57,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -65,6 +68,12 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -94,6 +103,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -174,9 +184,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\ModeratorController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\OfferController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Filters\CultureFilterAttribute.cs" />
+    <Compile Include="Filters\LoggerFilterAttribute.cs" />
     <Compile Include="Filters\ProfileFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -206,40 +218,51 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cube-512.png" />
+    <Content Include="Content\dropzone.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\pagination.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\customer-jobs.js" />
-    <Content Include="Scripts\bootstrap-multiselect.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\customer-offers.js" />
-    <Content Include="Scripts\edit-user.js" />
-    <Content Include="Scripts\employee-jobs.js" />
-    <Content Include="Scripts\employee-offers.js" />
-    <Content Include="Scripts\employees.js" />
-    <Content Include="Scripts\job-details.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <Content Include="Scripts\jquery.cookie.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\layout.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\jobs.js" />
-    <Content Include="Scripts\pagination.js" />
-    <Content Include="Scripts\search.js" />
-    <Content Include="Scripts\user-details.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\app\customer-jobs.js" />
+    <Content Include="Scripts\app\users.js" />
+    <Content Include="Scripts\components\bootstrap-multiselect.js" />
+    <Content Include="Scripts\components\bootstrap.js" />
+    <Content Include="Scripts\components\bootstrap.min.js" />
+    <Content Include="Scripts\components\datepicker.min.js" />
+    <None Include="Scripts\components\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\app\customer-offers.js" />
+    <Content Include="Scripts\app\edit-user.js" />
+    <Content Include="Scripts\app\employee-jobs.js" />
+    <Content Include="Scripts\app\employee-offers.js" />
+    <Content Include="Scripts\app\employees.js" />
+    <Content Include="Scripts\app\job-details.js" />
+    <Content Include="Scripts\components\dropzone.js" />
+    <Content Include="Scripts\components\jquery-3.3.1.js" />
+    <Content Include="Scripts\components\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\components\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\components\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\components\jquery-ui.js" />
+    <Content Include="Scripts\components\jquery-ui.min.js" />
+    <Content Include="Scripts\components\jquery.cookie.js" />
+    <None Include="Scripts\components\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\components\jquery.validate.js" />
+    <Content Include="Scripts\components\jquery.validate.min.js" />
+    <Content Include="Scripts\components\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\components\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\app\layout.js" />
+    <Content Include="Scripts\components\modernizr-2.8.3.js" />
+    <Content Include="Scripts\app\jobs.js" />
+    <Content Include="Scripts\components\pagination.js" />
+    <Content Include="Scripts\app\search.js" />
+    <Content Include="Scripts\app\user-details.js" />
+    <Content Include="Scripts\app\user-feedbacks.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -261,7 +284,7 @@
     <Content Include="Views\Job\Create.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
     <Content Include="Views\Moderator\Users.cshtml" />
-    <Content Include="Views\Moderator\Details.cshtml" />
+    <Content Include="Views\Moderator\DetailsUser.cshtml" />
     <Content Include="Views\Moderator\EditUser.cshtml" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Job\Edit.cshtml" />
@@ -273,7 +296,6 @@
     <Content Include="Views\Employee\Employees.cshtml" />
     <Content Include="Views\Offer\Create.cshtml" />
     <Content Include="Views\Profile\Information.cshtml" />
-    <Content Include="Views\Home\MyJobs.cshtml" />
     <Content Include="Views\Profile\UserInformation.cshtml" />
     <Content Include="Views\account\ChangePassword.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
@@ -284,9 +306,11 @@
     <Content Include="Views\Employee\MyOffers.cshtml" />
     <Content Include="Views\Customer\MyJobDetails.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Profile\FeedBacks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -298,8 +322,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\components\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\components\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReWork.Common\ReWork.Common.csproj">

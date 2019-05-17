@@ -18,29 +18,6 @@ namespace TestDb
             using (ReWorkContext db = new ReWorkContext())
             {
                 db.Database.Log = Console.Write;
-
-                string recivedId = "sdg";
-
-                var feedBacks = (from f in db.FeedBacks
-                                 join j in db.Jobs on f.JobId equals j.Id
-                                 join s in db.Users on f.SenderId equals s.Id
-                                 join r in db.Users on f.ReceiverId equals r.Id
-                                 where f.ReceiverId == recivedId
-                                 select new FeedBackInfo()
-                                 {
-                                     Text = f.Text,
-                                     AddedDate = f.AddedDate,
-                                     QualityOfWork = f.QualityOfWork,
-
-                                     ReceiverName = r.UserName,
-                                     ReceiverId = r.Id,
-                                     SenderName = s.UserName,
-                                     SenderId = s.Id,
-
-                                     JobId = j.Id,
-                                     jobTitle = j.Title
-                                 }).ToList();
-
             }
         }
     }

@@ -25,19 +25,32 @@ namespace ReWork.Model.Context
         public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Skill> Skills { get; set; }
-
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FeedBack>()
-                .HasRequired(s => s.Sender)
-                .WithMany()
+            modelBuilder.Entity<User>()
+                .HasMany<FeedBack>(u => u.RecivedFeedBacks)
+                .WithRequired(f => f.Receiver)
+                .HasForeignKey<string>(f => f.ReceiverId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<FeedBack>()
-               .HasRequired(s => s.Receiver)
-               .WithMany()
-               .WillCascadeOnDelete(false);
+            modelBuilder.Entity<User>()
+             .HasMany<FeedBack>(u => u.SentFeedBacks)
+             .WithRequired(f => f.Sender)
+             .HasForeignKey<string>(f => f.SenderId)
+             .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+              .HasMany<Notification>(u => u.RecivedNotifications)
+              .WithRequired(n => n.Reciver)
+              .HasForeignKey<string>(n => n.ReciverId);
+
+            modelBuilder.Entity<User>()
+             .HasMany<Notification>(u => u.SentNofications)
+             .WithRequired(n => n.Sender)
+             .HasForeignKey<string>(n => n.SenderId)
+             .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -12,7 +12,7 @@
 
 
 
-@using (Html.BeginForm("EditUserRoles", "Moderator", FormMethod.Post))
+@using (Html.BeginForm("EditUser", "Moderator", FormMethod.Post))
 {
     @Html.HiddenFor(p => p.Id)
 
@@ -34,7 +34,7 @@
 
 @section scripts
 {
-    <script type="text/javascript" src="~/Scripts/edit-user.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/edit-user.js"></script>
 }
 
 

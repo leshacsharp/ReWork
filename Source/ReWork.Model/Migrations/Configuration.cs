@@ -33,7 +33,7 @@ namespace ReWork.Model.Migrations
                 roleManager.Create(roleModerator);
                 roleManager.Create(roleUser);
             }
-
+            
             UserStore<User> userStore = new UserStore<User>(context);
             UserManager<User> userManager = new UserManager<User>(userStore);
 
@@ -48,6 +48,9 @@ namespace ReWork.Model.Migrations
                 userManager.Create(moderator, "123456");
                 userManager.AddToRole(moderator.Id, "user");
                 userManager.AddToRole(moderator.Id, "moderator");
+
+                CustomerProfile customerProfile = new CustomerProfile() { User = moderator };
+                context.CustomerProfiles.Add(customerProfile);
 
                 DpapiDataProtectionProvider dataProtectionProvider = new DpapiDataProtectionProvider();
                 userManager.UserTokenProvider = new DataProtectorTokenProvider<User>(dataProtectionProvider.Create());

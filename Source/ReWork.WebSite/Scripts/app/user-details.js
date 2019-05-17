@@ -39,11 +39,11 @@
                 "<img class='review-user-photo' src='" + imagePath + "'> </div><div class='col-md-4 col-sm-5'>" +
                 "<div class='review-user-username'>" + data[i].SenderName + "</div><div class='review-rating'>";
 
-            for (var j = 0; j <= data[i].QualityOfWork; j++) {
+            for (var j = 0; j < data[i].QualityOfWork; j++) {
                 html += "<span class='fa fa-star star-active'></span>";
             }
 
-            for (var j = 0; j < 4 - data[i].QualityOfWork ; j++) {
+            for (var j = 0; j < 5 - data[i].QualityOfWork; j++) {
                 html += "<span class='fa fa-star star'></span>";
             }
 

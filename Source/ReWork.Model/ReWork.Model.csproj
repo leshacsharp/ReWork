@@ -105,18 +105,21 @@
     <Compile Include="EntitiesInfo\FeedBackInfo.cs" />
     <Compile Include="EntitiesInfo\JobInfo.cs" />
     <Compile Include="EntitiesInfo\MyJobInfo.cs" />
+    <Compile Include="EntitiesInfo\NotificationInfo.cs" />
     <Compile Include="EntitiesInfo\OfferInfo.cs" />
     <Compile Include="EntitiesInfo\SectionInfo.cs" />
     <Compile Include="EntitiesInfo\SkillInfo.cs" />
     <Compile Include="EntitiesInfo\SkillSectionInfo.cs" />
+    <Compile Include="EntitiesInfo\UserInfo.cs" />
     <Compile Include="Entities\Common\ProjectStatus.cs" />
-    <Compile Include="Migrations\201905011337136_init.cs" />
-    <Compile Include="Migrations\201905011337136_init.Designer.cs">
-      <DependentUpon>201905011337136_init.cs</DependentUpon>
+    <Compile Include="Entities\Notification.cs" />
+    <Compile Include="Migrations\201905121901487_init.cs" />
+    <Compile Include="Migrations\201905121901487_init.Designer.cs">
+      <DependentUpon>201905121901487_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905111440177_change_user_feedback.cs" />
-    <Compile Include="Migrations\201905111440177_change_user_feedback.Designer.cs">
-      <DependentUpon>201905111440177_change_user_feedback.cs</DependentUpon>
+    <Compile Include="Migrations\201905151709089_create_notification.cs" />
+    <Compile Include="Migrations\201905151709089_create_notification.Designer.cs">
+      <DependentUpon>201905151709089_create_notification.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
@@ -148,6 +151,7 @@
     <Compile Include="ViewModels\Job\DetailsJobViewModel.cs" />
     <Compile Include="ViewModels\Job\EditJobViewModel.cs" />
     <Compile Include="ViewModels\Job\JobsViewModel.cs" />
+    <Compile Include="ViewModels\Notification\NotificationViewModel.cs" />
     <Compile Include="ViewModels\Offer\CreateOfferViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileType.cs" />
     <Compile Include="ViewModels\Profile\ShortUserInfoViewModel.cs" />
@@ -157,11 +161,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905011337136_init.resx">
-      <DependentUpon>201905011337136_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905121901487_init.resx">
+      <DependentUpon>201905121901487_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905111440177_change_user_feedback.resx">
-      <DependentUpon>201905111440177_change_user_feedback.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905151709089_create_notification.resx">
+      <DependentUpon>201905151709089_create_notification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

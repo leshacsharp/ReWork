@@ -14,7 +14,8 @@ namespace ReWork.Logic.Services.Abstraction
 
         void DeleteUser(string userId);
         void EditUserRoles(string userId, IEnumerable<string> roles);
-        void EditUser(string userId, string firstName, string lastName, byte[] image);
+        void EditUser(string userId, string firstName, string lastName);
+        void UploadImage(string userId, byte[] image);
 
 
         IdentityResult ChangePassword(string userId, string oldPassword, string newPassword);
@@ -26,10 +27,9 @@ namespace ReWork.Logic.Services.Abstraction
         IdentityResult ConfirmEmail(string userId, string token);
         bool IsEmailConfirmed(string userId);
 
-
         User FindUserByName(string userName);
         User FindUserById(string userId);
-        IEnumerable<User> FindUsers();
+        IEnumerable<UserInfo> FindUsersInfo();
 
 
         IEnumerable<string> GetUserRoles(string userId);
