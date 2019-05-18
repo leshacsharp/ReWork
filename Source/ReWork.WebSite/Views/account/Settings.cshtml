@@ -12,7 +12,6 @@
         <li><a href="@Url.Action("changepassword", "account")">Change password</a></li>
         <li><a href="@Url.Action("edit","employee")">Edit employee</a></li>
         <li><a href="@Url.Action("information", "profile")">Information</a></li>
-        <li><a href="@Url.Action("information", "profile")">Information</a></li>
         <li><a href="@Url.Action("feedbacks", "profile")">Feedbacks</a></li>
     </ul>
 
@@ -53,18 +52,6 @@
                         </div>
 
 
-
-                        @*<div class="form-group">
-                <div class="col-md-2">
-                    @Html.HiddenFor(p => p.ImagePath)
-                    @Html.Raw("<img style='width:100px; height:60px;' src=\"data:image/jpeg;base64," + Model.ImagePath + "\" />")
-                </div>
-                <div class="col-md-10">
-                    <input type="file" name="userphoto" />
-                </div>
-            </div>*@
-
-
                         <div class="form-group">
                             <div class="col-md-2">
                                 @Html.Raw("<img style='width:100px; height:80px;' src=\"data:image/jpeg;base64," + Model.ImagePath + "\" />")
@@ -75,13 +62,12 @@
                         </div>
 
 
-
                         <div class="form-group">
                             @Html.Label("Freelancer profile", new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                <a href="@Url.Action("create", "employee")">
+                            <div class="col-md-10" id="employee-section">
+                                @*<a href="@Url.Action("create", "employee")">
                                     <input type="button" value="create" class="btn btn-success" />
-                                </a>
+                                </a>*@
                             </div>
                         </div>
 
@@ -99,23 +85,9 @@
     </div>
 </div>
 
+
 @section scripts
 {
     <script type="text/javascript" src="~/Scripts/components/dropzone.js"></script>
-    <script>
-        Dropzone.options.mydropzone = {
-            url: "/account/uploadimage",
-            paramName:"userphoto",
-            uploadMultiple: true,
-            maxFilesize: 2,
-            maxFiles: 1,
-            acceptedFiles: ".png,.jpg,.jpeg",
-            parallelUploads: 100,
-            addRemoveLinks: true,
-            clickable: true,
-            init: function () {
-                this.on("maxfilesexceeded", function (file) { this.removeAllFiles(); this.addFile(file); });
-            },
-        }
-    </script>
+    <script type="text/javascript" src="~/Scripts/app/user-settings.js"></script>
 }

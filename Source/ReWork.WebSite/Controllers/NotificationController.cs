@@ -27,15 +27,24 @@ namespace ReWork.WebSite.Controllers
         {
             string senderId = User.Identity.GetUserId();
             _notificationService.CreateNotification(senderId, reciverId, text);
-            _notificationService.RefreshNotifications(reciverId);
+            _commitProvider.SaveChanges();
 
+            _notificationService.RefreshNotifications(reciverId);
+        }
+
+        [HttpPost]
+        public void Delete(int notifyId)
+        {
+            _notificationService.DeleteNotification(notifyId);
             _commitProvider.SaveChanges();
         }
 
         [HttpPost]
-        public void Delete(int id)
+        public void DeleteAll()
         {
-            _notificationService.DeleteNotification(id);
+            string userId = User.Identity.GetUserId();
+
+            _notificationService.DeleteAllNotifications(userId);
             _commitProvider.SaveChanges();
         }
 
@@ -46,16 +55,16 @@ namespace ReWork.WebSite.Controllers
             string userId = User.Identity.GetUserId();
             var notifications = _notificationService.FindNotificationsInfo(userId);
 
-            var notificationsViewModels = (from n in notifications
-                                           select new NotificationViewModel()
-                                           {
-                                               Id = n.Id,
-                                               Text = n.Text,
-                                               AddedDate = n.AddedDate,
-                                               SenderId = n.SenderId,
-                                               SenderName = n.SenderName,
-                                               SenderImagePath = Convert.ToBase64String(n.SenderImage)
-                                           }).ToList();
+            var notificationsViewModels = from n in notifications
+                                          select new NotificationViewModel()
+                                          {
+                                              Id = n.Id,
+                                              Text = n.Text,
+                                              AddedDate = n.AddedDate,
+                                              SenderId = n.SenderId,
+                                              SenderName = n.SenderName,
+                                              SenderImagePath = Convert.ToBase64String(n.SenderImage)
+                                          };
 
             return Json(notificationsViewModels);
         }

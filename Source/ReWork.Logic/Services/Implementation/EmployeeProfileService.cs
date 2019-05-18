@@ -75,7 +75,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public void DeleteEmployeeProfile(string employeeId)
         {
-            EmployeeProfile employee = _employeeRepository.FindEmployeeById(employeeId);
+            var employee = _employeeRepository.FindEmployeeById(employeeId);
             if (employee == null)
                 throw new ObjectNotFoundException($"Employee profile with id={employeeId} not found");
            
@@ -114,7 +114,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public bool EmployeeProfileExists(string employeeId)
         {
-            EmployeeProfile employeeProfile = _employeeRepository.FindEmployeeById(employeeId);;
+            var employeeProfile = _employeeRepository.FindEmployeeById(employeeId);;
             return employeeProfile != null;
         }
     }

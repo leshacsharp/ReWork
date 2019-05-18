@@ -18,11 +18,6 @@ namespace ReWork.Logic.Hubs.Implementation
             _connections = new HubConnections<string>();
         }
 
-        public void ConnectUser(string userId)
-        {
-            Groups.Add(Context.ConnectionId, userId);
-        }
-
         public override Task OnConnected()
         {
             var user = Context.User;

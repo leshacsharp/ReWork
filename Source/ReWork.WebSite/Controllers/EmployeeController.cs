@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
-using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
-using ReWork.Model.ViewModels.Account;
 using ReWork.Model.ViewModels.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers
@@ -88,7 +85,7 @@ namespace ReWork.WebSite.Controllers
             _employeeService.CreateEmployeeProfile(userId, createModel.Age, createModel.AboutMe, createModel.SelectedSkills);
             _commitProvider.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
 
@@ -97,12 +94,12 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Edit()
         {
             string userId = User.Identity.GetUserId();
-            EmployeeProfileInfo employeeProfile = _employeeService.FindEmployee(userId);
+            var employeeProfile = _employeeService.FindEmployee(userId);
 
-            if (employeeProfile != null)
+            if (employeeProfile == null)
                 return View("Error");
 
-            EmployeeProfileViewModel editModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age, AboutMe = employeeProfile.AboutMe };
+            var editModel = new EmployeeProfileViewModel() { Age = employeeProfile.Age, AboutMe = employeeProfile.AboutMe };
             editModel.SelectedSkills = employeeProfile.Skills.Select(p => p.Id).ToArray();
 
             ViewBag.Skills = GetCategories();
@@ -123,14 +120,16 @@ namespace ReWork.WebSite.Controllers
             _employeeService.EditEmployeeProfile(employeeId, editModel.Age, editModel.AboutMe, editModel.SelectedSkills);
             _commitProvider.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
         [HttpPost]
-        public void Delete(string id)
+        public ActionResult Delete(string employeeId)
         {
-            _employeeService.DeleteEmployeeProfile(id);
+            _employeeService.DeleteEmployeeProfile(employeeId);
             _commitProvider.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
 
@@ -183,7 +182,21 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Employees(int[] skillsId, string keyWords)
         {
             var employees = _employeeService.FindEmployes(skillsId, keyWords);
-            return new JsonResult() { Data = employees, MaxJsonLength = Int32.MaxValue };
+
+            var employeeViewModels = from e in employees
+                                     select new EmployeeInfoViewModel()
+                                     {
+                                         Id = e.Id,
+                                         UserName = e.UserName,
+                                         FirstName = e.FirstName,
+                                         LastName = e.LastName,
+                                         RegistrationdDate = e.RegistrationdDate,
+                                         QualityOfWorks = e.QualityOfWorks,
+                                         Skills = e.Skills,
+                                         ImagePath = Convert.ToBase64String(e.Image)
+                                     };
+
+            return Json(employeeViewModels);
         }
 
 

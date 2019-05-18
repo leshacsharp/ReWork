@@ -142,7 +142,8 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
-    <Compile Include="ViewModels\Account\EmployeeProfileViewModel.cs" />
+    <Compile Include="ViewModels\Employee\EmployeeInfoViewModel.cs" />
+    <Compile Include="ViewModels\Employee\EmployeeProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\Common\Culture.cs" />

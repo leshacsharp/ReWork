@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
-using ReWork.Common;
+using Newtonsoft.Json;
 using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Hubs.Abstraction;
 using ReWork.Logic.Services.Abstraction;
@@ -10,8 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -32,22 +30,23 @@ namespace ReWork.Logic.Services.Implementation
         {
             var notifications = _notificationRepository.FindNotificationsInfo(userId);
 
-            var notificationsViewModels = (from n in notifications
-                                           select new NotificationViewModel()
-                                           {
-                                               Id = n.Id,
-                                               Text = n.Text,
-                                               AddedDate = n.AddedDate,
-                                               SenderId = n.SenderId,
-                                               SenderName = n.SenderName,
-                                               SenderImagePath = Convert.ToBase64String(n.SenderImage)
-                                           }).ToList();
+            var notificationsViewModels = from n in notifications
+                                          select new NotificationViewModel()
+                                          {
+                                              Id = n.Id,
+                                              Text = n.Text,
+                                              AddedDate = n.AddedDate,
+                                              SenderId = n.SenderId,
+                                              SenderName = n.SenderName,
+                                              SenderImagePath = Convert.ToBase64String(n.SenderImage)
+                                          };
           
 
-            string notificationsJson = notifications.ToJson();
+            string notificationsJson = JsonConvert.SerializeObject(notificationsViewModels);
 
             _hub.RefreshNotifications(userId, notificationsJson);
         }
+
 
         public void CreateNotification(string senderId, string reciverId, string text)
         {
@@ -77,6 +76,15 @@ namespace ReWork.Logic.Services.Implementation
                 throw new ObjectNotFoundException($"Notification with id={id} not found");
 
             _notificationRepository.Delete(notification);
+        }
+
+        public void DeleteAllNotifications(string userId)
+        {
+            var user = _userManager.FindById(userId);
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            _notificationRepository.DeleteAll(userId);
         }
 
 

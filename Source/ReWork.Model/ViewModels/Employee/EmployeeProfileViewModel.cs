@@ -1,9 +1,7 @@
 ﻿using ReWork.Model.Validation;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
-namespace ReWork.Model.ViewModels.Account
+namespace ReWork.Model.ViewModels.Employee
 {
     public class EmployeeProfileViewModel
     {

@@ -34,7 +34,7 @@ namespace ReWork.Logic.Services.Implementation
         {
             var customerProfile = _customerRepository.FindCustomerProfileById(jobParams.CustomerId);
             if(customerProfile == null)
-                throw new ObjectNotFoundException($"Customer profile with id={jobParams} not found");
+                throw new ObjectNotFoundException($"Customer profile with id={jobParams.CustomerId} not found");
  
             var job = new Job()
             {
@@ -62,7 +62,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public void Edit(EditJobParams editJobParams)
         {
-            Job job = _jobRepository.FindJobById(editJobParams.JobId);
+            var job = _jobRepository.FindJobById(editJobParams.JobId);
             if (job == null)
                 throw new ObjectNotFoundException($"Job with id={editJobParams.JobId} not found");
 

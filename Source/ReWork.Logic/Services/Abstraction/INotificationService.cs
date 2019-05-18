@@ -7,6 +7,7 @@ namespace ReWork.Logic.Services.Abstraction
     {      
         void CreateNotification(string senderId, string reciverId, string text);
         void DeleteNotification(int id);
+        void DeleteAllNotifications(string userId);
 
         IEnumerable<NotificationInfo> FindNotificationsInfo(string userId);
         void RefreshNotifications(string userId);

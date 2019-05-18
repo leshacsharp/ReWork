@@ -116,7 +116,7 @@
         for (var i = 0; i < data.length; i++) {
 
             var employee = "/employee/details/" + data[i].Id;
-            var imagePath = "data:image/jpeg;base64," + ArrayBufferToBase64(data[i].Image);
+            var imagePath = "data:image/jpeg;base64," + data[i].ImagePath;
 
             var feedbacks = data[i].QualityOfWorks;
             var countPositiveFeedbacks = 0;
@@ -152,16 +152,5 @@
             result.push(html);
         }
         return result;
-    }
-
-
-    function ArrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
     }
 })

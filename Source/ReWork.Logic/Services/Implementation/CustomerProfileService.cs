@@ -44,7 +44,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public bool CustomerProfileExists(string userId)
         {
-            CustomerProfile customerProfile = _customerRepository.FindCustomerProfileById(userId);
+            var customerProfile = _customerRepository.FindCustomerProfileById(userId);
             return customerProfile != null;
         }
     }

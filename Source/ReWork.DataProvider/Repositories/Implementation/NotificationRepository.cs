@@ -30,6 +30,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
         {
             return (from n in Db.Notifications
                     join s in Db.Users on n.SenderId equals s.Id
+                    where n.ReciverId == userId
                     select new NotificationInfo()
                     {
                         Id = n.Id,
@@ -39,6 +40,13 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         SenderName = s.UserName,
                         SenderImage = s.Image
                     }).ToList();
+        }
+
+        public void DeleteAll(string userId)
+        {
+            var notifications = Db.Notifications.Where(n => n.ReciverId == userId);
+
+            Db.Notifications.RemoveRange(notifications);
         }
 
         public void Update(Notification item)

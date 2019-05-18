@@ -54,7 +54,7 @@ namespace ReWork.Logic.Services.Implementation
         public ClaimsIdentity Authenticate(string userName, string password)
         {
             ClaimsIdentity claims = null;
-            User user = _userManager.Find(userName, password);
+            var user = _userManager.Find(userName, password);
             if(user != null)
             {
                 claims = _userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
@@ -67,7 +67,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public IdentityResult ChangePassword(string userId, string oldPassword, string newPassword)
         {
-            User user = _userManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user != null)
             {
                 IdentityResult changeRes = _userManager.ChangePassword(user.Id, oldPassword, newPassword); 
@@ -79,7 +79,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public void ResetPassword(string email)
         {
-            User user = _userManager.FindByEmail(email);
+            var user = _userManager.FindByEmail(email);
             if(user != null)
             {
                 string token = _userManager.GeneratePasswordResetToken(user.Id);
@@ -89,7 +89,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public IdentityResult ConfirmResetPassword(string email, string newPassword, string token)
         {
-            User user = _userManager.FindByEmail(email);
+            var user = _userManager.FindByEmail(email);
             if (user != null)
             {
                 return _userManager.ResetPassword(user.Id, token, newPassword);
@@ -102,7 +102,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public void EmailConfirmed(string userId, string callbackUrl)
         {
-            User user = _userManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user != null)
             {
                 string token = _userManager.GenerateEmailConfirmationToken(userId);
@@ -153,7 +153,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public void DeleteUser(string userId)
         {
-            User user = _userManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user == null)
                 throw new ObjectNotFoundException($"User with id={userId} not found");
 
@@ -169,7 +169,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public void EditUserRoles(string userId, IEnumerable<string> roles)
         {
-            User user = _userManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user == null)
                 throw new ObjectNotFoundException($"User with id={userId} not found");
 
@@ -184,7 +184,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public void EditUser(string userId, string firstName, string lastName)
         {
-            User user = _userManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user == null)
                 throw new ObjectNotFoundException($"User with id={userId} not found");
 
@@ -196,7 +196,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public void UploadImage(string userId, byte[] image)
         {
-            User user = _userManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user == null)
                 throw new ObjectNotFoundException($"User with id={userId} not found");
 
@@ -207,7 +207,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public IEnumerable<string> GetUserRoles(string userId)
         {
-            User user = _userManager.FindById(userId);
+            var user = _userManager.FindById(userId);
             if (user == null)
                 throw new ObjectNotFoundException($"User with id={userId} not found");
 
@@ -216,7 +216,7 @@ namespace ReWork.Logic.Services.Implementation
 
         public bool UserNameExists(string userName)
         {
-            User user = _userManager.FindByName(userName);
+            var user = _userManager.FindByName(userName);
             return user != null;
         }
 

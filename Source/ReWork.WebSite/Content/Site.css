@@ -1031,6 +1031,21 @@ ul.nav.nav-tabs.fancy {
 }
 
 .empty-notification-item {
+    border-top:1px solid rgba(0,0,0,.05);
     padding: 20px 50px;
     color: #333;
+}
+
+.notifications-counter{
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    color: white;
+    background-color: red;
+    border-radius: 50%;
+    font-size: 80%;
+    font-weight: 600;
+    width: 18px;
+    height: 18px;
+    text-align: center;
 }

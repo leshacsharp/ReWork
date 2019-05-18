@@ -67,6 +67,7 @@
                         {
                             <li class="dropdown">
                                 @Html.Hidden("userId", User.Identity.GetUserId())
+                               
                                 <a href="#" class="dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @User.Identity.Name
                                     <span class="caret"></span>
@@ -99,24 +100,25 @@
                                     <li>@Html.ActionLink(Resources.Global.SignOut, "SignOut", "account")</li>
                                 </ul>
                             </li>
-                        }
 
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li class="dropdown" >
+                                <a href="#" class="dropdown-toggle btn-lg " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:relative">
+                                    <span class="notifications-counter">0</span>
                                     <span class="fa fa-bell"></span>
                                 </a>
-
-                                <div class="dropdown-menu dropdown-notifications">
+                                
+                                <div class="dropdown-menu dropdown-notifications" style="min-width:350px;margin-top:7px">
                                     <div class="notification-container-header">
                                         <span class="notification-title">Notifications</span>
                                         <a href="#" class="notification-delete-all">mark all as read</a>
                                     </div>
 
                                     <div id="notifications-container">
-                                       
+
                                     </div>
                                 </div>
                             </li>
+                        }
                     </ul>
                 </div>
             </div>

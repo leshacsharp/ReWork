@@ -2,7 +2,6 @@
 {
     public interface INotificationHub
     {
-        void ConnectUser(string userId);
         void RefreshNotifications(string userId, string notificationsJson);
     }
 }
