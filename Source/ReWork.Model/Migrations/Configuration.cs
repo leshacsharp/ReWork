@@ -37,9 +37,11 @@ namespace ReWork.Model.Migrations
             UserStore<User> userStore = new UserStore<User>(context);
             UserManager<User> userManager = new UserManager<User>(userStore);
 
-            if (userManager.FindByName("alex") == null)
+
+            var moderator = userManager.FindByName("alex");
+            if (moderator == null)
             {
-                User moderator = new User() { UserName = "alex", Email = "star4enko.aleksey2015@yandex.ru", FirstName = "Aleksey", LastName = "Programmer", RegistrationdDate = DateTime.UtcNow };
+                moderator = new User() { UserName = "alex", Email = "star4enko.aleksey2015@yandex.ru", FirstName = "Aleksey", LastName = "Programmer", RegistrationdDate = DateTime.UtcNow };
 
                 string pathToDefaultImage = HttpContext.Current.Server.MapPath("~/Content/cube-512.png");
                 byte[] defaultImage = File.ReadAllBytes(pathToDefaultImage);
@@ -59,23 +61,61 @@ namespace ReWork.Model.Migrations
                 userManager.ConfirmEmail(moderator.Id, token);
             }
 
-            Section section = context.Sections.SingleOrDefault(p => p.Title.Equals("Programming"));
-            if (section == null)
+            Section programming = context.Sections.SingleOrDefault(p => p.Title.Equals("Programming"));
+            Section design = context.Sections.SingleOrDefault(p => p.Title.Equals("Design sites"));
+            if (programming == null && design == null)
             {
-                section = new Section() { Title = "Programming" };
-                context.Sections.Add(section);
+                programming = new Section() { Title = "Programming" };
+                design = new Section() { Title = "Design sites" };
+
+                context.Sections.Add(programming);
+                context.Sections.Add(design);
             }
 
 
-            Skill skill1 = context.Skills.FirstOrDefault(p => p.Title.Equals("C#"));
-            Skill skill2 = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
-            if (skill1 == null && skill2 == null)
+            Skill skillCs = context.Skills.FirstOrDefault(p => p.Title.Equals("C#"));
+            Skill skillJa = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
+            Skill skillCss = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
+            Skill skillScss = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
+            if (skillCs == null && skillJa == null && skillCss == null && skillScss == null)
             {
-                skill1 = new Skill() { Title = "C#", Section = section };
-                skill2 = new Skill() { Title = "Java", Section = section };
-                context.Skills.Add(skill1);
-                context.Skills.Add(skill2);
+                skillCs = new Skill() { Title = "C#", Section = programming };
+                skillJa = new Skill() { Title = "Java", Section = programming };
+                skillCss = new Skill() { Title = "CSS", Section = design };
+                skillScss = new Skill() { Title = "SCSS", Section = design };
+
+                context.Skills.Add(skillCs);
+                context.Skills.Add(skillJa);
+                context.Skills.Add(skillCss);
+                context.Skills.Add(skillScss);
             }
+
+
+            var websiteJob = new Job()
+            {
+                CustomerId = moderator.Id,
+                Title = "create website",
+                Description = "web site must be beautifull, topic this web site its cars",
+                Price = 1000,
+                PriceDiscussed = true,
+                DateAdded = DateTime.UtcNow
+            };
+
+            var designJob = new Job()
+            {
+                CustomerId = moderator.Id,
+                Title = "create design for my site",
+                Description = "crate beautifully design, i want see my website in gray colors",
+                Price = 3000,
+                PriceDiscussed = true,
+                DateAdded = DateTime.UtcNow
+            };
+
+            websiteJob.Skills.Add(skillCs);
+            websiteJob.Skills.Add(skillJa);
+            designJob.Skills.Add(skillCss);
+            designJob.Skills.Add(skillScss);
+
 
             context.SaveChanges();
         }

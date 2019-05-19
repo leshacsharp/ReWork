@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ReWork.WebSite.Helpers;
+@{
     ViewBag.Title = "FeedBacks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -10,7 +11,10 @@
     <ul class="nav nav-tabs">
         <li><a href="@Url.Action("settings", "account")">Settings</a></li>
         <li><a href="@Url.Action("changepassword", "account")">Change password</a></li>
-        <li><a href="@Url.Action("edit","employee")">Edit employee</a></li>
+        @if (Html.IsProfile(ReWork.Model.ViewModels.Profile.ProfileType.Employee))
+        {
+            <li><a href="@Url.Action("edit","employee")">Edit employee</a></li>
+        }
         <li><a href="@Url.Action("information", "profile")">Information</a></li>
         <li class="active"><a href="@Url.Action("feedbacks", "profile")">Feedbacks</a></li>
     </ul>
@@ -26,14 +30,14 @@
                         <div class="reviews-summary-wraper">
                             <div class="reviews-summary-item reviews-summary-item-count">
                                 <div class="reviews-summary-count">
-                                    
+
                                 </div>
                                 reviews
                             </div>
 
                             <div class="reviews-summary-item reviews-summary-item-percent">
                                 <div class="reviews-summary-count">
-                                    
+
                                 </div>
                                 positive
                             </div>
@@ -61,7 +65,7 @@
                     </div>
 
                     <div class="pagination"></div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>

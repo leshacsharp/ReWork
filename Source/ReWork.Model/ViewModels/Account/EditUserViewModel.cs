@@ -7,12 +7,14 @@ namespace ReWork.Model.ViewModels.Account
         [Required]
         public string Id { get; set; }
 
-        [Required]
+        [Required]  
         public string UserName { get; set; }
 
+        [Required]
         [MaxLength(30)]
         public string FirstName { get; set; }
 
+        [Required]
         [MaxLength(40)]
         public string LastName { get; set; }
 

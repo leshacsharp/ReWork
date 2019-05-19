@@ -143,6 +143,16 @@ namespace ReWork.WebSite.Controllers
             return View(detailsJobModel);
         }
 
+        [HttpGet]
+        public ActionResult FinishJob(int id)
+        {
+            var job = _jobService.FindCustomerJob(id);
+            if (job == null)
+                return View("Error");
+
+            return View(job);
+        }
+
 
 
         [AllowAnonymous]

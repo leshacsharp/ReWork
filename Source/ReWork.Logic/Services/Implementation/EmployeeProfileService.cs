@@ -78,7 +78,9 @@ namespace ReWork.Logic.Services.Implementation
             var employee = _employeeRepository.FindEmployeeById(employeeId);
             if (employee == null)
                 throw new ObjectNotFoundException($"Employee profile with id={employeeId} not found");
-           
+
+            employee.DevelopingJobs.Clear();
+
             _employeeRepository.Delete(employee); 
         }
 

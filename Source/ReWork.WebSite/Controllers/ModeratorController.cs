@@ -42,11 +42,11 @@ namespace ReWork.WebSite.Controllers
         [HttpGet]
         public ActionResult DetailsUser(string id)
         {
-            User user = _userService.FindUserById(id);
+            var user = _userService.FindUserById(id);
             if (user == null)
                 return View("Error");
 
-            UserDetailsViewModel userDetails = new UserDetailsViewModel()
+            var userDetails = new UserDetailsViewModel()
             {
                 UserName = user.UserName,
                 FirstName = user.FirstName,
@@ -56,7 +56,7 @@ namespace ReWork.WebSite.Controllers
                 Roles = _userService.GetUserRoles(user.Id)
             };
 
-            return View(userDetails);
+            return PartialView(userDetails);
         }
 
 

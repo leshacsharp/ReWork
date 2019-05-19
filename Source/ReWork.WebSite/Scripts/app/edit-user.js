@@ -1,28 +1,31 @@
 ﻿$(document).ready(function () {
 
-    var userId = $("input[name=userId]").val();
+    var userId = $("input[name=Id]").val();
+    $.ajax({
+        url: "/Employee/EmployeeProfileExists",
+        type: "POST",
+        data: { "employeeId": userId },
+        success: function (exists) {
+            if (exists) {
+                var html = "<div class='form-group'><div class='col-md-offset-3 col-md-9'>" +
+                    "<input type='button' class='btn btn-danger' name='delete-employee' value='Delete Employee Profile' /></div></div";
 
-    $("input[name=delete-customer]").click(function () {
-
-        $.ajax({
-            url: "/Customer/Delete",
-            type: "POST",
-            data: { "id": userId },
-            success: function () { alert("you successfully delete customer profile") },
-            error: function () { alert("you not delete customer profile") }
-
-        })
+                $("#edit-user-form").append(html);
+            }
+        },  
     })
 
-    $("input[name=delete-employee]").click(function () {
+
+    $("#edit-user-form").on("click", "input[name=delete-employee]", function () {
+
+        var userId = $("input[name=Id]").val();
 
         $.ajax({
             url: "/Employee/Delete",
             type: "POST",
-            data: { "id": userId },
+            data: { "employeeId": userId },
             success: function () { alert("you successfully delete employee profile") },
             error: function () { alert("you not delete employee profile") }
-
         })
     })
 })

@@ -109,8 +109,8 @@
             }
             var percentPositiveFeedbacks = countPositiveFeedbacks / (feedbacks.length == 0 ? 1 : feedbacks.length);
 
-            var imageBytes = new Uint8Array(data[i].Image);
-            var imagePath = "data:image/jpeg;base64," + ArrayBufferToBase64(data[i].Image);
+            
+            var imagePath = "data:image/jpeg;base64," + data[i].ImagePath;
 
             var html = "<div class='employee'><div class='row'><div class='col-md-8 col-sm-7 col-xs-12'><div class='pull-left employee-photo'>" +
                 "<a href='" + employee + "'><img src='" + imagePath + "'" +
@@ -138,17 +138,6 @@
         return result;
     }
 
-
-
-    function ArrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
-    }
 
     function ParseCsharpDate(date) {
         var dateMs = date.replace(/[^0-9 +]/g, '');

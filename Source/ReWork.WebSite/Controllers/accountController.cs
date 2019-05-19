@@ -52,7 +52,7 @@ namespace ReWork.WebSite.Controllers
 
             if (regResult.Succeeded)
             {
-                User user =_userService.FindUserByName(regModel.UserName);
+                var user =_userService.FindUserByName(regModel.UserName);
                 string callbackUrl = Url.Action("ConfirmEmail", "account", null, Request.Url.Scheme);
                 _userService.EmailConfirmed(user.Id, callbackUrl);
 
@@ -81,11 +81,11 @@ namespace ReWork.WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                ClaimsIdentity claims = _userService.Authenticate(loginModel.UserName, loginModel.Password);
+                var claims = _userService.Authenticate(loginModel.UserName, loginModel.Password);
 
                 if (claims != null)
                 {
-                    User user = _userService.FindUserByName(loginModel.UserName);
+                    var user = _userService.FindUserByName(loginModel.UserName);
                     if (user.EmailConfirmed)
                     {
                         AuthenticationManager.SignOut();
@@ -214,6 +214,9 @@ namespace ReWork.WebSite.Controllers
         {
             string userId = User.Identity.GetUserId();
             var user = _userService.FindUserById(userId);
+            if (user == null)
+                return View("Error");
+
 
             var editModel = new EditUserViewModel()
             { Id = user.Id, UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName };
@@ -234,7 +237,7 @@ namespace ReWork.WebSite.Controllers
             _userService.EditUser(editModel.Id, editModel.FirstName, editModel.LastName);
             _commitProvider.SaveChanges();
 
-            return Redirect(Request.UrlReferrer.PathAndQuery);
+            return RedirectToAction("Settings","Account");
         }
 
       
@@ -283,7 +286,7 @@ namespace ReWork.WebSite.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Jobs", "Job");
         }
     }
 }

@@ -12,7 +12,7 @@
         SendFindJobs();
     })
 
-    $("tbody").on("click", "input[name=delete-job]", function () {
+    $(".search-table tbody").on("click", "input[name=delete-job]", function () {
         var tr = $(this).parent().parent().parent();
         var jobId = tr.find("input[name=jobId]").val();
 
@@ -26,24 +26,25 @@
         })
     })
 
-    $("tbody").on("click", "input[name=job-details]", function () {
+    $(".search-table tbody").on("click", "input[name=job-details]", function () {
         var tr = $(this).parent().parent().parent();
         var jobId = tr.find("input[name=jobId]").val();
+
         $.ajax({
             url: "/customer/myjobdetails",
-            type: "POST",
+            type: "GET",
             data: { "id": jobId },
             success: function (html) {
-                $(".modal-dialog").empty();
-                $(".modal-dialog").append(html);
-                $('.modal').modal('show');
+                $("#job-details .modal-dialog").empty();
+                $("#job-details .modal-dialog").append(html);
+                $('#job-details').modal('show');
             }
         })
     })
 
 
     function SendFindJobs() {
-        $("tbody").empty();
+        $(".search-table tbody").empty();
         var fromDate = "";
         var fromDateStr = $("#datetimepicker input[type=text]").val();
         if (fromDateStr != "") {
@@ -67,8 +68,8 @@
             formatResult: FormatResult,
 
             callback: function (data, pagination) {
-                $("tbody").empty();
-                $("tbody").append(data);
+                $(".search-table tbody").empty();
+                $(".search-table tbody").append(data);
             }
         })
     }
@@ -94,7 +95,7 @@
                 dateAdded + "</span></td> <td class='col-md-2 text-center hidden-sm hidden-xs'><span class='count-offers'>" +
                 data[i].CountOffers + " offers</span></td><td class='col-md-4'>" +
                 "<div class='job-button'><input type='submit' class='btn btn-primary' name='job-details' value='Details'/></div>" +
-                "<div class='job-button'><a href='/job/edit/" + data[i].Id + "'><input type='submit' class='btn btn-primary' value='Edit'/></a></div>" +
+                "<div class='job-button'><a href='/job/edit/" + data[i].Id + "'><input type='submit' class='btn btn-primary' value='Manage'/></a></div>" +
                 "<div class='job-button'><input type='submit' class='btn btn-primary' name='delete-job' value='Delete'/></div></td>";
 
             result.push(html);

@@ -19,8 +19,8 @@
             formatResult: FormatOffersResult,
 
             callback: function (data, pagination) {
-                $("tbody").empty();
-                $("tbody").append(data);
+                $(".search-table tbody").empty();
+                $(".search-table tbody").append(data);
             }
         })
     }
@@ -29,6 +29,8 @@
         var result = [];
 
         for (var i = 0; i < data.length; i++) {
+            //TODO: изменить ArrayBufferToBase64 на передечу с сервера imagepaths
+
             var employee = "/employee/details/" + data[i].EmployeeId;
             var imagePath = "data:image/jpeg;base64," + ArrayBufferToBase64(data[i].EmployeeImage);
             var userRegDate = ParseCsharpDate(data[i].UserDateRegistration);
@@ -44,7 +46,9 @@
                 "<div class='employee-offer-text'>" + data[i].Text + "</div></td>" +
                 "<td class='col-md-2 col-sm-2 col-xs-2'><input type='hidden' name='jobId' value='" + data[i].JobId + "'>" +
                 "<input type='hidden' name='employeeId' value='" + data[i].EmployeeId + "'>" + 
-                "<div style='margin-top: -5px;'> <input type='submit' class='btn btn-primary accept-offer-btn' value='Accept offer'></div></td></tr>";
+                "<input type='hidden' name='offerId' value='" + data[i].Id + "'>" + 
+                "<div style='margin-top: -5px;'> <input type='submit' name='accept-offer' class='btn btn-primary offer-btn' value='Accept offer'></div>" +
+                "<input type='submit' name='reject-offer' class='btn btn-danger offer-btn' value='Reject offer'></div></td></tr>";
 
             result.push(html);
         }
@@ -52,17 +56,34 @@
     }
 
 
-    $("tbody").on("click", ".accept-offer-btn", function () {
-        var employeeId = $(this).parent().parent().find("input[name=employeeId]").val();
-        var jobId = $(this).parent().parent().find("input[name=jobId]").val();
+    $(".search-table tbody").on("click", "input[name=accept-offer]", function () {
+        var parent = $(this).parent().parent().parent();
+        var offerId = parent.find("input[name=offerId]").val();
+        var employeeId = parent.find("input[name=employeeId]").val();    
 
         $.ajax({
             url: "/offer/acceptoffer",
             type: "POST",
-            data: { "employeeId": employeeId, "jobId": jobId },
+            data: { "offerId": offerId, "employeeId": employeeId},
             success: function () {
+
+                parent.remove();
                 var userName = $(".employee-offer-name a").html();
                 alert("now" + userName + " will work on this project");
+            }
+        })
+    })
+
+    $(".search-table tbody").on("click", "input[name=reject-offer]", function () {
+        var parent = $(this).parent().parent().parent();
+        var offerId = parent.find("input[name=offerId]").val();
+
+        $.ajax({
+            url: "/offer/rejectoffer",
+            type: "POST",
+            data: { "offerId": offerId },
+            success: function () {
+                parent.remove();
             }
         })
     })

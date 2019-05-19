@@ -111,6 +111,7 @@
     <Compile Include="EntitiesInfo\SkillInfo.cs" />
     <Compile Include="EntitiesInfo\SkillSectionInfo.cs" />
     <Compile Include="EntitiesInfo\UserInfo.cs" />
+    <Compile Include="Entities\Common\OfferStatus.cs" />
     <Compile Include="Entities\Common\ProjectStatus.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Migrations\201905121901487_init.cs" />
@@ -120,6 +121,10 @@
     <Compile Include="Migrations\201905151709089_create_notification.cs" />
     <Compile Include="Migrations\201905151709089_create_notification.Designer.cs">
       <DependentUpon>201905151709089_create_notification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905191028345_update_offer.cs" />
+    <Compile Include="Migrations\201905191028345_update_offer.Designer.cs">
+      <DependentUpon>201905191028345_update_offer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
@@ -148,6 +153,7 @@
     <Compile Include="ViewModels\Account\UserDetailsViewModel.cs" />
     <Compile Include="ViewModels\Common\Culture.cs" />
     <Compile Include="ViewModels\Employee\EmployeeDetailsViewModel.cs" />
+    <Compile Include="ViewModels\FeedBack\CreateFeedBackViewModel.cs" />
     <Compile Include="ViewModels\Job\CreateJobViewModel.cs" />
     <Compile Include="ViewModels\Job\DetailsJobViewModel.cs" />
     <Compile Include="ViewModels\Job\EditJobViewModel.cs" />
@@ -167,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905151709089_create_notification.resx">
       <DependentUpon>201905151709089_create_notification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905191028345_update_offer.resx">
+      <DependentUpon>201905191028345_update_offer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

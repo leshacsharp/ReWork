@@ -1,9 +1,23 @@
 ﻿$(document).ready(function () {
 
     $("input[name=add-offer]").click(function () {
-        $('.modal').modal('show');
-    });
 
+        var jobId = $("input[name=JobId]").val();
+
+        $.ajax({
+            url: "/offer/offerexists",
+            type: "POST",
+            data: { "jobId": jobId },
+            success: function (exists) {
+                if (!exists) {
+                    $('#create-offer').modal('show')
+                }
+                else {
+                    $("#exists-offer").modal('show');
+                }
+            }
+        })
+    });
 
     $("#offer-form input[type=submit]").click(function () {
 
@@ -14,7 +28,7 @@
         if (isValid) {
 
             var reciverId = $("input[name=CustomerId]").val();
-            var jobTitle = $("#jobTitle").val();
+            var jobTitle = $("#jobTitle").html();
 
             $.ajax({
                 url: "/notification/CreateNotify",
@@ -23,6 +37,7 @@
             })
         }
     })
+
 
     $("a[name=sort-payment]").click(function () {
         sortOffers($(this),"data-payment");

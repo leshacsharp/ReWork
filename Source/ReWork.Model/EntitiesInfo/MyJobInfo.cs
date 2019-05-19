@@ -5,6 +5,8 @@ namespace ReWork.Model.EntitiesInfo
 {
     public class MyJobInfo
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public int Price { get; set; }

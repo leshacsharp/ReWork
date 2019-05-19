@@ -1,0 +1,14 @@
+﻿@model ReWork.Model.EntitiesInfo.MyJobInfo
+@{
+    ViewBag.Title = "FinishJob";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    <center>
+        You have successfully completed the job - @Model.Title
+        <br />
+        <a href="/profile/createfeedback?reciverId=@Model.EmployeeId&jobId=@Model.Id"> Please, leave your review about freelancer</a>
+    </center>
+</h2>
+

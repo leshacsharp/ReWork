@@ -13,7 +13,7 @@
     //})
 
 
-    $("tbody").on("click", "input[name=delete-job]", function () {
+    $(".search-table tbody").on("click", "input[name=delete-job]", function () {
         var tr = $(this).parent().parent().parent();
         var jobId = tr.find("input[name=jobId]").val();
 
@@ -28,7 +28,7 @@
     })
 
     function SendFindJobs() {
-        $("tbody").empty();
+        $(".search-table tbody").empty();
         //var fromDate = "";
         //var fromDateStr = $("#datetimepicker input[type=text]").val();
         //if (fromDateStr != "") {
@@ -52,8 +52,8 @@
             formatResult: FormatResult,
 
             callback: function (data, pagination) {
-                $("tbody").empty();
-                $("tbody").append(data);
+                $(".search-table tbody").empty();
+                $(".search-table tbody").append(data);
             }
         })
     }

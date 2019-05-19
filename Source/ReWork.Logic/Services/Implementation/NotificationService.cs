@@ -63,7 +63,7 @@ namespace ReWork.Logic.Services.Implementation
                 Sender = sender,
                 Reciver = reciver,
                 Text = text,
-                AddedDate = DateTime.UtcNow
+                AddedDate = DateTime.UtcNow              
             };
 
             _notificationRepository.Create(notification);

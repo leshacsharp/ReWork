@@ -16,6 +16,22 @@
         })
     })
 
+    $("tbody").on("click", "input[name=user-details]", function () {
+        var user = $(this).parent().parent().parent();
+        var userId = user.find("input[name=Id]").val();
+
+        $.ajax({
+            url: "/moderator/detailsuser/",
+            type: "GET",
+            data: { "id": userId },
+            success: function (userDetailsHtml) {
+                $("#user-details-modal .modal-dialog").empty();
+                $("#user-details-modal .modal-dialog").append(userDetailsHtml);
+                $("#user-details-modal").modal("show");
+            }
+        })
+    })
+
 
     function SendFindUsers() {
         $.ajax({
@@ -48,11 +64,11 @@
             var lastName = data[i].LastName != null ? data[i].LastName : "";
             var id = data[i].Id;
 
-            var html = "<tr><td class='col-md-3'><input type='hidden' name='Id' value='" + id + "'><span class='user-fullname'>" + firstName + " " + lastName + " [" + data[i].UserName +
+            var html = "</tr><tr><td class='col-md-3'><input type='hidden' name='Id' value='" + id + "'><span class='user-fullname'>" + firstName + " " + lastName + " [" + data[i].UserName +
                 "]</span></td><td class='col-md-3'><span class='user-email'>" + data[i].Email + "</span></td>" +
                 "<td class='col-md-6'><div class='job-button'><input type='submit' class='btn btn-primary' name='delete-user' value='Delete'></div>" +
-                "<div class='job-button'><a class='btn btn-primary' href='/moderator/detailsuser/" + id + "'>Details</a></div>" +
-                "<div class='job-button'><a class='btn btn-primary' href='/moderator/edituser/" + id + "'>Edit</a></div></td></tr>";
+                "<div class='job-button'><input type='submit' class='btn btn-primary' name='user-details' value='Details'/></div>" +
+                "<div class='job-button'><a class='btn btn-primary' href='/moderator/edituser/" + id + "'>Manage</a></div></td></tr>";
             result.push(html);
         }
         return result;

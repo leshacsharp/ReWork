@@ -45,19 +45,19 @@ namespace ReWork.Logic.Hubs.Implementation
         }
 
 
-        public IEnumerable<string> GetConnections(TKey key)
+        public IEnumerable<string> FindConnections(TKey key)
         {
-            if (!_connections.ContainsKey(key))
-                throw new KeyNotFoundException($"Element with key={key} not found");
+            HashSet<string> connections = null;
+            _connections.TryGetValue(key, out connections);
 
-            return _connections[key];
+            return connections;
         }
 
 
         public void Remove(TKey key, string connectionId)
         {
             if (!_connections.ContainsKey(key))
-                throw new KeyNotFoundException($"Element with key={key} not found");
+                throw new KeyNotFoundException($"Hub connecton with key={key} not found");
 
             lock (_locker)
             {

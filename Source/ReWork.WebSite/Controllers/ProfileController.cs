@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using ReWork.Logic.Services.Abstraction;
+using ReWork.Logic.Services.Params;
+using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using ReWork.Model.ViewModels.Account;
+using ReWork.Model.ViewModels.FeedBack;
 using ReWork.Model.ViewModels.Profile;
 using System;
 using System.Collections.Generic;
@@ -18,11 +21,13 @@ namespace ReWork.WebSite.Controllers
     {
         private IUserService _userService;
         private IFeedBackService _feedBackService;
+        private ICommitProvider _commitProvider;
 
-        public ProfileController(IUserService userService, IFeedBackService feedBackService)
+        public ProfileController(IUserService userService, IFeedBackService feedBackService, ICommitProvider commitProvider)
         {
             _userService = userService;
             _feedBackService = feedBackService;
+            _commitProvider = commitProvider;
         }
 
         public IAuthenticationManager AuthenticationManager
@@ -30,6 +35,39 @@ namespace ReWork.WebSite.Controllers
             get { return HttpContext.GetOwinContext().Authentication; }
         }
 
+        [HttpGet]
+        public ActionResult CreateFeedBack(string reciverId, int jobId)
+        {
+            var createViewModel = new CreateFeedBackViewModel() { ReciverId = reciverId, JobId = jobId };
+            return View(createViewModel);
+        }
+
+
+        [HttpPost]
+        public ActionResult CreateFeedBack(CreateFeedBackViewModel createModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(createModel);
+            }
+
+            string senderId = User.Identity.GetUserId();
+            var createParams = new CreateFeedBackParams()
+            {
+                ReciverId = createModel.ReciverId,
+                SenderId = senderId,
+                JobId = createModel.JobId,
+                Text = createModel.Text,
+                QualityOfWork = createModel.QualityOfWork
+            };
+
+            //TODO: сделать уведомления для отзывов
+
+            _feedBackService.CreateFeedBack(createParams);
+            _commitProvider.SaveChanges();
+
+            return RedirectToAction("Jobs", "Job");
+        }
 
         [HttpGet]
         public ActionResult FeedBacks()
@@ -86,15 +124,13 @@ namespace ReWork.WebSite.Controllers
 
 
         [HttpPost]
-        public ActionResult ChangeProfileType(ProfileType profile)
+        public void ChangeProfileType(ProfileType profile)
         {
             HttpCookie profileCookie = Request.Cookies["profile"];
 
             profileCookie.Value = Enum.GetName(typeof(ProfileType), profile);
             profileCookie.Expires = DateTime.UtcNow.AddYears(1);
             Response.Cookies.Add(profileCookie);
-
-            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
         private void AddModeErrors(IdentityResult result)

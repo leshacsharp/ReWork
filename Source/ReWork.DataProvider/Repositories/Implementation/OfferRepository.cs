@@ -1,4 +1,5 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
+using ReWork.Model.Entities.Common;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
@@ -19,6 +20,16 @@ namespace ReWork.DataProvider.Repositories.Implementation
         public void Delete(Offer item)
         {
             Db.Offers.Remove(item);
+        }
+
+        public Offer FindOfferById(int offerId)
+        {
+            return Db.Offers.Find(offerId);
+        }
+
+        public Offer FindOffer(int jobId, string employeeId)
+        {
+            return Db.Offers.SingleOrDefault(o => o.JobId == jobId && o.EpmployeeId == employeeId);
         }
 
         public IEnumerable<OfferInfo> FindJobOffers(int jobId)
@@ -65,9 +76,10 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     join j in Db.Jobs on o.JobId equals j.Id
                     join e in Db.EmployeeProfiles on o.EpmployeeId equals e.Id
                     join u in Db.Users on e.Id equals u.Id
-                    where j.CustomerId == customerId && j.EmployeeId == null
+                    where j.CustomerId == customerId && o.OfferStatus == OfferStatus.Waited && j.EmployeeId == null
                     select new CustomerOfferInfo()
                     {
+                        Id = o.Id,
                         Text = o.Text,
                         AddedDate = (DateTime)o.AddedDate,
                         ImplementationDays = o.ImplementationDays,
@@ -76,6 +88,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         EmployeeImage = u.Image,
                         EmployeeId = e.Id,
                         UserName = u.UserName,
+                        UserDateRegistration = (DateTime)u.RegistrationdDate,
 
                         JobTitle = j.Title,
                         JobId = j.Id

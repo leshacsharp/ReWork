@@ -1,0 +1,31 @@
+﻿@model ReWork.Model.ViewModels.FeedBack.CreateFeedBackViewModel
+@{
+    ViewBag.Title = "CreateFeedBack";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateFeedBack</h2>
+
+@using (Html.BeginForm("CreateFeedBack", "Profile", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(p => p.ReciverId)
+    @Html.HiddenFor(p => p.JobId)
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Text, new { @class = "col-md-3 control-label" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(p => p.Text, new { @class = "form-control" })
+        </div>
+    </div>
+
+    //Todo: сделать форму для оценки работы QualityOfWork
+
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-9">
+            <input type="submit" class="btn btn-default" value="Create" />
+        </div>
+    </div>
+}
+
+

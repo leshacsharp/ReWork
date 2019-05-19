@@ -56,10 +56,10 @@ namespace ReWork.WebSite.Controllers
             return Json(jobs);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult MyJobDetails(int id)
         {
-            MyJobInfo job = _jobService.FindCustomerJob(id);
+            var job = _jobService.FindCustomerJob(id);
             if (job == null)
                 return View("Error");
 
@@ -84,9 +84,10 @@ namespace ReWork.WebSite.Controllers
 
 
         [HttpPost]
-        public ActionResult CustomerProfileExists()
+        public ActionResult CustomerProfileExists(string customerId)
         {
-            bool exists = _customerService.CustomerProfileExists(User.Identity.Name);
+            customerId = (customerId == null ? User.Identity.GetUserId() : customerId);
+            bool exists = _customerService.CustomerProfileExists(customerId);
             return Json(exists);
         }
     }

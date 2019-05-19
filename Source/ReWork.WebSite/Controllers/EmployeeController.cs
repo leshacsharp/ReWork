@@ -85,7 +85,7 @@ namespace ReWork.WebSite.Controllers
             _employeeService.CreateEmployeeProfile(userId, createModel.Age, createModel.AboutMe, createModel.SelectedSkills);
             _commitProvider.SaveChanges();
 
-            return Redirect(Request.UrlReferrer.PathAndQuery);
+            return RedirectToAction("settings", "account");
         }
 
 
@@ -230,11 +230,12 @@ namespace ReWork.WebSite.Controllers
             return groupData;
         }
       
+
         [HttpPost]
-        public ActionResult EmployeeProfileExists()
+        public ActionResult EmployeeProfileExists(string employeeId)
         {
-            string userId = User.Identity.GetUserId();
-            bool exists = _employeeService.EmployeeProfileExists(userId);
+            employeeId = (employeeId == null ? User.Identity.GetUserId() : employeeId);
+            bool exists = _employeeService.EmployeeProfileExists(employeeId);
             return Json(exists);
         }
     }

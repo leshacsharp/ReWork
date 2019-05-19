@@ -308,6 +308,8 @@
     <Content Include="Views\Customer\MyJobDetails.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Profile\FeedBacks.cshtml" />
+    <Content Include="Views\Job\FinishJob.cshtml" />
+    <Content Include="Views\Profile\CreateFeedBack.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

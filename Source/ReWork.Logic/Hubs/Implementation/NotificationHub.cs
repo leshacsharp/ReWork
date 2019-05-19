@@ -34,11 +34,14 @@ namespace ReWork.Logic.Hubs.Implementation
         public void RefreshNotifications(string userId, string notificationsJson)
         {
             var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-            var connections = _connections.GetConnections(userId);
+            var connections = _connections.FindConnections(userId);
 
-            foreach (var connectionId in connections)
+            if (connections != null)
             {
-                context.Clients.Client(connectionId).refreshNotifications(notificationsJson);
+                foreach (var connectionId in connections)
+                {
+                    context.Clients.Client(connectionId).refreshNotifications(notificationsJson);
+                }
             }
         }
 

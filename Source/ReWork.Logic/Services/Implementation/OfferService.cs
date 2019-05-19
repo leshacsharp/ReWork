@@ -3,6 +3,7 @@ using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
+using ReWork.Model.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -23,22 +24,34 @@ namespace ReWork.Logic.Services.Implementation
             _jobRepository = jobRep;
         }
 
-        public void AcceptOffer(int jobId, string employeeId)
+        public void AcceptOffer(int offerId, string employeeId)
         {
-            var job = _jobRepository.FindJobById(jobId);
-            if (job == null)
-                throw new ObjectNotFoundException($"Job with id={jobId} not found");
+            var offer = _offerRepository.FindOfferById(offerId);
+            if (offer == null)
+                throw new ObjectNotFoundException($"Offer with id={offerId} not found");
 
             var employee = _employeeRepository.FindEmployeeById(employeeId);
             if (employee == null)
                 throw new ObjectNotFoundException($"Employee profile with id={employeeId} not found");
 
-            job.Employee = employee;
-            job.Status = Model.Entities.Common.ProjectStatus.Closed;
 
-            _jobRepository.Update(job);
+            offer.OfferStatus = OfferStatus.Accepted;
+            offer.Job.Employee = employee;
+            offer.Job.Status = ProjectStatus.Closed;
+
+            _offerRepository.Update(offer);
         }
 
+        public void RejectOffer(int offerId)
+        {
+            var offer = _offerRepository.FindOfferById(offerId);
+            if (offer == null)
+                throw new ObjectNotFoundException($"Offer with id={offerId} not found");
+
+            offer.OfferStatus = OfferStatus.Rejected;
+
+            _offerRepository.Update(offer);
+        }
 
         public void CreateOffer(CreateOfferParams offerParams)
         {
@@ -51,8 +64,8 @@ namespace ReWork.Logic.Services.Implementation
                 throw new ObjectNotFoundException($"Job with id={offerParams.JobId} not found");
 
 
-            bool existsOfferOnThisJob = employee.Offers.Any(p => p.JobId == offerParams.JobId);
-            if (existsOfferOnThisJob)
+            var offerForJob = _offerRepository.FindOffer(offerParams.JobId, offerParams.EmployeeId);
+            if (offerForJob != null)
                 throw new ArgumentException($"At user with id={employee.Id} already have offer to job with id={job.Id}");
 
 
@@ -85,6 +98,12 @@ namespace ReWork.Logic.Services.Implementation
         public IEnumerable<OfferInfo>FindJobOffers(int jobId)
         {
             return _offerRepository.FindJobOffers(jobId);
+        }
+
+        public bool OfferExists(int jobId, string employeeId)
+        {
+            var offer = _offerRepository.FindOffer(jobId, employeeId);
+            return offer != null;
         }
     }
 }

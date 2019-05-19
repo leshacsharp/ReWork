@@ -370,9 +370,11 @@ label.input-error {
     width: 0;
 }
 
-.job-button{
-    display:inline-block;
+.job-button {
+    display: inline-block;
     margin-right: 20px;
+    position: relative;
+    bottom: 6px;
 }
 
 .profile-inforamtion{
@@ -737,9 +739,10 @@ ul.nav.nav-tabs.fancy {
     color: #808080;
 }
 
-.accept-offer-btn {
-    max-width: 120px;
+.offer-btn {
+    max-width: 110px;
     width: 100%;
+    margin:5px 0;
 }
 
 
@@ -947,9 +950,9 @@ ul.nav.nav-tabs.fancy {
 .users-table {
 }
 
-.users-table tr {
-    margin: 30px 0;
-    border-bottom: 1px solid #95959;
+.users-table > tbody > tr > td {
+    padding-top: 20px;
+    padding-bottom: 20px
 }
 
 

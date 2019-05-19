@@ -7,20 +7,35 @@
 
 @if (Html.IsProfile(ProfileType.Employee))
 {
-    <div class="modal fade">
+    <div class="modal fade" id="create-offer">
         <div class="modal-dialog">
             @Html.Action("Create", "Offer", new { id = Model.Job.Id })
         </div>
     </div>
+
+    <div class="modal fade" id="exists-offer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+                    <h4>Information</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <h3>This job already has your offer</h3>
+                    </center>
+                </div> 
+            </div>
+        </div>
+    </div>
 }
-
-<input type="submit" name="btn" value="btn"/>
-
+         
 <div class="row">
     <div class="col-md-12">
         <div class="job-details-title">
             <h3>
-                @Html.Hidden("CustomerId",Model.Job.CustomerId)
+                @Html.Hidden("CustomerId", Model.Job.CustomerId)
+                @Html.Hidden("JobId", Model.Job.Id)
 
                 <a href="@Url.Action("jobs","job")">Freelance Projects</a>
                 <span style="color:#555;"> › </span>

@@ -16,7 +16,6 @@ namespace ReWork.WebSite.Controllers
     public class OfferController : Controller
     {
         private IOfferService _offerService;
-        private INotificationService _notificationService;
         private ICommitProvider _commitProvider;
 
         public OfferController(IOfferService offerService, ICommitProvider commitProvider)
@@ -51,11 +50,28 @@ namespace ReWork.WebSite.Controllers
             return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
+
         [HttpPost]
-        public void AcceptOffer(string employeeId, int jobId)
+        public void AcceptOffer(int offerId, string employeeId)
         {
-            _offerService.AcceptOffer(jobId, employeeId);
+            _offerService.AcceptOffer(offerId, employeeId);
             _commitProvider.SaveChanges();
+        }
+
+
+        [HttpPost]
+        public void RejectOffer(int offerId)
+        {
+            _offerService.RejectOffer(offerId);
+            _commitProvider.SaveChanges();
+        }
+
+        [HttpPost]
+        public ActionResult OfferExists(int jobId)
+        {
+            string userId = User.Identity.GetUserId();
+            bool offerExists = _offerService.OfferExists(jobId, userId);
+            return Json(offerExists);
         }
 
     }

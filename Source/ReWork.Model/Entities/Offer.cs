@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReWork.Model.Entities.Common;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,6 +25,8 @@ namespace ReWork.Model.Entities
         [Required]
         [Range(0,1000000)]
         public int OfferPayment { get; set; }
+
+        public OfferStatus OfferStatus { get; set; }
 
         [ForeignKey("Job")]
         public int JobId { get; set; }

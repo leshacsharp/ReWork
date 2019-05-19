@@ -64,6 +64,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     where j.Id == id
                     select new MyJobInfo()
                     {
+                        Id = j.Id,
                         Title = j.Title,
                         Price = j.Price,
                         PriceDiscussed = j.PriceDiscussed,
