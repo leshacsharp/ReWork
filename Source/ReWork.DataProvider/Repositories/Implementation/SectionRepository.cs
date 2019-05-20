@@ -1,4 +1,5 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
+using ReWork.Model.Entities.Common;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
@@ -36,7 +37,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         {
                             Id = p.Id,
                             Title = p.Title,
-                            CountJobs = p.Jobs.Count,
+                            CountJobs = p.Jobs.Count(j => j.Status == ProjectStatus.Open),
                             CountEmployees = p.Employes.Count
                         })
                     }).ToList();

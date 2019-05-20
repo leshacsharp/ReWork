@@ -4,5 +4,6 @@
     {
         Open = 0,
         Closed = 1,
+        Finish = 2
     }
 }

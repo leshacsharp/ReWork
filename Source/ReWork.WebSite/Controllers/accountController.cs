@@ -269,7 +269,7 @@ namespace ReWork.WebSite.Controllers
         public ActionResult SignOut()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Jobs", "Job");
         }
 
         private void AddModeErrors(IdentityResult result)

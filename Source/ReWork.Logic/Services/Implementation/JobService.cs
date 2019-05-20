@@ -94,6 +94,7 @@ namespace ReWork.Logic.Services.Implementation
             _jobRepository.Delete(job);
         }
 
+
         public void DeleteEmployeeFromJob(int jobId)
         {
             var job = _jobRepository.FindJobById(jobId);
@@ -107,6 +108,15 @@ namespace ReWork.Logic.Services.Implementation
             job.EmployeeId = null;
         }
 
+        public void FinishJob(int jobId)
+        {
+            var job = _jobRepository.FindJobById(jobId);
+            if (job == null)
+                throw new ObjectNotFoundException($"Job with id={jobId} not found");
+
+            job.Status = ProjectStatus.Finish;
+            _jobRepository.Update(job);
+        }
 
 
         public JobInfo FindJob(int jobId)
@@ -123,7 +133,7 @@ namespace ReWork.Logic.Services.Implementation
         public IEnumerable<JobInfo> FindCustomerJobs(string customerId, DateTime? fromDate)
         {
             var filter = PredicateBuilder.True<Job>();
-            filter = filter.AndAlso<Job>(job=>job.CustomerId == customerId);
+            filter = filter.AndAlso<Job>(j => j.CustomerId == customerId && j.Status != ProjectStatus.Finish);
 
             if(fromDate != null)
             {
@@ -138,7 +148,7 @@ namespace ReWork.Logic.Services.Implementation
         public IEnumerable<JobInfo> FindEmployeeJobs(string employeeId, DateTime? fromDate)
         {
             var filter = PredicateBuilder.True<Job>();
-            filter = filter.AndAlso<Job>(job => job.EmployeeId == employeeId);
+            filter = filter.AndAlso<Job>(j => j.EmployeeId == employeeId && j.Status != ProjectStatus.Finish);
 
             if (fromDate != null)
             {

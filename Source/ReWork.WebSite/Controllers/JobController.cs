@@ -20,15 +20,17 @@ namespace ReWork.WebSite.Controllers
         private IJobService _jobService;
         private IOfferService _offerService;
         private ISectionService _sectionService;
-        private ISkillService _skillService; 
+        private ISkillService _skillService;
+        private INotificationService _notificationService;
         private ICommitProvider _commitProvider;
 
-        public JobController(IJobService jobService, IOfferService offerService, ISectionService sectionService, ISkillService skillService, ICommitProvider commitProvider)
+        public JobController(IJobService jobService, IOfferService offerService, ISectionService sectionService, ISkillService skillService, INotificationService notificationService, ICommitProvider commitProvider)
         {
             _jobService = jobService;
             _offerService = offerService;
             _sectionService = sectionService;
             _skillService = skillService;
+            _notificationService = notificationService;
             _commitProvider = commitProvider;
         } 
 
@@ -61,7 +63,7 @@ namespace ReWork.WebSite.Controllers
             _jobService.CreateJob(jobParams);
             _commitProvider.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Jobs", "Job");
         }
 
 
@@ -121,7 +123,7 @@ namespace ReWork.WebSite.Controllers
             _jobService.DeleteJob(id);
             _commitProvider.SaveChanges();
         }
-
+         
         [HttpPost]
         public void DeleteEmployeeFromJob(int id)
         {
@@ -150,7 +152,16 @@ namespace ReWork.WebSite.Controllers
             if (job == null)
                 return View("Error");
 
-            return View(job);
+            _jobService.FinishJob(id);
+
+            string senderId = User.Identity.GetUserId();
+            string notifyText = $"You successfully finish job - {job.Title}";
+            _notificationService.CreateNotification(senderId, job.EmployeeId, notifyText);
+
+            _commitProvider.SaveChanges();
+            _notificationService.RefreshNotifications(job.EmployeeId);
+
+             return View(job);
         }
 
 

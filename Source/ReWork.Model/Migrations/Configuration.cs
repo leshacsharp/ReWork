@@ -63,13 +63,17 @@ namespace ReWork.Model.Migrations
 
             Section programming = context.Sections.SingleOrDefault(p => p.Title.Equals("Programming"));
             Section design = context.Sections.SingleOrDefault(p => p.Title.Equals("Design sites"));
+            Section copirating = context.Sections.SingleOrDefault(p => p.Title.Equals("Copirating"));
+
             if (programming == null && design == null)
             {
                 programming = new Section() { Title = "Programming" };
                 design = new Section() { Title = "Design sites" };
+                copirating = new Section() { Title = "Copirating" };
 
                 context.Sections.Add(programming);
                 context.Sections.Add(design);
+                context.Sections.Add(copirating);
             }
 
 
@@ -77,19 +81,26 @@ namespace ReWork.Model.Migrations
             Skill skillJa = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
             Skill skillCss = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
             Skill skillScss = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
+            Skill skillText = context.Skills.FirstOrDefault(p => p.Title.Equals("Text"));
+            Skill skillReviews = context.Skills.FirstOrDefault(p => p.Title.Equals("Reviews"));
+
             if (skillCs == null && skillJa == null && skillCss == null && skillScss == null)
             {
                 skillCs = new Skill() { Title = "C#", Section = programming };
                 skillJa = new Skill() { Title = "Java", Section = programming };
                 skillCss = new Skill() { Title = "CSS", Section = design };
                 skillScss = new Skill() { Title = "SCSS", Section = design };
+                skillText = new Skill() { Title = "Text", Section = design };
+                skillReviews = new Skill() { Title = "Reviews", Section = design };
 
                 context.Skills.Add(skillCs);
                 context.Skills.Add(skillJa);
                 context.Skills.Add(skillCss);
                 context.Skills.Add(skillScss);
+                context.Skills.Add(skillText);
+                context.Skills.Add(skillReviews);
             }
-
+          
 
             var websiteJob = new Job()
             {
@@ -116,6 +127,8 @@ namespace ReWork.Model.Migrations
             designJob.Skills.Add(skillCss);
             designJob.Skills.Add(skillScss);
 
+            context.Jobs.AddOrUpdate(websiteJob);
+            context.Jobs.AddOrUpdate(designJob);
 
             context.SaveChanges();
         }

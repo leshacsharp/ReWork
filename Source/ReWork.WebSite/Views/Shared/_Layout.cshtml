@@ -40,11 +40,6 @@
                                 <li>@Html.ActionLink("Users", "Users", "Moderator")</li>
                             }
                         }
-                        else
-                        {
-                            <li>@Html.ActionLink(Resources.Global.Registration, "registration", "account")</li>
-                            <li>@Html.ActionLink(Resources.Global.Login, "login", "account")</li>
-                        }
                     </ul>
 
 
@@ -115,6 +110,11 @@
                                     </div>
                                 </div>
                             </li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(Resources.Global.Registration, "registration", "account")</li>
+                            <li>@Html.ActionLink(Resources.Global.Login, "login", "account")</li>
                         }
                     </ul>
                 </div>

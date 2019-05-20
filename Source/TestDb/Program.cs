@@ -1,6 +1,7 @@
 ﻿using FirstQuad.Common.Helpers;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
+using ReWork.Model.Entities.Common;
 using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections;

@@ -35,6 +35,7 @@ $(document).ready(function () {
             else {
                 html = "<a href='/employee/create'><input type='button' value='create' class='btn btn-success'/></a>";
             }
+
             $("#employee-section").append(html);
         }
     })

@@ -14,7 +14,9 @@ namespace ReWork.Logic.Services.Abstraction
         void CreateJob(CreateJobParams createJobParams);
         void Edit(EditJobParams editJobParams);
         void DeleteJob(int jobId);
+
         void DeleteEmployeeFromJob(int jobId);
+        void FinishJob(int jobId);
 
         JobInfo FindJob(int jobId);
         MyJobInfo FindCustomerJob(int jobId);
