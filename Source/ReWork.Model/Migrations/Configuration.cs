@@ -61,19 +61,41 @@ namespace ReWork.Model.Migrations
                 userManager.ConfirmEmail(moderator.Id, token);
             }
 
-            Section programming = context.Sections.SingleOrDefault(p => p.Title.Equals("Programming"));
+            var user = userManager.FindByName("anton");
+            if (user == null)
+            {
+                user = new User() { UserName = "anton", Email = "star4enko.aleksey2015@yandex.ru", FirstName = "Anton", LastName = "Antonio", RegistrationdDate = DateTime.UtcNow };
+
+                string pathToDefaultImage = HttpContext.Current.Server.MapPath("~/Content/cube-512.png");
+                byte[] defaultImage = File.ReadAllBytes(pathToDefaultImage);
+                user.Image = defaultImage;
+
+                userManager.Create(user, "123456");
+                userManager.AddToRole(user.Id, "user");
+
+                var customerProfile = new CustomerProfile() { User = user };
+                context.CustomerProfiles.Add(customerProfile);
+
+                var dataProtectionProvider = new DpapiDataProtectionProvider();
+                userManager.UserTokenProvider = new DataProtectorTokenProvider<User>(dataProtectionProvider.Create());
+
+                string token = userManager.GenerateEmailConfirmationToken(user.Id);
+                userManager.ConfirmEmail(user.Id, token);
+            }
+
+
+                Section programming = context.Sections.SingleOrDefault(p => p.Title.Equals("Programming"));
             Section design = context.Sections.SingleOrDefault(p => p.Title.Equals("Design sites"));
-            Section copirating = context.Sections.SingleOrDefault(p => p.Title.Equals("Copirating"));
+           // Section copirating = context.Sections.SingleOrDefault(p => p.Title.Equals("Copirating"));
 
             if (programming == null && design == null)
             {
                 programming = new Section() { Title = "Programming" };
                 design = new Section() { Title = "Design sites" };
-                copirating = new Section() { Title = "Copirating" };
+                
 
                 context.Sections.Add(programming);
                 context.Sections.Add(design);
-                context.Sections.Add(copirating);
             }
 
 
@@ -81,8 +103,7 @@ namespace ReWork.Model.Migrations
             Skill skillJa = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
             Skill skillCss = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
             Skill skillScss = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
-            Skill skillText = context.Skills.FirstOrDefault(p => p.Title.Equals("Text"));
-            Skill skillReviews = context.Skills.FirstOrDefault(p => p.Title.Equals("Reviews"));
+          
 
             if (skillCs == null && skillJa == null && skillCss == null && skillScss == null)
             {
@@ -90,20 +111,19 @@ namespace ReWork.Model.Migrations
                 skillJa = new Skill() { Title = "Java", Section = programming };
                 skillCss = new Skill() { Title = "CSS", Section = design };
                 skillScss = new Skill() { Title = "SCSS", Section = design };
-                skillText = new Skill() { Title = "Text", Section = design };
-                skillReviews = new Skill() { Title = "Reviews", Section = design };
+               
 
                 context.Skills.Add(skillCs);
                 context.Skills.Add(skillJa);
                 context.Skills.Add(skillCss);
                 context.Skills.Add(skillScss);
-                context.Skills.Add(skillText);
-                context.Skills.Add(skillReviews);
+             
             }
-          
+
 
             var websiteJob = new Job()
             {
+                Id = 1,
                 CustomerId = moderator.Id,
                 Title = "create website",
                 Description = "web site must be beautifull, topic this web site its cars",
@@ -114,6 +134,7 @@ namespace ReWork.Model.Migrations
 
             var designJob = new Job()
             {
+                Id = 2,
                 CustomerId = moderator.Id,
                 Title = "create design for my site",
                 Description = "crate beautifully design, i want see my website in gray colors",

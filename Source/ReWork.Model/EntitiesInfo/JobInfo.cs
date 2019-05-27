@@ -17,6 +17,8 @@ namespace ReWork.Model.EntitiesInfo
 
         public DateTime DateAdded { get; set; }
 
+        public int CountViews { get; set; }
+
         public int CountOffers { get; set; }
 
         public string CustomerId { get; set; }

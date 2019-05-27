@@ -35,5 +35,11 @@ namespace ReWork.Model.Entities
         public virtual ICollection<Notification> RecivedNotifications { get; set; }
 
         public virtual ICollection<Notification> SentNofications { get; set; }
+
+        public virtual ICollection<Job> ViewedJobs { get; set; }
+
+        public virtual ICollection<ChatRoom> ChatRooms{ get; set; }
+
+        public virtual ICollection<Message> SentMessages{ get; set; }
     }
 }

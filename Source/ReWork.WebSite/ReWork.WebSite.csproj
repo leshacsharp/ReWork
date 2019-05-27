@@ -178,6 +178,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -225,6 +226,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\chat.js" />
     <Content Include="Scripts\app\customer-jobs.js" />
     <Content Include="Scripts\app\user-settings.js" />
     <Content Include="Scripts\app\users.js" />
@@ -310,6 +312,7 @@
     <Content Include="Views\Profile\FeedBacks.cshtml" />
     <Content Include="Views\Job\FinishJob.cshtml" />
     <Content Include="Views\Profile\CreateFeedBack.cshtml" />
+    <Content Include="Views\Chat\Chat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

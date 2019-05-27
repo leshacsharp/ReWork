@@ -110,11 +110,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hubs\Abstraction\IChatHub.cs" />
+    <Compile Include="Hubs\Abstraction\IUserHub.cs" />
+    <Compile Include="Hubs\Implementation\ChatHub.cs" />
     <Compile Include="Hubs\Implementation\HubConnections.cs" />
+    <Compile Include="Hubs\Implementation\UserHub.cs" />
     <Compile Include="Infustructure\OperationDetails.cs" />
     <Compile Include="Ioc\DbModule.cs" />
     <Compile Include="Ioc\RepositoryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Abstraction\IChatService.cs" />
     <Compile Include="Services\Abstraction\ICustomerProfileService.cs" />
     <Compile Include="Services\Abstraction\IEmployeeProfileService.cs" />
     <Compile Include="Services\Abstraction\IFeedBackService.cs" />
@@ -125,6 +130,7 @@
     <Compile Include="Services\Abstraction\ISkillService.cs" />
     <Compile Include="Services\Abstraction\IUserService.cs" />
     <Compile Include="Services\Abstraction\IJobService.cs" />
+    <Compile Include="Services\Implementation\ChatService.cs" />
     <Compile Include="Services\Implementation\CustomerProfileService.cs" />
     <Compile Include="Services\Implementation\EmployeeProfileService.cs" />
     <Compile Include="Services\Abstraction\IOfferService.cs" />

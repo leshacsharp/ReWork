@@ -44,7 +44,8 @@
                 "<span class='employee-offer-time'>" + data[i].ImplementationDays + " days</span> <span class='employee-offer-price'>" +
                 data[i].OfferPayment + " $</span><span class='employee-offer-reg-date hidden-xs'>Date offer: " + offerRegDate + "</span>" +
                 "<div class='employee-offer-text'>" + data[i].Text + "</div></td>" +
-                "<td class='col-md-2 col-sm-2 col-xs-2'><input type='hidden' name='jobId' value='" + data[i].JobId + "'>" +
+                "<td class='col-md-2 col-sm-2 col-xs-2'>" +
+                "<input type='hidden' name='jobId' value='" + data[i].JobId + "'>" +
                 "<input type='hidden' name='employeeId' value='" + data[i].EmployeeId + "'>" + 
                 "<input type='hidden' name='offerId' value='" + data[i].Id + "'>" + 
                 "<div style='margin-top: -5px;'> <input type='submit' name='accept-offer' class='btn btn-primary offer-btn' value='Accept offer'></div>" +
@@ -58,13 +59,14 @@
 
     $(".search-table tbody").on("click", "input[name=accept-offer]", function () {
         var parent = $(this).parent().parent().parent();
+
         var offerId = parent.find("input[name=offerId]").val();
-        var employeeId = parent.find("input[name=employeeId]").val();    
+        var employeeId = parent.find("input[name=employeeId]").val();        
 
         $.ajax({
             url: "/offer/acceptoffer",
             type: "POST",
-            data: { "offerId": offerId, "employeeId": employeeId},
+            data: { "offerId": offerId, "employeeId": employeeId },
             success: function () {
 
                 parent.remove();

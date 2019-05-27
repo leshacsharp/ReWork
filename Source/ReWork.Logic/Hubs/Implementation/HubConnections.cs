@@ -57,7 +57,7 @@ namespace ReWork.Logic.Hubs.Implementation
         public void Remove(TKey key, string connectionId)
         {
             if (!_connections.ContainsKey(key))
-                throw new KeyNotFoundException($"Hub connecton with key={key} not found");
+                throw new KeyNotFoundException($"Hub connection with key={key} not found");
 
             lock (_locker)
             {

@@ -1052,3 +1052,13 @@ ul.nav.nav-tabs.fancy {
     height: 18px;
     text-align: center;
 }
+
+
+.users-count{
+    font-size:110%;
+}
+
+    .users-count > .counter {
+        font-weight: 600;
+        color: #696969;
+    }

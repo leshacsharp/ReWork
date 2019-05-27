@@ -16,6 +16,9 @@ namespace ReWork.Model.Context
         DbSet<Section> Sections { get; set; }
         DbSet<Skill> Skills { get; set; }
         DbSet<Notification> Notifications { get; set; }
+        DbSet<ChatRoom> ChatRooms { get; set; }
+        DbSet<Message> Messages { get; set; }
+
 
         DbEntityEntry Entry(object entity);
         int SaveChanges();

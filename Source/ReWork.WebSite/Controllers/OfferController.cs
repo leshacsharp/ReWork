@@ -16,11 +16,13 @@ namespace ReWork.WebSite.Controllers
     public class OfferController : Controller
     {
         private IOfferService _offerService;
+        private INotificationService _notificationService;
         private ICommitProvider _commitProvider;
 
-        public OfferController(IOfferService offerService, ICommitProvider commitProvider)
+        public OfferController(IOfferService offerService, INotificationService notificationService, ICommitProvider commitProvider)
         {
-            _offerService = offerService; 
+            _offerService = offerService;
+            _notificationService = notificationService;
             _commitProvider = commitProvider;
         }
 
@@ -55,7 +57,14 @@ namespace ReWork.WebSite.Controllers
         public void AcceptOffer(int offerId, string employeeId)
         {
             _offerService.AcceptOffer(offerId, employeeId);
+
+            string senderId = User.Identity.GetUserId();
+            string notifyText = "You have been chosen to work in a project <a href='/employee/myjobs'>you projects</a>";
+
+            _notificationService.CreateNotification(senderId, employeeId, notifyText);
             _commitProvider.SaveChanges();
+
+            _notificationService.RefreshNotifications(employeeId);
         }
 
 

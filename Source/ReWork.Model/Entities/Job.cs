@@ -28,7 +28,7 @@ namespace ReWork.Model.Entities
         public ProjectStatus Status { get; set; }
 
         [Required]
-        public DateTime? DateAdded { get; set; }
+        public DateTime? DateAdded { get; set; }     
 
         [ForeignKey("Customer")]
         public string CustomerId { get; set; }
@@ -49,11 +49,14 @@ namespace ReWork.Model.Entities
 
         public virtual ICollection<FeedBack> FeedBacks { get; set; }
 
+        public virtual ICollection<User> ViewedUsers { get; set; }
+
         public Job()
         {
             Offers = new List<Offer>();
             Skills = new List<Skill>();
             FeedBacks = new List<FeedBack>();
+            ViewedUsers = new List<User>();
         }
     }
 }

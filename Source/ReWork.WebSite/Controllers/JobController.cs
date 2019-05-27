@@ -18,15 +18,17 @@ namespace ReWork.WebSite.Controllers
     public class JobController : Controller
     {
         private IJobService _jobService;
+        private IEmployeeProfileService _employeeService;
         private IOfferService _offerService;
         private ISectionService _sectionService;
         private ISkillService _skillService;
         private INotificationService _notificationService;
         private ICommitProvider _commitProvider;
 
-        public JobController(IJobService jobService, IOfferService offerService, ISectionService sectionService, ISkillService skillService, INotificationService notificationService, ICommitProvider commitProvider)
+        public JobController(IJobService jobService, IEmployeeProfileService employeeService, IOfferService offerService, ISectionService sectionService, ISkillService skillService, INotificationService notificationService, ICommitProvider commitProvider)
         {
             _jobService = jobService;
+            _employeeService = employeeService;
             _offerService = offerService;
             _sectionService = sectionService;
             _skillService = skillService;
@@ -139,6 +141,18 @@ namespace ReWork.WebSite.Controllers
             if (job == null)
                 return View("Error");
 
+            if(User.Identity.IsAuthenticated)
+            {
+                string userId = User.Identity.GetUserId();
+                bool userViewExists = _jobService.UserViewExists(id, userId);
+
+                if (!userViewExists && job.CustomerId != userId)
+                {
+                    _jobService.ViewJob(id, userId);
+                    _commitProvider.SaveChanges();
+                }
+            }
+               
             var offers = _offerService.FindJobOffers(id);
             DetailsJobViewModel detailsJobModel = new DetailsJobViewModel() { Job = job, Offers = offers };
 
@@ -155,7 +169,7 @@ namespace ReWork.WebSite.Controllers
             _jobService.FinishJob(id);
 
             string senderId = User.Identity.GetUserId();
-            string notifyText = $"You successfully finish job - {job.Title}";
+            string notifyText = $"You successfully finish job - {job.Title} <a href='/profile/createfeedback?reciverId={senderId}&jobId={id}'> please add review about your customer</a>";
             _notificationService.CreateNotification(senderId, job.EmployeeId, notifyText);
 
             _commitProvider.SaveChanges();
@@ -178,7 +192,21 @@ namespace ReWork.WebSite.Controllers
         [HttpPost]
         public ActionResult Jobs(int[] skillsId, string keyWords, int priceFrom = 0)
         {
-            var jobs = _jobService.FindJobs(skillsId, keyWords, priceFrom);
+            int[] employeeSkills = null;
+
+            if(User.Identity.IsAuthenticated)
+            {
+                string userId = User.Identity.GetUserId();
+                bool employeeExists = _employeeService.EmployeeProfileExists(userId);
+
+                if(employeeExists)
+                {
+                    var employee = _employeeService.FindEmployee(userId);
+                    employeeSkills = employee.Skills.Select(p => p.Id).ToArray();
+                }
+            }
+
+            var jobs = _jobService.FindRelevantJobs(skillsId, keyWords, priceFrom, employeeSkills);
             return Json(jobs);
         }
 

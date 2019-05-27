@@ -15,7 +15,6 @@ namespace ReWork.WebSite.Controllers
 
         public ActionResult ServerError()
         {
-            //TODO: сделать логгировнаие
             return View();
         }
     }

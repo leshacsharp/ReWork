@@ -21,22 +21,20 @@
         $("button[value=Employee]").click(function () {
             var selectedProfile = $(this).val();
 
-            if (selectedProfile == "Employee") {
-                $.ajax({
-                    url: "/employee/EmployeeProfileExists",
-                    type: "POST",
-                    success: function (exists) {
-                        if (exists) {
-                            $.post("/profile/changeprofiletype", { "profile": "Employee" }, function () {
-                                ChangeProfileType(selectedProfile);
-                            })
-                        }
-                        else {
-                            $("#not-exists-emloyee").modal("show");
-                        }
+            $.ajax({
+                url: "/employee/EmployeeProfileExists",
+                type: "POST",
+                success: function (exists) {
+                    if (exists) {
+                        $.post("/profile/changeprofiletype", { "profile": "Employee" }, function () {
+                            ChangeProfileType(selectedProfile);
+                        })
                     }
-                })
-            }
+                    else {
+                        $("#not-exists-emloyee").modal("show");
+                    }
+                }
+            })
         })
 
         //change-profile
@@ -62,8 +60,9 @@
                     returnUrl = "/customer/myjobs";
             }
 
-            $.post("/profile/ChangeProfileType", { "profile": selectedProfile });
-            location.href = returnUrl;
+            $.post("/profile/ChangeProfileType", { "profile": selectedProfile }, function () {
+                location.href = returnUrl;
+            });
         }
 
 
@@ -76,16 +75,6 @@
             }
         })
 
-
-        var notificationHub = $.connection.notificationHub;
-
-        notificationHub.client.refreshNotifications = function (notifications) {
-            var parseNotifications = $.parseJSON(notifications);
-
-            AppendFormatNotifications(parseNotifications);
-        };
-
-        $.connection.hub.start()
 
 
         $("#notifications-container").on("click", ".notification-item-delete", function () {
@@ -132,8 +121,6 @@
             }
         })
 
-
-
         function AppendFormatNotifications(notifications) {
 
             $(".notifications-counter").html(notifications.length);
@@ -161,6 +148,32 @@
                 $("#notifications-container").append(html);
             }
         }
+
+
+
+
+
+
+        var notificationHub = $.connection.notificationHub;
+        var userHub = $.connection.userHub;
+
+        notificationHub.client.refreshNotifications = function (notifications) {
+            var parseNotifications = $.parseJSON(notifications);
+
+            AppendFormatNotifications(parseNotifications);
+        };
+
+        userHub.client.refreshUsersCounter = function (count) {
+            $(".users-count > .counter").html(count);
+        }
+
+        $.connection.hub.start().done(function () {
+
+            setInterval(function () {
+                userHub.server.refreshUsersCounter();
+            }, 10000);
+
+        })
     }
 
     function ParseCsharpDate(date) {

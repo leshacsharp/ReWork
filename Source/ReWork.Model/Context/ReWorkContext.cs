@@ -26,6 +26,8 @@ namespace ReWork.Model.Context
         public DbSet<Section> Sections { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<ChatRoom> ChatRooms { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -12,19 +12,23 @@ using System.Text;
 using System.Threading.Tasks;
 using ReWork.Model.Entities.Common;
 using System.Data.Entity.Core;
+using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 
 namespace ReWork.Logic.Services.Implementation
 {
     public class JobService : IJobService
     {
         private IJobRepository _jobRepository;
+        private UserManager<User> _userManager;
         private ICustomerProfileRepository _customerRepository;
         private IEmployeeProfileRepository _employeeRepository;
         private ISkillRepository _skillRepository;
 
-        public JobService(IJobRepository jobRep, ICustomerProfileRepository customerRep, IEmployeeProfileRepository employeeRep, ISkillRepository skillRep)
+        public JobService(IJobRepository jobRep, UserManager<User> userManager, ICustomerProfileRepository customerRep, IEmployeeProfileRepository employeeRep, ISkillRepository skillRep)
         {
             _jobRepository = jobRep;
+            _userManager = userManager;
             _customerRepository = customerRep;
             _employeeRepository = employeeRep;
             _skillRepository = skillRep;
@@ -95,6 +99,8 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
+
+
         public void DeleteEmployeeFromJob(int jobId)
         {
             var job = _jobRepository.FindJobById(jobId);
@@ -118,6 +124,35 @@ namespace ReWork.Logic.Services.Implementation
             _jobRepository.Update(job);
         }
 
+        public void ViewJob(int jobId, string userId)
+        {
+            var job = _jobRepository.FindJobById(jobId);
+            if (job == null)
+                throw new ObjectNotFoundException($"Job with id={jobId} not found");
+
+            var user = _userManager.FindById(userId);
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            bool userViewExists = user.ViewedJobs.Any(p => p.Id == jobId);
+            if (userViewExists)
+                throw new ArgumentException($"User with id={userId} already see job with id={jobId}");
+
+            job.ViewedUsers.Add(user);
+
+            _jobRepository.Update(job);
+        }
+
+        public bool UserViewExists(int jobId, string userId)
+        {
+            var user = _userManager.FindById(userId);
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            return user.ViewedJobs.Any(p => p.Id == jobId);
+        }
+
+
 
         public JobInfo FindJob(int jobId)
         {
@@ -128,6 +163,7 @@ namespace ReWork.Logic.Services.Implementation
         {
             return _jobRepository.FindMyJobInfo(jobId);
         }
+
 
 
         public IEnumerable<JobInfo> FindCustomerJobs(string customerId, DateTime? fromDate)
@@ -162,6 +198,47 @@ namespace ReWork.Logic.Services.Implementation
 
         public IEnumerable<JobInfo> FindJobs(int[] skillsId, string keyWords, int priceFrom)
         {
+            Expression<Func<Job, bool>> filter = JobFilter(skillsId, keyWords, priceFrom);
+
+            return _jobRepository.FindJobsInfo(filter)
+                                 .OrderByDescending(p => p.DateAdded)
+                                 .ToList();
+        }
+
+        public IEnumerable<JobInfo> FindRelevantJobs(int[] skillsId, string keyWords, int priceFrom, int[] emloyeeSkillsId = null)
+        {
+            Expression<Func<Job, bool>> filter = JobFilter(skillsId, keyWords, priceFrom);
+
+            const int skillsPercent = 40;
+            const int pricePercent = 30;
+            const int datePercent = 20;
+            const int viewsPercent = 10;
+
+            const double maxPrice = 100000;
+            const double maxViews = 100000;
+            const double maxHours = 4320; //180 days
+
+            var jobSkills = skillsId == null ? Enumerable.Empty<int>() : skillsId;
+            var employeeSkills = emloyeeSkillsId == null ? Enumerable.Empty<int>() : emloyeeSkillsId;
+            var skillsForSort = jobSkills.Union(employeeSkills);
+            double maxSkillsCountForSort = skillsForSort.Count() == 0 ? 1 : skillsForSort.Count();
+
+            Expression<Func<JobInfo, double>> sortByRelevant = (j) =>
+                      (j.Skills.Count(s => skillsForSort.Contains(s.Id)) / maxSkillsCountForSort * skillsPercent) +
+                      (j.Price / maxPrice * pricePercent) +
+                      (j.CountViews / maxViews * viewsPercent) -
+                      ((double)DbFunctions.DiffHours(j.DateAdded, DateTime.UtcNow) / maxHours * datePercent);
+
+
+            return _jobRepository.FindJobsInfo(filter)
+                                 .OrderByDescending(sortByRelevant)
+                                 .ToList();
+        }
+
+
+
+        private Expression<Func<Job, bool>> JobFilter(int[] skillsId, string keyWords, int priceFrom)
+        {
             var filter = PredicateBuilder.True<Job>();
             filter = filter.AndAlso<Job>(job => job.Status == ProjectStatus.Open);
 
@@ -180,9 +257,7 @@ namespace ReWork.Logic.Services.Implementation
                 filter = filter.AndAlso(p => p.Price >= priceFrom);
             }
 
-            return _jobRepository.FindJobsInfo(filter)
-                                 .OrderByDescending(p => p.DateAdded)
-                                 .ToList();
+            return filter;
         }
     }
 }

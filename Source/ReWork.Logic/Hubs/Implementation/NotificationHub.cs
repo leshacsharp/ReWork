@@ -11,22 +11,15 @@ namespace ReWork.Logic.Hubs.Implementation
 {
     public class NotificationHub : Hub, INotificationHub
     {
-        private readonly static HubConnections<string> _connections;
-
-        static NotificationHub()
-        {
-            _connections = new HubConnections<string>();
-        }
-
         public override Task OnConnected()
         {
             var user = Context.User;
             if (user.Identity.IsAuthenticated)
             {
                 string userId = user.Identity.GetUserId();
-                _connections.Add(userId, Context.ConnectionId);
+                Groups.Add(Context.ConnectionId, userId);
             }
-
+            
             return base.OnConnected();
         }
 
@@ -34,15 +27,7 @@ namespace ReWork.Logic.Hubs.Implementation
         public void RefreshNotifications(string userId, string notificationsJson)
         {
             var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-            var connections = _connections.FindConnections(userId);
-
-            if (connections != null)
-            {
-                foreach (var connectionId in connections)
-                {
-                    context.Clients.Client(connectionId).refreshNotifications(notificationsJson);
-                }
-            }
+            context.Clients.Group(userId).refreshNotifications(notificationsJson);
         }
 
 
@@ -52,7 +37,7 @@ namespace ReWork.Logic.Hubs.Implementation
             if (user.Identity.IsAuthenticated)
             {
                 string userId = user.Identity.GetUserId();
-                _connections.Remove(userId, Context.ConnectionId);
+                Groups.Remove(Context.ConnectionId, userId);
             }
 
             return base.OnDisconnected(stopCalled);

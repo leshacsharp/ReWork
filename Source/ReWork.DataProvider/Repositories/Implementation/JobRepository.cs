@@ -32,6 +32,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return from j in Db.Jobs.Where(predicate)
                    join c in Db.CustomerProfiles on j.CustomerId equals c.Id
                    join u in Db.Users on c.Id equals u.Id
+
                    select new JobInfo()
                    {
                        Id = j.Id,
@@ -40,6 +41,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                        Price = j.Price,
                        PriceDiscussed = j.PriceDiscussed,
                        DateAdded = (DateTime)j.DateAdded,
+                       CountViews = j.ViewedUsers.Count,
                        CountOffers = j.Offers.Count,
 
                        UserName = u.UserName,
@@ -52,7 +54,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                        })
                    };
         }
-      
+
 
         public MyJobInfo FindMyJobInfo(int id)
         {

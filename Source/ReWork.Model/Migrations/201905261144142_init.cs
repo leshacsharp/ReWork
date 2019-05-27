@@ -8,6 +8,69 @@ namespace ReWork.Model.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.ChatRooms",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(nullable: false, maxLength: 50),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Messages",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Text = c.String(nullable: false),
+                        DateAdded = c.DateTime(nullable: false),
+                        SenderId = c.String(nullable: false, maxLength: 128),
+                        ChatRoomId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.ChatRooms", t => t.ChatRoomId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.SenderId, cascadeDelete: true)
+                .Index(t => t.SenderId)
+                .Index(t => t.ChatRoomId);
+            
+            CreateTable(
+                "dbo.AspNetUsers",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        FirstName = c.String(maxLength: 30),
+                        LastName = c.String(maxLength: 40),
+                        RegistrationdDate = c.DateTime(nullable: false),
+                        Status = c.Int(nullable: false),
+                        Image = c.Binary(),
+                        Email = c.String(maxLength: 256),
+                        EmailConfirmed = c.Boolean(nullable: false),
+                        PasswordHash = c.String(),
+                        SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(nullable: false),
+                        TwoFactorEnabled = c.Boolean(nullable: false),
+                        LockoutEndDateUtc = c.DateTime(),
+                        LockoutEnabled = c.Boolean(nullable: false),
+                        AccessFailedCount = c.Int(nullable: false),
+                        UserName = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
+            
+            CreateTable(
+                "dbo.AspNetUserClaims",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        ClaimType = c.String(),
+                        ClaimValue = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
                 "dbo.CustomerProfiles",
                 c => new
                     {
@@ -58,6 +121,7 @@ namespace ReWork.Model.Migrations
                         AddedDate = c.DateTime(nullable: false),
                         ImplementationDays = c.Int(nullable: false),
                         OfferPayment = c.Int(nullable: false),
+                        OfferStatus = c.Int(nullable: false),
                         JobId = c.Int(nullable: false),
                         EpmployeeId = c.String(nullable: false, maxLength: 128),
                     })
@@ -89,56 +153,6 @@ namespace ReWork.Model.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.AspNetUsers",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        FirstName = c.String(maxLength: 30),
-                        LastName = c.String(maxLength: 40),
-                        RegistrationdDate = c.DateTime(nullable: false),
-                        Status = c.Int(nullable: false),
-                        Image = c.Binary(),
-                        Email = c.String(maxLength: 256),
-                        EmailConfirmed = c.Boolean(nullable: false),
-                        PasswordHash = c.String(),
-                        SecurityStamp = c.String(),
-                        PhoneNumber = c.String(),
-                        PhoneNumberConfirmed = c.Boolean(nullable: false),
-                        TwoFactorEnabled = c.Boolean(nullable: false),
-                        LockoutEndDateUtc = c.DateTime(),
-                        LockoutEnabled = c.Boolean(nullable: false),
-                        AccessFailedCount = c.Int(nullable: false),
-                        UserName = c.String(nullable: false, maxLength: 256),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserClaims",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        ClaimType = c.String(),
-                        ClaimValue = c.String(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.AspNetUserLogins",
-                c => new
-                    {
-                        LoginProvider = c.String(nullable: false, maxLength: 128),
-                        ProviderKey = c.String(nullable: false, maxLength: 128),
-                        UserId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
-            CreateTable(
                 "dbo.FeedBacks",
                 c => new
                     {
@@ -157,6 +171,34 @@ namespace ReWork.Model.Migrations
                 .Index(t => t.SenderId)
                 .Index(t => t.ReceiverId)
                 .Index(t => t.JobId);
+            
+            CreateTable(
+                "dbo.AspNetUserLogins",
+                c => new
+                    {
+                        LoginProvider = c.String(nullable: false, maxLength: 128),
+                        ProviderKey = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.Notifications",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Text = c.String(nullable: false, maxLength: 250),
+                        AddedDate = c.DateTime(nullable: false),
+                        SenderId = c.String(nullable: false, maxLength: 128),
+                        ReciverId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ReciverId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.SenderId)
+                .Index(t => t.SenderId)
+                .Index(t => t.ReciverId);
             
             CreateTable(
                 "dbo.AspNetUserRoles",
@@ -180,6 +222,19 @@ namespace ReWork.Model.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
+                "dbo.UserChatRooms",
+                c => new
+                    {
+                        User_Id = c.String(nullable: false, maxLength: 128),
+                        ChatRoom_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.User_Id, t.ChatRoom_Id })
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
+                .ForeignKey("dbo.ChatRooms", t => t.ChatRoom_Id, cascadeDelete: true)
+                .Index(t => t.User_Id)
+                .Index(t => t.ChatRoom_Id);
             
             CreateTable(
                 "dbo.SkillEmployeeProfiles",
@@ -207,20 +262,37 @@ namespace ReWork.Model.Migrations
                 .Index(t => t.Skill_Id)
                 .Index(t => t.Job_Id);
             
+            CreateTable(
+                "dbo.JobUsers",
+                c => new
+                    {
+                        Job_Id = c.Int(nullable: false),
+                        User_Id = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.Job_Id, t.User_Id })
+                .ForeignKey("dbo.Jobs", t => t.Job_Id, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
+                .Index(t => t.Job_Id)
+                .Index(t => t.User_Id);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.CustomerProfiles", "Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Jobs", "EmployeeId", "dbo.EmployeeProfiles");
-            DropForeignKey("dbo.EmployeeProfiles", "Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Messages", "SenderId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Notifications", "SenderId", "dbo.AspNetUsers");
             DropForeignKey("dbo.FeedBacks", "SenderId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Notifications", "ReciverId", "dbo.AspNetUsers");
             DropForeignKey("dbo.FeedBacks", "ReceiverId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.FeedBacks", "JobId", "dbo.Jobs");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.CustomerProfiles", "Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.JobUsers", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.JobUsers", "Job_Id", "dbo.Jobs");
+            DropForeignKey("dbo.FeedBacks", "JobId", "dbo.Jobs");
+            DropForeignKey("dbo.Jobs", "EmployeeId", "dbo.EmployeeProfiles");
+            DropForeignKey("dbo.EmployeeProfiles", "Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Skills", "SectionId", "dbo.Sections");
             DropForeignKey("dbo.SkillJobs", "Job_Id", "dbo.Jobs");
             DropForeignKey("dbo.SkillJobs", "Skill_Id", "dbo.Skills");
@@ -229,19 +301,27 @@ namespace ReWork.Model.Migrations
             DropForeignKey("dbo.Offers", "JobId", "dbo.Jobs");
             DropForeignKey("dbo.Offers", "EpmployeeId", "dbo.EmployeeProfiles");
             DropForeignKey("dbo.Jobs", "CustomerId", "dbo.CustomerProfiles");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.UserChatRooms", "ChatRoom_Id", "dbo.ChatRooms");
+            DropForeignKey("dbo.UserChatRooms", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Messages", "ChatRoomId", "dbo.ChatRooms");
+            DropIndex("dbo.JobUsers", new[] { "User_Id" });
+            DropIndex("dbo.JobUsers", new[] { "Job_Id" });
             DropIndex("dbo.SkillJobs", new[] { "Job_Id" });
             DropIndex("dbo.SkillJobs", new[] { "Skill_Id" });
             DropIndex("dbo.SkillEmployeeProfiles", new[] { "EmployeeProfile_Id" });
             DropIndex("dbo.SkillEmployeeProfiles", new[] { "Skill_Id" });
+            DropIndex("dbo.UserChatRooms", new[] { "ChatRoom_Id" });
+            DropIndex("dbo.UserChatRooms", new[] { "User_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.Notifications", new[] { "ReciverId" });
+            DropIndex("dbo.Notifications", new[] { "SenderId" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.FeedBacks", new[] { "JobId" });
             DropIndex("dbo.FeedBacks", new[] { "ReceiverId" });
             DropIndex("dbo.FeedBacks", new[] { "SenderId" });
-            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Skills", new[] { "SectionId" });
             DropIndex("dbo.Offers", new[] { "EpmployeeId" });
             DropIndex("dbo.Offers", new[] { "JobId" });
@@ -249,20 +329,29 @@ namespace ReWork.Model.Migrations
             DropIndex("dbo.Jobs", new[] { "EmployeeId" });
             DropIndex("dbo.Jobs", new[] { "CustomerId" });
             DropIndex("dbo.CustomerProfiles", new[] { "Id" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Messages", new[] { "ChatRoomId" });
+            DropIndex("dbo.Messages", new[] { "SenderId" });
+            DropTable("dbo.JobUsers");
             DropTable("dbo.SkillJobs");
             DropTable("dbo.SkillEmployeeProfiles");
+            DropTable("dbo.UserChatRooms");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.FeedBacks");
+            DropTable("dbo.Notifications");
             DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
+            DropTable("dbo.FeedBacks");
             DropTable("dbo.Sections");
             DropTable("dbo.Skills");
             DropTable("dbo.Offers");
             DropTable("dbo.EmployeeProfiles");
             DropTable("dbo.Jobs");
             DropTable("dbo.CustomerProfiles");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Messages");
+            DropTable("dbo.ChatRooms");
         }
     }
 }

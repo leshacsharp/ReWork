@@ -31,6 +31,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return (from n in Db.Notifications
                     join s in Db.Users on n.SenderId equals s.Id
                     where n.ReciverId == userId
+                    orderby n.AddedDate descending
                     select new NotificationInfo()
                     {
                         Id = n.Id,

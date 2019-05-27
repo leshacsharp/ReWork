@@ -31,6 +31,10 @@ namespace ReWork.Logic.Ioc
             builder.RegisterType<NotificationRepository>().As<INotificationRepository>().PropertiesAutowired().InstancePerRequest();
             builder.RegisterType<NotificationHub>().As<INotificationHub>().InstancePerRequest();
 
+            builder.RegisterType<ChatRoomRepository>().As<IChatRoomRepository>().PropertiesAutowired().InstancePerRequest();
+            builder.RegisterType<MessageRepository>().As<IMessageRepository>().PropertiesAutowired().InstancePerRequest();
+            builder.RegisterType<ChatHub>().As<IChatHub>().InstancePerRequest();
+
             builder.RegisterType<AppUserManager>().As<UserManager<User>>().InstancePerRequest();
             builder.RegisterType<AppRoleManager>().As<RoleManager<IdentityRole>>().InstancePerRequest();
         }

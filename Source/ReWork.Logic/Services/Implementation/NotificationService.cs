@@ -26,6 +26,7 @@ namespace ReWork.Logic.Services.Implementation
             _userManager = userManager;
         }
 
+
         public void RefreshNotifications(string userId)
         {
             var notifications = _notificationRepository.FindNotificationsInfo(userId);

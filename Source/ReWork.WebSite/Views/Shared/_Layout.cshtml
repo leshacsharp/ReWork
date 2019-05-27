@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="~/Content/bootstrap-multiselect.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/pagination.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 <body>
     <div class="content">
@@ -32,6 +33,8 @@
                         <li>@Html.ActionLink(Resources.Global.Jobs, "Jobs", "Job")</li>
                         <li>@Html.ActionLink(Resources.Global.Employes, "Employees", "Employee")</li>
                         <li>@Html.ActionLink(Resources.Global.Search, "Search", "Home")</li>
+                        <li>@Html.ActionLink("Chat", "Chat", "Chat")</li>
+
 
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -46,6 +49,15 @@
 
 
                     <ul class="nav navbar-nav navbar-right">
+
+                        <li>
+                            <div class="users-count">
+                                <span class="fa fa-globe-europe" style="color:#228B22"></span>            
+                                Online:
+                                <span class="counter">1</span>
+                            </div>
+                        </li>
+
                         <li style="padding-top:10px">
                             @using (Html.BeginForm("ChangeCulture", "Home", FormMethod.Post))
                             {
@@ -158,7 +170,6 @@
 
 
     <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
-    <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
     <script src="~/signalr/hubs"></script>
 
     <script type="text/javascript" src="~/Scripts/app/layout.js"></script>

@@ -20,12 +20,14 @@ namespace ReWork.WebSite.Controllers
     public class ProfileController : Controller
     {
         private IUserService _userService;
+        private INotificationService _notificationService;
         private IFeedBackService _feedBackService;
         private ICommitProvider _commitProvider;
 
-        public ProfileController(IUserService userService, IFeedBackService feedBackService, ICommitProvider commitProvider)
+        public ProfileController(IUserService userService, INotificationService notificationService, IFeedBackService feedBackService, ICommitProvider commitProvider)
         {
             _userService = userService;
+            _notificationService = notificationService;
             _feedBackService = feedBackService;
             _commitProvider = commitProvider;
         }
@@ -61,10 +63,11 @@ namespace ReWork.WebSite.Controllers
                 QualityOfWork = createModel.QualityOfWork
             };
 
-            //TODO: сделать уведомления для отзывов
-
             _feedBackService.CreateFeedBack(createParams);
+            _notificationService.CreateNotification(senderId, createModel.ReciverId, "You write a review");
             _commitProvider.SaveChanges();
+
+            _notificationService.RefreshNotifications(createModel.ReciverId);
 
             return RedirectToAction("Jobs", "Job");
         }

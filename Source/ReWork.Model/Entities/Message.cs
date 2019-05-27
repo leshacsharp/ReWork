@@ -4,28 +4,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReWork.Model.Entities
 {
-    [Table("Notifications")]
-    public class Notification
+    [Table("Messages")]
+    public class Message
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [StringLength(250,MinimumLength = 10)]
+        [MinLength(1)]
         public string Text { get; set; }
 
-        [Required]
-        public DateTime? AddedDate { get; set; }
+        public DateTime DateAdded { get; set; }
 
         [ForeignKey("Sender")]
         public string SenderId { get; set; }
 
-        public User Sender { get; set; }
+        [Required]
+        public virtual User Sender { get; set; }
 
-        [ForeignKey("Reciver")]
-        public string ReciverId { get; set; }
+        [ForeignKey("ChatRoom")]
+        public int ChatRoomId { get; set; }
 
         [Required]
-        public User Reciver { get; set; }
+        public virtual ChatRoom ChatRoom { get; set; }
     }
 }

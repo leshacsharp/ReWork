@@ -27,8 +27,8 @@
 
 
             callback: function (data, pagination) {
-                $("tbody").empty();
-                $("tbody").append(data);
+                $(".search-table tbody").empty();
+                $(".search-table tbody").append(data);
             }
         })
     }
