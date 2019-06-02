@@ -32,11 +32,6 @@ namespace ReWork.WebSite.Controllers
             _commitProvider = commitProvider;
         }
 
-        public IAuthenticationManager AuthenticationManager
-        {
-            get { return HttpContext.GetOwinContext().Authentication; }
-        }
-
         [HttpGet]
         public ActionResult CreateFeedBack(string reciverId, int jobId)
         {
@@ -82,9 +77,22 @@ namespace ReWork.WebSite.Controllers
         [HttpPost]
         public ActionResult RecivedFeedBacks(string userId)
         {
-            IEnumerable<FeedBackInfo> feedbacks = _feedBackService.FindRecivedFeedBacks(userId);
+            var feedbacks = _feedBackService.FindRecivedFeedBacks(userId);
 
-            return Json(feedbacks);
+            var feedbackModels = from f in feedbacks
+                                 select new FeedBackViewModel()
+                                 {
+                                     Text = f.Text,
+                                     AddedDate = f.AddedDate,
+                                     JobId = f.JobId,
+                                     JobTitle = f.JobTitle,
+                                     SenderId = f.SenderId,
+                                     SenderName = f.SenderName,
+                                     SenderImagePath = Convert.ToBase64String(f.SenderImage),
+                                     QualityOfWork = f.QualityOfWork
+                                 };
+
+            return Json(feedbackModels);
         }
 
 

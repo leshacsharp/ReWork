@@ -48,11 +48,11 @@
 
         for (var i = 0; i < data.length; i++) {
             var offerDate = ParseCsharpDate(data[i].AddedDate);
-            var imagePath = "data:image/jpeg;base64," + ArrayBufferToBase64(data[i].SenderImage);
+            var imagePath = "data:image/jpeg;base64," + data[i].SenderImagePath;
 
             var html = "<div class='review'><div class='row'><div class='col-md-1 col-sm-2'>" +
-                "<img class='review-user-photo' src='" + imagePath + "'> </div><div class='col-md-4 col-sm-5'>" +
-                "<div class='review-user-username'>" + data[i].SenderName + "</div><div class='review-rating'>";
+                "<a href='/customer/details/" + data[i].SenderId + "'><img class='review-user-photo' src='" + imagePath + "'></a></div><div class='col-md-4 col-sm-5'>" +
+                "<div class='review-user-username'><a href='/customer/details/" + data[i].SenderId + "'>" + data[i].SenderName + "</a></div><div class='review-rating'>";
 
             for (var j = 0; j < data[i].QualityOfWork; j++) {
                 html += "<span class='fa fa-star star-active'></span>";
@@ -72,17 +72,6 @@
         return result;
     }
 
-
-
-    function ArrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
-    }
 
     function ParseCsharpDate(date) {
         var dateMs = date.replace(/[^0-9 +]/g, '');

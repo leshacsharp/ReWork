@@ -99,6 +99,11 @@
   <ItemGroup>
     <Compile Include="Context\CommitProvider.cs" />
     <Compile Include="Context\ICommitProvider.cs" />
+    <Compile Include="EntitiesInfo\ChatRoomDetailsInfo.cs" />
+    <Compile Include="EntitiesInfo\ChatRoomInfo.cs" />
+    <Compile Include="EntitiesInfo\ChatRoomMsgInfo.cs" />
+    <Compile Include="EntitiesInfo\ChatRoomUsersInfo.cs" />
+    <Compile Include="EntitiesInfo\CustomerProfileInfo.cs" />
     <Compile Include="EntitiesInfo\CustomerOfferInfo.cs" />
     <Compile Include="EntitiesInfo\EmployeeOfferInfo.cs" />
     <Compile Include="EntitiesInfo\EmployeeProfileInfo.cs" />
@@ -121,6 +126,10 @@
     <Compile Include="Migrations\201905261144142_init.Designer.cs">
       <DependentUpon>201905261144142_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906021451090_edit_user.cs" />
+    <Compile Include="Migrations\201906021451090_edit_user.Designer.cs">
+      <DependentUpon>201906021451090_edit_user.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Validation\CannotBeEmptyAttribute.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
@@ -131,7 +140,7 @@
     <Compile Include="Context\IDbContext.cs" />
     <Compile Include="Context\ReWorkContext.cs" />
     <Compile Include="Entities\Common\QualityOfWork.cs" />
-    <Compile Include="Entities\Common\Status.cs" />
+    <Compile Include="Entities\Common\UserStatus.cs" />
     <Compile Include="Entities\CustomerProfile.cs" />
     <Compile Include="Entities\EmployeeProfile.cs" />
     <Compile Include="Entities\FeedBack.cs" />
@@ -142,7 +151,11 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Chat\ChatRoomDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Chat\ChatRoomViewModel.cs" />
     <Compile Include="ViewModels\Chat\MessageViewModel.cs" />
+    <Compile Include="ViewModels\Chat\UserViewModel.cs" />
+    <Compile Include="ViewModels\Customer\CustomerDetailsViewModel.cs" />
     <Compile Include="ViewModels\Employee\EmployeeInfoViewModel.cs" />
     <Compile Include="ViewModels\Employee\EmployeeProfileViewModel.cs" />
     <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
@@ -150,6 +163,7 @@
     <Compile Include="ViewModels\Common\Culture.cs" />
     <Compile Include="ViewModels\Employee\EmployeeDetailsViewModel.cs" />
     <Compile Include="ViewModels\FeedBack\CreateFeedBackViewModel.cs" />
+    <Compile Include="ViewModels\FeedBack\FeedBackViewModel.cs" />
     <Compile Include="ViewModels\Job\CreateJobViewModel.cs" />
     <Compile Include="ViewModels\Job\DetailsJobViewModel.cs" />
     <Compile Include="ViewModels\Job\EditJobViewModel.cs" />
@@ -166,6 +180,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905261144142_init.resx">
       <DependentUpon>201905261144142_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906021451090_edit_user.resx">
+      <DependentUpon>201906021451090_edit_user.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

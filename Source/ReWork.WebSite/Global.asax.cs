@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.SignalR;
-using ReWork.Logic.Hubs.Implementation;
 using ReWork.WebSite.App_Start;
 using System;
 using System.Collections.Generic;
@@ -22,9 +21,6 @@ namespace ReWork.WebSite
             IocConfig.ConfigureContainer();
 
             log4net.Config.XmlConfigurator.Configure();
-
-            //AppDomain.CurrentDomain.Load(typeof(NotificationHub).Assembly.FullName);
-            //AppDomain.CurrentDomain.Load(typeof(ChatHub).Assembly.FullName);
 
             GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(6);
         }

@@ -14,8 +14,7 @@ namespace ReWork.Model.Entities
         [StringLength(250,MinimumLength = 10)]
         public string Text { get; set; }
 
-        [Required]
-        public DateTime? AddedDate { get; set; }
+        public DateTime AddedDate { get; set; }
 
         [ForeignKey("Sender")]
         public string SenderId { get; set; }

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ReWork.Model.ViewModels.Chat.ChatRoomViewModel>
+@{
+    ViewBag.Title = "ChatRooms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="chatrooms-container">
+    @foreach (var room in Model)
+    {
+        @Html.Hidden("chatRoomId", room.Id)
+
+        <div class="chatroom-item" onclick="window.location.href = '@Url.Action("room", "chat", new { id = room.Id })'">
+            <div class="chatroom-users">
+                @foreach (var user in room.Users)
+                {
+                    <a href="@Url.Action("details", "customer", new { id = user.Id })">
+                        @Html.Raw("<img src=\"data:image/jpeg;base64," + user.ImagePath + "\" />")
+                    </a>
+                }
+            </div>
+
+            <div class="chat-room-info">
+                <div class="chat-room-title">
+                    @room.Title
+                </div>
+
+                <div class="chat-room-last-msg hidden-xs">
+                    @if (room.LastMessage != null)
+                    {
+                        @room.LastMessage
+                    }
+                    else
+                    {
+                        <span>Dialogue empty</span>
+                    }
+                </div>
+
+                <div class="chat-room-last-msg-date">
+                    @if (room.LastMessageDate != null)
+                    {
+                        @room.LastMessageDate.Value.ToString()
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

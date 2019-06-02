@@ -15,10 +15,7 @@ namespace ReWork.Model.Entities
         [MaxLength(40)]
         public string LastName { get; set; }
 
-        [Required]
-        public DateTime? RegistrationdDate { get; set; }
-
-        public Status Status { get; set; }
+        public DateTime RegistrationdDate { get; set; }
 
         public byte[] Image { get; set; }
 

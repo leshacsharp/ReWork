@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 using ReWork.Logic.Hubs.Abstraction;
+using ReWork.Model.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,12 +39,12 @@ namespace ReWork.Logic.Hubs.Implementation
         }
 
 
-        public void IsOnline(string userId)
+        public void CheckUserStatus(string userId)
         {
             var connections = _connections.FindConnections(userId);
-            bool isOnline = connections == null ? false : true; 
+            UserStatus status = connections == null ? UserStatus.Offline : UserStatus.Online; 
 
-            Clients.Caller.userIsOnline(isOnline);
+            Clients.Caller.checkStatus(status);
         }
 
 

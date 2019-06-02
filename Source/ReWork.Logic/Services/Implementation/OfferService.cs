@@ -63,6 +63,8 @@ namespace ReWork.Logic.Services.Implementation
             if (job == null)
                 throw new ObjectNotFoundException($"Job with id={offerParams.JobId} not found");
 
+            if (offerParams.EmployeeId == job.CustomerId)
+                throw new ArgumentException("You cannot create offer on youe job");
 
             var offerForJob = _offerRepository.FindOffer(offerParams.JobId, offerParams.EmployeeId);
             if (offerForJob != null)

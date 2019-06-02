@@ -83,5 +83,6 @@ namespace ReWork.WebSite.Controllers
             return Json(offerExists);
         }
 
+
     }
 }

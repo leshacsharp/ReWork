@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
 
-    var userAuthenticated = $("input[name=userId]").val() != undefined ? true : false;
+    var userId = $("input[name=userId]").val();
 
 
-    if (userAuthenticated) {
+    if (userId != undefined) {
 
         var currentCulture = $.cookie("lang");
         if (currentCulture != undefined) {
@@ -22,8 +22,9 @@
             var selectedProfile = $(this).val();
 
             $.ajax({
-                url: "/employee/EmployeeProfileExists",
+                url: "/employee/ProfileExists",
                 type: "POST",
+                data: { "userId": userId },
                 success: function (exists) {
                     if (exists) {
                         $.post("/profile/changeprofiletype", { "profile": "Employee" }, function () {
@@ -42,40 +43,6 @@
             var selectedProfile = $(this).val();
             ChangeProfileType(selectedProfile);
         })
-
-        function ChangeProfileType(selectedProfile) {
-            var url = window.location.pathname;
-            var returnUrl = url;
-
-            if (url == "/employee/myoffers" || url == "/customer/myoffers") {
-                if (selectedProfile == "Employee")
-                    returnUrl = "/employee/myoffers";
-                else
-                    returnUrl = "/customer/myoffers";
-            }
-            else if (url == "/employee/myjobs" || url == "/customer/myjobs") {
-                if (selectedProfile == "Employee")
-                    returnUrl = "/employee/myjobs";
-                else
-                    returnUrl = "/customer/myjobs";
-            }
-
-            $.post("/profile/ChangeProfileType", { "profile": selectedProfile }, function () {
-                location.href = returnUrl;
-            });
-        }
-
-
-
-        $.ajax({
-            url: "/notification/FindNotifications",
-            type: "POST",
-            success: function (notifications) {
-                AppendFormatNotifications(notifications);
-            }
-        })
-
-
 
         $("#notifications-container").on("click", ".notification-item-delete", function () {
             var notifyItem = $(this).parent();
@@ -121,6 +88,8 @@
             }
         })
 
+
+
         function AppendFormatNotifications(notifications) {
 
             $(".notifications-counter").html(notifications.length);
@@ -149,7 +118,37 @@
             }
         }
 
+        function ChangeProfileType(selectedProfile) {
+            var url = window.location.pathname;
+            var returnUrl = url;
 
+            if (url == "/employee/myoffers" || url == "/customer/myoffers") {
+                if (selectedProfile == "Employee")
+                    returnUrl = "/employee/myoffers";
+                else
+                    returnUrl = "/customer/myoffers";
+            }
+            else if (url == "/employee/myjobs" || url == "/customer/myjobs") {
+                if (selectedProfile == "Employee")
+                    returnUrl = "/employee/myjobs";
+                else
+                    returnUrl = "/customer/myjobs";
+            }
+
+            $.post("/profile/ChangeProfileType", { "profile": selectedProfile }, function () {
+                location.href = returnUrl;
+            });
+        }
+
+
+
+        $.ajax({
+            url: "/notification/FindNotifications",
+            type: "POST",
+            success: function (notifications) {
+                AppendFormatNotifications(notifications);
+            }
+        })
 
 
 

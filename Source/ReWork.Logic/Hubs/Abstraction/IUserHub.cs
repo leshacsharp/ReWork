@@ -3,6 +3,6 @@
     public interface IUserHub
     {
         void RefreshUsersCounter();
-        void IsOnline(string userId);
+        void CheckUserStatus(string userId);
     }
 }

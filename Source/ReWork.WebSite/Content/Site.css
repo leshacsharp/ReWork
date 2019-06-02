@@ -28,7 +28,6 @@ footer {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-
 }
 
 
@@ -489,12 +488,12 @@ label.input-error {
 .profile-short-info {
     display: inline-block;
     padding: 25px 0;
+    position:relative;
 }
 
 .profile-username {
     font-size: 125%;
     font-weight: 600;
-    margin-bottom: 7px;
 }
 
 .date-registration {
@@ -509,7 +508,18 @@ label.input-error {
 
 .profile-dop-info {
     display: inline-block;
-    margin-left: 200px;
+    margin-left: 160px;
+}
+
+.profile-btns {
+    display: inline-block;
+    margin-left: 60px; 
+    position: relative;
+}
+
+.profile-btns .btn{
+    width:130px;
+    margin:5px;
 }
 
 .profile-feedbacks-info {
@@ -781,7 +791,9 @@ ul.nav.nav-tabs.fancy {
 
 
 
-
+.user-status {
+    font-size: 90%;
+}
 
 .user-country {
     font-size: 90%;
@@ -1058,7 +1070,163 @@ ul.nav.nav-tabs.fancy {
     font-size:110%;
 }
 
-    .users-count > .counter {
-        font-weight: 600;
-        color: #696969;
+.users-count > .counter {
+    font-weight: 600;
+    color: #696969;
+}
+
+
+.chatrooms-container {
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    max-width:800px;
+    margin:20px auto;
+}
+
+.chatroom-item {
+    border-bottom: 2px solid #e8e8e8;
+    padding: 15px 20px;
+    background-color: #F3F3F3;
+    position: relative;
+}
+
+    .chatroom-item:hover {
+        background-color: rgba(26,109,187,.05);
+        cursor:pointer;
     }
+
+    .chatroom-item > .chatroom-users {
+        display: inline-block;
+    }
+
+.chatroom-users img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.chat-room-info {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.chat-room-title {
+    font-size: 110%;
+    font-weight: 600;
+}
+
+.chat-room-last-msg {
+    margin-top: 7px;
+}
+
+.chat-room-last-msg-date {
+    position: absolute;
+    top: 15px;
+    right: 70px;
+    color: #808080;
+}
+
+
+
+.messages-container {
+    border: 1px solid #C0C0C0;
+    margin: 0 auto;
+    border-radius: 3px;
+    background-color: #F3F3F3;
+    margin-top:30px;
+}
+
+    .messages-container > .messages-container-header {
+        padding: 15px;
+        text-align: center;
+        font-weight: 600;
+        border-bottom: 1px solid #C0C0C0;
+    }
+
+    .messages-container > .messages-container-footer {
+        padding: 10px;
+        width: 100%;
+        border-top: 1px solid #C0C0C0;
+        text-align: center;
+    }
+
+    .messages-container > .messages {
+        height: 60vh;
+        padding: 20px 40px;
+        overflow-y: auto;
+    }
+
+.message-item {
+    margin-top: 15px;
+    list-style: none;
+}
+
+    .message-item .user-photo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+
+    .message-item .message-info {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+.message-info > .sent-date {
+    font-size: 90%;
+    color: #D3D3D3;
+    margin-left: 8px;
+}
+
+.message-info > .message-text {
+    margin-top: 7px;
+}
+
+.message-item > table {
+    width: 100%;
+}
+
+.members-container {
+    border: 1px solid #C0C0C0;
+    border-radius: 3px;
+    background-color: #F3F3F3;
+    margin-top:30px;
+}
+
+    .members-container > .members-container-header {
+        padding: 15px;
+        text-align: center;
+        font-weight: 600;
+        border-bottom: 1px solid #C0C0C0;
+    }
+
+    .members-container > .members {
+        height: 68vh;
+        padding: 15px 10px;
+    }
+
+
+.members > .member-item {
+    margin-bottom: 15px;
+    list-style: none;
+    text-align: center;
+}
+
+.member-item img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.load-more-messages{
+    list-style:none;
+    text-align:center;
+}
+
+.exit-btn {
+    float:right;
+    position: relative;
+    bottom: 5px;
+}

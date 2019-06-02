@@ -1,8 +1,161 @@
-﻿
+﻿@model ReWork.Model.ViewModels.Customer.CustomerDetailsViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="profile-short-info">
+            @Html.HiddenFor(p => p.Id)
+
+            <div class="profile-image">
+                @Html.Raw("<img src=\"data:image/jpeg;base64," + Model.ImagePath + "\" />")
+            </div>
+
+
+            <div class="profile-short-info">
+                <div class="profile-username">
+                    <span>
+                        @(Model.FirstName == null ? "FirstName" : Model.FirstName)
+                    </span>
+                    <span>
+                        @(Model.LastName == null ? "LastName" : Model.LastName)
+                    </span>
+                </div>
+
+                <div class="user-status">
+                    <span class='fa fa-circle' style='color:red'></span>
+                    <span> Offline</span>
+                </div>
+
+                <div class="date-registration">
+                    Data registration: @Model.RegistrationdDate.ToShortDateString()
+                </div>
+            </div>
+
+
+            <div class="profile-dop-info hidden-xs hidden-sm">
+                <div class="profile-feedbacks-info">
+                    <div class="profile-feedbacks-info-count">
+                        @Model.CountReviews
+                    </div>
+                    <a>reviews</a>
+                </div>
+                <div class="profile-feedbacks-dop-info">
+                    <div class="profile-feedbacks-info-percent">
+                        @Model.PercentPositiveReviews %
+                    </div>
+                    <span class="profile-feedbacks-info-text">
+                        positive
+                    </span>
+                </div>
+            </div>
+
+            <div class="profile-btns">
+                @using (Html.BeginForm("createchatroom", "chat", FormMethod.Post))
+                {
+                    @Html.Hidden("userId", Model.Id)
+                    <input type="submit" name="user-write" class="btn btn-default" value="Write" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#reviews-tab" data-toggle="tab" name="link-reviews-tab">Reviews</a></li>
+            <li><a href="#information" data-toggle="tab" name="link-information-tab">Information</a></li>
+        </ul>
+
+        <br />
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="reviews-tab">
+                <div class="profile-section">
+
+
+                    <div class="reviews-summary hidden-sm hidden-sm">
+                        <div class="reviews-summary-wraper">
+                            <div class="reviews-summary-item reviews-summary-item-count">
+                                <div class="reviews-summary-count">
+                                    @Model.CountReviews
+                                </div>
+                                reviews
+                            </div>
+
+                            <div class="reviews-summary-item reviews-summary-item-percent">
+                                <div class="reviews-summary-count">
+                                    @Model.PercentPositiveReviews %
+                                </div>
+                                positive
+                            </div>
+
+                            <div class="reviews-summary-item reviews-summary-item-details">
+                                <div class="reviews-summary-feature">
+                                    Avarage mark:
+                                    <span class="reviews-summary-feature-count">@Model.AvarageReviewMark</span>
+                                </div>
+                                <div class="reviews-summary-feature">
+                                    Count reviews:
+                                    <span class="reviews-summary-feature-count">@Model.CountReviews</span>
+                                </div>
+                                <div class="reviews-summary-feature">
+                                    Date last review:
+                                    <span class="reviews-summary-feature-count">///todo////</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="review-container">
+
+                    </div>
+
+                    <div class="pagination"></div>
+
+                </div>
+            </div>
+
+            <div class="tab-pane" id="information">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">Date registration:</span></td>
+                            <td class="col-md-9"><span>@Model.RegistrationdDate.ToShortDateString()</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">User name:</span></td>
+                            <td class="col-md-9"><span>@Model.UserName</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">First name:</span></td>
+                            <td class="col-md-3=9"><span>@Model.FirstName</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">Last name:</span></td>
+                            <td class="col-md-9"><span>@Model.LastName</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">Count Publishing jobs:</span></td>
+                            <td class="col-md-3=9"><span>@Model.CountPublishJobs</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/app/user-details.js"></script>
+}
+
 

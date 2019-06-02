@@ -17,16 +17,16 @@ Dropzone.options.mydropzone = {
 
 $(document).ready(function () {
 
-    $("#employee-section").on("click", "input[name=employee-delete]", function () {
+    var userId = $("input[name=userId]").val();
 
-        var employeeId = $("input[name=userId]").val();
-        $(this).parent().append("<input type='hidden' name='employeeId' value='" + employeeId + "'>");
+    $("#employee-section").on("click", "input[name=employee-delete]", function () {
+        $(this).parent().append("<input type='hidden' name='employeeId' value='" + userId + "'>");
     })
 
     $.ajax({
-        url: "/employee/EmployeeProfileExists",
+        url: "/employee/ProfileExists",
         type: "POST",
-        dataType: "json",
+        data: { "userId": userId },
         success: function (exists) {
             var html;
             if (exists) {

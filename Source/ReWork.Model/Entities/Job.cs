@@ -27,8 +27,7 @@ namespace ReWork.Model.Entities
 
         public ProjectStatus Status { get; set; }
 
-        [Required]
-        public DateTime? DateAdded { get; set; }     
+        public DateTime DateAdded { get; set; }     
 
         [ForeignKey("Customer")]
         public string CustomerId { get; set; }

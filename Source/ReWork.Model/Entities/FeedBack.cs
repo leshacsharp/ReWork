@@ -15,8 +15,7 @@ namespace ReWork.Model.Entities
         [StringLength(maximumLength: 250, MinimumLength = 3)]
         public string Text { get; set; }
 
-        [Required]
-        public DateTime? AddedDate { get; set; }
+        public DateTime AddedDate { get; set; }
 
         public QualityOfWork QualityOfWork { get; set; }
 

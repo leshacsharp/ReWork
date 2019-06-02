@@ -9,6 +9,6 @@ namespace ReWork.DataProvider.Repositories.Abstraction
 {
     public interface IMessageRepository : IRepository<Message>
     {
-        IQueryable<MessageInfo> FindMessageInfo(Expression<Func<Message, bool>> predicate);
+        IQueryable<MessageInfo> FindMessageInfo(int chatRoomId);
     }
 }

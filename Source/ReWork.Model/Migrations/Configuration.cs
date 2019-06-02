@@ -6,9 +6,12 @@ namespace ReWork.Model.Migrations
     using Microsoft.Owin.Security.DataProtection;
     using ReWork.Model.Entities;
     using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Data.Entity.Validation;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using System.Web;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ReWork.Model.Context.ReWorkContext>
@@ -84,9 +87,8 @@ namespace ReWork.Model.Migrations
             }
 
 
-                Section programming = context.Sections.SingleOrDefault(p => p.Title.Equals("Programming"));
+            Section programming = context.Sections.SingleOrDefault(p => p.Title.Equals("Programming"));
             Section design = context.Sections.SingleOrDefault(p => p.Title.Equals("Design sites"));
-           // Section copirating = context.Sections.SingleOrDefault(p => p.Title.Equals("Copirating"));
 
             if (programming == null && design == null)
             {
@@ -125,6 +127,7 @@ namespace ReWork.Model.Migrations
             {
                 Id = 1,
                 CustomerId = moderator.Id,
+                Customer = moderator.CustomerProfile,
                 Title = "create website",
                 Description = "web site must be beautifull, topic this web site its cars",
                 Price = 1000,
@@ -136,6 +139,7 @@ namespace ReWork.Model.Migrations
             {
                 Id = 2,
                 CustomerId = moderator.Id,
+                Customer = moderator.CustomerProfile,
                 Title = "create design for my site",
                 Description = "crate beautifully design, i want see my website in gray colors",
                 Price = 3000,

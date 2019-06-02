@@ -33,7 +33,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                        FirstName = u.FirstName,
                        LastName = u.LastName,
                        Image = u.Image,       
-                       RegistrationdDate = (DateTime)u.RegistrationdDate,
+                       RegistrationdDate = u.RegistrationdDate,
 
                        CountDevolopingJobs = e.DevelopingJobs.Count,
                        QualityOfWorks = u.RecivedFeedBacks.Select(p => p.QualityOfWork),

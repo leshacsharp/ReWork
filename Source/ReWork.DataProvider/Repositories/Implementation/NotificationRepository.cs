@@ -36,7 +36,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     {
                         Id = n.Id,
                         Text = n.Text,
-                        AddedDate = (DateTime)n.AddedDate,
+                        AddedDate = n.AddedDate,
                         SenderId = s.Id,
                         SenderName = s.UserName,
                         SenderImage = s.Image

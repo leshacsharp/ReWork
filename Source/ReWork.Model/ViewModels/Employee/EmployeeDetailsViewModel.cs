@@ -13,7 +13,7 @@ namespace ReWork.Model.ViewModels.Employee
 
         public string LastName { get; set; }
 
-        public byte[] Image { get; set; }
+        public string ImagePath { get; set; }
 
         public int Age { get; set; }
 

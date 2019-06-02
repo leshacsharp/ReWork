@@ -1,6 +1,8 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
+using ReWork.Model.EntitiesInfo;
+using System;
 using System.Data.Entity;
 using System.Linq;
 
@@ -23,9 +25,22 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return Db.CustomerProfiles.Find(customerId);
         }
 
-        public CustomerProfile FindCustomerProfileByName(string userName)
+        public CustomerProfileInfo FindCustomerProfileInfo(string customerId)
         {
-            return Db.CustomerProfiles.SingleOrDefault(p => p.User.UserName == userName);
+            return (from c in Db.CustomerProfiles
+                    join u in Db.Users on c.Id equals u.Id
+                    where c.Id == customerId
+                    select new CustomerProfileInfo()
+                    {
+                        Id = c.Id,
+                        UserName = u.UserName,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        RegistrationdDate = u.RegistrationdDate,
+                        Image = u.Image,
+                        CountPublishJobs = c.Jobs.Count,
+                        QualityOfWorks = u.RecivedFeedBacks.Select(p => p.QualityOfWork)
+                    }).SingleOrDefault();
         }
 
         public void Update(CustomerProfile item)

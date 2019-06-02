@@ -41,7 +41,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     select new OfferInfo
                     {
                         Text = o.Text,
-                        AddedDate = (DateTime)o.AddedDate,
+                        AddedDate = o.AddedDate,
                         ImplementationDays = o.ImplementationDays,
                         OfferPayment = o.OfferPayment,
 
@@ -59,14 +59,14 @@ namespace ReWork.DataProvider.Repositories.Implementation
                    select new EmployeeOfferInfo
                    {
                        Text = o.Text,
-                       AddedDate = (DateTime)o.AddedDate,
+                       AddedDate = o.AddedDate,
                        ImplementationDays = o.ImplementationDays,
                        OfferPayment = o.OfferPayment,
                        
                        JobId = j.Id,
                        JobTitle = j.Title,
                        JobPrice = j.Price,
-                       JobAdded = (DateTime)j.DateAdded
+                       JobAdded = j.DateAdded
                    };
         }
 
@@ -81,14 +81,14 @@ namespace ReWork.DataProvider.Repositories.Implementation
                     {
                         Id = o.Id,
                         Text = o.Text,
-                        AddedDate = (DateTime)o.AddedDate,
+                        AddedDate = o.AddedDate,
                         ImplementationDays = o.ImplementationDays,
                         OfferPayment = o.OfferPayment,
 
                         EmployeeImage = u.Image,
                         EmployeeId = e.Id,
                         UserName = u.UserName,
-                        UserDateRegistration = (DateTime)u.RegistrationdDate,
+                        UserDateRegistration = u.RegistrationdDate,
 
                         JobTitle = j.Title,
                         JobId = j.Id

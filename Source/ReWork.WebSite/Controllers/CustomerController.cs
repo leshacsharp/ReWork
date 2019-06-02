@@ -2,6 +2,7 @@
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.EntitiesInfo;
+using ReWork.Model.ViewModels.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +27,35 @@ namespace ReWork.WebSite.Controllers
             _commitProvider = commitProvider;
         }
 
+
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult Details(string id)
         {
-            //Todo: create customer details
-            return View();
+            var customer = _customerService.FindCustomerProfile(id);
+            if (customer == null)
+                return View("Error");
+
+            var customerModel = new CustomerDetailsViewModel()
+            {
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                ImagePath = Convert.ToBase64String(customer.Image),
+                UserName = customer.UserName,
+                RegistrationdDate = customer.RegistrationdDate,
+                CountPublishJobs = customer.CountPublishJobs,
+                CountReviews = customer.QualityOfWorks.Count(),
+            };
+
+            if (customer.QualityOfWorks.Count() > 0)
+                customerModel.AvarageReviewMark = (int)customer.QualityOfWorks.Select(p => (int)p).Average();
+
+            int countFeedbacksForPer = customerModel.CountReviews == 0 ? 1 : customerModel.CountReviews;
+            double percentPositiveFeedBacks = (double)customer.QualityOfWorks.Count(p => (int)p >= 3) * 100 / countFeedbacksForPer;
+            customerModel.PercentPositiveReviews = (int)Math.Round(percentPositiveFeedBacks);
+
+            return View(customerModel);
         }
 
         [HttpPost]
@@ -39,6 +64,8 @@ namespace ReWork.WebSite.Controllers
             _customerService.DeleteCustomerProfile(id);
             _commitProvider.SaveChanges();
         }
+
+
 
 
         [HttpGet]
@@ -83,11 +110,11 @@ namespace ReWork.WebSite.Controllers
 
 
 
+
         [HttpPost]
-        public ActionResult CustomerProfileExists(string customerId)
+        public ActionResult ProfileExists(string userId)
         {
-            customerId = (customerId == null ? User.Identity.GetUserId() : customerId);
-            bool exists = _customerService.CustomerProfileExists(customerId);
+            bool exists = _customerService.CustomerProfileExists(userId);
             return Json(exists);
         }
     }

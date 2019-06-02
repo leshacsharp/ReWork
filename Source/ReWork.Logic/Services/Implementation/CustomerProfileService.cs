@@ -4,6 +4,7 @@ using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
 using System.Data.Entity.Core;
+using ReWork.Model.EntitiesInfo;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -39,6 +40,12 @@ namespace ReWork.Logic.Services.Implementation
                 throw new ObjectNotFoundException($"Customer profile with id={customerId} not found");
             
             _customerRepository.Delete(customer);  
+        }
+
+
+        public CustomerProfileInfo FindCustomerProfile(string customerId)
+        {
+            return _customerRepository.FindCustomerProfileInfo(customerId);
         }
 
 

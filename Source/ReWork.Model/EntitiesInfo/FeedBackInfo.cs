@@ -7,7 +7,7 @@ namespace ReWork.Model.EntitiesInfo
     {     
         public string Text { get; set; }
 
-        public DateTime? AddedDate { get; set; }
+        public DateTime AddedDate { get; set; }
 
         public QualityOfWork QualityOfWork { get; set; }
 

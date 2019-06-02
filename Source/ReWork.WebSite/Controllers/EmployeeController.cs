@@ -88,8 +88,6 @@ namespace ReWork.WebSite.Controllers
             return RedirectToAction("settings", "account");
         }
 
-
-
         [HttpGet]
         public ActionResult Edit()
         {
@@ -133,22 +131,23 @@ namespace ReWork.WebSite.Controllers
         }
 
 
+
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Details(string id)
         {
-            EmployeeProfileInfo employee = _employeeService.FindEmployee(id);
+            var employee = _employeeService.FindEmployee(id);
             if (employee == null)
                 return View("Error");
 
-            EmployeeDetailsViewModel viewModel = new EmployeeDetailsViewModel()
+            var employeeModel = new EmployeeDetailsViewModel()
             {
-                Id =employee.Id,
+                Id = employee.Id,
                 Age = employee.Age,
                 AboutMe = employee.AboutMe,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
-                Image = employee.Image,
+                ImagePath = Convert.ToBase64String(employee.Image),
                 UserName = employee.UserName,
                 CountDevolopingJobs = employee.CountDevolopingJobs,
                 RegistrationdDate = employee.RegistrationdDate,
@@ -157,17 +156,14 @@ namespace ReWork.WebSite.Controllers
             };
 
             if(employee.QualityOfWorks.Count() > 0)
-                viewModel.AvarageReviewMark = (int)employee.QualityOfWorks.Select(p => (int)p).Average();
+                employeeModel.AvarageReviewMark = (int)employee.QualityOfWorks.Select(p => (int)p).Average();
 
-            int countFeedbacksForPer = viewModel.CountReviews == 0 ? 1 : viewModel.CountReviews;
+            int countFeedbacksForPer = employeeModel.CountReviews == 0 ? 1 : employeeModel.CountReviews;
             double percentPositiveFeedBacks = (double)employee.QualityOfWorks.Count(p => (int)p >= 3) * 100 / countFeedbacksForPer;
+            employeeModel.PercentPositiveReviews = (int)Math.Round(percentPositiveFeedBacks);
 
-            viewModel.PercentPositiveReviews = (int)Math.Round(percentPositiveFeedBacks);
-
-            return View(viewModel);
+            return View(employeeModel);
         }
-
-
 
         [AllowAnonymous]
         [HttpGet]
@@ -202,6 +198,14 @@ namespace ReWork.WebSite.Controllers
 
 
 
+        [HttpPost]
+        public ActionResult ProfileExists(string userId)
+        {
+            bool exists = _employeeService.EmployeeProfileExists(userId);
+            return Json(exists);
+        }
+
+
         private IEnumerable<SelectListItem> GetCategories()
         {
             var sections = _sectionService.GetAll();
@@ -228,15 +232,6 @@ namespace ReWork.WebSite.Controllers
                              }).ToList();
 
             return groupData;
-        }
-      
-
-        [HttpPost]
-        public ActionResult EmployeeProfileExists(string employeeId)
-        {
-            employeeId = (employeeId == null ? User.Identity.GetUserId() : employeeId);
-            bool exists = _employeeService.EmployeeProfileExists(employeeId);
-            return Json(exists);
-        }
+        }   
     }
 }

@@ -40,7 +40,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                        Description = j.Description,
                        Price = j.Price,
                        PriceDiscussed = j.PriceDiscussed,
-                       DateAdded = (DateTime)j.DateAdded,
+                       DateAdded = j.DateAdded,
                        CountViews = j.ViewedUsers.Count,
                        CountOffers = j.Offers.Count,
 
@@ -70,7 +70,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                         Title = j.Title,
                         Price = j.Price,
                         PriceDiscussed = j.PriceDiscussed,
-                        DateAdded = (DateTime)j.DateAdded,
+                        DateAdded = j.DateAdded,
                        
                         EmployeeId = (e != null ? e.Id : null),
                         EmployeeUserName = (u != null ? u.UserName : null),

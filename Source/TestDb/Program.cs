@@ -19,7 +19,6 @@ namespace TestDb
             using (ReWorkContext db = new ReWorkContext())
             {
                 db.Database.Log = Console.Write;
-
             }
         }
     }

@@ -22,11 +22,12 @@ namespace ReWork.DataProvider.Repositories.Implementation
             Db.Messages.Remove(item);
         }
 
-        public IQueryable<MessageInfo> FindMessageInfo(Expression<Func<Message, bool>> predicate)
+        public IQueryable<MessageInfo> FindMessageInfo(int chatRoomId)
         {
-            return from m in Db.Messages.Where(predicate)
+            return from m in Db.Messages
                    join u in Db.Users on m.SenderId equals u.Id
                    orderby m.DateAdded descending
+                   where m.ChatRoomId == chatRoomId
                    select new MessageInfo()
                    {
                        Text = m.Text,

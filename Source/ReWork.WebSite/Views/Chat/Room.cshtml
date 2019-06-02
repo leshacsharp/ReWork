@@ -1,0 +1,61 @@
+﻿@model ReWork.Model.ViewModels.Chat.ChatRoomDetailsViewModel
+@{
+    ViewBag.Title = "Room";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-9">
+
+        @Html.HiddenFor(p => p.Id)
+
+        <div class="messages-container">
+            <div class="messages-container-header">
+                @Model.Title
+
+                <div class="exit-btn">
+                    @using (Html.BeginForm("DeleteUserFromChatRoom", "chat", FormMethod.Post))
+                    {
+                        @Html.Hidden("chatRoomId", Model.Id)
+                        <input type="submit" class="btn btn-default" name="exit-room" value="exit" />
+                    }
+                </div>
+            </div>
+
+            <ul class="messages">
+                <li class="load-more-messages"></li>
+            </ul>
+
+            <div class="messages-container-footer">
+                <input type="text" name="msg-text" style="width: 70%">
+                <input type="submit" class="btn btn-default" name="send-msg" value="Send">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 hidden-sm hidden-xs">
+        <div class="members-container">
+            <div class="members-container-header">
+                Members
+            </div>
+
+            <ul class="members">
+                @foreach (var user in Model.Users)
+                {
+                    <li class="member-item">
+                        <a href="@Url.Action("details", "customer", new { id = user.Id })">
+                            @Html.Raw("<img src=\"data:image/jpeg;base64," + user.ImagePath + "\" />")
+                        </a>
+                    </li>
+                    }
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/app/chat.js"></script>
+}

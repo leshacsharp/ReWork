@@ -143,7 +143,8 @@
 
             html += skillsHtml + "</div><div class='employee-country'><span>Беларусь</span></div></div>" +
                 "<div class='col-md-4 col-sm-5 col-xs-12'><div class='employee-card'><div class='see-profile'>" +
-                "<a href='" + employee + "'><input type='submit' class='btn btn-success see-profile-btn' value='profile' /></a></div>" +
+                "<form action='/chat/createchatroom' method='post'><input type='hidden' name='userId' value='" + data[i].Id + "'/>" +
+                "<input type='submit' class='btn btn-success see-profile-btn' name='write-freelancer' value='write' /></form></div>" +
                 "<div class='employee-feedbacks'><div class='employee-feedbacks-count'>" + feedbacks.length + "</div>" +
                 "<a href='" + employee + "'>reviews</a></div><div class='employee-feedbacks-info'>" +
                 "<div class='employee-feedbacks-info-num'>" + percentPositiveFeedbacks + "%</div>" +

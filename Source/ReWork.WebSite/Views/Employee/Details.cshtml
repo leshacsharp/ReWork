@@ -8,10 +8,10 @@
 <div class="row">
     <div class="col-md-12">
         <div class="profile-short-info">
-            @Html.HiddenFor(p=>p.Id)
+            @Html.HiddenFor(p => p.Id)
 
             <div class="profile-image">
-                @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String(Model.Image) + "\" />")
+                @Html.Raw("<img src=\"data:image/jpeg;base64," + Model.ImagePath + "\" />")
             </div>
 
 
@@ -25,8 +25,9 @@
                     </span>
                 </div>
 
-                <div class="user-country">
-                    Беларусь
+                <div class="user-status">
+                    <span class='fa fa-circle' style='color:red'></span>
+                    <span> Offline</span>
                 </div>
 
                 <div class="date-registration">
@@ -50,6 +51,14 @@
                         positive
                     </span>
                 </div>
+            </div>
+
+            <div class="profile-btns">
+                @using (Html.BeginForm("createchatroom", "chat", FormMethod.Post))
+                {
+                    @Html.Hidden("userId", Model.Id)
+                    <input type="submit" name="user-write" class="btn btn-default" value="Write" />
+                }
             </div>
         </div>
     </div>
@@ -115,7 +124,38 @@
             </div>
 
             <div class="tab-pane" id="information">
-                info
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">Date registration:</span></td>
+                            <td class="col-md-9"><span>@Model.RegistrationdDate.ToShortDateString()</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">User name:</span></td>
+                            <td class="col-md-9"><span>@Model.UserName</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">First name:</span></td>
+                            <td class="col-md-3=9"><span>@Model.FirstName</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">Last name:</span></td>
+                            <td class="col-md-9"><span>@Model.LastName</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">About me:</span></td>
+                            <td class="col-md-9"><span>@Model.AboutMe </span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">Age:</span></td>
+                            <td class="col-md-9"><span>@Model.Age</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-3"><span class="info-field">Count developing jobs:</span></td>
+                            <td class="col-md-9"><span>@Model.CountDevolopingJobs</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

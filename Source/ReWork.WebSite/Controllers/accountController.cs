@@ -213,14 +213,20 @@ namespace ReWork.WebSite.Controllers
         public ActionResult Settings()
         {
             string userId = User.Identity.GetUserId();
+
             var user = _userService.FindUserById(userId);
             if (user == null)
                 return View("Error");
 
 
             var editModel = new EditUserViewModel()
-            { Id = user.Id, UserName = user.UserName, FirstName = user.FirstName, LastName = user.LastName };
-            editModel.ImagePath = Convert.ToBase64String(user.Image);
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                ImagePath = Convert.ToBase64String(user.Image)
+            };
 
             return View(editModel);
         }

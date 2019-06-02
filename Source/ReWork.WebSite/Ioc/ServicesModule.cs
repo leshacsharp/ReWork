@@ -17,8 +17,8 @@ namespace ReWork.WebSite.Ioc
             builder.RegisterType<JobService>().As<IJobService>().InstancePerRequest();
             builder.RegisterType<OfferService>().As<IOfferService>().InstancePerRequest();
 
-            builder.RegisterType<ChatService>().As<IChatService>().InstancePerRequest();
-
+            builder.RegisterType<ChatRoomService>().As<IChatRoomService>().InstancePerRequest();
+            builder.RegisterType<MessageService>().As<IMessageService>().InstancePerRequest();
             builder.RegisterType<NotificationService>().As<INotificationService>().InstancePerRequest();
 
             builder.RegisterType<SectionService>().As<ISectionService>().InstancePerRequest();
