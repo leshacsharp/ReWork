@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using FirstQuad.Common.Helpers;
+using Microsoft.AspNet.Identity;
 using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
@@ -135,9 +136,16 @@ namespace ReWork.Logic.Services.Implementation
             return _userManager.FindById(userId);
         }
 
-        public IEnumerable<UserInfo> FindUsersInfo()
+        public IEnumerable<UserInfo> FindUsersInfo(string userName)
         {
-            return (from u in _userManager.Users
+            var filter = PredicateBuilder.True<User>();
+
+            if(!String.IsNullOrEmpty(userName))
+            {
+                filter = filter.AndAlso(u => u.UserName.Contains(userName));
+            }
+
+            return (from u in _userManager.Users.Where(filter)
                     orderby u.RegistrationdDate descending
                     select new UserInfo()
                     {
@@ -145,8 +153,9 @@ namespace ReWork.Logic.Services.Implementation
                         FirstName = u.FirstName,
                         LastName = u.LastName,
                         UserName = u.UserName,
-                        Email = u.Email
-                    }).ToList();  
+                        Email = u.Email,
+                        Image = u.Image
+                    }).ToList();
         }
 
 

@@ -4,8 +4,7 @@ using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
-using ReWork.Model.EntitiesInfo;
-using ReWork.Model.ViewModels.Account;
+using ReWork.Model.Entities.Common;
 using ReWork.Model.ViewModels.FeedBack;
 using ReWork.Model.ViewModels.Profile;
 using System;
@@ -55,7 +54,7 @@ namespace ReWork.WebSite.Controllers
                 SenderId = senderId,
                 JobId = createModel.JobId,
                 Text = createModel.Text,
-                QualityOfWork = createModel.QualityOfWork
+                QualityOfWork = (QualityOfWork)createModel.QualityOfWork
             };
 
             _feedBackService.CreateFeedBack(createParams);

@@ -1138,19 +1138,29 @@ ul.nav.nav-tabs.fancy {
     margin-top:30px;
 }
 
-    .messages-container > .messages-container-header {
-        padding: 15px;
-        text-align: center;
-        font-weight: 600;
-        border-bottom: 1px solid #C0C0C0;
-    }
+.messages-container > .messages-container-header {
+    padding: 15px;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 1px solid #C0C0C0;
+}
 
-    .messages-container > .messages-container-footer {
-        padding: 10px;
-        width: 100%;
-        border-top: 1px solid #C0C0C0;
-        text-align: center;
-    }
+.messages-container-header .room-btn{
+    display:inline-block;
+    float:right;
+    position: relative;
+    bottom: 5px;
+    margin-right:5px;
+}
+
+
+
+.messages-container > .messages-container-footer {
+    padding: 10px;
+    width: 100%;
+    border-top: 1px solid #C0C0C0;
+    text-align: center;
+}
 
     .messages-container > .messages {
         height: 60vh;
@@ -1225,8 +1235,54 @@ ul.nav.nav-tabs.fancy {
     text-align:center;
 }
 
-.exit-btn {
-    float:right;
-    position: relative;
-    bottom: 5px;
+
+.dropdown-users{
+    min-width:230px;
+    padding:7px;
+}
+
+.dropdown-users > .users > .user-item{
+    padding:10px 0;
+    border-bottom:1px solid gray;
+    
+}
+
+.user-item img{
+    width:50px;
+    height:50px;
+    border-radius:4px;
+    margin-right:5px;
+}
+
+
+
+
+
+.page_error {
+    padding: 40px 0;
+    font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.page_error img {
+    width: 100%;
+}
+
+.four_zero_four_bg {
+    background-image: url(/Content/error.gif);
+    height: 400px;
+    background-position: center;
+}
+
+
+    .four_zero_four_bg h1 {
+        font-size: 80px;
+    }
+
+    .four_zero_four_bg h3 {
+        font-size: 80px;
+    }
+
+
+.contant_box_error {
+    margin-top: -50px;
 }

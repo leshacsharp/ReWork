@@ -13,13 +13,29 @@
             <div class="messages-container-header">
                 @Model.Title
 
-                <div class="exit-btn">
-                    @using (Html.BeginForm("DeleteUserFromChatRoom", "chat", FormMethod.Post))
+                <div class="room-btn">
+                    @using (Html.BeginForm("DeleteMemberFromChatRoom", "chat", FormMethod.Post))
                     {
                         @Html.Hidden("chatRoomId", Model.Id)
                         <input type="submit" class="btn btn-default" name="exit-room" value="exit" />
                     }
                 </div>
+
+                <div class="room-btn">
+                    <div class="dropdown">
+                        <button class="dropdown-toggle btn btn-default" data-toggle="dropdown" name="invite-users">
+                            invite users
+                        </button>
+
+                        <div class="dropdown-menu dropdown-users">
+                            <input type="text" name="user-name" class="form-control" placeholder="user name"/>
+                            <div class="users">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <ul class="messages">
@@ -27,7 +43,7 @@
             </ul>
 
             <div class="messages-container-footer">
-                <input type="text" name="msg-text" style="width: 70%">
+                <input type="text" name="msg-text" class="form-control" style="width: 70%;display:inline-block">
                 <input type="submit" class="btn btn-default" name="send-msg" value="Send">
             </div>
         </div>

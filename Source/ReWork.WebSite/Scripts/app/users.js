@@ -33,11 +33,17 @@
     })
 
 
-    function SendFindUsers() {
+    $("button[name=search-users]").click(function () {
+        var userName = $("input[name=user-name]").val();
+        SendFindUsers(userName);
+    })
+
+    function SendFindUsers(userName) {
         $.ajax({
-            url: "/moderator/allusers",
+            url: "/moderator/findusers",
             type: "POST",
-            success: appendUsers,   
+            data: { "userName": userName },
+            success: appendUsers   
         })
     }
 

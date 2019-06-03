@@ -88,7 +88,6 @@
 
 
 
-
     var userHub = $.connection.userHub;
 
     userHub.client.checkStatus = function (status) {
@@ -106,9 +105,15 @@
         $(".user-status").append(html);
     }
 
+    var isChrome = !!window.chrome;
+    if (isChrome == false) {
+        $.connection.hub.stop();
+    }
+
     $.connection.hub.start().done(function () {
         userHub.server.checkUserStatus(userId);
     })
+
 
 
 

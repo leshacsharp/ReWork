@@ -226,6 +226,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cube-512.png" />
+    <Content Include="Content\error.gif" />
     <Content Include="Content\dropzone.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\pagination.css" />

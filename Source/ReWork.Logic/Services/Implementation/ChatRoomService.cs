@@ -49,7 +49,7 @@ namespace ReWork.Logic.Services.Implementation
             _chatRoomRepository.Create(chatRoom);
         }
 
-        public void DeleteUserFromChatRoom(int chatRoomId, string userId)
+        public void DeleteMemberFromChatRoom(int chatRoomId, string userId)
         {
             var chatRoom = _chatRoomRepository.FindById(chatRoomId);
             if (chatRoom == null)
@@ -69,6 +69,19 @@ namespace ReWork.Logic.Services.Implementation
             }
         }
 
+        public void AddMemberToChatRoom(int chatRoomId, string userId)
+        {
+            var chatRoom = _chatRoomRepository.FindById(chatRoomId);
+            if (chatRoom == null)
+                throw new ObjectNotFoundException($"ChatRoom with id={chatRoomId} not found");
+
+            var user = _userManager.FindById(userId);
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            chatRoom.Users.Add(user);
+        }
+
 
 
         public ChatRoomDetailsInfo FindChatRoom(int chatRoomId)
@@ -82,7 +95,7 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
-
+       
         public void RefreshChatRoom(int chatRoomId)
         {
             var newMsg = _messageRepository.FindMessageInfo(chatRoomId).FirstOrDefault();

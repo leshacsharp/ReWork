@@ -15,13 +15,15 @@ namespace ReWork.WebSite.Controllers
     {
         private IChatRoomService _chatRoomService;
         private IMessageService _messageService;
+        private IUserService _userService;
         private INotificationService _notificationService;
         private ICommitProvider _commitProvider;
 
-        public ChatController(IChatRoomService chatRoomService, IMessageService messageService, INotificationService notificationService, ICommitProvider commitProvider)
+        public ChatController(IChatRoomService chatRoomService, IMessageService messageService, IUserService userService, INotificationService notificationService, ICommitProvider commitProvider)
         {
             _chatRoomService = chatRoomService;
             _messageService = messageService;
+            _userService = userService;
             _notificationService = notificationService;
             _commitProvider = commitProvider;
         }
@@ -50,8 +52,7 @@ namespace ReWork.WebSite.Controllers
 
             return View("ChatRooms", chatRoomModels);
         }
-
-
+        
         [HttpGet]
         public ActionResult Room(int id)
         {
@@ -74,6 +75,46 @@ namespace ReWork.WebSite.Controllers
         }
 
         [HttpPost]
+        public ActionResult CreateChatRoom(string userId)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            string[] usersId = new string[] { currentUserId, userId };
+
+            _chatRoomService.CreateChatRoom(usersId);
+            _notificationService.CreateNotification(currentUserId, userId, "You invited to chat room");
+            _commitProvider.SaveChanges();
+
+            _notificationService.RefreshNotifications(userId);
+            return ChatRooms();
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteMemberFromChatRoom(int chatRoomId)
+        {
+            string userId = User.Identity.GetUserId();
+
+            _chatRoomService.DeleteMemberFromChatRoom(chatRoomId, userId);
+            _commitProvider.SaveChanges();
+
+            return ChatRooms();
+        }
+
+        [HttpPost]
+        public void AddMemberToChatRoom(int chatRoomId, string userId)
+        {
+            string currentUserId = User.Identity.GetUserId();
+
+            _chatRoomService.AddMemberToChatRoom(chatRoomId, userId);
+            _notificationService.CreateNotification(currentUserId, userId, "You invited to chat room");
+
+            _commitProvider.SaveChanges();
+            _notificationService.RefreshNotifications(userId);
+        }
+
+
+
+        [HttpPost]
         public ActionResult FindMessages(int chatRoomId, int count, int page = 1)
         {
             var messages = _messageService.FindMessages(chatRoomId, page, count);
@@ -91,34 +132,6 @@ namespace ReWork.WebSite.Controllers
             return Json(messageModels);
         }
 
-
-        [HttpPost]
-        public ActionResult CreateChatRoom(string userId)
-        {
-            string currentUserId = User.Identity.GetUserId();
-            string[] usersId = new string[] { currentUserId, userId };
-
-            _chatRoomService.CreateChatRoom(usersId);
-            _notificationService.CreateNotification(currentUserId, userId, "You invited to chat room");
-            _commitProvider.SaveChanges();
-
-            _notificationService.RefreshNotifications(userId);
-            return ChatRooms();
-        }
-
-
-        [HttpPost]
-        public ActionResult DeleteUserFromChatRoom(int chatRoomId)
-        {
-            string userId = User.Identity.GetUserId();
-
-            _chatRoomService.DeleteUserFromChatRoom(chatRoomId, userId);
-            _commitProvider.SaveChanges();
-
-            return ChatRooms();
-        }
-
-
         [HttpPost]
         public void AddMessage(int chatRoomId, string text)
         {
@@ -128,6 +141,25 @@ namespace ReWork.WebSite.Controllers
             _commitProvider.SaveChanges();
 
             _chatRoomService.RefreshChatRoom(chatRoomId);
+        }
+
+
+
+
+        [HttpPost]
+        public ActionResult FindUsers(string userName)
+        {
+            var users = _userService.FindUsersInfo(userName);
+
+            var userModels = from u in users
+                             select new UserViewModel()
+                             {
+                                 Id = u.Id,
+                                 UserName = u.UserName,
+                                 ImagePath = Convert.ToBase64String(u.Image)
+                             };
+
+            return Json(userModels);
         }
     }
 }

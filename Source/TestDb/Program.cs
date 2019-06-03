@@ -19,6 +19,17 @@ namespace TestDb
             using (ReWorkContext db = new ReWorkContext())
             {
                 db.Database.Log = Console.Write;
+
+                var a =  (from u in db.Users.Where(p=>p.UserName.Contains("anton"))
+                        orderby u.RegistrationdDate descending
+                        select new UserInfo()
+                        {
+                            Id = u.Id,
+                            FirstName = u.FirstName,
+                            LastName = u.LastName,
+                            UserName = u.UserName,
+                            Email = u.Email
+                        }).ToList();
             }
         }
     }

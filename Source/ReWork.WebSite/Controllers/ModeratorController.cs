@@ -31,10 +31,12 @@ namespace ReWork.WebSite.Controllers
             return View();
         }
 
+
+        [AllowAnonymous]
         [HttpPost]
-        public ActionResult AllUsers()
+        public ActionResult FindUsers(string userName)
         {
-            var users = _userService.FindUsersInfo();
+            var users = _userService.FindUsersInfo(userName);
             return Json(users);
         }
 

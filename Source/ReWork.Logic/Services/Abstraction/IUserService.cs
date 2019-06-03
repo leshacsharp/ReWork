@@ -29,7 +29,7 @@ namespace ReWork.Logic.Services.Abstraction
 
         User FindUserByName(string userName);
         User FindUserById(string userId);
-        IEnumerable<UserInfo> FindUsersInfo();
+        IEnumerable<UserInfo> FindUsersInfo(string userName);
 
 
         IEnumerable<string> GetUserRoles(string userId);

@@ -40,7 +40,7 @@ namespace ReWork.Logic.Services.Implementation
             var job = _jobRepository.FindJobById(createParams.JobId);
             if (job == null)
                 throw new ObjectNotFoundException($"Job with id={createParams.JobId} not found");
-
+            
 
             var feedBack = new FeedBack()
             {

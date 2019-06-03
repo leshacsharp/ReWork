@@ -16,10 +16,20 @@
         @Html.LabelFor(p => p.Text, new { @class = "col-md-3 control-label" })
         <div class="col-md-9">
             @Html.TextBoxFor(p => p.Text, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Text, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    //Todo: сделать форму для оценки работы QualityOfWork
+    <div class="form-group">
+        @Html.LabelFor(p => p.QualityOfWork, new { @class = "col-md-3 control-label" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(p => p.QualityOfWork, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.QualityOfWork, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-offset-3">
+            <p class="help-block">Input your mark in range 1-5</p>
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-3 col-md-9">

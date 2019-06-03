@@ -9,7 +9,13 @@
 
 
     $("input[name=search-jobs]").click(function () {
-        SendFindJobs();
+        var fromDate = "";
+        var fromDateStr = $("#datetimepicker input[type=text]").val();
+        if (fromDateStr != "") {
+            fromDate = (new Date(fromDateStr)).toISOString();
+        }
+
+        SendFindJobs(fromDate);
     })
 
     $(".search-table tbody").on("click", "input[name=delete-job]", function () {
@@ -43,14 +49,9 @@
     })
 
 
-    function SendFindJobs() {
+    function SendFindJobs(fromDate) {
         $(".search-table tbody").empty();
-        var fromDate = "";
-        var fromDateStr = $("#datetimepicker input[type=text]").val();
-        if (fromDateStr != "") {
-            fromDate = (new Date(fromDateStr)).toISOString();
-        }
-
+       
         $.ajax({
             url: "/Customer/Myjobs",
             type: "POST",

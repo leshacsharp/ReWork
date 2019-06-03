@@ -132,7 +132,7 @@ namespace ReWork.Model.Migrations
                 Description = "web site must be beautifull, topic this web site its cars",
                 Price = 1000,
                 PriceDiscussed = true,
-                DateAdded = DateTime.UtcNow
+                DateAdded = new DateTime(2019, 3, 1)
             };
 
             var designJob = new Job()
@@ -144,7 +144,7 @@ namespace ReWork.Model.Migrations
                 Description = "crate beautifully design, i want see my website in gray colors",
                 Price = 3000,
                 PriceDiscussed = true,
-                DateAdded = DateTime.UtcNow
+                DateAdded = new DateTime(2019, 2, 25)
             };
 
             websiteJob.Skills.Add(skillCs);

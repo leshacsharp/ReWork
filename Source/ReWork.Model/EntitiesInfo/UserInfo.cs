@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ReWork.Model.EntitiesInfo
+﻿namespace ReWork.Model.EntitiesInfo
 {
     public class UserInfo
     {
@@ -14,5 +11,7 @@ namespace ReWork.Model.EntitiesInfo
         public string UserName { get; set; }
 
         public string Email { get; set; }
+
+        public byte[] Image { get; set; }
     }
 }

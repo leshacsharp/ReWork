@@ -240,7 +240,7 @@ namespace ReWork.Logic.Services.Implementation
         private Expression<Func<Job, bool>> JobFilter(int[] skillsId, string keyWords, int priceFrom)
         {
             var filter = PredicateBuilder.True<Job>();
-            filter = filter.AndAlso<Job>(job => job.Status == ProjectStatus.Open);
+            filter = filter.AndAlso(job => job.Status == ProjectStatus.Open);
 
             if (skillsId != null && skillsId.Length > 0)
             {

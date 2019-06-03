@@ -5,6 +5,7 @@ namespace ReWork.Model.ViewModels.FeedBack
 {
     public class CreateFeedBackViewModel
     {
+        [Required]
         public string ReciverId { get; set; }
 
         public int JobId { get; set; }
@@ -13,6 +14,7 @@ namespace ReWork.Model.ViewModels.FeedBack
         [StringLength(250, MinimumLength = 5)]
         public string Text { get; set; }
 
-        public QualityOfWork QualityOfWork { get; set; }
+        [Range(1,5)]
+        public int QualityOfWork { get; set; }
     }
 }

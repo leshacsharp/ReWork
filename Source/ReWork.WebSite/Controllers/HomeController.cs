@@ -11,15 +11,12 @@ namespace ReWork.WebSite.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult Search()
         {
             return View();
         }
+
 
         [HttpPost]
         public ActionResult ChangeCulture(Culture lang)
