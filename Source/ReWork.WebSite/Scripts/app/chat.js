@@ -120,7 +120,11 @@
         });
     }
 
-    var isChrome = !!window.chrome;
+    var isChrome = false;
+    if (navigator.userAgent.search("Chrome") >= 0 && navigator.userAgent.search("Edge") < 0) {
+        isChrome = true;
+    }
+
     if (isChrome == false) {
         $.connection.hub.stop();
     }

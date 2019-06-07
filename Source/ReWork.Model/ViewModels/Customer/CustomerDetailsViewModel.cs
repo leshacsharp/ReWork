@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ReWork.Model.Entities.Common;
+using System;
+using System.Collections.Generic;
 
 namespace ReWork.Model.ViewModels.Customer
 {
@@ -15,7 +17,7 @@ namespace ReWork.Model.ViewModels.Customer
         public string ImagePath { get; set; }
 
         public DateTime RegistrationdDate { get; set; }
-
+    
         public int CountPublishJobs { get; set; }
 
         public int CountReviews { get; set; }

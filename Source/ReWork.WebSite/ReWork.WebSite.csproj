@@ -241,6 +241,7 @@
     <Content Include="Scripts\components\bootstrap-multiselect.js" />
     <Content Include="Scripts\components\bootstrap.js" />
     <Content Include="Scripts\components\bootstrap.min.js" />
+    <Content Include="Scripts\components\charts.js" />
     <Content Include="Scripts\components\datepicker.min.js" />
     <None Include="Properties\PublishProfiles\ReWorkWebSite20190605033041 - Web Deploy.pubxml" />
     <None Include="Scripts\components\jquery-3.3.1.intellisense.js" />

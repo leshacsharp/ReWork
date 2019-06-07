@@ -35,7 +35,10 @@
     }
 
     function FormatReviewsResult(data) {
-        var result = [];
+
+        GenerateReviewsInfo(data);
+
+        var result = [];      
 
         for (var i = 0; i < data.length; i++) {
             var offerDate = ParseCsharpDate(data[i].AddedDate);
@@ -60,8 +63,60 @@
 
             result.push(html);
         }
+
         return result;
     }
+
+    function GenerateReviewsInfo(data) {
+
+        var marks = {};
+
+        for (var i = 0; i < data.length; i++) {
+            var val = data[i].QualityOfWork;
+
+            if (marks[val] === undefined) 
+                marks[val] = 1;      
+            else 
+                marks[val]++;
+        }
+
+       
+        var dataD = [['Task', 'Hours per Day']];
+        for (var prop in marks) {
+            dataD.push(new Array("mark " + prop, marks[prop]));
+        }
+
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(dataD);
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            var options = {
+                legend: 'none',
+                pieSliceText: 'label',
+                width: '100%',
+                height: '100%',
+                chartArea: {
+                    height: "94%",
+                    width: "94%"
+                },
+                tooltip: {
+                    textStyle: {
+                        fontSize:15
+                    }
+                },
+                pieSliceTextStyle: {
+                    fontSize: 15
+                }
+            };
+
+            chart.draw(data, options);
+        }
+    }
+   
 
     function CheckProfileOnExists() {
         var profileNameExists;
