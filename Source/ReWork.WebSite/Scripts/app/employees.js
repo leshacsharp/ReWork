@@ -125,7 +125,7 @@
                     countPositiveFeedbacks++;
                 }
             }
-            var percentPositiveFeedbacks = countPositiveFeedbacks * 100 / (feedbacks.length == 0 ? 1 : feedbacks.length);
+            var percentPositiveFeedbacks = Math.round(countPositiveFeedbacks * 100 / (feedbacks.length == 0 ? 1 : feedbacks.length));
             
 
             var html = "<div class='employee'><div class='row'><div class='col-md-8 col-sm-7 col-xs-12'><div class='pull-left employee-photo'>" +
