@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
-using ReWork.Model.EntitiesInfo;
 using ReWork.Model.ViewModels.Employee;
 using System;
 using System.Collections.Generic;
@@ -107,7 +106,6 @@ namespace ReWork.WebSite.Controllers
         [HttpPost]
         public ActionResult Edit(EmployeeProfileViewModel editModel)
         {
-            //TODO: изменить вместо form на ajax
             if (!ModelState.IsValid)
             {
                 ViewBag.Skills = GetCategories();

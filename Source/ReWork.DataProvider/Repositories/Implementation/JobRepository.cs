@@ -43,6 +43,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
                        DateAdded = j.DateAdded,
                        CountViews = j.ViewedUsers.Count,
                        CountOffers = j.Offers.Count,
+                       Status = j.Status,
 
                        UserName = u.UserName,
                        CustomerId = c.Id,

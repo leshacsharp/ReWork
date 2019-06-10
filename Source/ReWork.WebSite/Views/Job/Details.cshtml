@@ -169,6 +169,19 @@
             <div class="col-md-12">
                 <div class="widget">
                     <div class="widget-header">
+                        Project status
+                    </div>
+                    <div>
+                        @(Enum.GetName(typeof(ReWork.Model.Entities.Common.ProjectStatus), Model.Job.Status))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget">
+                    <div class="widget-header">
                         Price
                     </div>
                     <div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReWork.Model.Entities.Common;
+using System;
 using System.Collections.Generic;
 
 namespace ReWork.Model.EntitiesInfo
@@ -16,6 +17,8 @@ namespace ReWork.Model.EntitiesInfo
         public bool PriceDiscussed { get; set; }
 
         public DateTime DateAdded { get; set; }
+
+        public ProjectStatus Status { get; set; }
 
         public int CountViews { get; set; }
 

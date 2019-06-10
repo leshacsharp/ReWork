@@ -20,7 +20,6 @@
     }
 
     function appendReviews(data) {
-        //TODO: СДЕЛАТЬ сколько найдено items
 
         $(".pagination").pagination({
             dataSource: data,
@@ -81,7 +80,7 @@
         }
 
        
-        var dataD = [['Task', 'Hours per Day']];
+        var dataD = [['Task', '///']];
         for (var prop in marks) {
             dataD.push(new Array("mark " + prop, marks[prop]));
         }
@@ -97,11 +96,11 @@
             var options = {
                 legend: 'none',
                 pieSliceText: 'label',
-                width: '100%',
-                height: '100%',
+                width: 300,
+                height: 300,
                 chartArea: {
-                    height: "94%",
-                    width: "94%"
+                    height: "100%",
+                    width: "100%",
                 },
                 tooltip: {
                     textStyle: {
@@ -117,7 +116,6 @@
         }
     }
    
-
     function CheckProfileOnExists() {
         var profileNameExists;
         if (window.location.href.toLowerCase().indexOf("customer") != -1) {
@@ -160,7 +158,11 @@
         $(".user-status").append(html);
     }
 
-    var isChrome = !!window.chrome;
+    var isChrome = false;
+    if (navigator.userAgent.search("Chrome") >= 0 && navigator.userAgent.search("Edge") < 0) {
+        isChrome = true;
+    }
+
     if (isChrome == false) {
         $.connection.hub.stop();
     }

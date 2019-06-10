@@ -18,7 +18,6 @@
     }
 
     function appendJobs(data) {
-        //TODO: СДЕЛАТЬ сколько найдено items
 
         $("#jobs-tab .pagination").pagination({
             dataSource: data,
@@ -79,7 +78,6 @@
     }
 
     function appendEmployees(data) {
-        //TODO: СДЕЛАТЬ сколько найдено items
 
         $("#employees-tab .pagination").pagination({
             dataSource: data,

@@ -2,15 +2,14 @@
 
     SendFindJobs();
 
-    //$("#datetimepicker").datepicker({
-    //    startDate: new Date(2018, 3, 25),
-    //    endDate: new Date()
-    //});
+    $("#datetimepicker").datepicker({
+        startDate: new Date(2018, 3, 25),
+        endDate: new Date()
+    });
 
-
-    //$("input[name=search-jobs]").click(function () {
-    //    SendFindJobs();
-    //})
+    $("input[name=search-jobs]").click(function () {
+        SendFindJobs();
+    })
 
 
     $(".search-table tbody").on("click", "input[name=delete-job]", function () {
@@ -29,22 +28,22 @@
 
     function SendFindJobs() {
         $(".search-table tbody").empty();
-        //var fromDate = "";
-        //var fromDateStr = $("#datetimepicker input[type=text]").val();
-        //if (fromDateStr != "") {
-        //    fromDate = (new Date(fromDateStr)).toISOString();
-        //}
+
+        var fromDate = null;
+        var fromDateStr = $("#datetimepicker input[type=text]").val();
+        if (fromDateStr != "") {
+            fromDate = (new Date(fromDateStr)).toISOString();
+        }
 
         $.ajax({
             url: "/Employee/Myjobs",
             type: "POST",
-            //data: { "fromDate": fromDate },
+            data: { "fromDate": fromDate },
             success: AppendJobs
         })
     }
 
     function AppendJobs(data) {
-        //TODO: СДЕЛАТЬ сколько найдено items
 
         $(".pagination").pagination({
             dataSource: data,

@@ -1,15 +1,16 @@
 ﻿$(document).ready(function () {
 
+
+    var currentCulture = $.cookie("lang");
+    if (currentCulture != undefined) {
+        var option = $("select").find("option[value=" + currentCulture + "]");
+        option.attr("selected", "selected");
+    }
+
+
     var userId = $("input[name=userId]").val();
 
-
     if (userId != undefined) {
-
-        var currentCulture = $.cookie("lang");
-        if (currentCulture != undefined) {
-            var option = $("select").find("option[value=" + currentCulture + "]");
-            option.attr("selected", "selected");
-        }
 
         var currentProfile = $.cookie("profile");
         if (currentProfile != undefined) {
@@ -96,33 +97,32 @@
                 AppendFormatNotifications(notifications);
             }
         })
-
-
-
-
-        var notificationHub = $.connection.notificationHub;
-        var userHub = $.connection.userHub;
-
-        notificationHub.client.refreshNotifications = function (notifications) {
-            var parseNotifications = $.parseJSON(notifications);
-
-            AppendFormatNotifications(parseNotifications);
-        };
-
-        userHub.client.refreshUsersCounter = function (count) {
-            $(".users-count > .counter").html(count);
-        }
-
-        $.connection.hub.start().done(function () {
-
-            userHub.server.refreshUsersCounter();
-
-            setInterval(function () {
-                userHub.server.refreshUsersCounter();
-            }, 10000);
-        })
-        
     }
+
+
+
+    var notificationHub = $.connection.notificationHub;
+    var userHub = $.connection.userHub;
+
+    notificationHub.client.refreshNotifications = function (notifications) {
+        var parseNotifications = $.parseJSON(notifications);
+
+        AppendFormatNotifications(parseNotifications);
+    };
+
+    userHub.client.refreshUsersCounter = function (count) {
+        $(".users-count > .counter").html(count);
+    }
+
+    $.connection.hub.start().done(function () {
+
+        userHub.server.refreshUsersCounter();
+
+        setInterval(function () {
+            userHub.server.refreshUsersCounter();
+        }, 10000);
+    })
+
 
 
 

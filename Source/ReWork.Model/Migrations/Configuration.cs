@@ -6,12 +6,9 @@ namespace ReWork.Model.Migrations
     using Microsoft.Owin.Security.DataProtection;
     using ReWork.Model.Entities;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Data.Entity.Validation;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Web;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ReWork.Model.Context.ReWorkContext>
@@ -95,7 +92,6 @@ namespace ReWork.Model.Migrations
                 programming = new Section() { Title = "Programming" };
                 design = new Section() { Title = "Design sites" };
                 
-
                 context.Sections.Add(programming);
                 context.Sections.Add(design);
             }
@@ -105,7 +101,6 @@ namespace ReWork.Model.Migrations
             Skill skillJa = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
             Skill skillCss = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
             Skill skillScss = context.Skills.FirstOrDefault(p => p.Title.Equals("Java"));
-          
 
             if (skillCs == null && skillJa == null && skillCss == null && skillScss == null)
             {
@@ -113,13 +108,11 @@ namespace ReWork.Model.Migrations
                 skillJa = new Skill() { Title = "Java", Section = programming };
                 skillCss = new Skill() { Title = "CSS", Section = design };
                 skillScss = new Skill() { Title = "SCSS", Section = design };
-               
 
                 context.Skills.Add(skillCs);
                 context.Skills.Add(skillJa);
                 context.Skills.Add(skillCss);
                 context.Skills.Add(skillScss);
-             
             }
 
 

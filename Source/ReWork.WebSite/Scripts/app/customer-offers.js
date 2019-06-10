@@ -11,7 +11,6 @@
     }
 
     function appendOffers(data) {
-        //TODO: СДЕЛАТЬ сколько найдено items
 
         $(".pagination").pagination({
             dataSource: data,
@@ -58,7 +57,7 @@
 
 
     $(".search-table tbody").on("click", "input[name=accept-offer]", function () {
-        var parent = $(this).parent().parent().parent();
+        var parent = $(this).parent().parent();
 
         var offerId = parent.find("input[name=offerId]").val();
         var employeeId = parent.find("input[name=employeeId]").val();        
@@ -68,16 +67,15 @@
             type: "POST",
             data: { "offerId": offerId, "employeeId": employeeId },
             success: function () {
-
-                parent.remove();
                 var userName = $(".employee-offer-name a").html();
-                alert("now" + userName + " will work on this project");
+                parent.parent().remove();
+                alert("now " + userName + " will work on this project");
             }
         })
     })
 
     $(".search-table tbody").on("click", "input[name=reject-offer]", function () {
-        var parent = $(this).parent().parent().parent();
+        var parent = $(this).parent().parent();
         var offerId = parent.find("input[name=offerId]").val();
 
         $.ajax({
@@ -85,7 +83,7 @@
             type: "POST",
             data: { "offerId": offerId },
             success: function () {
-                parent.remove();
+                parent.parent().remove();
             }
         })
     })
@@ -107,5 +105,4 @@
         var fullDate = new Date(dateMsInt);
         return fullDate.toLocaleString().replace(/,/, '');
     }
-
 })

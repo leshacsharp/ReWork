@@ -48,7 +48,6 @@
     }
 
     function appendUsers(data) {
-        //TODO: СДЕЛАТЬ сколько найдено items
 
         $(".pagination").pagination({
             dataSource: data,
