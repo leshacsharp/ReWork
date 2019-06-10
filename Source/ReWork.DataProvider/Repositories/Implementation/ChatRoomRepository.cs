@@ -1,12 +1,8 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReWork.DataProvider.Repositories.Implementation
 {

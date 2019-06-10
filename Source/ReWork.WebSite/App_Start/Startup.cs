@@ -17,6 +17,7 @@ namespace ReWork.WebSite.App_Start
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/account/login"),
             });
+
             DataProtectionProvider = app.GetDataProtectionProvider();
 
             app.MapSignalR();

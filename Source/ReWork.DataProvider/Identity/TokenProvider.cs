@@ -15,10 +15,11 @@ namespace ReWork.DataProvider.Identity
                 if (_tokenProvider != null)
                     return _tokenProvider;
 
-                DpapiDataProtectionProvider dataProtectionProvider = new DpapiDataProtectionProvider();
-                _tokenProvider = new DataProtectorTokenProvider<User>(dataProtectionProvider.Create());
-
-                return _tokenProvider;
+                //DpapiDataProtectionProvider dataProtectionProvider = new DpapiDataProtectionProvider();
+                //var dataProtectionProvider = 
+                //_tokenProvider = new DataProtectorTokenProvider<User>(dataProtectionProvider.Create());
+                // return _tokenProvider;
+                return null;
             }
         }
     }
