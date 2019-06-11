@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
 namespace ReWork.Model.ViewModels.Job
 {
@@ -19,9 +18,11 @@ namespace ReWork.Model.ViewModels.Job
         [Range(0, Int32.MaxValue)]
         public int Price { get; set; }
 
+        [Display(Name = "Price discussed")]
         public bool PriceDiscussed { get; set; }
 
         [CannotBeEmpty(ErrorMessage = "Select at least 1 skill")]
+        [Display(Name = "Selected skills")]
         public IEnumerable<int> SelectedSkills { get; set; }
     }
 }

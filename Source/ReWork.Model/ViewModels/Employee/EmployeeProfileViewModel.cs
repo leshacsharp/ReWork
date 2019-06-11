@@ -11,9 +11,11 @@ namespace ReWork.Model.ViewModels.Employee
 
         [Required]
         [StringLength(700, MinimumLength = 10)]
+        [Display(Name = "About me")]
         public string AboutMe { get; set; }
 
         [CannotBeEmpty(ErrorMessage = "Select at least 1 skill")]
+        [Display(Name = "Selected skills")]
         public int[] SelectedSkills { get; set; }
     }
 }

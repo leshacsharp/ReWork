@@ -1,11 +1,7 @@
 ﻿using ReWork.Logic.Services.Params;
-using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReWork.Logic.Services.Abstraction
 {

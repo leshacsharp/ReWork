@@ -18,7 +18,6 @@ namespace ReWork.WebSite
             IocConfig.ConfigureContainer();
 
             log4net.Config.XmlConfigurator.Configure();
-
             GlobalHost.Configuration.DisconnectTimeout = TimeSpan.FromSeconds(6);
         }
     }

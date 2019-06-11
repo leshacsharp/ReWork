@@ -1,19 +1,17 @@
 ﻿using FirstQuad.Common.Helpers;
+using Microsoft.AspNet.Identity;
 using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Entities;
+using ReWork.Model.Entities.Common;
 using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using ReWork.Model.Entities.Common;
-using System.Data.Entity.Core;
-using System.Data.Entity;
-using Microsoft.AspNet.Identity;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -22,7 +20,6 @@ namespace ReWork.Logic.Services.Implementation
         private IJobRepository _jobRepository;
         private UserManager<User> _userManager;
         private ICustomerProfileRepository _customerRepository;
-        private IEmployeeProfileRepository _employeeRepository;
         private ISkillRepository _skillRepository;
 
         public JobService(IJobRepository jobRep, UserManager<User> userManager, ICustomerProfileRepository customerRep, IEmployeeProfileRepository employeeRep, ISkillRepository skillRep)
@@ -30,7 +27,6 @@ namespace ReWork.Logic.Services.Implementation
             _jobRepository = jobRep;
             _userManager = userManager;
             _customerRepository = customerRep;
-            _employeeRepository = employeeRep;
             _skillRepository = skillRep;
         }
 
@@ -99,8 +95,6 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
-
-
         public void DeleteEmployeeFromJob(int jobId)
         {
             var job = _jobRepository.FindJobById(jobId);
@@ -153,7 +147,6 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
-
         public JobInfo FindJob(int jobId)
         {
             return _jobRepository.FindJobsInfo(p => p.Id == jobId).SingleOrDefault();
@@ -163,7 +156,6 @@ namespace ReWork.Logic.Services.Implementation
         {
             return _jobRepository.FindMyJobInfo(jobId);
         }
-
 
 
         public IEnumerable<JobInfo> FindCustomerJobs(string customerId, DateTime? fromDate)
@@ -234,7 +226,6 @@ namespace ReWork.Logic.Services.Implementation
                                  .OrderByDescending(sortByRelevant)
                                  .ToList();
         }
-
 
 
         private Expression<Func<Job, bool>> JobFilter(int[] skillsId, string keyWords, int priceFrom)

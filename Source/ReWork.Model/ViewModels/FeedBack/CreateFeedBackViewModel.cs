@@ -1,5 +1,4 @@
-﻿using ReWork.Model.Entities.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ReWork.Model.ViewModels.FeedBack
 {
@@ -15,6 +14,7 @@ namespace ReWork.Model.ViewModels.FeedBack
         public string Text { get; set; }
 
         [Range(1,5)]
+        [Display(Name = "Quality Of Work")]
         public int QualityOfWork { get; set; }
     }
 }

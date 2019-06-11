@@ -10,13 +10,13 @@
             data: { "jobId": jobId },
             success: function (exists) {
                 if (!exists) {
-                    $('#create-offer').modal('show')
+                    $('#create-offer').modal('show');
                 }
                 else {
                     $("#exists-offer").modal('show');
                 }
             }
-        })
+        });
     });
 
     $("#offer-form input[type=submit]").click(function () {
@@ -33,23 +33,23 @@
             $.ajax({
                 url: "/notification/CreateNotify",
                 type: "POST",
-                data: { "reciverId": reciverId, "text": "you made offer to job - " + jobTitle },   
+                data: { "reciverId": reciverId, "text": "you made offer to job - " + jobTitle }
             })
         }
-    })
+    });
 
 
     $("a[name=sort-payment]").click(function () {
-        sortOffers($(this),"data-payment");
-    })
+        sortOffers($(this), "data-payment");
+    });
 
     $("a[name=sort-date]").click(function () {
-        sortOffers($(this),"data-date", "date");
-    })
+        sortOffers($(this), "data-date", "date");
+    });
 
     $("a[name=sort-time]").click(function () {
-        sortOffers($(this),"data-days");
-    })
+        sortOffers($(this), "data-days");
+    });
 
 
     function sortOffers(btn, attrName, attrType) {
@@ -79,8 +79,8 @@
 
         $(".job-offers-container").empty();
         $(".job-offers-container").append(sortOffers);
-    }
-    
+    };
+
     function getSorted(selector, attrName, side, attrType) {
         var array = $(selector).toArray();
         return $(array.sort(function (a, b) {
@@ -97,12 +97,13 @@
             }
 
             if (side == 'increase') {
-               return aVal - bVal;
+                return aVal - bVal;
             }
 
             if (side == "descending") {
                 return bVal - aVal;
             }
         }));
-    }
-})
+    };
+
+});

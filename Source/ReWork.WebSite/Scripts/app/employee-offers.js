@@ -7,8 +7,8 @@
             url: "/Employee/EmployeeOffers",
             type: "POST",
             success: appendOffers
-        })
-    }
+        });
+    };
 
     function appendOffers(data) {
 
@@ -17,12 +17,12 @@
             pageSize: 3,
             formatResult: FormatOffersResult,
 
-            callback: function (data, pagination) {
+            callback: function (data) {
                 $(".search-table tbody").empty();
                 $(".search-table tbody").append(data);
             }
-        })
-    }
+        });
+    };
 
     function FormatOffersResult(data) {
         var result = [];
@@ -41,8 +41,9 @@
 
             result.push(html);
         }
+
         return result;
-    }
+    };
 
 
     function ParseCsharpDate(date) {
@@ -50,5 +51,5 @@
         var dateMsInt = parseInt(dateMs);
         var fullDate = new Date(dateMsInt);
         return fullDate.toLocaleString().replace(/,/, '');
-    }
-})
+    };
+});

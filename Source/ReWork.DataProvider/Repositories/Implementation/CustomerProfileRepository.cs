@@ -1,8 +1,6 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
-using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
-using System;
 using System.Data.Entity;
 using System.Linq;
 

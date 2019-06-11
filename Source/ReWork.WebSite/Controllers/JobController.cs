@@ -2,14 +2,10 @@
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Context;
-using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
-using ReWork.Model.ViewModels;
 using ReWork.Model.ViewModels.Job;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers
@@ -68,8 +64,6 @@ namespace ReWork.WebSite.Controllers
             return RedirectToAction("Jobs", "Job");
         }
 
-
-
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -117,8 +111,6 @@ namespace ReWork.WebSite.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-
         [HttpPost]
         public void Delete(int id)
         {
@@ -126,6 +118,7 @@ namespace ReWork.WebSite.Controllers
             _commitProvider.SaveChanges();
         }
          
+
         [HttpPost]
         public void DeleteEmployeeFromJob(int id)
         {
@@ -178,6 +171,14 @@ namespace ReWork.WebSite.Controllers
              return View(job);
         }
 
+        [HttpPost]
+        public ActionResult EmployeeExistsInJob(int jobId)
+        {
+            var job = _jobService.FindCustomerJob(jobId);
+            bool employeeExists = (job != null && job.EmployeeId != null) ? true : false;
+
+            return Json(employeeExists);
+        }
 
 
         [AllowAnonymous]

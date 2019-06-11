@@ -2,12 +2,7 @@
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Context;
-using ReWork.Model.EntitiesInfo;
 using ReWork.Model.ViewModels.Offer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers
@@ -67,13 +62,13 @@ namespace ReWork.WebSite.Controllers
             _notificationService.RefreshNotifications(employeeId);
         }
 
-
         [HttpPost]
         public void RejectOffer(int offerId)
         {
             _offerService.RejectOffer(offerId);
             _commitProvider.SaveChanges();
         }
+
 
         [HttpPost]
         public ActionResult OfferExists(int jobId)
@@ -82,7 +77,5 @@ namespace ReWork.WebSite.Controllers
             bool offerExists = _offerService.OfferExists(jobId, userId);
             return Json(offerExists);
         }
-
-
     }
 }

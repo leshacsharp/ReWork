@@ -4,6 +4,22 @@
     var skills = (IEnumerable<SelectListItem>)ViewBag.Skills;
 }
 
+<div class="modal fade" id="not-found-freelancer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+                <h4>Information</h4>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <h3>Not found freelancer on this job</h3>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
 <h4>Edit job</h4>
 <hr />
 
@@ -14,7 +30,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <a href="/job/finishjob/@Model.JobId" class="btn btn-success">Finish job</a>
+            <button type="button" href="/job/finishjob/@Model.JobId" name="finish-job" class="btn btn-success">Finish job</button>
         </div>
     </div>
 
@@ -70,11 +86,5 @@
 @section scripts
 {
     <script type="text/javascript" src="~/Scripts/components/bootstrap-multiselect.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("select[name=SelectedSkills]").multiselect({
-                buttonWidth: '250px',
-            })
-        })
-    </script>
+    <script type="text/javascript" src="~/Scripts/app/job-edit.js"></script>  
 }

@@ -1,12 +1,8 @@
 ﻿using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.Entities;
-using ReWork.Model.ViewModels;
 using ReWork.Model.ViewModels.Account;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers
@@ -30,7 +26,6 @@ namespace ReWork.WebSite.Controllers
         {   
             return View();
         }
-
 
         [AllowAnonymous]
         [HttpPost]
@@ -60,8 +55,6 @@ namespace ReWork.WebSite.Controllers
 
             return PartialView(userDetails);
         }
-
-
 
         [HttpGet]
         public ActionResult EditUser(string id)

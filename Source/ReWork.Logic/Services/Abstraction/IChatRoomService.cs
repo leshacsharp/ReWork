@@ -8,6 +8,7 @@ namespace ReWork.Logic.Services.Abstraction
         void CreateChatRoom(IEnumerable<string> usersId);
         void AddMemberToChatRoom(int chatRoomId, string userId);
         void DeleteMemberFromChatRoom(int chatRoomId, string userId);
+        void EditChatRoom(int chatRoomId, string newTitle);
 
         ChatRoomDetailsInfo FindChatRoom(int id);
         IEnumerable<ChatRoomInfo> FindChatRooms(string userId);

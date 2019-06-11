@@ -3,9 +3,7 @@ using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.ViewModels.Chat;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers
@@ -88,7 +86,6 @@ namespace ReWork.WebSite.Controllers
             return ChatRooms();
         }
 
-
         [HttpPost]
         public ActionResult DeleteMemberFromChatRoom(int chatRoomId)
         {
@@ -112,6 +109,24 @@ namespace ReWork.WebSite.Controllers
             _notificationService.RefreshNotifications(userId);
         }
 
+        [HttpGet]
+        public ActionResult EditChatRoom(int id)
+        {
+            var editModel = new EditRoomViewModel() { ChatRoomId = id };
+            return PartialView(editModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditChatRoom(EditRoomViewModel editModel)
+        {
+            if (!ModelState.IsValid)
+                return PartialView(editModel);
+
+            _chatRoomService.EditChatRoom(editModel.ChatRoomId, editModel.NewTitle);
+            _commitProvider.SaveChanges();
+
+            return Redirect(Request.UrlReferrer.PathAndQuery);
+        }
 
 
         [HttpPost]
@@ -142,8 +157,6 @@ namespace ReWork.WebSite.Controllers
 
             _chatRoomService.RefreshChatRoom(chatRoomId);
         }
-
-
 
 
         [HttpPost]

@@ -1,5 +1,4 @@
 ﻿using ReWork.DataProvider.Repositories.Abstraction;
-using ReWork.Model.Context;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using System.Collections.Generic;
@@ -25,6 +24,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return (from f in Db.FeedBacks
                     join j in Db.Jobs on f.JobId equals j.Id
                     join s in Db.Users on f.SenderId equals s.Id
+                    orderby f.AddedDate descending
                     where f.ReceiverId == reciverId
                     select new FeedBackInfo()
                     {
@@ -46,6 +46,7 @@ namespace ReWork.DataProvider.Repositories.Implementation
             return (from f in Db.FeedBacks
                     join j in Db.Jobs on f.JobId equals j.Id
                     join s in Db.Users on f.SenderId equals s.Id
+                    orderby f.AddedDate descending
                     where f.SenderId == senderId
                     select new FeedBackInfo()
                     {

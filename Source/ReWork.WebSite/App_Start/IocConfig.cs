@@ -3,7 +3,6 @@ using Autofac.Integration.Mvc;
 using Microsoft.Owin.Security.DataProtection;
 using ReWork.Logic.Ioc;
 using ReWork.WebSite.Ioc;
-using System.Reflection;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.App_Start

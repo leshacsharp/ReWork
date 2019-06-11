@@ -1222,11 +1222,24 @@ ul.nav.nav-tabs.fancy {
     margin-bottom: 15px;
     list-style: none;
     text-align: center;
+    position:relative;
+}
+
+.member-item .member-username {
+    position: absolute;
+    top: 10px;
+    left:0;
+    right:0;
+    font-weight: 600;
+    font-size: 130%;
+    color: white;
+    text-decoration:none;
+    opacity:0.9;
 }
 
 .member-item img {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
 }
 
@@ -1241,7 +1254,12 @@ ul.nav.nav-tabs.fancy {
     padding:7px;
 }
 
-.dropdown-users > .users > .user-item{
+.dropdown-users > .users{
+    max-height:400px;
+    overflow-y:auto;
+}
+
+.users > .user-item{
     padding:10px 0;
     border-bottom:1px solid gray;
     

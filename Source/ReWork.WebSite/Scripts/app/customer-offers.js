@@ -7,8 +7,8 @@
             url: "/Customer/CustomerOffers",
             type: "POST",
             success: appendOffers
-        })
-    }
+        });
+    };
 
     function appendOffers(data) {
 
@@ -17,18 +17,17 @@
             pageSize: 3,
             formatResult: FormatOffersResult,
 
-            callback: function (data, pagination) {
+            callback: function (data) {
                 $(".search-table tbody").empty();
                 $(".search-table tbody").append(data);
             }
-        })
-    }
+        });
+    };
 
     function FormatOffersResult(data) {
         var result = [];
 
         for (var i = 0; i < data.length; i++) {
-            //TODO: изменить ArrayBufferToBase64 на передечу с сервера imagepaths
 
             var employee = "/employee/details/" + data[i].EmployeeId;
             var imagePath = "data:image/jpeg;base64," + ArrayBufferToBase64(data[i].EmployeeImage);
@@ -45,22 +44,22 @@
                 "<div class='employee-offer-text'>" + data[i].Text + "</div></td>" +
                 "<td class='col-md-2 col-sm-2 col-xs-2'>" +
                 "<input type='hidden' name='jobId' value='" + data[i].JobId + "'>" +
-                "<input type='hidden' name='employeeId' value='" + data[i].EmployeeId + "'>" + 
-                "<input type='hidden' name='offerId' value='" + data[i].Id + "'>" + 
+                "<input type='hidden' name='employeeId' value='" + data[i].EmployeeId + "'>" +
+                "<input type='hidden' name='offerId' value='" + data[i].Id + "'>" +
                 "<div style='margin-top: -5px;'> <input type='submit' name='accept-offer' class='btn btn-primary offer-btn' value='Accept offer'></div>" +
                 "<input type='submit' name='reject-offer' class='btn btn-danger offer-btn' value='Reject offer'></div></td></tr>";
 
             result.push(html);
         }
         return result;
-    }
+    };
 
 
     $(".search-table tbody").on("click", "input[name=accept-offer]", function () {
         var parent = $(this).parent().parent();
 
         var offerId = parent.find("input[name=offerId]").val();
-        var employeeId = parent.find("input[name=employeeId]").val();        
+        var employeeId = parent.find("input[name=employeeId]").val();
 
         $.ajax({
             url: "/offer/acceptoffer",
@@ -71,8 +70,8 @@
                 parent.parent().remove();
                 alert("now " + userName + " will work on this project");
             }
-        })
-    })
+        });
+    });
 
     $(".search-table tbody").on("click", "input[name=reject-offer]", function () {
         var parent = $(this).parent().parent();
@@ -85,8 +84,8 @@
             success: function () {
                 parent.parent().remove();
             }
-        })
-    })
+        });
+    });
 
 
     function ArrayBufferToBase64(buffer) {
@@ -96,13 +95,14 @@
         for (var i = 0; i < len; i++) {
             binary += String.fromCharCode(bytes[i]);
         }
+
         return window.btoa(binary);
-    }
+    };
 
     function ParseCsharpDate(date) {
         var dateMs = date.replace(/[^0-9 +]/g, '');
         var dateMsInt = parseInt(dateMs);
         var fullDate = new Date(dateMsInt);
         return fullDate.toLocaleString().replace(/,/, '');
-    }
-})
+    };
+});

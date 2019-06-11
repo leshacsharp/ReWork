@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
-using System.Data.Entity.Core;
 using ReWork.Model.EntitiesInfo;
+using System;
+using System.Data.Entity.Core;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -41,7 +41,6 @@ namespace ReWork.Logic.Services.Implementation
             
             _customerRepository.Delete(customer);  
         }
-
 
         public CustomerProfileInfo FindCustomerProfile(string customerId)
         {

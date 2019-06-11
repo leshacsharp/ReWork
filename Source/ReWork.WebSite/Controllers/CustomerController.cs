@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
-using ReWork.Model.EntitiesInfo;
 using ReWork.Model.ViewModels.Customer;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers
@@ -66,8 +63,6 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
-
         [HttpGet]
         public ActionResult MyJobs()
         {
@@ -107,8 +102,6 @@ namespace ReWork.WebSite.Controllers
 
             return Json(customerOffers);
         }
-
-
 
 
         [HttpPost]

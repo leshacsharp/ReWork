@@ -2,12 +2,11 @@
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Entities;
-using ReWork.Model.EntitiesInfo;
 using ReWork.Model.Entities.Common;
+using ReWork.Model.EntitiesInfo;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-using System.Linq;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -90,17 +89,16 @@ namespace ReWork.Logic.Services.Implementation
             return _offerRepository.FindCustomerOffers(customerId);
         }
 
-
         public IEnumerable<EmployeeOfferInfo> FindEmployeeOffers(string employeeId)
         {
             return _offerRepository.FindEmployeeOffers(employeeId); 
         }
 
-
-        public IEnumerable<OfferInfo>FindJobOffers(int jobId)
+        public IEnumerable<OfferInfo> FindJobOffers(int jobId)
         {
             return _offerRepository.FindJobOffers(jobId);
         }
+
 
         public bool OfferExists(int jobId, string employeeId)
         {

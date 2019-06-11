@@ -3,9 +3,7 @@ using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.ViewModels.Notification;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ReWork.WebSite.Controllers

@@ -13,17 +13,15 @@ namespace ReWork.WebSite.Controllers
     public class EmployeeController : Controller
     {   
         private IEmployeeProfileService _employeeService;
-        private IUserService _userService;
         private IJobService _jobService;
         private IOfferService _offerService;
         private ISectionService _sectionService;
         private ISkillService _skillService;
         private ICommitProvider _commitProvider;
 
-        public EmployeeController(IEmployeeProfileService employeeService, IJobService jobService, IOfferService offerService, IUserService userService, ISectionService sectionService, ISkillService skillService, ICommitProvider commitProvider)
+        public EmployeeController(IEmployeeProfileService employeeService, IJobService jobService, IOfferService offerService, ISectionService sectionService, ISkillService skillService, ICommitProvider commitProvider)
         {
             _employeeService = employeeService;
-            _userService = userService;
             _jobService = jobService;
             _offerService = offerService;
             _sectionService = sectionService;
@@ -61,7 +59,6 @@ namespace ReWork.WebSite.Controllers
 
             return Json(employeeOffers);
         }
-
 
 
         [HttpGet]
@@ -129,7 +126,6 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Details(string id)
@@ -194,15 +190,12 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
-
         [HttpPost]
         public ActionResult ProfileExists(string userId)
         {
             bool exists = _employeeService.EmployeeProfileExists(userId);
             return Json(exists);
         }
-
 
         private IEnumerable<SelectListItem> GetCategories()
         {

@@ -153,6 +153,7 @@
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Chat\ChatRoomDetailsViewModel.cs" />
     <Compile Include="ViewModels\Chat\ChatRoomViewModel.cs" />
+    <Compile Include="ViewModels\Chat\EditRoomViewModel.cs" />
     <Compile Include="ViewModels\Chat\MessageViewModel.cs" />
     <Compile Include="ViewModels\Chat\UserViewModel.cs" />
     <Compile Include="ViewModels\Customer\CustomerDetailsViewModel.cs" />

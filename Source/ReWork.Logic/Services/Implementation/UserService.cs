@@ -65,7 +65,6 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
-
         public IdentityResult ChangePassword(string userId, string oldPassword, string newPassword)
         {
             var user = _userManager.FindById(userId);
@@ -99,8 +98,6 @@ namespace ReWork.Logic.Services.Implementation
         }
            
 
-
-
         public void EmailConfirmed(string userId, string callbackUrl)
         {
             var user = _userManager.FindById(userId);
@@ -122,8 +119,6 @@ namespace ReWork.Logic.Services.Implementation
         {
             return _userManager.IsEmailConfirmed(userId);
         }
-
-
 
 
         public User FindUserByName(string userName)
@@ -157,7 +152,6 @@ namespace ReWork.Logic.Services.Implementation
                         Image = u.Image
                     }).ToList();
         }
-
 
 
         public void DeleteUser(string userId)

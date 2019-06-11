@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ReWork.Logic.Services.Implementation
 {
@@ -82,6 +81,15 @@ namespace ReWork.Logic.Services.Implementation
             chatRoom.Users.Add(user);
         }
 
+        public void EditChatRoom(int chatRoomId, string newTitle)
+        {
+            var chatRoom = _chatRoomRepository.FindById(chatRoomId);
+            if (chatRoom == null)
+                throw new ObjectNotFoundException($"ChatRoom with id={chatRoomId} not found");
+
+            chatRoom.Title = newTitle;
+            _chatRoomRepository.Update(chatRoom);
+        }
 
 
         public ChatRoomDetailsInfo FindChatRoom(int chatRoomId)
@@ -95,7 +103,6 @@ namespace ReWork.Logic.Services.Implementation
         }
 
 
-       
         public void RefreshChatRoom(int chatRoomId)
         {
             var newMsg = _messageRepository.FindMessageInfo(chatRoomId).FirstOrDefault();

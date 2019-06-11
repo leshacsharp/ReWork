@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Params;
 using ReWork.Model.Context;
-using ReWork.Model.Entities;
 using ReWork.Model.Entities.Common;
 using ReWork.Model.ViewModels.FeedBack;
 using ReWork.Model.ViewModels.Profile;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,7 +35,6 @@ namespace ReWork.WebSite.Controllers
             return View(createViewModel);
         }
 
-
         [HttpPost]
         public ActionResult CreateFeedBack(CreateFeedBackViewModel createModel)
         {
@@ -65,6 +61,7 @@ namespace ReWork.WebSite.Controllers
 
             return RedirectToAction("Jobs", "Job");
         }
+
 
         [HttpGet]
         public ActionResult FeedBacks()
@@ -95,21 +92,20 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
         [HttpGet]
         public ActionResult Information()
         {
             string userId = User.Identity.GetUserId();
-            User user = _userService.FindUserById(userId);
+            var user = _userService.FindUserById(userId);
             return View(user);
         }
 
         public ActionResult UserInformation()
         {
             string userId = User.Identity.GetUserId();
-            User user = _userService.FindUserById(userId);
+            var user = _userService.FindUserById(userId);
 
-            ShortUserInfoViewModel userInfo = new ShortUserInfoViewModel()
+            var userInfo = new ShortUserInfoViewModel()
             {
                 Id = userId,
                 FirstName = user.FirstName,
@@ -132,7 +128,6 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
         [HttpPost]
         public void ChangeProfileType(ProfileType profile)
         {
@@ -142,6 +137,7 @@ namespace ReWork.WebSite.Controllers
             profileCookie.Expires = DateTime.UtcNow.AddYears(1);
             Response.Cookies.Add(profileCookie);
         }
+
 
         private void AddModeErrors(IdentityResult result)
         {

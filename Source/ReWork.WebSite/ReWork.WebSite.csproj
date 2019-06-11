@@ -236,6 +236,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\chat.js" />
     <Content Include="Scripts\app\customer-jobs.js" />
+    <Content Include="Scripts\app\job-edit.js" />
     <Content Include="Scripts\app\user-settings.js" />
     <Content Include="Scripts\app\users.js" />
     <Content Include="Scripts\components\bootstrap-multiselect.js" />
@@ -324,6 +325,7 @@
     <Content Include="Views\Profile\CreateFeedBack.cshtml" />
     <Content Include="Views\Chat\ChatRooms.cshtml" />
     <Content Include="Views\Chat\Room.cshtml" />
+    <Content Include="Views\Chat\EditChatRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

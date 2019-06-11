@@ -1,5 +1,4 @@
 ﻿using ReWork.Model.Entities;
-using ReWork.Model.EntitiesInfo;
 using System.Collections.Generic;
 
 namespace ReWork.DataProvider.Repositories.Abstraction

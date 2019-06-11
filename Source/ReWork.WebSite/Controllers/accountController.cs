@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using ReWork.Logic.Infustructure;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
-using ReWork.Model.Entities;
 using ReWork.Model.ViewModels.Account;
 using System;
 using System.IO;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -67,7 +64,6 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
@@ -111,7 +107,6 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
         [HttpGet]
         public ActionResult ConfirmEmail(string id, string token)
         {
@@ -129,7 +124,6 @@ namespace ReWork.WebSite.Controllers
         {
             return View();
         }
-
 
 
         [HttpGet]
@@ -179,7 +173,6 @@ namespace ReWork.WebSite.Controllers
         }
 
 
-
         [HttpGet]
         public ActionResult ChangePassword()
         {
@@ -205,7 +198,6 @@ namespace ReWork.WebSite.Controllers
             AddModeErrors(changeResult);
             return View(changeModel);
         }
-
 
 
         [Authorize]
@@ -246,7 +238,6 @@ namespace ReWork.WebSite.Controllers
             return RedirectToAction("Settings","Account");
         }
 
-      
         [HttpPost]
         public ActionResult UploadImage()
         {
@@ -277,6 +268,7 @@ namespace ReWork.WebSite.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Jobs", "Job");
         }
+
 
         private void AddModeErrors(IdentityResult result)
         {

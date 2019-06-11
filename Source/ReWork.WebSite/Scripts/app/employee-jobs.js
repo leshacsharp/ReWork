@@ -9,7 +9,7 @@
 
     $("input[name=search-jobs]").click(function () {
         SendFindJobs();
-    })
+    });
 
 
     $(".search-table tbody").on("click", "input[name=delete-job]", function () {
@@ -23,8 +23,8 @@
             success: function () {
                 SendFindJobs();
             }
-        })
-    })
+        });
+    });
 
     function SendFindJobs() {
         $(".search-table tbody").empty();
@@ -40,8 +40,8 @@
             type: "POST",
             data: { "fromDate": fromDate },
             success: AppendJobs
-        })
-    }
+        });
+    };
 
     function AppendJobs(data) {
 
@@ -50,12 +50,12 @@
             pageSize: 3,
             formatResult: FormatResult,
 
-            callback: function (data, pagination) {
+            callback: function (data) {
                 $(".search-table tbody").empty();
                 $(".search-table tbody").append(data);
             }
-        })
-    }
+        });
+    };
 
     function FormatResult(data) {
         var result = [];
@@ -71,6 +71,7 @@
                 skillsHtml += "<a class='skill-link' skill-id='" + skills[j].Id + "'>" +
                     skills[j].Title + " </a>";
             }
+
             html += skillsHtml + "</div></td>";
 
             var date = ParseCsharpDate(data[i].DateAdded);
@@ -83,8 +84,9 @@
 
             result.push(html);
         }
+
         return result;
-    }
+    };
 
     function ParseCsharpDate(date) {
         var dateMs = date.replace(/[^0-9 +]/g, '');
@@ -101,5 +103,5 @@
         var day = fullDate.getDate();
         var monthIndex = fullDate.getMonth();
         return day + ' ' + monthNames[monthIndex];
-    }
-})
+    };
+});

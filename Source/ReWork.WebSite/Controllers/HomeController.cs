@@ -1,9 +1,5 @@
-﻿using ReWork.Model.ViewModels;
-using ReWork.Model.ViewModels.Common;
+﻿using ReWork.Model.ViewModels.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,12 +7,10 @@ namespace ReWork.WebSite.Controllers
 {
     public class HomeController : Controller
     {
-
         public ActionResult Search()
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult ChangeCulture(Culture lang)

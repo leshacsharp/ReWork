@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     var chatRoomId = $("input[name=Id]").val();
-    const countMessages = 10; 
+    const countMessages = 10;
     var page = 1;
     var isFirstLoad = true;
 
@@ -25,7 +25,7 @@
                 else {
                     $(".load-more-messages input").remove();
                 }
-                
+
 
                 FormatMessages(messages);
 
@@ -50,7 +50,7 @@
 
             $(".messages .load-more-messages").after(html);
         }
-    }
+    };
 
     function FindUsers(userName) {
         $.ajax({
@@ -58,38 +58,38 @@
             type: "POST",
             data: { "userName": userName },
             success: AppendUsers
-        })
-    }
+        });
+    };
 
-    function AppendUsers(users){
+    function AppendUsers(users) {
         $(".users > .user-item").remove();
-        
+
         for (var i = 0; i < users.length; i++) {
             var html = "<div class='user-item'><input type='hidden' name='userId' value='" + users[i].Id + "'>" +
                 "<a href='/customer/details/" + users[i].Id +
                 "'><img src='data:image/jpeg;base64," + users[i].ImagePath + "'><span>" + users[i].UserName + "</span></a>" +
                 "<input type='submit' class='btn btn-success' style='margin-left:5px' name='invite-user' value='invite'></div>";
-                
+
             $(".users").append(html);
         }
-    }
+    };
 
 
 
     $(".load-more-messages").on("click", "#load-more", function () {
         page++;
         FindMessages(page, countMessages);
-    })
+    });
 
     $("button[name=invite-users]").click(function () {
         var userName = $("input[name=user-name]").val();
         FindUsers(userName);
-    })
+    });
 
-    $("input[name=user-name]").on("input",function () {
+    $("input[name=user-name]").on("input", function () {
         var userName = $("input[name=user-name]").val();
         FindUsers(userName);
-    })
+    });
 
     $(".users").on("click", "input[name=invite-user]", function () {
         var userId = $(this).parent().find("input[name=userId]").val();
@@ -98,8 +98,12 @@
             url: "/chat/addmembertochatroom",
             type: "POST",
             data: { "chatRoomId": chatRoomId, "userId": userId },
-        })
-    })
+        });
+    });
+
+    $("input[name=edit-title]").click(function () {
+        $("#edit-room").modal("show");
+    });
 
 
 
@@ -115,7 +119,7 @@
             parseMsg.SenderName + "</a><span class='sent-date'>" + parseMsg.DateAdded + "</span> <div class='message-text'>" +
             parseMsg.Text + "</div></div></td></tbody></table></li>";
 
-        $(".messages").append(html).animate({ 
+        $(".messages").append(html).animate({
             scrollTop: $(".messages").get(0).scrollHeight
         });
     }
@@ -133,24 +137,33 @@
         chatHub.server.connect(chatRoomId);
 
         $("input[name=send-msg]").click(function () {
+            SendMessage();
+        });
 
-            var text = $("input[name=msg-text]").val();
+        $(document).on('keypress', function (e) {
+            if (e.which == 13) {
+                SendMessage();
+            }
+        });
 
-            $.ajax({
-                type: "POST",
-                url: "/chat/addmessage",
-                data: { "chatRoomId": chatRoomId, "text": text },
-            })
-        })
     });
 
 
+    function SendMessage() {
+        var text = $("input[name=msg-text]").val();
+        $("input[name=msg-text]").val("");
+
+        $.ajax({
+            type: "POST",
+            url: "/chat/addmessage",
+            data: { "chatRoomId": chatRoomId, "text": text }
+        });
+    };
 
     function ParseCsharpDate(date) {
-        console.log(date);
         var dateMs = date.replace(/[^0-9 +]/g, '');
         var dateMsInt = parseInt(dateMs);
         var fullDate = new Date(dateMsInt);
         return fullDate.toLocaleString().replace(/,/, '');
-    }
-})
+    };
+});

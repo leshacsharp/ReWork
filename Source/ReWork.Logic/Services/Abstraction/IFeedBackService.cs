@@ -1,5 +1,4 @@
 ﻿using ReWork.Logic.Services.Params;
-using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using System.Collections.Generic;
 
