@@ -54,6 +54,7 @@ namespace ReWork.Model.Context
              .HasForeignKey<string>(n => n.SenderId)
              .WillCascadeOnDelete(false);
 
+
             base.OnModelCreating(modelBuilder);
         }
     }

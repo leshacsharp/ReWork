@@ -160,7 +160,6 @@ namespace ReWork.Logic.Services.Implementation
             if (user == null)
                 throw new ObjectNotFoundException($"User with id={userId} not found");
 
-
             if (user.CustomerProfile != null)
                 _customerRep.Delete(user.CustomerProfile);
 

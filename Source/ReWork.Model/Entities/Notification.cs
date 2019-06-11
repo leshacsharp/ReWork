@@ -19,6 +19,7 @@ namespace ReWork.Model.Entities
         [ForeignKey("Sender")]
         public string SenderId { get; set; }
 
+        [Required]
         public User Sender { get; set; }
 
         [ForeignKey("Reciver")]

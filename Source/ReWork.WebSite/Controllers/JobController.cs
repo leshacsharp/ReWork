@@ -108,7 +108,7 @@ namespace ReWork.WebSite.Controllers
             _jobService.Edit(editJobParams);
             _commitProvider.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("myjobs", "job");
         }
 
         [HttpPost]

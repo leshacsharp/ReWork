@@ -2,7 +2,7 @@
 
     SendFindUsers();
 
-    $("tbody").on("click", "input[name=delete-user]", function () {
+    $(".users-table tbody").on("click", "input[name=delete-user]", function () {
         var user = $(this).parent().parent().parent();
         var userId = user.find("input[name=Id]").val();
         
@@ -16,7 +16,7 @@
         })
     })
 
-    $("tbody").on("click", "input[name=user-details]", function () {
+    $(".users-table tbody").on("click", "input[name=user-details]", function () {
         var user = $(this).parent().parent().parent();
         var userId = user.find("input[name=Id]").val();
 
@@ -55,8 +55,8 @@
             formatResult: FormatUsersResult,
 
             callback: function (data, pagination) {
-                $("tbody").empty();
-                $("tbody").append(data);
+                $(".users-table tbody").empty();
+                $(".users-table tbody").append(data);
             }
         })
     }
