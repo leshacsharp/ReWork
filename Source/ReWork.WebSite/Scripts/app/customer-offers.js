@@ -30,7 +30,7 @@
         for (var i = 0; i < data.length; i++) {
 
             var employee = "/employee/details/" + data[i].EmployeeId;
-            var imagePath = "data:image/jpeg;base64," + ArrayBufferToBase64(data[i].EmployeeImage);
+            var imagePath = "data:image/jpeg;base64," + data[i].EmployeeImagePath;
             var userRegDate = ParseCsharpDate(data[i].UserDateRegistration);
             var offerRegDate = ParseCsharpDate(data[i].AddedDate);
 
@@ -87,17 +87,6 @@
         });
     });
 
-
-    function ArrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-
-        return window.btoa(binary);
-    };
 
     function ParseCsharpDate(date) {
         var dateMs = date.replace(/[^0-9 +]/g, '');

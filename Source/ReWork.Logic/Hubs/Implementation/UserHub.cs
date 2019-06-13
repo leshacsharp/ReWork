@@ -2,10 +2,6 @@
 using Microsoft.AspNet.SignalR;
 using ReWork.Logic.Hubs.Abstraction;
 using ReWork.Model.Entities.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ReWork.Logic.Hubs.Implementation
@@ -28,14 +24,9 @@ namespace ReWork.Logic.Hubs.Implementation
                 _connections.Add(userId, Context.ConnectionId);
             }
 
+            RefreshUsersCounter();
+
             return base.OnConnected();
-        }
-
-
-        public void RefreshUsersCounter()
-        {
-            int onlineUsersCount = _connections.Count;
-            Clients.All.refreshUsersCounter(onlineUsersCount);
         }
 
 
@@ -58,6 +49,12 @@ namespace ReWork.Logic.Hubs.Implementation
             }
 
             return base.OnDisconnected(stopCalled);
+        }
+
+        private void RefreshUsersCounter()
+        {
+            int onlineUsersCount = _connections.Count;
+            Clients.All.refreshUsersCounter(onlineUsersCount);
         }
     }
 }

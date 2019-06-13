@@ -101,6 +101,7 @@
 
 
 
+
     var notificationHub = $.connection.notificationHub;
     var userHub = $.connection.userHub;
 
@@ -114,14 +115,7 @@
         $(".users-count > .counter").html(count);
     }
 
-    $.connection.hub.start().done(function () {
-
-        userHub.server.refreshUsersCounter();
-
-        setInterval(function () {
-            userHub.server.refreshUsersCounter();
-        }, 10000);
-    })
+    $.connection.hub.start();
 
 
 

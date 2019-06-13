@@ -4,6 +4,7 @@ using ReWork.Model.Entities;
 using ReWork.Model.ViewModels.Account;
 using System;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace ReWork.WebSite.Controllers
 {
@@ -32,7 +33,18 @@ namespace ReWork.WebSite.Controllers
         public ActionResult FindUsers(string userName)
         {
             var users = _userService.FindUsersInfo(userName);
-            return Json(users);
+
+            var userModels = from u in users
+                             select new UserViewModel()
+                             {
+                                 Id = u.Id,
+                                 UserName = u.UserName,
+                                 FirstName = u.FirstName,
+                                 LastName = u.LastName,
+                                 Email = u.Email
+                             };
+
+            return Json(userModels);
         }
 
 

@@ -2,7 +2,6 @@
 {
     public interface IUserHub
     {
-        void RefreshUsersCounter();
         void CheckUserStatus(string userId);
     }
 }

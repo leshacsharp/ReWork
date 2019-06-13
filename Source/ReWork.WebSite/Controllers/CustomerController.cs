@@ -2,6 +2,7 @@
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Context;
 using ReWork.Model.ViewModels.Customer;
+using ReWork.Model.ViewModels.Offer;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -100,7 +101,23 @@ namespace ReWork.WebSite.Controllers
             string userId = User.Identity.GetUserId();
             var customerOffers = _offerService.FindCustomerOffers(userId);
 
-            return Json(customerOffers);
+            var customerOfferModels = from c in customerOffers
+                                      select new CustomerOfferViewModel()
+                                      {
+                                          Id = c.Id,
+                                          UserName = c.UserName,
+                                          Text = c.Text,
+                                          UserDateRegistration = c.UserDateRegistration,
+                                          AddedDate = c.AddedDate,
+                                          ImplementationDays = c.ImplementationDays,
+                                          OfferPayment = c.OfferPayment,
+                                          JobId = c.JobId,
+                                          JobTitle = c.JobTitle,
+                                          EmployeeId = c.EmployeeId,
+                                          EmployeeImagePath = Convert.ToBase64String(c.EmployeeImage)
+                                      };
+
+            return Json(customerOfferModels);
         }
 
 
