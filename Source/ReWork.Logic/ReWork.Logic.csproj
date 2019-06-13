@@ -78,6 +78,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -115,6 +116,10 @@
     <Compile Include="Hubs\Implementation\ChatHub.cs" />
     <Compile Include="Hubs\Implementation\HubConnections.cs" />
     <Compile Include="Hubs\Implementation\UserHub.cs" />
+    <Compile Include="Infustructure\EmailMessage.cs" />
+    <Compile Include="Infustructure\MessageBase.cs" />
+    <Compile Include="Infustructure\MessageStatus.cs" />
+    <Compile Include="Infustructure\MessageWrapper.cs" />
     <Compile Include="Infustructure\OperationDetails.cs" />
     <Compile Include="Ioc\DbModule.cs" />
     <Compile Include="Ioc\RepositoryModule.cs" />
@@ -128,11 +133,13 @@
     <Compile Include="Services\Abstraction\INotificationService.cs" />
     <Compile Include="Services\Abstraction\IRoleService.cs" />
     <Compile Include="Services\Abstraction\ISectionService.cs" />
+    <Compile Include="Services\Abstraction\ISendMessageService.cs" />
     <Compile Include="Services\Abstraction\ISkillService.cs" />
     <Compile Include="Services\Abstraction\IUserService.cs" />
     <Compile Include="Services\Abstraction\IJobService.cs" />
     <Compile Include="Services\Implementation\ChatRoomService.cs" />
     <Compile Include="Services\Implementation\CustomerProfileService.cs" />
+    <Compile Include="Services\Implementation\EmailService.cs" />
     <Compile Include="Services\Implementation\EmployeeProfileService.cs" />
     <Compile Include="Services\Abstraction\IOfferService.cs" />
     <Compile Include="Services\Implementation\FeedBackService.cs" />

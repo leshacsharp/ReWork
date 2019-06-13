@@ -186,7 +186,7 @@ namespace ReWork.WebSite.Controllers
                                          ImagePath = Convert.ToBase64String(e.Image)
                                      };
 
-            return Json(employeeViewModels);
+            return new JsonResult() { Data = employeeViewModels, MaxJsonLength = int.MaxValue };
         }
 
 

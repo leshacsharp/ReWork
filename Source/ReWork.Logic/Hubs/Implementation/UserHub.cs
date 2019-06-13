@@ -48,6 +48,8 @@ namespace ReWork.Logic.Hubs.Implementation
                 _connections.Remove(userId, Context.ConnectionId);
             }
 
+            RefreshUsersCounter();
+
             return base.OnDisconnected(stopCalled);
         }
 

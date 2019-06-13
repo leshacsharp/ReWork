@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -26,7 +24,7 @@ namespace ReWork.DataProvider.Identity
             mail.Body = message.Body;
             mail.IsBodyHtml = true;
 
-           return client.SendMailAsync(mail);
+            return client.SendMailAsync(mail);
         }
     }
 }

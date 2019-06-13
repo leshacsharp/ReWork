@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using ReWork.Logic.Infustructure;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Logic.Services.Implementation;
 
@@ -20,6 +21,8 @@ namespace ReWork.WebSite.Ioc
             builder.RegisterType<ChatRoomService>().As<IChatRoomService>().InstancePerRequest();
             builder.RegisterType<MessageService>().As<IMessageService>().InstancePerRequest();
             builder.RegisterType<NotificationService>().As<INotificationService>().InstancePerRequest();
+
+            builder.RegisterType<EmailService>().As<ISendMessageService<EmailMessage>>().InstancePerLifetimeScope();
 
             builder.RegisterType<SectionService>().As<ISectionService>().InstancePerRequest();
             builder.RegisterType<SkillService>().As<ISkillService>().InstancePerRequest();

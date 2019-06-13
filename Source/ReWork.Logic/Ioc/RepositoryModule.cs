@@ -1,15 +1,11 @@
 ﻿using Autofac;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
 using ReWork.DataProvider.Identity;
 using ReWork.DataProvider.Repositories.Abstraction;
 using ReWork.DataProvider.Repositories.Implementation;
 using ReWork.Logic.Hubs.Abstraction;
 using ReWork.Logic.Hubs.Implementation;
-using ReWork.Logic.Services.Abstraction;
-using ReWork.Logic.Services.Implementation;
 using ReWork.Model.Entities;
 
 namespace ReWork.Logic.Ioc
@@ -18,7 +14,7 @@ namespace ReWork.Logic.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BaseRepository>().As<IBaseRepository>().InstancePerRequest();
+            builder.RegisterType<BaseRepository>().As<IBaseRepository>().InstancePerLifetimeScope();
 
             builder.RegisterType<CustomerProfileRepository>().As<ICustomerProfileRepository>().PropertiesAutowired().InstancePerRequest();
             builder.RegisterType<EmployeeProfileRepository>().As<IEmployeeProfileRepository>().PropertiesAutowired().InstancePerRequest();
@@ -35,7 +31,7 @@ namespace ReWork.Logic.Ioc
             builder.RegisterType<MessageRepository>().As<IMessageRepository>().PropertiesAutowired().InstancePerRequest();
             builder.RegisterType<ChatHub>().As<IChatHub>().InstancePerRequest();
 
-            builder.RegisterType<AppUserManager>().As<UserManager<User>>().InstancePerRequest();
+            builder.RegisterType<AppUserManager>().As<UserManager<User>>().InstancePerLifetimeScope();
             builder.RegisterType<AppRoleManager>().As<RoleManager<IdentityRole>>().InstancePerRequest();
         }
     }

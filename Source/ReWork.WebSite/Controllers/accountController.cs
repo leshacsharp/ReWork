@@ -5,6 +5,7 @@ using ReWork.Model.Context;
 using ReWork.Model.ViewModels.Account;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -36,7 +37,7 @@ namespace ReWork.WebSite.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult registration(RegisterViewModel regModel)
+        public async Task<ActionResult> registration(RegisterViewModel regModel)
         {
             if (!ModelState.IsValid)
             {
@@ -51,7 +52,7 @@ namespace ReWork.WebSite.Controllers
             {
                 var user =_userService.FindUserByName(regModel.UserName);
                 string callbackUrl = Url.Action("ConfirmEmail", "account", null, Request.Url.Scheme);
-                _userService.EmailConfirmed(user.Id, callbackUrl);
+                await _userService.EmailConfirmed(user.Id, callbackUrl);
 
                 _cusomerService.CreateCustomerProfile(user.Id);
                 _commitProvider.SaveChanges();

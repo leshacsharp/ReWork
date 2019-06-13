@@ -172,7 +172,7 @@ namespace ReWork.WebSite.Controllers
                                  ImagePath = Convert.ToBase64String(u.Image)
                              };
 
-            return Json(userModels);
+            return new JsonResult() { Data = userModels, MaxJsonLength = int.MaxValue };
         }
     }
 }

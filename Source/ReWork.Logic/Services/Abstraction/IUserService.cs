@@ -3,6 +3,7 @@ using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ReWork.Logic.Services.Abstraction
 {
@@ -23,7 +24,7 @@ namespace ReWork.Logic.Services.Abstraction
         IdentityResult ConfirmResetPassword(string userId,string newPassword, string token);
 
 
-        void EmailConfirmed(string userId, string callbackUrl);
+        Task EmailConfirmed(string userId, string callbackUrl);
         IdentityResult ConfirmEmail(string userId, string token);
         bool IsEmailConfirmed(string userId);
 

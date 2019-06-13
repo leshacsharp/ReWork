@@ -1,6 +1,7 @@
 ﻿using FirstQuad.Common.Helpers;
 using Microsoft.AspNet.Identity;
 using ReWork.DataProvider.Repositories.Abstraction;
+using ReWork.Logic.Infustructure;
 using ReWork.Logic.Services.Abstraction;
 using ReWork.Model.Entities;
 using ReWork.Model.EntitiesInfo;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace ReWork.Logic.Services.Implementation
@@ -18,12 +20,14 @@ namespace ReWork.Logic.Services.Implementation
         private UserManager<User> _userManager;
         private ICustomerProfileRepository _customerRep;
         private IEmployeeProfileRepository _employeeRep;
+        private ISendMessageService<EmailMessage> _sendingService;
 
-        public UserService(UserManager<User> userManager, ICustomerProfileRepository customerRep, IEmployeeProfileRepository employeeRep)
+        public UserService(UserManager<User> userManager, ISendMessageService<EmailMessage> sendingService, ICustomerProfileRepository customerRep, IEmployeeProfileRepository employeeRep)
         { 
             _userManager = userManager;
             _customerRep = customerRep;
             _employeeRep = employeeRep;
+            _sendingService = sendingService;
         }
 
         public IdentityResult Create(string userName, string email, string password, string role)
@@ -98,16 +102,25 @@ namespace ReWork.Logic.Services.Implementation
         }
            
 
-        public void EmailConfirmed(string userId, string callbackUrl)
+        public async Task EmailConfirmed(string userId, string callbackUrl)
         {
             var user = _userManager.FindById(userId);
-            if (user != null)
-            {
-                string token = _userManager.GenerateEmailConfirmationToken(userId);
-                string encodedToken = HttpUtility.UrlEncode(token);
-                string changedCallbackUrl = $"{callbackUrl}?id={userId}&token={encodedToken}";
-                _userManager.SendEmail(userId, "Confirm your account", $"Please confirm your account by clicking <a href=\"{changedCallbackUrl}\">here</a>");
-            }
+
+            if (user == null)
+                throw new ObjectNotFoundException($"User with id={userId} not found");
+
+            string token = _userManager.GenerateEmailConfirmationToken(userId);
+            string encodedToken = HttpUtility.UrlEncode(token);
+            string changedCallbackUrl = $"{callbackUrl}?id={userId}&token={encodedToken}";
+
+            var message = new EmailMessage() {
+                UserId = userId,
+                Subject = "Confirm your account",
+                Body = $"Please confirm your account by clicking <a href=\"{changedCallbackUrl}\">here</a>"
+            };
+
+            _sendingService.AddMessage(message);
+            await _sendingService.Send(message);
         }
 
         public IdentityResult ConfirmEmail(string userId, string token)
