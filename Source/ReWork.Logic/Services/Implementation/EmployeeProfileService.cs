@@ -107,9 +107,9 @@ namespace ReWork.Logic.Services.Implementation
                                 e.User.LastName.Contains(keyWords) ||
                                 e.User.UserName.Contains(keyWords));
             }
-           
+
             return _employeeRepository.FindEmployes(filter)
-                                 .OrderByDescending(p=>p.CountDevolopingJobs)
+                                 .OrderByDescending(p => p.QualityOfWorks.Average(q => (int)q))
                                  .ToList();
         }
 

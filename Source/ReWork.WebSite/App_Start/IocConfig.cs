@@ -46,7 +46,7 @@ namespace ReWork.WebSite.App_Start
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("emailTrigger", "group1")
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(15)
+                    .WithIntervalInMinutes(1)
                     .RepeatForever())
                 .StartNow()
                 .Build();

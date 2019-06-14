@@ -42,13 +42,15 @@ namespace ReWork.Logic.Services.Implementation
             {
                 if (DateTime.Now >= messageWrapper.DateNextSending)
                 {
+                    messageWrapper.AttemptsCount++;
                     await _userManager.SendEmailAsync(msg.UserId, msg.Subject, msg.Body);
                     messageWrapper.Status = MessageStatus.Sended;
                 }
             }
+
             catch (SmtpException ex)
             {
-                messageWrapper.AttemptsCount++; 
+                messageWrapper.Status = MessageStatus.FaildSend;
             }
         }
 
@@ -56,7 +58,7 @@ namespace ReWork.Logic.Services.Implementation
         {
             for (int i = 0; i < _messages.Count; i++)
             {
-                if (_messages[i].Status == MessageStatus.Sended || _messages[i].AttemptsCount == 5)
+                if (_messages[i].Status == MessageStatus.Sended || _messages[i].AttemptsCount == 6)
                 {
                     _messages.Remove(_messages[i]);
                     i--;

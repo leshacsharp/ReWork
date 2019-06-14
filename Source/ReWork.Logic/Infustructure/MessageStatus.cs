@@ -2,7 +2,8 @@
 { 
     public enum MessageStatus
     {
-        FaildSend = 0,
-        Sended = 1
+        Waiting = 0,
+        Sended = 1,
+        FaildSend = 2
     }
 }
